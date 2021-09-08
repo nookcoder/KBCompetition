@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_search"
+        android:id="@+id/nav_sale"
+        android:enabled = "true"
         android:title="판매"
+        android:icon="@drawable/ic_sale"
+        app:background ="@color/bottom_navigation_bar"
+        app:showAsAction="always"
        />
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/nav_chatting"
+        android:enabled = "true"
         android:title="채팅"
+        android:icon="@drawable/ic_chatting"
+        app:showAsAction="always"
         />
     <item
-        android:id="@+id/nav_navigation"
+        android:id="@+id/nav_information"
+        android:enabled = "true"
         android:title="내 정보"
+        android:icon="@drawable/ic_information"
+        app:showAsAction="always"
         />
 
 </menu>
