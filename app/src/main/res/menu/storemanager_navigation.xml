@@ -6,7 +6,6 @@
         android:enabled = "true"
         android:title="판매"
         android:icon="@drawable/ic_sale"
-        app:background ="@color/bottom_navigation_bar"
         app:showAsAction="always"
        />
     <item
