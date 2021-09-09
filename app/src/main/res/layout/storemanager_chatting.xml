@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/storemanager_information"
@@ -9,15 +11,28 @@
         android:layout_height="wrap_content"
         android:background="@color/icon_color"
         >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_chatting"
+            app:tint="@color/black" />
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text ="채팅"
+            android:paddingLeft="10dp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="20dp"
+            android:layout_gravity="left"
+            android:textSize="23dp"
             />
-
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/storemanager_chatting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
