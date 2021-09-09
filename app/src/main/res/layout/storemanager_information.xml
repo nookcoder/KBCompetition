@@ -68,21 +68,28 @@
         android:id="@+id/notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="40dp"
         />
 
     <ImageButton
         android:id="@+id/review"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="40dp"
+        />
 
     <ImageButton
         android:id="@+id/logout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="40dp"
+        />
 
     <ImageButton
         android:id="@+id/withdrawal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="40dp"
+        />
 
 </LinearLayout>
