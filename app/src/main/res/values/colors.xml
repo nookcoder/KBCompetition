@@ -12,4 +12,5 @@
     <color name="previous_register_text_color">#595959</color>
     <color name="icon_color">#FD9F28</color>
     <color name="main_color_yellow">#FFCD4A</color>
+    <color name="icon_color2">#FFC11B</color>
 </resources>
