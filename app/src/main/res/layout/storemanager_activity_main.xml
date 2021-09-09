@@ -8,16 +8,35 @@
     android:weightSum="10"
     tools:context=".StoreManager_MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/storemanager_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="@color/icon_color"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/storemanager_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="판매중"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="2">
     </androidx.fragment.app.FragmentContainerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/store_manger_bottom_navigation"
-        android:layout_weight="9"
+        android:layout_weight="8"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="?attr/actionBarTheme"
