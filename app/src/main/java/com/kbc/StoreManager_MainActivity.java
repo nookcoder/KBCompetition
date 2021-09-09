@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class StoreManager_MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
+    private StoreManager_Chatting_Fragment storeManager_chatting_fragment = new StoreManager_Chatting_Fragment();
+    private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,11 +44,11 @@ public class StoreManager_MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.nav_chatting:
-
+                    fragmentTransaction.replace(R.id.fragment_container, storeManager_chatting_fragment).commit();
                     break;
 
                 case R.id.nav_information:
-
+                    fragmentTransaction.replace(R.id.fragment_container, storeManager_information_fragment).commit();
                     break;
             }
 
