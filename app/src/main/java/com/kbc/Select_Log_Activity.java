@@ -21,21 +21,21 @@ public class Select_Log_Activity extends AppCompatActivity {
           @Override
           public void onClick(View view){
               //화면 전환 + 로그 전달
-              Intent intent = new Intent(getApplicationContext(),Select_User_Activity.class);
-              intent.putExtra("log","sign up");
-              startActivity(intent);
+              Intent intent1 = new Intent(getApplicationContext(),Select_User_Activity.class);
+              intent1.putExtra("log","sign up");
+              startActivity(intent1);
           }
         });
 
         //로그인 버튼에 리스너 달기
         Button signinButton = (Button) findViewById(R.id.signin);
-        signupButton.setOnClickListener(new View.OnClickListener(){
+        signinButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 //화면 전환 + 로그 전달
-                Intent intent = new Intent(getApplicationContext(),Select_User_Activity.class);
-                intent.putExtra("log","signin up");
-                startActivity(intent);
+                Intent intent2 = new Intent(getApplicationContext(),Select_User_Activity.class);
+                intent2.putExtra("log","signin up");
+                startActivity(intent2);
             }
         });
     }
