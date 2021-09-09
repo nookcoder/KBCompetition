@@ -8,17 +8,18 @@
     android:orientation="vertical">
 
     <ImageView
+        android:contentDescription="StringValue"
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo"
+        app:srcCompat="@drawable/image_logo"
         android:layout_marginTop="15dp"/>
 
     <Button
         android:id="@+id/signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_button"
+        android:background="@drawable/layout_round_button"
         android:backgroundTint="#FFFFFF"
         android:text="회원가입"
         android:textColor="@color/icon_color"
@@ -32,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="로그인"
-        android:background="@drawable/round_button"
+        android:background="@drawable/layout_round_button"
         android:backgroundTint="#FFFFFF"
         android:textColor="@color/icon_color"
         android:layout_marginLeft="15dp"

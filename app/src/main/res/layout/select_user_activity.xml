@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color_yellow"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+     >
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/signup"
+        android:layout_width="340dp"
+        android:layout_height="230dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/layout_round_button"
+        android:backgroundTint="#FFFFFF"
+        android:drawableTop="@drawable/resize_store_image"
+        android:text="사업자"
+        android:textColor="@color/black"
+        android:textSize="32dp"
+        app:iconTint="#FFFFFF" />
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/signin"
+        android:layout_width="340dp"
+        android:layout_height="230dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/layout_round_button"
+        android:backgroundTint="#FFFFFF"
+        android:text="개인"
+        android:drawableTop="@drawable/resize_person_image"
+        android:textSize="32dp"
+        android:textColor="@color/black"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
