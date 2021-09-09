@@ -9,20 +9,16 @@
         android:id="@+id/storemanager_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/icon_color"
+        android:background="@color/icon_color2"
         >
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_chatting"
-            app:tint="@color/black" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text ="채팅"
-            android:paddingLeft="10dp"
+
             android:textStyle="bold"
-            android:layout_gravity="left"
+            android:layout_gravity="center"
             android:textSize="23dp"
             />
     </androidx.appcompat.widget.Toolbar>
