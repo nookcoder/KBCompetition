@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bottom_navigation_bar">#FEEAB4</color>
     <color name="icon_color">#FD9F28</color>
+    <color name="main_color_yellow">#FFCD4A</color>
 </resources>
