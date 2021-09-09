@@ -43,6 +43,48 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            >
+
+            <!--사진 등록 -->
+            <TableRow>
+
+            </TableRow>
+
+            <!--글제목-->
+            <TableRow>
+                <TextView
+                    android:id="@+id/product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="글 제목"
+                    android:textSize="15dp"
+
+                    />
+            </TableRow>
+            <!--카테고리,수량 -->
+            <TableRow>
+
+            </TableRow>
+
+            <!--유통기한/구입날짜-->
+            <TableRow>
+
+            </TableRow>
+
+            <!--원산지/거래처 , 가격 -->
+            <TableRow>
+
+            </TableRow>
+
+            <!--글 게 -->시
+            <TableRow>
+
+            </TableRow>
+        </TableLayout>
 
     </LinearLayout>
     <!--여기까지 !! 꼭 필요!-->
