@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".StoreManager_Product_RegisterActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/storemanager_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/icon_color2"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text ="상품등록"
+           android:textStyle="bold"
+
+            android:layout_gravity="center"
+            android:textSize="23dp"
+            />
+
+        <ImageButton
+            android:id="@+id/product_register_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_close"
+            android:background="@android:color/transparent"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <!--하단에 등록하기 버튼 고정시키기 위한 코드-->
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin=""
+            android:stretchColumns="*"
+            >
+
+            <!--사진 등록 -->
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp"
+                    >
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </TableRow>
+
+            <!--글제목-->
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp">
+                <TextView
+                    android:id="@+id/product_title"
+                    android:text="글 제목"
+                    android:editable="true"
+                    android:layout_span="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/previous_register_text_color"
+                    android:background="@drawable/edge"
+                    android:textSize="15dp"
+                    />
+            </TableRow>
+            <!--카테고리,수량 -->
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+               >
+                <TextView
+                    android:id="@+id/product_category"
+                    android:text="카테고리"
+                    android:editable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/previous_register_text_color"
+                    android:background="@drawable/edge"
+                    android:textSize="15dp"
+                    />
+                <TextView
+                    android:id="@+id/product_count"
+                    android:text="수량"
+                    android:editable="true"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/previous_register_text_color"
+                    android:background="@drawable/edge"
+                    android:textSize="15dp"
+                    />
+            </TableRow>
+
+            <!--유통기한/구입날짜-->
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:id="@+id/expiration_date"
+                    android:text="유통기한/구입날짜"
+                    android:editable="true"
+                    android:layout_span="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/previous_register_text_color"
+                    android:background="@drawable/edge"
+                    android:textSize="15dp"
+                    />
+            </TableRow>
+
+            <!--원산지/거래처 , 가격 -->
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                >
+                <TextView
+                    android:id="@+id/product_deal"
+                    android:text="원산지/거래"
+                    android:editable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/previous_register_text_color"
+                    android:background="@drawable/edge"
+                    android:textSize="15dp"
+                    />
+                <TextView
+                    android:id="@+id/product_price"
+                    android:text="가격"
+                    android:editable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/previous_register_text_color"
+                    android:background="@drawable/edge"
+                    android:textSize="15dp"
+                    />
+            </TableRow>
+
+            <!--글 게시 -->
+
+                <TextView
+                    android:id="@+id/product_details"
+                    android:text="게시글 내용을 입력해주세요"
+                    android:editable="true"
+                    android:layout_span="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="9"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/previous_register_text_color"
+                    android:background="@drawable/edge"
+                    android:textSize="15dp"
+                    />
+        </TableLayout>
+
+    </LinearLayout>
+    <!--여기까지 !! 꼭 필요!-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/product_register_sucess"
+            android:text="등록하기"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:textStyle="bold"
+            android:textSize="23dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radius"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
