@@ -28,12 +28,6 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         setContentView(R.layout.storemanager_activity_main);
 
 
-        Toolbar toolbar =  findViewById(R.id.storemanager_toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(false);
-
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.commit();
 
