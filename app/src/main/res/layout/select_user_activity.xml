@@ -11,7 +11,7 @@
 
     <Button
         android:layout_gravity="center"
-        android:id="@+id/signup"
+        android:id="@+id/toremanager"
         android:layout_width="340dp"
         android:layout_height="230dp"
         android:layout_marginLeft="15dp"
@@ -27,7 +27,7 @@
 
     <Button
         android:layout_gravity="center"
-        android:id="@+id/signin"
+        android:id="@+id/person"
         android:layout_width="340dp"
         android:layout_height="230dp"
         android:layout_marginLeft="15dp"
