@@ -16,7 +16,7 @@
             android:text ="내 정보"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="23dp"
             />
 
     </androidx.appcompat.widget.Toolbar>
@@ -33,8 +33,8 @@
         //프로필
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/storemanager_image_profile"
-            android:layout_height="55dp"
-            android:layout_width="55dp"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
             android:layout_margin="5dp"
             android:src="@drawable/ic_information"
             />
@@ -60,6 +60,13 @@
                 android:textSize="15dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/storemanager_image_profile_editor"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_information"
                 />
         </LinearLayout>
     </LinearLayout>
