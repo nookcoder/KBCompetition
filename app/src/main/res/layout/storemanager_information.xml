@@ -19,7 +19,6 @@
             android:layout_gravity="center"
             android:textSize="23dp"
             />
-
     </androidx.appcompat.widget.Toolbar>
 
 

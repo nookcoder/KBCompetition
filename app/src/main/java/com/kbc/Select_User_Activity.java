@@ -29,10 +29,8 @@ public class Select_User_Activity extends AppCompatActivity {
             storemanager.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    //화면 전환 + 시용자:사업자 전달
-                    Intent intent1 = new Intent(getApplicationContext(),Select_Log_Activity.class); //화면 전환 수정 필요!!!!
-                    intent1.putExtra("user","storemanager");
-                    startActivity(intent1);
+                    Intent intent = new Intent(getApplicationContext(), StoreManager_CheckNum.class);
+                    startActivity(intent);
                 }
             });
             //개인
@@ -40,9 +38,8 @@ public class Select_User_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View view){
                     //화면 전환 + 시용자:사업자 전달
-                    Intent intent2 = new Intent(getApplicationContext(),Select_User_Activity.class); //화면 전환 수정 필요!!!!
-                    intent2.putExtra("user","person");
-                    startActivity(intent2);
+                    Intent intent = new Intent(getApplicationContext(), Select_Log_Activity.class);
+                    startActivity(intent);
                 }
             });
         }
