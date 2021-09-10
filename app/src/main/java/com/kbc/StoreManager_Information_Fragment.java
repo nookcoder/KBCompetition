@@ -29,19 +29,30 @@ public class StoreManager_Information_Fragment extends Fragment implements View.
         ViewGroup rootViewGroup =(ViewGroup) inflater.inflate(R.layout.storemanager_information, container, false);
 
 
-        Button button = (Button)rootViewGroup.findViewById(R.id.logout);
-        button.setOnClickListener(this);
+        Button logout_button = (Button)rootViewGroup.findViewById(R.id.logout);
+        Button withdrawal_button = (Button)rootViewGroup.findViewById(R.id.withdrawal);
+        withdrawal_button.setOnClickListener(this);
+        logout_button.setOnClickListener(this);
 
         return rootViewGroup;
     }
 
     public void onClick(View view){
+        Intent intent = new Intent((StoreManager_MainActivity)getActivity(), Popup_Activity.class );
+
         switch (view.getId()){
+                //로그아웃
             case R.id.logout:
-                Intent intent = new Intent((StoreManager_MainActivity)getActivity(), Popup_Activity.class );
                 intent.putExtra("button_name","logout");
                 startActivity(intent);
                 break;
+
+                //탈퇴하기
+            case R.id.withdrawal:
+                intent.putExtra("button_name","withdrawal");
+                startActivity(intent);
+                break;
+
         }
     }
 }

@@ -38,6 +38,10 @@ public class Popup_Activity extends AppCompatActivity {
                 popup_title.setText("로그아웃");
                 popup_context.setText("로그아웃을 하시겠습니까?");
                 break;
+
+            case "withdrawal":
+                popup_title.setText("탈퇴하기");
+                popup_context.setText("정말로 탈퇴하시겠습니까???");
         }
 
 
@@ -51,20 +55,31 @@ public class Popup_Activity extends AppCompatActivity {
 
     //확인 버튼 클릭
     public void click_ok(View view){
+        //사장님 액티비티 호출하고,
+        StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
+
         switch (button_name){
 
             //로그아웃일때!
             case "logout":
                 //팝업 액티비티 닫아주고,
                 finish();
-                //사장님 액티비티 호출하고,
-                StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
                 //사장님 액티비티 닫고,
                 storeManager_mainActivity.finish();
                 //로그인 페이지 열어주기!
-                Intent intent = new Intent(this, Select_Log_Activity.class);
-                startActivity(intent);
+                Intent login_intent = new Intent(this, Select_Log_Activity.class);
+                startActivity(login_intent);
                 break;
+
+            case "withdrawal":
+                finish();
+                //사장님 액티비티 닫고,
+                storeManager_mainActivity.finish();
+                //첫 페이지 열어주기!
+                Intent first_intent = new Intent(this, Select_Log_Activity.class);
+                startActivity(first_intent);
+                break;
+
         }
     }
     //취소 버튼 클릭
