@@ -13,9 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC">
-         <activity
+
+        <activity
             android:name=".StoreManager_MainActivity"
-            android:exported="true">
+            android:exported="true"/>
+
 
 
         <activity android:name=".Select_Log_Activity">
@@ -41,10 +43,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Select_User_Activity"></activity>
         <activity android:name=".StoreManager_CheckNum"></activity>
-        <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
-        <activity android:name=".StoreManager_MainActivity"></activity>
 
     </application>
 
