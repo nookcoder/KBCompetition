@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC">
-        <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
-        <activity
+         <activity
             android:name=".StoreManager_MainActivity"
             android:exported="true">
 
@@ -22,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Select_User_Activity"></activity>
-
+        <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
     </application>
 
 </manifest>
