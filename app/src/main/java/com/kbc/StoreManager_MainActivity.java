@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
 
+    public static StoreManager_MainActivity storeManager_mainActivity;
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private StoreManager_Chatting_Fragment storeManager_chatting_fragment = new StoreManager_Chatting_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
@@ -27,7 +28,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_activity_main);
 
-
+        storeManager_mainActivity = StoreManager_MainActivity.this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.commit();
 

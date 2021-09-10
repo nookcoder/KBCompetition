@@ -28,17 +28,8 @@
         android:padding="24dp">
 
         <TextView
-            android:id="@+id/popup_subtitle"
-            android:text="팝업테스트 부제목"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:layout_marginBottom="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/popup_content"
+            android:id="@+id/popup_context"
+            android:text="팝업테스트 내용"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:gravity="center"

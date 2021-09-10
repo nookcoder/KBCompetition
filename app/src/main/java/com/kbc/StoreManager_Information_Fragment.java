@@ -39,6 +39,7 @@ public class StoreManager_Information_Fragment extends Fragment implements View.
         switch (view.getId()){
             case R.id.logout:
                 Intent intent = new Intent((StoreManager_MainActivity)getActivity(), Popup_Activity.class );
+                intent.putExtra("button_name","logout");
                 startActivity(intent);
                 break;
         }

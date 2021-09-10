@@ -1,15 +1,19 @@
 package com.kbc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Popup_Activity extends AppCompatActivity {
 
+    private  String button_name;
+    private TextView popup_title, popup_context;
     Button ok_btn, cancle_btn;
 
     @Override
@@ -20,6 +24,26 @@ public class Popup_Activity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.popup_activity);
 
+        //인텐트 가져오기
+        Intent intent = getIntent();
+
+        //이벤트 발생 버튼 확인을 위한 데이터 접근
+        button_name = intent.getExtras().getString("button_name");
+
+        //팝업창 제목, 내용 바꾸기
+        popup_title = findViewById(R.id.popup_title);
+        popup_context = findViewById(R.id.popup_context);
+        switch (button_name){
+            case "logout":
+                popup_title.setText("로그아웃");
+                popup_context.setText("로그아웃을 하시겠습니까?");
+                break;
+        }
+
+
+
+
+
         //확인, 취소 버튼 가져오기
         ok_btn = (Button)findViewById(R.id.ok_btn);
         cancle_btn = (Button)findViewById(R.id.cancle_btn);
@@ -27,7 +51,21 @@ public class Popup_Activity extends AppCompatActivity {
 
     //확인 버튼 클릭
     public void click_ok(View view){
-        finish();
+        switch (button_name){
+
+            //로그아웃일때!
+            case "logout":
+                //팝업 액티비티 닫아주고,
+                finish();
+                //사장님 액티비티 호출하고,
+                StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
+                //사장님 액티비티 닫고,
+                storeManager_mainActivity.finish();
+                //로그인 페이지 열어주기!
+                Intent intent = new Intent(this, Select_Log_Activity.class);
+                startActivity(intent);
+                break;
+        }
     }
     //취소 버튼 클릭
     public void click_cancle(View view){
