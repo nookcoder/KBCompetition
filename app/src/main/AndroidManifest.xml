@@ -26,6 +26,9 @@
         </activity>
         <activity android:name=".Select_User_Activity"></activity>
         <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
+        <activity android:name=".Popup_Activity"
+            android:theme="@style/popupTheme"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
