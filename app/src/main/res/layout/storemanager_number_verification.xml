@@ -28,33 +28,82 @@
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/numbercheckView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="휴대폰 본인인증" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="55dp"
+        android:text="휴대폰 본인인증"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/informationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="회원여부 확인 및 가입을 진행합니다." />
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:text="회원여부 확인 및 가입을 진행합니다."
+        android:textColor="#000000"
+        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="이름" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/nameview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:text="이름 "
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="*"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:textcolor="@color/red" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="7dp"
+        android:textSize="20sp"
+        android:hint="  이름 입력"
+        android:background="@drawable/layout_rount_edittext"/>
 
-    <TextView
-        android:id="@+id/textView4"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="주민등록번호" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:text="주민등록번호 "
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="*"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:textcolor="@color/red" />
+    </LinearLayout>
 
 
     <LinearLayout
@@ -65,55 +114,131 @@
 
         <EditText
             android:id="@+id/birth"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="7dp"
+            android:textSize="20sp"
+            android:background="@drawable/layout_rount_edittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.9" />
+            android:layout_weight="1.9"
+            android:hint="  생년 월일"/>
 
         <TextView
             android:id="@+id/bar"
+            android:textSize="20sp"
+            android:text="-"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2" />
+            android:layout_weight="0.2"
+            />
 
         <EditText
             android:id="@+id/sex"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.55" />
+            android:layout_weight="0.55"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="7dp"
+            android:textSize="20sp"
+            android:background="@drawable/layout_rount_edittext"/>
 
         <TextView
             android:id="@+id/circle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.34" />
+            android:layout_weight="1.34"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text=" ● ● ● ● ● ●"/>
     </LinearLayout>
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:text="전화번호 "
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="*"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:textcolor="@color/red" />
+    </LinearLayout>
+
+    <EditText
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="전화번호" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="7dp"
+        android:textSize="20sp"
+        android:hint="  휴대전화번호 입력"
+        android:background="@drawable/layout_rount_edittext"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Button>
-
-    <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/getchecknum"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="인증번호" />
+        android:background="@drawable/radius"
+        android:text="인증문자 다시 받기"
+        android:textColor="@color/black"
+        android:textSize="20sp"></Button>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="인증번호"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+
+        />
 
     <EditText
+        android:id="@+id/certificationNum"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="7dp"
+        android:textSize="20sp"
+        android:hint="  인증번호 입력"
+        android:background="@drawable/layout_rount_edittext"/>
 
     <Button
+        android:id="@+id/checkCertificationNum"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Button>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="7dp"
+        android:background="@drawable/radius"
+        android:text="인증번호 확인"
+        android:textColor="@color/black"
+        android:textSize="20sp"></Button>
 
 </LinearLayout>
