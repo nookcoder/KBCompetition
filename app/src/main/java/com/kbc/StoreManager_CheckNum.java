@@ -80,4 +80,6 @@ public class StoreManager_CheckNum extends AppCompatActivity {
             }
         });
     }
+
+
 }
