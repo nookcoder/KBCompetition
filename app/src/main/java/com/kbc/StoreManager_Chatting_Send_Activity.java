@@ -31,10 +31,11 @@ public class StoreManager_Chatting_Send_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //데이터베이스에 쓰기
-                databaseReference.child("프론트").push().setValue("서히");
+                databaseReference.child("서버").push().setValue("현");
                 Log.d("클릭","들어가!!!");
             }
         });
+
 
 
     }

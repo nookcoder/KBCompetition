@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!--채팅보내는 사람 프로필 사진-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/other_circle_imageview"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_information"
+        android:layout_alignParentLeft="true"/>
+
+
+    <!--보내는 사람 이름(가게명) -->
+    <TextView
+        android:id="@+id/other_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="상대방"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@+id/other_circle_imageview"
+        android:layout_marginLeft="16dp"/>
+
+    <TextView
+        android:id="@+id/other_send_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello android"
+        android:layout_below="@+id/other_name"
+        android:layout_toRightOf="@id/other_circle_imageview"
+        android:layout_marginLeft="16dp"
+        android:padding="12dp"
+        android:maxWidth="250dp"
+        android:background="@drawable/other_message_box"
+        android:textColor="#ffffff"/>
+
+    <!--보낸 시간-->
+    <TextView
+        android:id="@+id/other_send_message_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15:35"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/other_send_message"
+        android:layout_marginLeft="8dp"
+        android:layout_alignBottom="@id/other_send_message"/>
+</RelativeLayout>
