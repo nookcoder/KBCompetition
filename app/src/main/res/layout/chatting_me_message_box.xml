@@ -34,7 +34,7 @@
         android:padding="12dp"
         android:maxWidth="250dp"
         android:background="@drawable/me_message_box"
-        android:textColor="#ffffff"/>
+        android:textColor="@color/black"/>
 
     <!--보낸 시간-->
     <TextView
