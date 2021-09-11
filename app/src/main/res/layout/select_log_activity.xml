@@ -11,9 +11,8 @@
         android:contentDescription="StringValue"
         android:id="@+id/logo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/image_logo"
-        android:layout_marginTop="15dp"/>
+        android:layout_height="300dp"
+        app:srcCompat="@drawable/image_logo"/>
 
     <Button
         android:id="@+id/signup"
@@ -26,7 +25,7 @@
         app:iconTint="#FFFFFF"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginBottom="15dp"/>
 
     <Button
         android:id="@+id/signin"
@@ -38,6 +37,6 @@
         android:textColor="@color/icon_color"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginBottom="50dp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
