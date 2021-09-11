@@ -21,10 +21,10 @@
 
 
         <activity android:name=".Select_Log_Activity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
         </activity>
         <activity android:name=".Select_User_Activity"></activity>
         <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
@@ -37,10 +37,10 @@
             android:value="face"/>
 
         <activity android:name=".StoreManager_Chatting_Send_Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--    <intent-filter>-->
+               <!--      <action android:name="android.intent.action.MAIN" />-->
+                <!--    <category android:name="android.intent.category.LAUNCHER" />-->
+               <!--           </intent-filter>-->
         </activity>
 
         <activity android:name=".StoreManager_CheckNum"></activity>
