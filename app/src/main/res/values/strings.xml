@@ -2,4 +2,7 @@
     <string name="app_name">KBC</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kakao_app_key">26e7f00a7916014db9a382d3086501a4</string>
+
+
 </resources>
