@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StoreManager_Chatting_Send_Activity">
+    tools:context=".Chatting_Send_Activity">
 
 
     <androidx.appcompat.widget.Toolbar

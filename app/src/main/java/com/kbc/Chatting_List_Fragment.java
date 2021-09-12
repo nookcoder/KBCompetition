@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class StoreManager_Chatting_Fragment extends Fragment {
+public class Chatting_List_Fragment extends Fragment {
 
     private StoreManager_MainActivity storeManager_mainActivity;
 
@@ -21,7 +21,7 @@ public class StoreManager_Chatting_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup rootViewGroup =(ViewGroup) inflater.inflate(R.layout.storemanager_chatting, container, false);
+        ViewGroup rootViewGroup =(ViewGroup) inflater.inflate(R.layout.chatting_list, container, false);
 
         return rootViewGroup;
     }

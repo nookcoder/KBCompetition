@@ -3,8 +3,6 @@ package com.kbc;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +16,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
     public static StoreManager_MainActivity storeManager_mainActivity;
     private FragmentManager fragmentManager = getSupportFragmentManager();
-    private StoreManager_Chatting_Fragment storeManager_chatting_fragment = new StoreManager_Chatting_Fragment();
+    private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
 
     @Override

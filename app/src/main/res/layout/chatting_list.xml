@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/storemanager_information"
+        android:id="@+id/mode_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/icon_color2"
@@ -22,8 +23,9 @@
             />
     </androidx.appcompat.widget.Toolbar>
 
+    <!--채팅리사이클뷰-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/storemanager_chatting"
+        android:id="@+id/chatting_list_recycleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
        >

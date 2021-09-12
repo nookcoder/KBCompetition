@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class StoreManager_Chatting_Send_Activity extends AppCompatActivity {
+public class Chatting_Send_Activity extends AppCompatActivity {
 
 
     private EditText editText;
@@ -43,7 +43,7 @@ public class StoreManager_Chatting_Send_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.storemanager_chatting_send_activity);
+        setContentView(R.layout.chatting_send_activity);
 
         //채팅방 제목 -> 유저이름으로!!
         getSupportActionBar().setTitle(Chatting.userName);
