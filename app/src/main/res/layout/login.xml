@@ -9,6 +9,7 @@
     android:weightSum="2.5">
 
     <RadioGroup
+        android:id="@+id/radiogroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -55,17 +56,18 @@ android:layout_marginLeft="20dp"
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_weight="0.2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/layout_rount_edittext"
-        android:textColor="@color/icon_color2"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:text="카카오계정으로 로그인"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="30dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="0.2"
+        android:background="@drawable/layout_rount_edittext"
+        android:text="카카오계정으로 로그인"
+        android:textAllCaps="true"
+        android:textColor="#8C8282"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
