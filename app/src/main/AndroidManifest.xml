@@ -38,6 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
            </intent-filter>
         </activity>
+        <activity android:name=".Login"></activity>
         <activity android:name=".Select_Log_Activity"></activity>
         <activity android:name=".StoreManager_Login"></activity>
         <activity android:name=".Select_User_Activity"></activity>
