@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 체크박스 해제상태 -->
+    <item
+        android:drawable="@drawable/resize_check_image2" android:top="30dp"  android:left="30dp"
+        android:state_checked="false" />
+    <!-- 체크박스 선택상태 -->
+    <item
+        android:drawable="@drawable/resize_check_image1" android:top="30dp"  android:left="30dp"
+        android:state_checked="true" />
+    <!-- default state -->
+    <item android:drawable="@drawable/resize_check_image2" android:top="30dp"  android:left="30dp"/>
+
+</selector>
+
+
+
+
+

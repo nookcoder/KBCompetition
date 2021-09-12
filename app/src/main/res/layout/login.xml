@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/icon_color2"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="2.5">
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RadioButton
+            android:id="@+id/storeManagerSelected"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/layout_round_button"
+            android:button="@drawable/radiobutton_custom"
+            android:drawableTop="@drawable/resize_store_image"
+            android:padding="15dp"
+            android:text="   사업자로 시작\n음식을 팔고 싶어요."
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/personSelected"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/layout_round_button"
+            android:button="@drawable/radiobutton_custom"
+            android:drawableTop="@drawable/resize_person_image"
+            android:padding="15dp"
+            android:text="   개인으로 시작\n음식을 사고 싶어요."
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="0.2"
+        android:background="@drawable/layout_rount_edittext"
+        android:text="카카오계정으로 로그인"
+        android:textAllCaps="true"
+        android:textColor="#8C8282"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
