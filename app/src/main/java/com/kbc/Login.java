@@ -42,10 +42,12 @@ public class Login extends AppCompatActivity {
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
         RadioButton store = (RadioButton) findViewById(R.id.storeManagerSelected);
         RadioButton person = (RadioButton) findViewById(R.id.personSelected);
+
         //텍스트 크기 줄마다 다르게 조절
         makeOtherSize(store,"음식을 팔고 싶어요.");
         makeOtherSize(person,"음식을 사고 싶어요.");
 
+        //로그인 버튼
         Button login = (Button) findViewById(R.id.loginButton);
         login.setEnabled(false);
 
