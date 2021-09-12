@@ -7,6 +7,38 @@
     android:orientation="vertical"
     tools:context=".StoreManager_Chatting_Send_Activity">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/icon_color2"
+
+        >
+
+        <!--상대방이름 -->
+        <TextView
+            android:id="@+id/other_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text ="상대방 이름"
+            android:textStyle="bold"
+
+            android:layout_gravity="center"
+            android:textSize="23dp"
+            />
+        <!--채팅방 나가기 버튼-->
+        <ImageButton
+            android:id="@+id/chatting_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="left"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@android:color/transparent"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+
     <ListView
         android:id="@+id/chatting_listview"
         android:layout_width="match_parent"
