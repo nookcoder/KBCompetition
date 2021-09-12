@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -64,8 +66,10 @@ public class ChattingAdapter extends BaseAdapter {
         chatting_message.setText(chatting_item.getMessage());
         chatting_send_message_time.setText(chatting_item.getTime());
 
+        //itemView에 사용자이름, 보낸시간, 메세지, 이미지 설정
+        Glide.with(itemView).load(chatting_item.getPofileUrl()).into(chatting_circle_ImageView);
 
+        return itemView;
 
-        return null;
     }
 }
