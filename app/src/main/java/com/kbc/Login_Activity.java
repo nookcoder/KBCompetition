@@ -1,22 +1,17 @@
 package com.kbc;
 
 import android.content.Intent;
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,7 +19,7 @@ import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
 
 
-public class Login extends AppCompatActivity {
+public class Login_Activity extends AppCompatActivity {
     String selectedUser;
 
 
@@ -34,9 +29,13 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        //화면 전환 2개!
-        Intent intent1 = new Intent(Login.this, StoreManager_Chatting_Send_Activity.class);//변경 필요!!!
-        Intent intent2 = new Intent(Login.this, Select_Log_Activity.class);//변경 필요!!!
+        //화면 전환 4개!
+        //사업자 가게 정보 ㅇ , x
+        Intent intentForStoreO = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
+        Intent intentForStoreX = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
+        //개인 기본 정보 ㅇ , x
+        Intent intent2 = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
+        Intent intent4 = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
 
         // 라디오그룹 참조
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
@@ -69,10 +68,10 @@ public class Login extends AppCompatActivity {
 
         //로그인 버튼에 이벤트
         Button loginButton = (Button) findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(v -> UserApiClient.getInstance().loginWithKakaoTalk(Login.this, (oAuthToken, error) -> {
+        loginButton.setOnClickListener(v -> UserApiClient.getInstance().loginWithKakaoTalk(Login_Activity.this, (oAuthToken, error) -> {
             if (error != null) {
                 Log.e("으악", "로그인 실패", error);
-                startActivity(intent1);
+                startActivity(intentForStoreO);
             } else if (oAuthToken != null) {
                 Log.i("우왕", "로그인 성공(토큰) : " + oAuthToken.getAccessToken());
 
@@ -93,11 +92,11 @@ public class Login extends AppCompatActivity {
 
                     //사업자 화면 전환!!
                     if(selectedUser.equals("사업자")) {
-                        startActivity(intent1);
+                        startActivity(intentForStoreO);
                     }
                     //개인 화면 전환!!
                     else if(selectedUser.equals("개인")) {
-                        startActivity(intent2);
+                        startActivity(intentForStoreX);
                     }
                     return null;
                 });
