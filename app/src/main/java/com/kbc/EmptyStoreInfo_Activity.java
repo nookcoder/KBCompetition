@@ -21,7 +21,7 @@ public class EmptyStoreInfo_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //화면 전환
-                Intent intent1 = new Intent(getApplicationContext(),StoreManagaer_Add_Store_Info_Activity.class);
+                Intent intent1 = new Intent(getApplicationContext(), StoreManager_Add_Store_Info_Activity.class);
                 startActivity(intent1);
             }
         });
