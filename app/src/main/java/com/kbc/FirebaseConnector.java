@@ -22,8 +22,8 @@ public class FirebaseConnector {
     private static FirebaseConnector firebaseConnector = null;
 
     //데이터베이스 연결 변수
-    private static FirebaseDatabase firebaseDatabase;
-    private static DatabaseReference databaseReference;
+    private  FirebaseDatabase firebaseDatabase;
+    private  DatabaseReference databaseReference;
     private String login_id;
 
     //액티비티에 연결 객체 생성
@@ -50,10 +50,12 @@ public class FirebaseConnector {
 
             case "StoreManager":
                 databaseReference = firebaseDatabase.getReference("StoreManager");
-                databaseReference.child("한번만").push().setValue("됏나");
+
                 break;
+
         }
         this.login_id = login_id;
+        Read_All_Data();
     }
 
     //전체 트리 가져오고, 모드 나눠서 세부 id로 들어가기
@@ -64,8 +66,8 @@ public class FirebaseConnector {
 
 
     //정보 가져오기
-    public void Read_All_Data(){
-        databaseReference.addValueEventListener(new ValueEventListener() {
+    private void Read_All_Data(){
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 map = (Map<String, Object>) dataSnapshot.getValue();
@@ -82,7 +84,7 @@ public class FirebaseConnector {
                     for(String id_inside : id_map.keySet()){
 
                         //로그인 된 아이디의 데이터를 가져오기
-                        if(id_inside.equals(login_id+"-2")){
+                        if(id_inside.equals(login_id)){
                             id_inside_map = (Map<String, Object>) id_map.get(id_inside);
                             break;
                         }
@@ -92,7 +94,7 @@ public class FirebaseConnector {
                     Log.d(TAG,check_id_count+":"+id_map.size());
                     //등록된적없는 id
                     if( check_id_count == id_map.size()){
-                            initialize_id();
+                        Initialize_Id();
                     }
                     //등록된 적 있는 id
                     else{
@@ -128,10 +130,27 @@ public class FirebaseConnector {
         });
     }
 
+
     //처음 채팅 아이디 넣기
-    private void initialize_id(){
-        databaseReference.child("한번만").removeValue();
+    private void Initialize_Id(){
+
+        databaseReference.child("id").child(login_id).child("chatrooms").child("0").setValue("채팅방없음");
+        databaseReference.child("id").child(login_id).child("chatting").child("0").setValue("채팅방없음");
+
+
+
     }
+
+    //채팅방 업데이트
+    public void Update_chatrooms(String name, String profileUrl, String message, String time){
+
+        databaseReference.child("id").child(login_id).child("chatrooms").child("0").child("message").setValue(name);
+        databaseReference.child("id").child(login_id).child("chatrooms").child("0").child("name").setValue(profileUrl);
+        databaseReference.child("id").child(login_id).child("chatrooms").child("0").child("profileUrl").setValue(message);
+        databaseReference.child("id").child(login_id).child("chatrooms").child("0").child("time").setValue(time);
+
+    }
+
 
 
 

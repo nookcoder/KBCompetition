@@ -22,7 +22,7 @@ import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
-public class Chatting_List_Fragment extends Fragment implements View.OnClickListener {
+public class Chatting_List_Fragment extends Fragment  {
 
     private StoreManager_MainActivity storeManager_mainActivity;
     private FirebaseConnector dbconnector;
@@ -55,19 +55,19 @@ public class Chatting_List_Fragment extends Fragment implements View.OnClickList
         //아이디 + 데베 싱글톤 객체 생성
         dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity, "StoreManager",storeManager_id);
 
-        Button db_btn = (Button)rootViewGroup.findViewById(R.id.send_message);
-        db_btn.setOnClickListener( this);
+//        Button db_btn = (Button)rootViewGroup.findViewById(R.id.send_message);
+//        db_btn.setOnClickListener( this);
 
         return rootViewGroup;
     }
 
-    public void onClick(View view){
-        switch (view.getId()){
-            case R.id.send_message:
-                dbconnector.Read_All_Data();
-                break;
-
-        }
+//    public void onClick(View view){
+//        switch (view.getId()){
+//            case R.id.send_message:
+//                dbconnector.Read_All_Data();
+//                break;
+//
+//        }
     }
 
-}
+
