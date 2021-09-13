@@ -54,7 +54,7 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face"/>
 
-        <activity android:name=".StoreManager_Chatting_Send_Activity">
+        <activity android:name=".Chatting_Send_Activity">
             <!--    <intent-filter>-->
                <!--      <action android:name="android.intent.action.MAIN" />-->
                 <!--    <category android:name="android.intent.category.LAUNCHER" />-->

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.kbc.R;
+
 public class StoreManager_Product_RegisterActivity extends AppCompatActivity {
 
     @Override

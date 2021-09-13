@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
+import com.kbc.Chatting.Chatting;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,7 +24,7 @@ public class StoreManager_Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        Intent intent = new Intent(StoreManager_Login.this, StoreManager_Chatting_Send_Activity.class);
+        Intent intent = new Intent(StoreManager_Login.this, Chatting_Send_Activity.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_login);
         getHashKey();
