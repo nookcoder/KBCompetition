@@ -16,11 +16,14 @@ import static android.content.ContentValues.TAG;
 
 public class FirebaseConnector {
 
+    //싱글톤
     private static FirebaseConnector firebaseConnector = null;
 
+    //데이터베이스 연결 변수
     private static FirebaseDatabase firebaseDatabase;
     private static DatabaseReference databaseReference;
 
+    //액티비티에 연결 객체 생성
     public static FirebaseConnector getInstance(Activity activity){
         firebaseConnector = new FirebaseConnector(activity);
         return firebaseConnector;
@@ -30,6 +33,7 @@ public class FirebaseConnector {
         return firebaseConnector;
     }
 
+    //데베 구축
     private FirebaseConnector(Activity activity){
         FirebaseApp.initializeApp(activity);
         firebaseDatabase = FirebaseDatabase.getInstance();
