@@ -18,12 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
 
-
+//유저 선택 + 로그인 화면
 public class Login_Activity extends AppCompatActivity {
     String selectedUser;
-
-
-
+    String id;
+    String iid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +30,11 @@ public class Login_Activity extends AppCompatActivity {
 
         //화면 전환 4개!
         //사업자 가게 정보 ㅇ , x
-        Intent intentForStoreO = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
+        Intent intentForStoreO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
         Intent intentForStoreX = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
         //개인 기본 정보 ㅇ , x
-        Intent intent2 = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
-        Intent intent4 = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
+        Intent intentForPsersonO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
+        Intent intentForPsersonX = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
 
         // 라디오그룹 참조
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
@@ -82,6 +81,8 @@ public class Login_Activity extends AppCompatActivity {
                         System.out.println("로그인 완료");
                         Log.i("b", user.toString());
                         {
+                            id=String.valueOf(user.getId());
+
                             Log.i("회원정보", "사용자 정보 요청 성공" +
                                     "\n회원번호: " + user.getId() +
                                     "\n이메일: " + user.getKakaoAccount().getEmail());
@@ -92,11 +93,15 @@ public class Login_Activity extends AppCompatActivity {
 
                     //사업자 화면 전환!!
                     if(selectedUser.equals("사업자")) {
+                        //데이터 전달 (userID)
+                        intentForStoreO.putExtra("userID" , id);
                         startActivity(intentForStoreO);
                     }
                     //개인 화면 전환!!
                     else if(selectedUser.equals("개인")) {
-                        startActivity(intentForStoreX);
+                        //데이터 전달 (userID)
+                        intentForPsersonO.putExtra("userID" , id);
+                        startActivity(intentForPsersonO);
                     }
                     return null;
                 });
