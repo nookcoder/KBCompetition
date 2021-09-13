@@ -1,9 +1,7 @@
 package com.kbc;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class StoreManagaer_Add_Store_Info_Activity extends AppCompatActivity {
+public class StoreManager_Add_Store_Info_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +30,7 @@ public class StoreManagaer_Add_Store_Info_Activity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goBack = new Intent(StoreManagaer_Add_Store_Info_Activity.this, Login_Activity.class);
+                Intent goBack = new Intent(StoreManager_Add_Store_Info_Activity.this, Login_Activity.class);
                 startActivity(goBack);
             }
         });
@@ -60,7 +58,7 @@ public class StoreManagaer_Add_Store_Info_Activity extends AppCompatActivity {
 
                 //다 입력되어 있으면
                 else if (name.length() != 0 && phone.length() != 0) {
-                    Intent intent = new Intent(getApplicationContext(), StoreManager_CheckNum.class);
+                    Intent intent = new Intent(getApplicationContext(), StoreManager_Add_Manager_Info_Activity.class);
                     startActivity(intent);
                 }
             }

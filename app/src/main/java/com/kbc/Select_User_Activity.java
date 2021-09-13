@@ -15,11 +15,9 @@ public class Select_User_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_user_activity);
 
-
         //버튼 지정
         Button storemanager = (Button) findViewById(R.id.storemanager);
         Button person = (Button) findViewById(R.id.person);
-
 
         //로그인인 경우
         //사업자
