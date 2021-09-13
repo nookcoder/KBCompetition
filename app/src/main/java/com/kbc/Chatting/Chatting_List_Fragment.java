@@ -26,9 +26,14 @@ public class Chatting_List_Fragment extends Fragment {
     private StoreManager_MainActivity storeManager_mainActivity;
     private FirebaseConnector dbconnector;
 
+    private String storeManager_id;
+    private Bundle bundle;
+
     @Override
     public void onStart() {
         super.onStart();
+
+
     }
 
     //뷰 그룹 반환
@@ -43,7 +48,14 @@ public class Chatting_List_Fragment extends Fragment {
         //데베 싱글톤 객체 생성
         dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity, "StoreManager");
 
-        dbconnector.Read_All_Data();
+        bundle = getArguments();
+        if(bundle != null){
+            storeManager_id = bundle.getString("id");
+        }
+        Log.d(TAG,"점주 아이디 : "+ storeManager_id);
+
+        //점주아이디랑 같이 데베로 넘기기
+        dbconnector.Read_All_Data(storeManager_id);
 
 
 

@@ -52,13 +52,15 @@ public class FirebaseConnector {
         }
     }
 
+    //전체 트리 가져오고, 모드 나눠서 세부 id로 들어가기
     private Map<String, Object> map, id_map,id_inside_map;
+    //해당 id의 채팅방 + 채팅 내용 불러오기!
     private ArrayList<HashMap<String, String>> chatrooms_arraylist, chatting_arraylist;
 
 
 
     //정보 가져오기
-    public void Read_All_Data(){
+    public void Read_All_Data(String login_id){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,21 +73,17 @@ public class FirebaseConnector {
                         Log.d(TAG, "카카오아이디 : "+ id_map);
                     }
 
-                    Log.d(TAG, "아이디 키 : " +id_map.keySet());
-
                     for(String id_inside : id_map.keySet()){
-                        id_inside_map = (Map<String, Object>)id_map.get(id_inside);
+                        //로그인 된 아이디의 데이터를 가져오기
+                        if(id_inside.equals(login_id)){
+                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
+                        }
                         Log.d(TAG, "아이디 내부 : "+ id_inside_map);
 
                     }
 
-                    Log.d(TAG, "아이디 내부 키 : " +id_inside_map.keySet());
-
 
                     for(String in_inside_key: id_inside_map.keySet()){
-                        Log.d(TAG, "키 -> " + in_inside_key );
-
-
                         switch (in_inside_key){
                             //아이디 -> 채팅방 리스트에 담기
                             case "chatrooms":
@@ -97,8 +95,6 @@ public class FirebaseConnector {
                                 chatting_arraylist = (ArrayList<HashMap<String, String>>)id_inside_map.get(in_inside_key);
                                 break;
                         }
-
-
                     }
 
                 }
