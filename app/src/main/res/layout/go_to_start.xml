@@ -10,33 +10,31 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/sadText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="등록된 가게 정보가 없어요."
-        android:textSize="20sp"
-        android:textColor="@color/white"
+        android:text="정보 등록 완료!"
+        android:textSize="40sp"
+        android:textColor="@color/icon_color"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="20dp"/>
 
     <ImageView
-        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="StringValue"
-        app:srcCompat="@drawable/resize_sad_image" />
+        app:srcCompat="@drawable/resize_smile_image" />
 
     <Button
-        android:id="@+id/addStoreInfo"
+        android:id="@+id/start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/layout_rount_edittext"
-        android:text="가게 정보 등록하러 가기"
+        android:text="시작하기"
         android:textColor="@color/icon_color2"
         android:textSize="15sp"
         android:textStyle="bold" />
