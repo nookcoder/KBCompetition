@@ -1,7 +1,10 @@
 package com.kbc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +29,14 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_activity_main);
+
+        //유저 데이터 받기
+        Intent intentForGet = getIntent();
+        String userId = intentForGet.getExtras().getString("userID");
+        //테스트용
+        TextView test = (TextView)findViewById(R.id.test);
+        test.setText(userId);
+
 
         storeManager_mainActivity = StoreManager_MainActivity.this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -58,6 +69,5 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
             return true;
         }
-
     }
 }
