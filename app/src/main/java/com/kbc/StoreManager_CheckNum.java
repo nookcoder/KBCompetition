@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kbc.R;
+import com.kbc.Select_User_Activity;
+
 public class StoreManager_CheckNum extends AppCompatActivity {
 
     @Override
@@ -37,7 +40,7 @@ public class StoreManager_CheckNum extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(getApplicationContext(),Select_User_Activity.class);
+                Intent intent1 = new Intent(getApplicationContext(), Select_User_Activity.class);
                 intent1.putExtra("log","sign up");
                 startActivity(intent1);
             }

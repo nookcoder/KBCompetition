@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Chatting;
 
 public class Chatting {
     public static String userName;

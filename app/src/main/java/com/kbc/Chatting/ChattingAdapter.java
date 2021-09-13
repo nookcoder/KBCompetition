@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Chatting;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.kbc.Chatting.Chatting;
+import com.kbc.Chatting.Chatting_Item;
+import com.kbc.R;
 
 import java.util.ArrayList;
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kbc.Chatting.Chatting_List_Fragment;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
 
