@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 import static android.content.ContentValues.TAG;
 
 public class FirebaseConnector {
@@ -34,16 +36,13 @@ public class FirebaseConnector {
         databaseReference = firebaseDatabase.getReference();
     }
 
-    public void Read_id(){
+    //storemanager 정보 가져오기
+    public void Read_StoreManager(){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("왜?", "응?");
-
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                Log.d(TAG, "이름: " + map);
             }
 
             @Override
@@ -53,4 +52,10 @@ public class FirebaseConnector {
             }
         });
     }
+
+    //person 정보가져오기
+    public void Read_People_(){
+
+    }
+
 }

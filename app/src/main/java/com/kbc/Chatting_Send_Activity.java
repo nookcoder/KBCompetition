@@ -74,7 +74,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //데이터베이스에 쓰기
-                databaseReference.child("넹~").push().setValue("연결중입니다~");
+//                databaseReference.child("넹~").push().setValue("연결중입니다~");
                 Log.d("클릭","들어가!!!");
             }
         });

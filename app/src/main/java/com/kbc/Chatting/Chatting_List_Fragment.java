@@ -17,6 +17,8 @@ import com.kbc.FirebaseConnector;
 import com.kbc.R;
 import com.kbc.StoreManager_MainActivity;
 
+import java.util.Map;
+
 import static android.content.ContentValues.TAG;
 
 public class Chatting_List_Fragment extends Fragment {
@@ -41,30 +43,8 @@ public class Chatting_List_Fragment extends Fragment {
         //데베 싱글톤 객체 생성
         dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity);
 
-        dbconnector.Read_id();
+        dbconnector.Read_StoreManager();
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("Person");
-
-        databaseReference.push().setValue("들어가라");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("왜?", "응?");
-
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "이름: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
 
 
         return rootViewGroup;
