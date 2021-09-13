@@ -50,13 +50,36 @@ public class FirebaseConnector {
         }
     }
 
+    private Map<String, Object> map, id_map, chatrooms_map, chatting_map;
+
+
     //정보 가져오기
     public void Read_All_Data(){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                Log.d(TAG, "점주 : " + map);
+                map = (Map<String, Object>) dataSnapshot.getValue();
+
+                if(map != null){
+                    //아이디 별로 맵에 담기
+                    for(String id: map.keySet()){
+                        id_map = (Map<String, Object>) map.get(id);
+                        Log.d(TAG, "카카오아이디 : "+ id_map);
+                    }
+
+
+                    //아이디 -> 채팅방 맵에 담기
+                    for(String chatrooms: id_map.keySet()){
+                        chatrooms_map = (Map<String, Object>)id_map.get(chatrooms);
+                        Log.d(TAG, "채팅방 내역 : " + chatrooms_map);
+                    }
+                    //아이디 -> 채팅내용 맵에 담기
+                    for(String chatting: id_map.keySet()){
+                        chatting_map = (Map<String, Object>)id_map.get(chatting);
+                        Log.d(TAG, "채팅방 내용 : " + chatting_map);
+                    }
+                }
+                Log.d(TAG, "데이터 : " + map);
             }
 
             @Override
