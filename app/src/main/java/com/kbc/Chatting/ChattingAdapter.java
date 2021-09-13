@@ -18,9 +18,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChattingAdapter extends BaseAdapter {
 
     //채팅 아이템
-    private ArrayList<Chatting_Item> chatting_items;
+    ArrayList<Chatting_Item> chatting_items;
    //정렬
-    private LayoutInflater layoutInflater;
+    LayoutInflater layoutInflater;
 
     //생성자
     public ChattingAdapter(ArrayList<Chatting_Item> chatting_items, LayoutInflater layoutInflater){
@@ -70,9 +70,10 @@ public class ChattingAdapter extends BaseAdapter {
         chatting_send_message_time.setText(chatting_item.getTime());
 
         //itemView에 사용자이름, 보낸시간, 메세지, 이미지 설정
-        Glide.with(itemView).load(chatting_item.getPofileUrl()).into(chatting_circle_ImageView);
+        Glide.with(itemView).load(chatting_item.getProfileUrl()).into(chatting_circle_ImageView);
 
         return itemView;
 
     }
+
 }

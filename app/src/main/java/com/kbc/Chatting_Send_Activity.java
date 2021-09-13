@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.ChattingAdapter;
 import com.kbc.Chatting.Chatting_Item;
@@ -28,6 +29,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 
 public class Chatting_Send_Activity extends AppCompatActivity {
@@ -50,7 +54,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         setContentView(R.layout.chatting_send_activity);
 
         //채팅방 제목 -> 유저이름으로!!
-        getSupportActionBar().setTitle(Chatting.userName);
+//        getSupportActionBar().setTitle(Chatting.userName);
 
         //메세지 입력내용 받아오기
         editText = findViewById(R.id.chatting_input_text);
@@ -62,7 +66,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
         //데베 연동 + chat 노드 참조 객체 가져오기
         database  = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("chat");
+        databaseReference = database.getReference();
 
 
         Button send_btn = findViewById(R.id.send_message);
@@ -70,10 +74,27 @@ public class Chatting_Send_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //데이터베이스에 쓰기
-                databaseReference.child("서버").push().setValue("현");
+//                databaseReference.child("넹~").push().setValue("연결중입니다~");
                 Log.d("클릭","들어가!!!");
             }
         });
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+
+
+                Log.d(TAG, "이름: " + map);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
 
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
