@@ -6,13 +6,13 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//인트로 화면
 public class Intro_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
