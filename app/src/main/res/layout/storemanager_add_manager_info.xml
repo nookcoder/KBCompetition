@@ -329,7 +329,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/getchecknum"
+        android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"

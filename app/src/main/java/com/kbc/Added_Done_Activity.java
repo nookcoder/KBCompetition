@@ -16,20 +16,20 @@ public class Added_Done_Activity extends AppCompatActivity {
 
         //유저 데이터 받기
         Intent intentForGet = getIntent();
-        String name = intentForGet.getExtras().getString("user");
+        String user = intentForGet.getExtras().getString("user");
 
         //다음 버튼
-        Button next = (Button) findViewById(R.id.next);
+        Button next = (Button) findViewById(R.id.start);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //유저가 사업자면
-                if(name.equals("store manager")){
+                if(user.equals("store manager")){
                     Intent intent1 = new Intent(getApplicationContext(), StoreManager_Chatting_Send_Activity.class);//변경 필요
                     startActivity(intent1);
                 }
                 //유저가 개인이면
-                else if(name.equals("person")){
+                else if(user.equals("person")){
                     Intent intent2 = new Intent(getApplicationContext(), StoreManager_Chatting_Send_Activity.class);//변경 필요
                     startActivity(intent2);
                 }
