@@ -32,12 +32,10 @@ import java.util.Calendar;
 
 public class Chatting_Send_Activity extends AppCompatActivity {
 
-
     private EditText editText;
     private ListView listView;
     private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private ChattingAdapter chattingAdapter;
-
 
     //파이어베이스 데베 연동
     private FirebaseDatabase database;
@@ -86,7 +84,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 chattingAdapter.notifyDataSetChanged();
                 //리스트뷰 마지막 위치로 스크롤 이동
                 listView.setSelection(chatting_items.size()-1);
-
             }
 
             @Override
@@ -109,10 +106,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
             }
         });
-
-
-
-
     }
     public void clickSend(View view){
 
