@@ -44,6 +44,9 @@
         <activity android:name=".EmptyStoreInfo_Activity"></activity>
         <activity android:name=".Select_User_Activity"></activity>
         <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
+        <activity android:name=".StoreManager_Add_Store_Info_Activity"></activity>
+        <activity android:name=".StoreManager_Add_Manager_Info_Activity"></activity>
+        <activity android:name=".Added_Done_Activity"></activity>
         <activity android:name=".Popup_Activity"
             android:theme="@style/popupTheme"
             android:screenOrientation="portrait"></activity>
