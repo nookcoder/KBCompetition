@@ -42,6 +42,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private ChattingAdapter chattingAdapter;
 
+    private FirebaseConnector dbconnector;
+    private String storeManager_id;
+
+
 
     //파이어베이스 데베 연동
     private FirebaseDatabase database;
@@ -79,57 +83,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
             }
         });
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+        //db객체 만들어주고,
+        dbconnector = FirebaseConnector.getInstance(this, "StoreManager",storeManager_id);
 
-
-                Log.d(TAG, "이름: " + map);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-                //새로 추가된 채팅 입력 가져오기
-                Chatting_Item chatting_item = snapshot.getValue(Chatting_Item.class);
-                //데이터 추가
-                chatting_items.add(chatting_item);
-                //리스트뷰 갱신
-                chattingAdapter.notifyDataSetChanged();
-                //리스트뷰 마지막 위치로 스크롤 이동
-                listView.setSelection(chatting_items.size()-1);
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
+        //채팅 업데이트 계속 해주기!!
+        dbconnector.Update_chatting_listView(chatting_items,chattingAdapter,listView);
 
 
 
@@ -146,14 +104,13 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         String send_message_time = calendar.get(Calendar.HOUR_OF_DAY)+ ":" + calendar.get(Calendar.MINUTE);
 
         //chattingitem객체 설정
-        Chatting_Item new_chatting_item = new Chatting_Item(userName,input_text,send_message_time,profileUrl);
+        Chatting_Item new_chatting_item = new Chatting_Item(userName,profileUrl, input_text,send_message_time);
+
         databaseReference.push().setValue(new_chatting_item);
 
         //키패드 안보이게!
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
-
-
 
 
     }

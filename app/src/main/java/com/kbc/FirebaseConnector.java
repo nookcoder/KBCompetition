@@ -2,6 +2,10 @@ package com.kbc;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -9,6 +13,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.ChildEventListener;
+import com.kbc.Chatting.ChattingAdapter;
+import com.kbc.Chatting.Chatting_Item;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +31,8 @@ public class FirebaseConnector {
     private static FirebaseConnector firebaseConnector = null;
 
     //데이터베이스 연결 변수
-    private  FirebaseDatabase firebaseDatabase;
-    private  DatabaseReference databaseReference;
+    private static FirebaseDatabase firebaseDatabase;
+    private static DatabaseReference databaseReference;
     private String login_id;
 
     //액티비티에 연결 객체 생성
@@ -67,7 +76,9 @@ public class FirebaseConnector {
 
     //정보 가져오기
     private void Read_All_Data(){
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 map = (Map<String, Object>) dataSnapshot.getValue();
@@ -150,6 +161,48 @@ public class FirebaseConnector {
         databaseReference.child("id").child(login_id).child("chatrooms").child("0").child("time").setValue(time);
 
     }
+
+    public void Update_chatting_listView( ArrayList<Chatting_Item> chatting_items,
+                                          ChattingAdapter chattingAdapter,
+                                          ListView listView){
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                //새로 추가된 채팅 입력 가져오기
+                Chatting_Item chatting_item = snapshot.getValue(Chatting_Item.class);
+                //데이터 추가
+                chatting_items.add(chatting_item);
+                //리스트뷰 갱신
+                chattingAdapter.notifyDataSetChanged();
+                //리스트뷰 마지막 위치로 스크롤 이동
+                listView.setSelection(chatting_items.size()-1);
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
 
 
 
