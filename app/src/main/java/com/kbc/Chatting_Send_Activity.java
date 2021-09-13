@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -81,9 +82,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
 
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "이름: " + value);
+
+                Log.d(TAG, "이름: " + map);
             }
 
             @Override
