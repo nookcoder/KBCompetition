@@ -24,8 +24,8 @@ public class FirebaseConnector {
     private static DatabaseReference databaseReference;
 
     //액티비티에 연결 객체 생성
-    public static FirebaseConnector getInstance(Activity activity){
-        firebaseConnector = new FirebaseConnector(activity);
+    public static FirebaseConnector getInstance(Activity activity, String mode){
+        firebaseConnector = new FirebaseConnector(activity, mode);
         return firebaseConnector;
     }
 
@@ -34,19 +34,29 @@ public class FirebaseConnector {
     }
 
     //데베 구축
-    private FirebaseConnector(Activity activity){
+    private FirebaseConnector(Activity activity, String mode){
         FirebaseApp.initializeApp(activity);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+
+        //유저모드, 점주모드로 나눠서 dbRef 객체 생성
+        switch (mode){
+            case "Person":
+                databaseReference = firebaseDatabase.getReference("Person");
+                break;
+
+            case "StoreManager":
+                databaseReference = firebaseDatabase.getReference("StoreManager");
+                break;
+        }
     }
 
-    //storemanager 정보 가져오기
-    public void Read_StoreManager(){
+    //정보 가져오기
+    public void Read_All_Data(){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                Log.d(TAG, "이름: " + map);
+                Log.d(TAG, "점주 : " + map);
             }
 
             @Override
@@ -57,9 +67,6 @@ public class FirebaseConnector {
         });
     }
 
-    //person 정보가져오기
-    public void Read_People_(){
 
-    }
 
 }

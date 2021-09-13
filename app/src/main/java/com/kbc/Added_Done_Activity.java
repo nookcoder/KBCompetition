@@ -23,16 +23,16 @@ public class Added_Done_Activity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //유저가 사업자면
-                if(user.equals("store manager")){
-                    Intent intent1 = new Intent(getApplicationContext(), StoreManager_Chatting_Send_Activity.class);//변경 필요
-                    startActivity(intent1);
-                }
-                //유저가 개인이면
-                else if(user.equals("person")){
-                    Intent intent2 = new Intent(getApplicationContext(), StoreManager_Chatting_Send_Activity.class);//변경 필요
-                    startActivity(intent2);
-                }
+//                //유저가 사업자면
+//                if(user.equals("store manager")){
+//                    Intent intent1 = new Intent(getApplicationContext(), StoreManager_Chatting_Send_Activity.class);//변경 필요
+//                    startActivity(intent1);
+//                }
+//                //유저가 개인이면
+//                else if(user.equals("person")){
+//                    Intent intent2 = new Intent(getApplicationContext(), StoreManager_Chatting_Send_Activity.class);//변경 필요
+//                    startActivity(intent2);
+//                }
             }
         });
     }

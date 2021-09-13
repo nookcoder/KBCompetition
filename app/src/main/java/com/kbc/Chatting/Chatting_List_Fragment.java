@@ -41,9 +41,9 @@ public class Chatting_List_Fragment extends Fragment {
         //액티비티 가져오고,
         storeManager_mainActivity = (StoreManager_MainActivity)getActivity();
         //데베 싱글톤 객체 생성
-        dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity);
+        dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity, "StoreManager");
 
-        dbconnector.Read_StoreManager();
+        dbconnector.Read_All_Data();
 
 
 
