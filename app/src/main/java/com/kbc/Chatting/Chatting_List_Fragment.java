@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
-public class Chatting_List_Fragment extends Fragment {
+public class Chatting_List_Fragment extends Fragment implements View.OnClickListener {
 
     private StoreManager_MainActivity storeManager_mainActivity;
     private FirebaseConnector dbconnector;
@@ -43,25 +44,30 @@ public class Chatting_List_Fragment extends Fragment {
 
         ViewGroup rootViewGroup =(ViewGroup) inflater.inflate(R.layout.chatting_list, container, false);
 
-        //액티비티 가져오고,
-        storeManager_mainActivity = (StoreManager_MainActivity)getActivity();
-        //데베 싱글톤 객체 생성
-        dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity, "StoreManager");
-
         bundle = getArguments();
         if(bundle != null){
             storeManager_id = bundle.getString("id");
         }
         Log.d(TAG,"점주 아이디 : "+ storeManager_id);
 
-        //점주아이디랑 같이 데베로 넘기기
-        dbconnector.Read_All_Data(storeManager_id);
+        //액티비티 가져오고,
+        storeManager_mainActivity = (StoreManager_MainActivity)getActivity();
+        //아이디 + 데베 싱글톤 객체 생성
+        dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity, "StoreManager",storeManager_id);
 
-
+        Button db_btn = (Button)rootViewGroup.findViewById(R.id.send_message);
+        db_btn.setOnClickListener( this);
 
         return rootViewGroup;
     }
 
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.send_message:
+                dbconnector.Read_All_Data();
+                break;
 
+        }
+    }
 
 }
