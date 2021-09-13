@@ -18,7 +18,13 @@
             android:value="kakao26e7f00a7916014db9a382d3086501a4" />
         <activity
             android:name=".StoreManager_MainActivity"
-            android:exported="true"/>
+            android:exported="true">
+<!--                <intent-filter>-->
+<!--                  <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                       </intent-filter>-->
+
+        </activity>
 
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
@@ -33,10 +39,10 @@
         </activity>
 
         <activity android:name=".Intro_Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--           </intent-filter>-->
         </activity>
         <activity android:name=".Login_Activity"></activity>
         <activity android:name=".Select_Log_Activity"></activity>
@@ -53,10 +59,11 @@
             android:value="face"/>
 
         <activity android:name=".Chatting_Send_Activity">
-            <!--    <intent-filter>-->
-               <!--      <action android:name="android.intent.action.MAIN" />-->
-                <!--    <category android:name="android.intent.category.LAUNCHER" />-->
-               <!--           </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
 
         <activity android:name=".StoreManager_CheckNum"></activity>
