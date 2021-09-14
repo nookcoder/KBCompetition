@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kbc">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
     <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.KBC"
-        android:name=".GlobalApplication">
+        android:theme="@style/Theme.KBC">
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="kakao26e7f00a7916014db9a382d3086501a4" />
+
         <activity
             android:name=".StoreManager_MainActivity"
             android:exported="true">
@@ -23,49 +25,54 @@
                   <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
                        </intent-filter>
-
         </activity>
-
+      
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <!--Redirect URI: "kakao{NATIVE_APP_KEY}://oauth"-->
                 <data
                     android:host="oauth"
-                    android:scheme="26e7f00a7916014db9a382d3086501a4"/>
+                    android:scheme="26e7f00a7916014db9a382d3086501a4" />
             </intent-filter>
         </activity>
 
         <activity android:name=".Intro_Activity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--           </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".Login_Activity"></activity>
-        <activity android:name=".Select_Log_Activity"></activity>
-        <activity android:name=".StoreManager_Login"></activity>
+        <activity android:name=".Added_Done_Activity"></activity>
         <activity android:name=".EmptyStoreInfo_Activity"></activity>
+        <activity android:name=".Login_Activity"></activity>
+        <activity android:name=".StoreManager_Add_Manager_Info_Activity"></activity>
+        <activity android:name=".StoreManager_Add_Store_Info_Activity"></activity>
+        <activity android:name=".StoreManager_Login"></activity>
         <activity android:name=".Select_User_Activity"></activity>
         <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
-        <activity android:name=".StoreManager_Add_Store_Info_Activity"></activity>
-        <activity android:name=".StoreManager_Add_Manager_Info_Activity"></activity>
-        <activity android:name=".Added_Done_Activity"></activity>
-        <activity android:name=".Popup_Activity"
-            android:theme="@style/popupTheme"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".WebViewActivity"></activity>
 
+        <activity
+            android:name=".Popup_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/popupTheme"></activity>
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-            android:value="face"/>
+            android:value="face" />
 
         <activity android:name=".Chatting_Send_Activity">
 
+            <!--    <intent-filter>-->
+            <!--      <action android:name="android.intent.action.MAIN" />-->
+            <!--    <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--           </intent-filter>-->
+
         </activity>
 
-        <activity android:name=".StoreManager_CheckNum"></activity>
 
     </application>
 

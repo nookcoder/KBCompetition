@@ -39,18 +39,14 @@ import static android.content.ContentValues.TAG;
 
 public class Chatting_Send_Activity extends AppCompatActivity {
 
-
     private EditText editText;
     private ListView listView;
     private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private ChattingAdapter chattingAdapter;
-
     private FirebaseConnector dbconnector;
     private String storeManager_id;
     private TextView chatting_other_name;
     private  String button_name;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +89,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 //        //채팅 업데이트 계속 해주기!!
 //        dbconnector.Update_chatting_listView(chatting_items,chattingAdapter,listView);
 //
-
 
 
     }

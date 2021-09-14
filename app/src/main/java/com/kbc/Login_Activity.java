@@ -19,10 +19,13 @@ import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
 
 //유저 선택 + 로그인 화면
+//To do 사업자 정보 등록되어 있는지 확인 필요!!
+//To do 데이터(userId) 전달
+
 public class Login_Activity extends AppCompatActivity {
     String selectedUser;
-    String id;
-    String iid;
+    String id,name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +34,10 @@ public class Login_Activity extends AppCompatActivity {
         //화면 전환 4개!
         //사업자 가게 정보 ㅇ , x
         Intent intentForStoreO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
-        Intent intentForStoreX = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
+        Intent intentForStoreX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
         //개인 기본 정보 ㅇ , x
         Intent intentForPsersonO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
-        Intent intentForPsersonX = new Intent(Login_Activity.this, Select_Log_Activity.class);//변경 필요!!!
+        Intent intentForPsersonX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
 
         // 라디오그룹 참조
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
@@ -82,7 +85,7 @@ public class Login_Activity extends AppCompatActivity {
                         Log.i("b", user.toString());
                         {
                             id=String.valueOf(user.getId());
-
+                            name=String.valueOf(user.getKakaoAccount().getProfile().getNickname());
                             Log.i("회원정보", "사용자 정보 요청 성공" +
                                     "\n회원번호: " + user.getId() +
                                     "\n이메일: " + user.getKakaoAccount().getEmail());
@@ -93,10 +96,12 @@ public class Login_Activity extends AppCompatActivity {
 
                     //사업자 화면 전환!!
                     if(selectedUser.equals("사업자")) {
+                        //1)정보 없는 경우 -> 정보 추가 화면으로
                         //데이터 전달 (userID)
-                        intentForStoreO.putExtra("userID" , id);
-                        startActivity(intentForStoreO);
+                        intentForStoreX.putExtra("userID" , name);
+                        startActivity(intentForStoreX);
                     }
+
                     //개인 화면 전환!!
                     else if(selectedUser.equals("개인")) {
                         //데이터 전달 (userID)
