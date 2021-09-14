@@ -20,11 +20,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_List_RecycleAdapter.ViewHolder> {
 
+    public interface OnItemClickEventListener {
+        void onItemClick(View view, int position);
+    }
+
     //채팅방 데이터 추가
     private ArrayList<Chatting_Item> chatting_items;
+    private OnItemClickEventListener onItemClickEventListener;
 
-    public Chatting_List_RecycleAdapter(ArrayList<Chatting_Item> chatting_items){
+    public Chatting_List_RecycleAdapter(ArrayList<Chatting_Item> chatting_items, OnItemClickEventListener onItemClickEventListener){
         this.chatting_items = chatting_items;
+        this.onItemClickEventListener = onItemClickEventListener;
     }
 
     //아이템 뷰를 위한 뷰홀더 객체를 형성 -> 레이아웃 생성
@@ -80,9 +86,16 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
 
                 @Override
                 public void onClick(View v) {
+                    //위치 받아오기
                     int position = getAdapterPosition();
 
-                    Log.d(TAG, "위치"+ position);
+                    //클릭이벤트 설정하기
+                    onItemClickEventListener.onItemClick(v, position);
+
+                    Log.d("test","position = "+ getAdapterPosition());
+
+
+
 
 
                 }

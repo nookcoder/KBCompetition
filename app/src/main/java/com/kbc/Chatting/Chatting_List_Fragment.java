@@ -1,11 +1,13 @@
 package com.kbc.Chatting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kbc.FirebaseConnector;
+import com.kbc.Popup_Activity;
 import com.kbc.R;
 import com.kbc.StoreManager_MainActivity;
 
@@ -25,7 +28,8 @@ import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
-public class Chatting_List_Fragment extends Fragment  {
+public class Chatting_List_Fragment extends Fragment implements
+Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -93,10 +97,22 @@ public class Chatting_List_Fragment extends Fragment  {
 
         //RecycleView에 사용 Adapter생성
         chatting_items = new ArrayList<>();
-        chatting_list_recycleAdapter = new Chatting_List_RecycleAdapter(chatting_items);
+        //클릭 이벤트 연결
+        chatting_list_recycleAdapter = new Chatting_List_RecycleAdapter(chatting_items, this);
+
         recyclerView.setAdapter(chatting_list_recycleAdapter);
 
         return rootViewGroup;
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Chatting_List_RecycleAdapter.ViewHolder viewHolder = (Chatting_List_RecycleAdapter.ViewHolder)recyclerView
+                .findViewHolderForAdapterPosition(position);
+
+        String click_chatting_list_name = viewHolder.chatting_list_name.getText().toString();
+       Log.d("유저 이름 -> ",click_chatting_list_name);
+
     }
 }
 
