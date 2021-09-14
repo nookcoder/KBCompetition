@@ -56,7 +56,47 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
             });
         }
 
+        //다음 버튼
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //문자열로 변환
+                managerId = managerIdEditText.getText().toString();
+                name = nameEditText.getText().toString();
+                year = yearEditText.getText().toString();
+                month = monthEditText.getText().toString();
+                day = dayEditText.getText().toString();
+                addressZipcode = addressZipcodeText.getText().toString(); //우편번호
+                fullAddress = addressText.getText().toString() + " " + detailAddressEditText.getText().toString(); //주소 전체
+                //날짜 합치기
+                birth = combineDate(year, month, day);
 
+                IdCheck.setVisibility(view.INVISIBLE);
+                nameCheck.setVisibility(view.INVISIBLE);
+                birthCheck.setVisibility(view.INVISIBLE);
+                addressCheck.setVisibility(view.INVISIBLE);
+
+                //비어있는 정보 있는지 확인
+                if (managerId.length() == 0 || name.length() == 0 || year.length() == 0 || month.length() == 0 || day.length() == 0 || addressZipcode.length() == 0 || detailAddressEditText.getText().toString().length() == 0) {
+                    if (managerId.length() == 0)
+                        IdCheck.setVisibility(view.VISIBLE);
+                    if (name.length() == 0)
+                        nameCheck.setVisibility(view.VISIBLE);
+                    if (year.length() == 0 || month.length() == 0 || day.length() == 0)
+                        birthCheck.setVisibility(view.VISIBLE);
+                    if (addressZipcode.length() == 0 || detailAddressEditText.getText().toString().length() == 0)
+                        addressCheck.setVisibility(view.VISIBLE);
+                }
+
+                //다 입력되어 있으면
+                else if (managerId.length() != 0 || name.length() != 0 || year.length() != 0 || month.length() != 0 || day.length() != 0 || addressZipcode.length() != 0 || detailAddressEditText.getText().toString().length() != 0) {
+                    //intent로 화면 전환 + [user : 사업자] 전달
+                    Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
+                    intent.putExtra("user", "store manager");
+                    startActivity(intent);
+                }
+            }
+        });
 
 
 
