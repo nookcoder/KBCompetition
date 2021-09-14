@@ -18,9 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kbc.Chatting_Send_Activity;
 import com.kbc.FirebaseConnector;
 import com.kbc.Popup_Activity;
 import com.kbc.R;
+import com.kbc.Select_Log_Activity;
 import com.kbc.StoreManager_MainActivity;
 
 import java.util.ArrayList;
@@ -110,8 +112,18 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         Chatting_List_RecycleAdapter.ViewHolder viewHolder = (Chatting_List_RecycleAdapter.ViewHolder)recyclerView
                 .findViewHolderForAdapterPosition(position);
 
+        //선택한 채팅방 이름 (상대방)
         String click_chatting_list_name = viewHolder.chatting_list_name.getText().toString();
        Log.d("유저 이름 -> ",click_chatting_list_name);
+
+
+
+        //채팅방들어가기
+        Intent intent = new Intent(getActivity(), Chatting_Send_Activity.class );
+        intent.putExtra("click_chatting_list_name",click_chatting_list_name);
+        startActivity(intent);
+
+
 
     }
 }
