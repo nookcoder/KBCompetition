@@ -98,8 +98,8 @@ public class Login_Activity extends AppCompatActivity {
                     if(selectedUser.equals("사업자")) {
                         //1)정보 없는 경우 -> 정보 추가 화면으로
                         //데이터 전달 (userID)
-                        intentForStoreO.putExtra("userID" , name);
-                        startActivity(intentForStoreO);
+                        intentForStoreX.putExtra("userID" , name);
+                        startActivity(intentForStoreX);
                     }
 
                     //개인 화면 전환!!

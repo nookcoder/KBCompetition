@@ -33,10 +33,7 @@
         </activity>
 
         <activity android:name=".Intro_Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>
+
         </activity>
         <activity android:name=".Login_Activity"></activity>
         <activity android:name=".Select_Log_Activity"></activity>
@@ -50,6 +47,15 @@
         <activity android:name=".Popup_Activity"
             android:theme="@style/popupTheme"
             android:screenOrientation="portrait"></activity>
+
+
+        <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".WebViewActivity"></activity>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
