@@ -7,11 +7,11 @@ public class Chatting_Item {
     private String time;
     private String profileUrl;
 
-    public Chatting_Item(String name, String message, String time, String profileUrl) {
+    public Chatting_Item(String name, String profileUrl, String message, String time){
         this.name = name;
+        this.profileUrl = profileUrl;
         this.message = message;
         this.time = time;
-        this.profileUrl = profileUrl;
     }
 
     //firebase DB에 객체로 값을 읽어올 때..

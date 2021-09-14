@@ -2,6 +2,7 @@ package com.kbc;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.ChattingAdapter;
 import com.kbc.Chatting.Chatting_Item;
+import com.kbc.Chatting.Chatting_List_Fragment;
 import com.kbc.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,19 +45,27 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private ChattingAdapter chattingAdapter;
 
+    private FirebaseConnector dbconnector;
+    private String storeManager_id;
+    private TextView chatting_other_name;
+    private  String button_name;
 
-    //파이어베이스 데베 연동
-    private FirebaseDatabase database;
-    //데베 연결
-    private DatabaseReference databaseReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatting_send_activity);
 
+        Intent intent = getIntent();
+        String click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
+
+
+
         //채팅방 제목 -> 유저이름으로!!
-//        getSupportActionBar().setTitle(Chatting.userName);
+        chatting_other_name = findViewById(R.id.other_userName);
+        chatting_other_name.setText(click_chatting_list_name);
 
         //메세지 입력내용 받아오기
         editText = findViewById(R.id.chatting_input_text);
@@ -64,9 +75,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         chattingAdapter = new ChattingAdapter(chatting_items, getLayoutInflater());
         listView.setAdapter(chattingAdapter);
 
-        //데베 연동 + chat 노드 참조 객체 가져오기
-        database  = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
 
 
         Button send_btn = findViewById(R.id.send_message);
@@ -79,81 +87,50 @@ public class Chatting_Send_Activity extends AppCompatActivity {
             }
         });
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-
-
-                Log.d(TAG, "이름: " + map);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-                //새로 추가된 채팅 입력 가져오기
-                Chatting_Item chatting_item = snapshot.getValue(Chatting_Item.class);
-                //데이터 추가
-                chatting_items.add(chatting_item);
-                //리스트뷰 갱신
-                chattingAdapter.notifyDataSetChanged();
-                //리스트뷰 마지막 위치로 스크롤 이동
-                listView.setSelection(chatting_items.size()-1);
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-
+//        //db객체 만들어주고,
+//        dbconnector = FirebaseConnector.getInstance(this, "StoreManager",storeManager_id);
+//
+//        //채팅 업데이트 계속 해주기!!
+//        dbconnector.Update_chatting_listView(chatting_items,chattingAdapter,listView);
+//
 
 
 
     }
+
+    //뒤로가기 이벤트
+    public void click_back(View view){
+          switch (button_name){
+
+            //채팅방 나가기
+            case "chatting_close":
+                //채팅하는곳 액티비티 닫아주고,
+                finish();
+                //채팅방 목록 리스트 열어주기!
+                Intent chatting_list_intent = new Intent(this, Chatting_List_Fragment.class);
+                startActivity(chatting_list_intent);
+                break;
+
+        }
+    }
+
     public void clickSend(View view){
-
-        //파이어베이스에 저장할 유저이름, 메세지, 프로필 이미지
-        String userName = Chatting.userName;
-        String input_text = editText.getText().toString();
-        String profileUrl = Chatting.profileUrl;
-        //메세지 보낸 시간
-        Calendar calendar = Calendar.getInstance();
-        String send_message_time = calendar.get(Calendar.HOUR_OF_DAY)+ ":" + calendar.get(Calendar.MINUTE);
-
-        //chattingitem객체 설정
-        Chatting_Item new_chatting_item = new Chatting_Item(userName,input_text,send_message_time,profileUrl);
-        databaseReference.push().setValue(new_chatting_item);
-
-        //키패드 안보이게!
-        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
-
-
+//
+//        //파이어베이스에 저장할 유저이름, 메세지, 프로필 이미지
+//        String userName = Chatting.userName;
+//        String input_text = editText.getText().toString();
+//        String profileUrl = Chatting.profileUrl;
+//        //메세지 보낸 시간
+//        Calendar calendar = Calendar.getInstance();
+//        String send_message_time = calendar.get(Calendar.HOUR_OF_DAY)+ ":" + calendar.get(Calendar.MINUTE);
+//
+//        //chattingitem객체 설정
+//        Chatting_Item new_chatting_item = new Chatting_Item(userName,profileUrl, input_text,send_message_time);
+//
+//
+//        //키패드 안보이게!
+//        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
 
 
     }

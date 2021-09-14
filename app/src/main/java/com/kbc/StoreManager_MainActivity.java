@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_List_Fragment;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
@@ -22,6 +23,9 @@ public class StoreManager_MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
+
+    private String storeManager_id;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,10 +36,18 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         //유저 데이터 받기
         Intent intentForGet = getIntent();
-        String userId = intentForGet.getExtras().getString("userID");
+//        String userId = intentForGet.getExtras().getString("userID");
+
+        //서히 테스트용
+        storeManager_id = "seohee";
+
+        //fragment로 데이터 전달
+        bundle = new Bundle(1);
+        bundle.putString("id" , storeManager_id);
+
         //테스트용
-        TextView test = (TextView)findViewById(R.id.test);
-        test.setText(userId);
+//        TextView test = (TextView)findViewById(R.id.test);
+//        test.setText(userId);
 
 
         storeManager_mainActivity = StoreManager_MainActivity.this;
@@ -45,6 +57,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         BottomNavigationView bottomNavigationView = findViewById(R.id.store_manger_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new bottomMenuSelectListener());
+
     }
 
     class bottomMenuSelectListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -59,6 +72,8 @@ public class StoreManager_MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.nav_chatting:
+                    //점주 아이디 번들 전달
+                    storeManager_chatting_fragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.fragment_container, storeManager_chatting_fragment).commit();
                     break;
 
