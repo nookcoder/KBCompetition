@@ -6,12 +6,22 @@ public class Chatting_Item {
     private String message;
     private String time;
     private String profileUrl;
+    private int viewType;
 
+    //채팅방 목록
     public Chatting_Item(String name, String profileUrl, String message, String time){
         this.name = name;
         this.profileUrl = profileUrl;
         this.message = message;
         this.time = time;
+    }
+    //채팅내
+    public Chatting_Item(String name, String profileUrl, String message, String time, int viewType){
+        this.name = name;
+        this.profileUrl = profileUrl;
+        this.message = message;
+        this.time = time;
+        this.viewType = viewType;
     }
 
     //firebase DB에 객체로 값을 읽어올 때..
@@ -50,6 +60,11 @@ public class Chatting_Item {
 
     public void setProfileUrl(String pofileUrl) {
         this.profileUrl = profileUrl;
+    }
+
+    public int getViewType(){return viewType;}
+    public void setViewType(int viewType){
+        this.viewType = viewType;
     }
 }
 

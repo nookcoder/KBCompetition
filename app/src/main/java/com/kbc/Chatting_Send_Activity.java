@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +45,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private ListView listView;
     private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private ChattingAdapter chattingAdapter;
+    private RecyclerView recyclerView;
 
     private FirebaseConnector dbconnector;
     private String storeManager_id;
@@ -61,21 +63,22 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         String click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
 
-
-
         //채팅방 제목 -> 유저이름으로!!
         chatting_other_name = findViewById(R.id.other_userName);
         chatting_other_name.setText(click_chatting_list_name);
 
-        //메세지 입력내용 받아오기
-        editText = findViewById(R.id.chatting_input_text);
+
         //채팅 리스트 불러오기
-        listView = findViewById(R.id.chatting_listview);
+        recyclerView = findViewById(R.id.chatrooms_recycleView);
+
         //어뎁터 적용
         chattingAdapter = new ChattingAdapter(chatting_items, getLayoutInflater());
         listView.setAdapter(chattingAdapter);
 
 
+
+        //메세지 입력내용 받아오기
+        editText = findViewById(R.id.chatting_input_text);
 
         Button send_btn = findViewById(R.id.send_message);
         send_btn.setOnClickListener(new View.OnClickListener() {
