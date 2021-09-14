@@ -20,8 +20,13 @@
 
         <activity
             android:name=".StoreManager_MainActivity"
-            android:exported="true" />
-
+            android:exported="true">
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                       </intent-filter>
+        </activity>
+      
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -60,10 +65,12 @@
             android:value="face" />
 
         <activity android:name=".Chatting_Send_Activity">
+
             <!--    <intent-filter>-->
             <!--      <action android:name="android.intent.action.MAIN" />-->
             <!--    <category android:name="android.intent.category.LAUNCHER" />-->
             <!--           </intent-filter>-->
+
         </activity>
 
 

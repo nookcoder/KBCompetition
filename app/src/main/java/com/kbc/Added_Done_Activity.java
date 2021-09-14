@@ -24,6 +24,7 @@ public class Added_Done_Activity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //유저가 사업자면
                 if(user.equals("store manager")){
                     Intent intent1 = new Intent(getApplicationContext(), Login_Activity.class);//변경 필요
@@ -34,6 +35,7 @@ public class Added_Done_Activity extends AppCompatActivity {
                     Intent intent2 = new Intent(getApplicationContext(), Login_Activity.class);//변경 필요
                     startActivity(intent2);
                 }
+
             }
         });
     }
