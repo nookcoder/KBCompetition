@@ -1,6 +1,7 @@
 package com.kbc.Chatting;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,17 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
             this.chatting_list_send_message = (TextView)itemView.findViewById(R.id.chatting_list_send_message);
             this.chatting_list_send_message_time = (TextView)itemView.findViewById(R.id.chatting_list_send_message_time);
 
+            itemView.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    Log.d(TAG, "위치"+ position);
+
+
+                }
+            });
         }
     }
 }
