@@ -50,7 +50,6 @@
         <activity android:name=".Select_User_Activity"></activity>
         <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
         <activity android:name=".WebViewActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
 
         <activity
             android:name=".Popup_Activity"

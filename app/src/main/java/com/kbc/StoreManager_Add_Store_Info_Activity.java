@@ -58,7 +58,7 @@ public class StoreManager_Add_Store_Info_Activity extends AppCompatActivity {
 
                 //다 입력되어 있으면
                 else if (name.length() != 0 && phone.length() != 0) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), StoreManager_Add_Manager_Info_Activity.class);
                     startActivity(intent);
                 }
             }
