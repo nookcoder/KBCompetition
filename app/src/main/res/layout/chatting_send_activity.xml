@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Chatting_Send_Activity">
+    tools:context=".Chatting.Chatting_Send_Activity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -50,7 +50,7 @@
 
             android:id="@+id/chatrooms_recycleView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             >
 
         </androidx.recyclerview.widget.RecyclerView>

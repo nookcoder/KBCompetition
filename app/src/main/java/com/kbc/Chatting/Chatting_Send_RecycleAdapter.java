@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Chatting;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_Item;
 import com.kbc.Chatting.Chatting_List_RecycleAdapter;
+import com.kbc.R;
 
 import org.jetbrains.annotations.NotNull;
 

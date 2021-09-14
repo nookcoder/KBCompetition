@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Chatting;
 
 
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -27,6 +28,7 @@ import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.ChattingAdapter;
 import com.kbc.Chatting.Chatting_Item;
 import com.kbc.Chatting.Chatting_List_Fragment;
+import com.kbc.FirebaseConnector;
 import com.kbc.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,14 +44,17 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
 
     private EditText editText;
-    private ListView listView;
+
     private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
-    private ChattingAdapter chattingAdapter;
+    private Chatting_Send_RecycleAdapter chatting_send_recycleAdapter;
     private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
 
     private FirebaseConnector dbconnector;
     private String storeManager_id;
     private TextView chatting_other_name;
+    private  String click_chatting_list_name;
+
     private  String button_name;
 
 
@@ -63,18 +68,22 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         String click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
 
+
         //채팅방 제목 -> 유저이름으로!!
         chatting_other_name = findViewById(R.id.other_userName);
         chatting_other_name.setText(click_chatting_list_name);
 
+        initData();
 
         //채팅 리스트 불러오기
         recyclerView = findViewById(R.id.chatrooms_recycleView);
+        linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         //어뎁터 적용
-        chattingAdapter = new ChattingAdapter(chatting_items, getLayoutInflater());
-        listView.setAdapter(chattingAdapter);
-
+        chatting_send_recycleAdapter = new Chatting_Send_RecycleAdapter(chatting_items);
+        recyclerView.setAdapter(chatting_send_recycleAdapter);
+        chatting_send_recycleAdapter.notifyDataSetChanged();
 
 
         //메세지 입력내용 받아오기
@@ -99,6 +108,13 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
 
 
+    }
+
+    private void initData() {
+        chatting_items.add(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
+        chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
+
+        Log.d(TAG, "채팅 리스트 -> "+ chatting_items.size());
     }
 
     //뒤로가기 이벤트

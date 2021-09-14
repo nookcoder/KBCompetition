@@ -6,27 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.kbc.Chatting_Send_Activity;
 import com.kbc.FirebaseConnector;
-import com.kbc.Popup_Activity;
 import com.kbc.R;
-import com.kbc.Select_Log_Activity;
 import com.kbc.StoreManager_MainActivity;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 

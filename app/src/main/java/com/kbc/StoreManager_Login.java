@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
-import com.kbc.Chatting.Chatting;
+import com.kbc.Chatting.Chatting_Send_Activity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
