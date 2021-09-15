@@ -45,8 +45,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     private EditText editText;
 
-    private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
+    private static ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private Chatting_Send_RecycleAdapter chatting_send_recycleAdapter;
+    private Chatting_List_RecycleAdapter chatting_list_recycleAdapter;
+
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
@@ -73,18 +75,31 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         chatting_other_name = findViewById(R.id.other_userName);
         chatting_other_name.setText(click_chatting_list_name);
 
-        initData();
+        chatting_items.add(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
+        chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
+        chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
+
+
+        Log.d(TAG, "채팅 리스트 -> "+ chatting_items.size());
+        Log.d(TAG, "채팅 리스트 -> "+ chatting_items.get(1).getMessage() + "/" + chatting_items.get(1).getViewType());
+
+
 
         //채팅 리스트 불러오기
         recyclerView = findViewById(R.id.chatrooms_recycleView);
-        linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
+
 
         //어뎁터 적용
         chatting_send_recycleAdapter = new Chatting_Send_RecycleAdapter(chatting_items);
         recyclerView.setAdapter(chatting_send_recycleAdapter);
+
+
         chatting_send_recycleAdapter.notifyDataSetChanged();
 
+
+        Log.d(TAG,"채팅내역 리스트 ->>>>> " + chatting_send_recycleAdapter.getItemCount());
 
         //메세지 입력내용 받아오기
         editText = findViewById(R.id.chatting_input_text);
@@ -107,14 +122,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 //
 
 
-
-    }
-
-    private void initData() {
-        chatting_items.add(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
-        chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
-
-        Log.d(TAG, "채팅 리스트 -> "+ chatting_items.size());
     }
 
     //뒤로가기 이벤트

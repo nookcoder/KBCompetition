@@ -28,6 +28,8 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
     private ArrayList<Chatting_Item> chatting_items;
     private OnItemClickEventListener onItemClickEventListener;
 
+
+
     public Chatting_List_RecycleAdapter(ArrayList<Chatting_Item> chatting_items, OnItemClickEventListener onItemClickEventListener){
         this.chatting_items = chatting_items;
         this.onItemClickEventListener = onItemClickEventListener;

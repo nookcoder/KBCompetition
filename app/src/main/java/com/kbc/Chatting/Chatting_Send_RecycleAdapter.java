@@ -1,6 +1,7 @@
 package com.kbc.Chatting;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
         Context context = viewGroup.getContext();
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
         if(viewType == Chatting.LEFT_CONTENT){
             view = layoutInflater.inflate(R.layout.chatting_other_message_box, viewGroup,false);
             return new Left_ViewHolder(view);
@@ -51,64 +53,76 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
 
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder send_viewHolder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int position) {
 
-        if(send_viewHolder instanceof Left_ViewHolder){
+        if(viewHolder instanceof Left_ViewHolder){
 //             ((Left_ViewHolder)send_viewHolder).chatting_circle_imageview.setImageURI(chatting_items.get(position).getProfileUrl());
-            ((Left_ViewHolder)send_viewHolder).chatting_name.setText(chatting_items.get(position).getName());
-            ((Left_ViewHolder)send_viewHolder).chatting_send_message.setText(chatting_items.get(position).getMessage());;
-            ((Left_ViewHolder)send_viewHolder).chatting_send_message_time.setText(chatting_items.get(position).getTime());
+
+            ((Left_ViewHolder)viewHolder).chatting_name.setText(chatting_items.get(position).getName());
+            ((Left_ViewHolder)viewHolder).chatting_send_message.setText(chatting_items.get(position).getMessage());;
+            ((Left_ViewHolder)viewHolder).chatting_send_message_time.setText(chatting_items.get(position).getTime());
+            ((Left_ViewHolder)viewHolder).itemView.setTag(position);
         }
         else {
             //             ((Right_ViewHolder)send_viewHolder).chatting_circle_imageview.setImageURI(chatting_items.get(position).getProfileUrl());
-            ((Right_ViewHolder)send_viewHolder).chatting_name.setText(chatting_items.get(position).getName());
-            ((Right_ViewHolder)send_viewHolder).chatting_send_message.setText(chatting_items.get(position).getMessage());;
-            ((Left_ViewHolder)send_viewHolder).chatting_send_message_time.setText(chatting_items.get(position).getTime());
+            ((Right_ViewHolder)viewHolder).chatting_name.setText(chatting_items.get(position).getName());
+            ((Right_ViewHolder)viewHolder).chatting_send_message.setText(chatting_items.get(position).getMessage());;
+            ((Right_ViewHolder)viewHolder).chatting_send_message_time.setText(chatting_items.get(position).getTime());
+            ((Right_ViewHolder)viewHolder).itemView.setTag(position);
 
         }
     }
 
     @Override
-    public int getItemCount() {
-        return 0;
+    public int getItemViewType(int position) {
+        return chatting_items.get(position).getViewType();
     }
+
+    @Override
+    public int getItemCount() {
+        return chatting_items.size();
+    }
+
 
 
     public class Left_ViewHolder extends RecyclerView.ViewHolder{
 
         //프로필 사진, 이름, 메세지, 보낸 시간
-        protected CircleImageView chatting_circle_imageview;
-        protected TextView chatting_name;
-        protected TextView chatting_send_message;
-        protected TextView chatting_send_message_time;
+         CircleImageView chatting_circle_imageview;
+         TextView chatting_name;
+         TextView chatting_send_message;
+         TextView chatting_send_message_time;
 
         public Left_ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
-            this.chatting_circle_imageview = (CircleImageView)itemView.findViewById(R.id.chatting_circle_imageview);
-            this.chatting_name = (TextView)itemView.findViewById(R.id.chatting_name);
-            this.chatting_send_message = (TextView)itemView.findViewById(R.id.chatting_send_message);
-            this.chatting_send_message_time = (TextView)itemView.findViewById(R.id.chatting_send_message_time);
+            chatting_circle_imageview =itemView.findViewById(R.id.chatting_circle_imageview);
+            chatting_name = itemView.findViewById(R.id.chatting_name);
+            chatting_send_message = itemView.findViewById(R.id.chatting_send_message);
+            chatting_send_message_time = itemView.findViewById(R.id.chatting_send_message_time);
 
         }
     }
 
     public class Right_ViewHolder extends RecyclerView.ViewHolder{
         //프로필 사진, 이름, 메세지, 보낸 시간
-        protected CircleImageView chatting_circle_imageview;
-        protected TextView chatting_name;
-        protected TextView chatting_send_message;
-        protected TextView chatting_send_message_time;
+        CircleImageView chatting_circle_imageview;
+         TextView chatting_name;
+         TextView chatting_send_message;
+         TextView chatting_send_message_time;
 
         public Right_ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
 
 
-            this.chatting_circle_imageview = (CircleImageView)itemView.findViewById(R.id.chatting_circle_imageview);
-            this.chatting_name = (TextView)itemView.findViewById(R.id.chatting_name);
-            this.chatting_send_message = (TextView)itemView.findViewById(R.id.chatting_send_message);
-            this.chatting_send_message_time = (TextView)itemView.findViewById(R.id.chatting_send_message_time);
+            chatting_circle_imageview = itemView.findViewById(R.id.chatting_circle_imageview);
+            chatting_name = itemView.findViewById(R.id.chatting_name);
+            chatting_send_message = itemView.findViewById(R.id.chatting_send_message);
+            chatting_send_message_time = itemView.findViewById(R.id.chatting_send_message_time);
+
 
         }
     }
+
+
 }
