@@ -64,7 +64,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             switch (item.getItemId()){
                 case R.id.nav_sale:
-
+                    fragmentTransaction.replace(R.id.fragment_container, storeManager_salesList_fragment).commit();
                     break;
 
                 case R.id.nav_chatting:
