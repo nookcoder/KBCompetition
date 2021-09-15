@@ -15,4 +15,17 @@ public class Chatting {
     //파이어베이스에 등록된 채팅방인지 아닌지 검사
     public static final String NO_CHATTING_ROOM = "채팅방없음";
     public static final int ZERO_CHATTING_ROOM = 0;
+
+
+    //파이어베이스 값 찾기
+    public static final String DATE = "date";
+    public static final String PROFILEUTL = "profileUrl";
+    public static final String NAME = "name";
+    public static final String TIME = "time";
+    public static final String MESSAGE = "message";
+
+    public static final String STORE_MANAGER_MODE = "StoreManager";
+    public static final String PERSON = "Person";
+
+
 }

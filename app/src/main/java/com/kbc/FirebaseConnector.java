@@ -150,18 +150,6 @@ public class FirebaseConnector {
 
                         getChatting();
 
-
-
-
-
-
-
-
-
-
-
-
-
                    }
                 }
             }
@@ -201,6 +189,10 @@ public class FirebaseConnector {
 
 
 
+    }
+
+    public ArrayList<HashMap<String, String>> Get_Chatting_Me_Message(){
+        return chatting_me_arraylist;
     }
 
     //처음 채팅 아이디 넣기

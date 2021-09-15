@@ -92,6 +92,8 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         //채팅방들어가기
         Intent intent = new Intent(getActivity(), Chatting_Send_Activity.class );
         intent.putExtra("click_chatting_list_name",click_chatting_list_name);
+        intent.putExtra("mode", Chatting.STORE_MANAGER_MODE);
+
         startActivity(intent);
 
 
