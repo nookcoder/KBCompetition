@@ -61,7 +61,7 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face"/>
 
-        <activity android:name=".Chatting_Send_Activity">
+        <activity android:name=".Chatting.Chatting_Send_Activity">
 
         </activity>
 

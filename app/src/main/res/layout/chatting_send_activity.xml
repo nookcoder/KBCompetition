@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Chatting_Send_Activity">
+    tools:context=".Chatting.Chatting_Send_Activity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -39,14 +39,24 @@
             />
     </androidx.appcompat.widget.Toolbar>
 
-
-    <ListView
-        android:id="@+id/chatting_listview"
+    <!--채팅 전송버튼 밑에 고정시키기-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:divider="#ffffff"
-        android:dividerHeight="0dp"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <!--채팅리사이클뷰-->
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/chatrooms_recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +64,7 @@
         android:orientation="horizontal"
         android:padding="4dp"
         android:background="@drawable/edge"
-        android:gravity="center_vertical">
+        android:gravity="bottom">
 
         <EditText
             android:id="@+id/chatting_input_text"
@@ -73,8 +83,8 @@
             android:textSize="20dp"
 
             android:background="@drawable/radius"/>
-
     </LinearLayout>
+
 </LinearLayout>
 
 

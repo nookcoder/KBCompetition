@@ -25,6 +25,7 @@ public class Login_Activity extends AppCompatActivity {
     String iid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 

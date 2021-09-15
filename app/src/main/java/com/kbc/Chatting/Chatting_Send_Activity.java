@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Chatting;
 
 
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +28,7 @@ import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.ChattingAdapter;
 import com.kbc.Chatting.Chatting_Item;
 import com.kbc.Chatting.Chatting_List_Fragment;
+import com.kbc.FirebaseConnector;
 import com.kbc.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,14 +44,21 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
 
     private EditText editText;
-    private ListView listView;
-    private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
-    private ChattingAdapter chattingAdapter;
+//
+    private static ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
+    private Chatting_Send_RecycleAdapter chatting_send_recycleAdapter;
+
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
 
     private FirebaseConnector dbconnector;
     private String storeManager_id;
     private TextView chatting_other_name;
+    private  String click_chatting_list_name;
+
     private  String button_name;
+
+
 
 
 
@@ -62,30 +72,37 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         String click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
 
 
-
         //채팅방 제목 -> 유저이름으로!!
         chatting_other_name = findViewById(R.id.other_userName);
         chatting_other_name.setText(click_chatting_list_name);
 
-        //메세지 입력내용 받아오기
-        editText = findViewById(R.id.chatting_input_text);
+        chatting_items.add(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
+        chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
+        chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
+
         //채팅 리스트 불러오기
-        listView = findViewById(R.id.chatting_listview);
+        recyclerView = findViewById(R.id.chatrooms_recycleView);
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+
+
+
+
         //어뎁터 적용
-        chattingAdapter = new ChattingAdapter(chatting_items, getLayoutInflater());
-        listView.setAdapter(chattingAdapter);
+        chatting_send_recycleAdapter = new Chatting_Send_RecycleAdapter(chatting_items);
+        recyclerView.setAdapter(chatting_send_recycleAdapter);
 
 
 
-        Button send_btn = findViewById(R.id.send_message);
-        send_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //데이터베이스에 쓰기
-//                databaseReference.child("넹~").push().setValue("연결중입니다~");
-                Log.d("클릭","들어가!!!");
-            }
-        });
+
+        Log.d(TAG,"채팅내역 리스트 ->>>>> " + chatting_send_recycleAdapter.getItemCount());
+
+
+        Log.d(TAG, "채팅 리스트 -> "+ chatting_send_recycleAdapter.getItemCount());
+
+
+
 
 //        //db객체 만들어주고,
 //        dbconnector = FirebaseConnector.getInstance(this, "StoreManager",storeManager_id);
@@ -95,7 +112,29 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 //
 
 
+    }
 
+    @Override
+    protected void onResume() {
+
+
+        super.onResume();
+        //메세지 입력내용 받아오기
+        editText = findViewById(R.id.chatting_input_text);
+
+        Button send_btn = findViewById(R.id.send_message);
+        send_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //데이터베이스에 쓰기
+//                databaseReference.child("넹~").push().setValue("연결중입니다~");
+                Log.d("클릭","들어가!!!");
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
+                Log.d(TAG, "채팅 리스트 -> "+ chatting_send_recycleAdapter.getItemCount());
+                chatting_send_recycleAdapter.notifyDataSetChanged();
+
+            }
+        });
     }
 
     //뒤로가기 이벤트
