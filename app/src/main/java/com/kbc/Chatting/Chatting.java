@@ -5,8 +5,9 @@ public class Chatting {
     public static String profileUrl;
 
     //채팅창에서 정렬을 위한 매직넘버
-    public static final int LEFT_CONTENT = 111;
-    public static final int RIGHT_CONTENT = 222;
+    public static final int CENTER_CONTENT = 0;
+    public static final int LEFT_CONTENT = 1;
+    public static final int RIGHT_CONTENT = 2;
 
     //채팅목록 불러오기 / 채팅내역 불러오기 타입 분류
     public static final String GET_CHATROOMS = "채팅방 불러오기";
@@ -26,6 +27,9 @@ public class Chatting {
 
     public static final String STORE_MANAGER_MODE = "StoreManager";
     public static final String PERSON = "Person";
+
+    public static final int ME = 1;
+    public static final int OTHER = 2;
 
 
 }
