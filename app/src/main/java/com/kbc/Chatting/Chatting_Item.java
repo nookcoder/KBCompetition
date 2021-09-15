@@ -6,6 +6,7 @@ public class Chatting_Item {
     private String message;
     private String time;
     private String profileUrl;
+    private String date;
     private int viewType;
 
     //채팅방 목록
@@ -26,8 +27,12 @@ public class Chatting_Item {
 
     //firebase DB에 객체로 값을 읽어올 때..
     //파라미터가 비어있는 생성자가 핑요함.
-    public Chatting_Item() {
+    public Chatting_Item(String date, int viewType) {
+        this.date = date;
+        this.viewType = viewType;
     }
+    public Chatting_Item(){}
+
 
     //Getter & Setter
     public String getName() {
@@ -61,6 +66,10 @@ public class Chatting_Item {
     public void setProfileUrl(String pofileUrl) {
         this.profileUrl = profileUrl;
     }
+
+    public String getDate(){ return date;}
+
+    public void setDate(String date){this.date = date;}
 
     public int getViewType(){return viewType;}
     public void setViewType(int viewType){

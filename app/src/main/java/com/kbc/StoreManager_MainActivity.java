@@ -45,10 +45,6 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         bundle = new Bundle(1);
         bundle.putString("id" , storeManager_id);
 
-        //테스트용
-//        TextView test = (TextView)findViewById(R.id.test);
-//        test.setText(userId);
-
 
         storeManager_mainActivity = StoreManager_MainActivity.this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
