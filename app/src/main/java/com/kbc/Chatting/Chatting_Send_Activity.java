@@ -33,6 +33,8 @@ import com.kbc.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -58,10 +60,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     private  String button_name;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,13 +69,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         String click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
 
-
         //채팅방 제목 -> 유저이름으로!!
         chatting_other_name = findViewById(R.id.other_userName);
         chatting_other_name.setText(click_chatting_list_name);
 
         chatting_items.add(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
-        chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
         chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
 
         //채팅 리스트 불러오기
@@ -85,22 +81,9 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
-
-
-
         //어뎁터 적용
         chatting_send_recycleAdapter = new Chatting_Send_RecycleAdapter(chatting_items);
         recyclerView.setAdapter(chatting_send_recycleAdapter);
-
-
-
-
-        Log.d(TAG,"채팅내역 리스트 ->>>>> " + chatting_send_recycleAdapter.getItemCount());
-
-
-        Log.d(TAG, "채팅 리스트 -> "+ chatting_send_recycleAdapter.getItemCount());
-
 
 
 
@@ -154,22 +137,22 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     }
 
     public void clickSend(View view){
-//
-//        //파이어베이스에 저장할 유저이름, 메세지, 프로필 이미지
-//        String userName = Chatting.userName;
-//        String input_text = editText.getText().toString();
-//        String profileUrl = Chatting.profileUrl;
-//        //메세지 보낸 시간
-//        Calendar calendar = Calendar.getInstance();
-//        String send_message_time = calendar.get(Calendar.HOUR_OF_DAY)+ ":" + calendar.get(Calendar.MINUTE);
-//
-//        //chattingitem객체 설정
-//        Chatting_Item new_chatting_item = new Chatting_Item(userName,profileUrl, input_text,send_message_time);
-//
-//
-//        //키패드 안보이게!
-//        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+
+        //파이어베이스에 저장할 유저이름, 메세지, 프로필 이미지
+        String userName = Chatting.userName;
+        String input_text = editText.getText().toString();
+        String profileUrl = Chatting.profileUrl;
+
+        //메세지 보낸 시간
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH : mm");
+        dateFormat.format(calendar.getTime());
+
+
+
+        //키패드 안보이게!
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
 
 
     }

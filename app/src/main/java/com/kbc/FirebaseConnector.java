@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.ChildEventListener;
+import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.ChattingAdapter;
 import com.kbc.Chatting.Chatting_Item;
 
@@ -33,11 +34,13 @@ public class FirebaseConnector {
     //데이터베이스 연결 변수
     private static FirebaseDatabase firebaseDatabase;
     private static DatabaseReference databaseReference;
-    private String login_id;
+    private String login_id, chat_mode;
 
     //액티비티에 연결 객체 생성
-    public static FirebaseConnector getInstance(Activity activity, String mode, String login_id){
-        firebaseConnector = new FirebaseConnector(activity, mode, login_id);
+    public static FirebaseConnector getInstance(Activity activity, String mode, String login_id,
+                                                String chat_mode) {
+
+        firebaseConnector = new FirebaseConnector(activity, mode, login_id,chat_mode);
 
         return firebaseConnector;
     }
@@ -47,7 +50,9 @@ public class FirebaseConnector {
     }
 
     //데베 구축
-    private FirebaseConnector(Activity activity, String mode, String login_id){
+    private FirebaseConnector(Activity activity, String mode, String login_id,
+                              String chat_mode){
+        this.chat_mode = chat_mode;
         FirebaseApp.initializeApp(activity);
         firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -63,14 +68,24 @@ public class FirebaseConnector {
                 break;
 
         }
+
         this.login_id = login_id;
+
         Read_All_Data();
     }
 
     //전체 트리 가져오고, 모드 나눠서 세부 id로 들어가기
-    private Map<String, Object> map, id_map,id_inside_map;
+    private Map<String, Object> map;
+    private Map<String, Object> id_map;
+    private Map<String, Object> id_inside_map;
+
+    private HashMap<String, String> input_map;
+    private Object[] chatting_map;
+
+    private Map<String, Object> chatrooms_map;
     //해당 id의 채팅방 + 채팅 내용 불러오기!
     private ArrayList<HashMap<String, String>> chatrooms_arraylist, chatting_arraylist;
+    private ArrayList<HashMap<String, String>> chatting_me_arraylist, chatting_other_arraylist;
 
 
 
@@ -89,9 +104,9 @@ public class FirebaseConnector {
                         id_map = (Map<String, Object>) map.get(id);
                     }
 
-                    Log.d(TAG, "카카오아이디 : "+ id_map);
-                    int check_id_count = 0;
+                    Log.d(TAG, "카카오아이디 : "+ id_map.keySet());
 
+                    int check_id_count = 0;
                     for(String id_inside : id_map.keySet()){
 
                         //로그인 된 아이디의 데이터를 가져오기
@@ -102,7 +117,7 @@ public class FirebaseConnector {
                         check_id_count++;
 
                     }
-                    Log.d(TAG,check_id_count+":"+id_map.size());
+
                     //등록된적없는 id
                     if( check_id_count == id_map.size()){
                         Initialize_Id();
@@ -116,21 +131,38 @@ public class FirebaseConnector {
                             switch (in_inside_key){
                                 //아이디 -> 채팅방 리스트에 담기
                                 case "chatrooms":
+
                                     chatrooms_arraylist = (ArrayList<HashMap<String, String>>)id_inside_map.get(in_inside_key);
 
                                     break;
                                 //아이디 -> 채팅 내역 리스트에 담기
                                 case "chatting":
+
                                     chatting_arraylist = (ArrayList<HashMap<String, String>>)id_inside_map.get(in_inside_key);
                                     break;
                             }
                         }
 
                         Log.d(TAG, "채팅방 내역 : " + chatrooms_arraylist);
-                        Log.d(TAG, "채팅방 사이즈 : " + chatrooms_arraylist.size());
+
                         Log.d(TAG, "채팅방 내용 : " + chatting_arraylist);
-                        Log.d(TAG, "데이터 : " + map);
-                    }
+
+
+                        getChatting();
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   }
                 }
             }
             @Override
@@ -142,14 +174,48 @@ public class FirebaseConnector {
     }
 
 
+
+    private void getChatting(){
+        //채팅내역 불러오기 코드
+        input_map = chatting_arraylist.get(1);
+        chatting_map = input_map.values().toArray();
+        chatrooms_map = (Map<String, Object>)chatting_map[0];
+        Log.d(TAG, "채팅 내역 상세   : " + chatrooms_map.keySet());
+
+        chatting_me_arraylist = (ArrayList<HashMap<String, String>>)chatrooms_map.get("me");
+        chatting_other_arraylist = (ArrayList<HashMap<String, String>>)chatrooms_map.get("other");
+
+//        Log.d(TAG, "나의 채팅 내역 : " + chatting_me_arraylist);
+//        Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1));
+//        Log.d(TAG, "상대방의 채팅 내역 : " + chatting_other_arraylist);
+
+        HashMap<String, String>first_send = chatting_me_arraylist.get(1);
+        Log.d(TAG, "첫 번째 메세지  : " + first_send.keySet());
+        Log.d(TAG, "첫 번째 메세지  : " + first_send.values());
+
+        Object[] first_send_me = first_send.values().toArray();
+        Log.d(TAG, "나의 메세지 내용 " + first_send_me.length);
+        Log.d(TAG, "나의 메세지 내용 " + first_send_me.toString());
+        Log.d(TAG, "나의 메세지 내용 " + first_send_me[0]);
+
+
+
+
+    }
+
     //처음 채팅 아이디 넣기
     private void Initialize_Id(){
 
         databaseReference.child("id").child(login_id).child("chatrooms").child("0").setValue("채팅방없음");
         databaseReference.child("id").child(login_id).child("chatting").child("0").setValue("채팅방없음");
 
+    }
 
-
+    public String getKaKao_id(){
+        if(id_map != null){
+            return id_map.keySet().toString();
+        }
+        return Chatting.NO_CHATTING_ROOM;
     }
 
     //채팅방 업데이트

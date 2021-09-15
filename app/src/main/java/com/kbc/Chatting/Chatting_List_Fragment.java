@@ -40,24 +40,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
     @Override
     public void onStart() {
         super.onStart();
-
-        //테스트용
-        chatting_item.setMessage("들어가쥬랑 ㅠㅡㅠ");
-        chatting_item.setName("서히");
-        chatting_item.setTime("01:12");
-
-
-
-        chatting_items.add(chatting_item);
-
-        chatting_item2.setMessage("제바류ㅠㅠㅠ");
-        chatting_item2.setName("현욱");
-        chatting_item2.setTime("05:16");
-
-        chatting_items.add(chatting_item2);
-        Log.d(TAG, "아이템 개수-- : "+  chatting_items.size());
-
-
         chatting_list_recycleAdapter.notifyDataSetChanged();
     }
 
@@ -77,9 +59,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         //액티비티 가져오고,
         storeManager_mainActivity = (StoreManager_MainActivity)getActivity();
-        //아이디 + 데베 싱글톤 객체 생성
-        dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity, "StoreManager",storeManager_id);
-
 
         //RecycleView 연결
         recyclerView =rootViewGroup.findViewById(R.id.chatting_list_recycleView);
@@ -90,8 +69,12 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatting_items = new ArrayList<>();
         //클릭 이벤트 연결
         chatting_list_recycleAdapter = new Chatting_List_RecycleAdapter(chatting_items, this);
-
         recyclerView.setAdapter(chatting_list_recycleAdapter);
+
+
+        //아이디 + 데베 +채팅방 불러오기 싱글톤 객체 생성
+        dbconnector = FirebaseConnector.getInstance(storeManager_mainActivity, "StoreManager",storeManager_id,
+                Chatting.GET_CHATROOMS);
 
         return rootViewGroup;
     }
@@ -104,7 +87,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         //선택한 채팅방 이름 (상대방)
         String click_chatting_list_name = viewHolder.chatting_list_name.getText().toString();
        Log.d("유저 이름 -> ",click_chatting_list_name);
-
 
 
         //채팅방들어가기
