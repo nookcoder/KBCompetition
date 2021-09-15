@@ -56,7 +56,7 @@ public class StoreManager_CheckNum extends AppCompatActivity {
                 String phone = phoneEditText.getText().toString();
                 String certificationNum = certificationNumEditText.getText().toString();
 
-                //입력 공간 안보이게 설정
+                //필수 입력 텍스트 안보이게 설정
                 nameCheck.setVisibility(view.INVISIBLE);
                 birthCheck.setVisibility(view.INVISIBLE);
                 phoneCheck.setVisibility(view.INVISIBLE);
