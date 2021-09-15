@@ -23,7 +23,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     private ArrayList<Saled_Item> favoritesList3 = new ArrayList<Saled_Item>();
 
     private RecyclerView recyclerView;
-    private com.example.test.SaleAdapter mAdapter1;
+    private SaleAdapter mAdapter1;
     private PickupAdapter mAdapter2;
     private SaledAdapter mAdapter3;
 
@@ -55,7 +55,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
-        mAdapter1 = new com.example.test.SaleAdapter(favoritesList1);
+        mAdapter1 = new SaleAdapter(favoritesList1);
         mAdapter2 = new PickupAdapter(favoritesList2);
         mAdapter3 = new SaledAdapter(favoritesList3);
 
