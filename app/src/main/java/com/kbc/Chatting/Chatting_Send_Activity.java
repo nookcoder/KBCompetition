@@ -44,10 +44,9 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
 
     private EditText editText;
-
+//
     private static ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private Chatting_Send_RecycleAdapter chatting_send_recycleAdapter;
-    private Chatting_List_RecycleAdapter chatting_list_recycleAdapter;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -58,6 +57,8 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private  String click_chatting_list_name;
 
     private  String button_name;
+
+
 
 
 
@@ -79,16 +80,13 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
         chatting_items.add(new Chatting_Item("현욱", "FF","서버두어렵다아아아ㅠㅠㅠ", "05:16",Chatting.RIGHT_CONTENT));
 
-
-        Log.d(TAG, "채팅 리스트 -> "+ chatting_items.size());
-        Log.d(TAG, "채팅 리스트 -> "+ chatting_items.get(1).getMessage() + "/" + chatting_items.get(1).getViewType());
-
-
-
         //채팅 리스트 불러오기
         recyclerView = findViewById(R.id.chatrooms_recycleView);
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+
+
 
 
         //어뎁터 적용
@@ -96,11 +94,31 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         recyclerView.setAdapter(chatting_send_recycleAdapter);
 
 
-        chatting_send_recycleAdapter.notifyDataSetChanged();
 
 
         Log.d(TAG,"채팅내역 리스트 ->>>>> " + chatting_send_recycleAdapter.getItemCount());
 
+
+        Log.d(TAG, "채팅 리스트 -> "+ chatting_send_recycleAdapter.getItemCount());
+
+
+
+
+//        //db객체 만들어주고,
+//        dbconnector = FirebaseConnector.getInstance(this, "StoreManager",storeManager_id);
+//
+//        //채팅 업데이트 계속 해주기!!
+//        dbconnector.Update_chatting_listView(chatting_items,chattingAdapter,listView);
+//
+
+
+    }
+
+    @Override
+    protected void onResume() {
+
+
+        super.onResume();
         //메세지 입력내용 받아오기
         editText = findViewById(R.id.chatting_input_text);
 
@@ -111,17 +129,12 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 //데이터베이스에 쓰기
 //                databaseReference.child("넹~").push().setValue("연결중입니다~");
                 Log.d("클릭","들어가!!!");
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
+                Log.d(TAG, "채팅 리스트 -> "+ chatting_send_recycleAdapter.getItemCount());
+                chatting_send_recycleAdapter.notifyDataSetChanged();
+
             }
         });
-
-//        //db객체 만들어주고,
-//        dbconnector = FirebaseConnector.getInstance(this, "StoreManager",storeManager_id);
-//
-//        //채팅 업데이트 계속 해주기!!
-//        dbconnector.Update_chatting_listView(chatting_items,chattingAdapter,listView);
-//
-
-
     }
 
     //뒤로가기 이벤트

@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //채팅방 데이터 추가
-    private ArrayList<Chatting_Item> chatting_items;
+    private ArrayList<Chatting_Item> chatting_items ;
 
     public Chatting_Send_RecycleAdapter(ArrayList<Chatting_Item>chatting_items){
         this.chatting_items = chatting_items;
@@ -80,9 +80,18 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemCount() {
-        return chatting_items.size();
+
+        if(chatting_items != null){
+            return chatting_items.size();
+        }
+
+        return 0;
     }
 
+    public void addItem(Chatting_Item chatting_Item){
+        chatting_items.add(chatting_Item);
+
+    }
 
 
     public class Left_ViewHolder extends RecyclerView.ViewHolder{
@@ -100,6 +109,7 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
             chatting_name = itemView.findViewById(R.id.chatting_name);
             chatting_send_message = itemView.findViewById(R.id.chatting_send_message);
             chatting_send_message_time = itemView.findViewById(R.id.chatting_send_message_time);
+
 
         }
     }
