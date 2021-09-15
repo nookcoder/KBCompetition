@@ -78,9 +78,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
 ////        String click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
 ////
-////        //채팅방 제목 -> 유저이름으로!!
-////        chatting_other_name = findViewById(R.id.other_userName);
-////        chatting_other_name.setText(click_chatting_list_name);
+////
 //
 //        chatting_items.add(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
         //파이어베이스 연동
@@ -97,15 +95,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
 
 
-
-    }
-
-    @Override
-    protected void onResume() {
-
-
-        super.onResume();
-
         //메세지 입력내용 받아오기
         editText = findViewById(R.id.chatting_input_text);
 
@@ -116,11 +105,12 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 //데이터베이스에 쓰기
 //                databaseReference.child("넹~").push().setValue("연결중입니다~");
 
-                 Log.d(TAG, "채팅 리스트 -> "+ chatting_send_recycleAdapter.getItemCount());
+                Log.d(TAG, "채팅 리스트 -> "+ chatting_send_recycleAdapter.getItemCount());
 
             }
         });
         chatting_send_recycleAdapter.notifyDataSetChanged();
+
 
     }
 
@@ -168,6 +158,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
 
+    //데베 객체 연결
     public void FirebaseConnector(){
         //테스트 데이터
         login_id = "seohee";
@@ -205,6 +196,8 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private  int me_message_count = 1 , other_message_count = 1;
 
     private Object[] send_chatting_me, send_chatting_other;
+    private String current_chatting_date ="2021년";
+
 
 
 
@@ -235,7 +228,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                             break;
                         }
                         check_id_count++;
-
                     }
 
                     //등록된적없는 id
@@ -265,10 +257,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                         Log.d(TAG, "채팅방 내역 : " + chatrooms_arraylist);
                         Log.d(TAG, "채팅방 내용 : " + chatting_arraylist);
-
-
                         getChatting();
-
                     }
                 }
             }
@@ -281,12 +270,8 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     }
 
 
-
+    //채팅내역 불러오기
     private void getChatting() {
-
-
-
-        //채팅내역 불러오기 코드
         input_map = chatting_arraylist.get(1);
         chatting_map = input_map.values().toArray();
         chatrooms_map = (Map<String, Object>) chatting_map[0];
@@ -319,6 +304,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         }
 
 
+
         while(true){
             if(me_message_count == chatting_me_arraylist.size() ||
             other_message_count == chatting_other_arraylist.size())
@@ -327,23 +313,38 @@ public class Chatting_Send_Activity extends AppCompatActivity {
             send_chatting_me = chatting_me_arraylist.get(me_message_count).values().toArray();
             send_chatting_other = chatting_other_arraylist.get(other_message_count).values().toArray();
 
-            Insert_Date_Order_Item(send_chatting_me, send_chatting_other);
-        }
+            //채팅방 제목 -> 유저이름으로!!
+            chatting_other_name = findViewById(R.id.other_userName);
+            chatting_other_name.setText(send_chatting_other[name].toString());
 
-        if(me_message_count != chatting_me_arraylist.size())
+            Insert_Date_Order_Item(send_chatting_me, send_chatting_other);
+
+        }
+//        if(me_message_count != chatting_me_arraylist.size() && other_message_count == chatting_other_arraylist.size()) {
+//            Check_New_Date(send_chatting_me[date].toString());
+//            chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_me[name].toString(),send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(),send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
+//        }
+//        else if (me_message_count == chatting_me_arraylist.size() && other_message_count != chatting_other_arraylist.size()) {
+//
+//            Check_New_Date(send_chatting_other[date].toString());
+//            chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_other[name].toString(), send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
+//        }
+//        else
+        if (me_message_count != chatting_me_arraylist.size()){
+            Check_New_Date(send_chatting_me[date].toString());
             chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_me[name].toString(),send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(),send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
-        else
+        }
+        else{
+            Check_New_Date(send_chatting_other[date].toString());
             chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_other[name].toString(), send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
 
-
-        Log.d(TAG, "상대방의 채팅 내역 : " + chatting_other_arraylist);
-        Log.d(TAG, "아이템 내역 : " + chatting_send_recycleAdapter.getItemCount());
+        }
         chatting_send_recycleAdapter.notifyDataSetChanged();
 
     }
 
 
-//    //처음 채팅 아이디 넣기
+   //처음 채팅 아이디 넣기
     private void Initialize_Id(){
 
         databaseReference.child("id").child(login_id).child("chatrooms").child("0").setValue("채팅방없음");
@@ -351,6 +352,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     }
 
+    //시간순으로 아이템 넣기
     private void Insert_Date_Order_Item(Object[] send_chatting_me, Object[] send_chatting_other){
         String[] send_chatting_me_date = send_chatting_me[date].toString().split(" ");
         String[] send_chatting_other_date = send_chatting_other[date].toString().split(" ");
@@ -363,11 +365,13 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
         switch (insert_type){
             case Chatting.ME:
+                Check_New_Date(send_chatting_me[date].toString());
                 chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_me[name].toString(),send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(),send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
                 me_message_count++;
                 break;
 
             case Chatting.OTHER:
+                Check_New_Date(send_chatting_other[date].toString());
                 chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_other[name].toString(), send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
                 other_message_count++;
                 break;
@@ -377,39 +381,47 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     }
 
+    //시간 비교하기
     public int Compare_Date(String[] send_chatting_me_date, String[] send_chatting_other_date, String send_chatting_me_time, String send_chatting_other_time){
         //년, 월, 일 비교하고 -> 다 같으면 시간비교하기
-        if(send_chatting_me_date[0].compareTo(send_chatting_other_date[0]) > 0)
+        if(send_chatting_me_date[0].compareTo(send_chatting_other_date[0]) < 0)
             return Chatting.ME;
 
-        else if (send_chatting_me_date[0].compareTo(send_chatting_other_date[0]) < 0)
+        else if (send_chatting_me_date[0].compareTo(send_chatting_other_date[0]) > 0)
             return Chatting.OTHER;
 
         else {
 
-            if(send_chatting_me_date[1].compareTo(send_chatting_other_date[1]) > 0)
+            if(send_chatting_me_date[1].compareTo(send_chatting_other_date[1]) < 0)
                 return Chatting.ME;
 
-            else if (send_chatting_me_date[1].compareTo(send_chatting_other_date[1]) < 0)
+            else if (send_chatting_me_date[1].compareTo(send_chatting_other_date[1]) > 0)
                 return Chatting.OTHER;
 
             else{
 
-                if(send_chatting_me_date[2].compareTo(send_chatting_other_date[2]) > 0)
+                if(send_chatting_me_date[2].compareTo(send_chatting_other_date[2]) < 0)
                     return Chatting.ME;
 
                 else {
-
-                    if(send_chatting_me_time.compareTo(send_chatting_other_time) < 0)
-                        return Chatting.ME;
-                    else
-                        return Chatting.OTHER;
+                        if(send_chatting_me_time.compareTo(send_chatting_other_time) < 0)
+                            return Chatting.ME;
+                        else
+                            return Chatting.OTHER;
                 }
             }
         }
     }
 
 
+    public void Check_New_Date(String insert_date){
+        if (current_chatting_date.compareTo(insert_date) < 0){
+             chatting_send_recycleAdapter.addItem(new Chatting_Item(insert_date,Chatting.CENTER_CONTENT) );
+            current_chatting_date = insert_date;
+
+        }
+
+    }
 
 }
 

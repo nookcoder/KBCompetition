@@ -39,8 +39,11 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
         Context context = viewGroup.getContext();
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-
-        if(viewType == Chatting.LEFT_CONTENT){
+        if (viewType == Chatting.CENTER_CONTENT){
+            view = layoutInflater.inflate(R.layout.chatting_date_box, viewGroup, false);
+            return new Center_ViewHolder(view);
+        }
+        else if(viewType == Chatting.LEFT_CONTENT){
             view = layoutInflater.inflate(R.layout.chatting_other_message_box, viewGroup,false);
             return new Left_ViewHolder(view);
         }
@@ -55,7 +58,10 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int position) {
 
-        if(viewHolder instanceof Left_ViewHolder){
+        if (viewHolder instanceof Center_ViewHolder){
+            ((Center_ViewHolder)viewHolder).chatting_date.setText((chatting_items.get(position).getDate()));
+        }
+        else if(viewHolder instanceof Left_ViewHolder){
 //             ((Left_ViewHolder)send_viewHolder).chatting_circle_imageview.setImageURI(chatting_items.get(position).getProfileUrl());
 
             ((Left_ViewHolder)viewHolder).chatting_name.setText(chatting_items.get(position).getName());
@@ -94,6 +100,16 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
 
+    public class Center_ViewHolder extends RecyclerView.ViewHolder{
+
+        TextView chatting_date;
+
+        public Center_ViewHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+
+            chatting_date = itemView.findViewById(R.id.date_content);
+        }
+    }
     public class Left_ViewHolder extends RecyclerView.ViewHolder{
 
         //프로필 사진, 이름, 메세지, 보낸 시간
