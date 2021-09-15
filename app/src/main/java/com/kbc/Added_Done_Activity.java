@@ -27,7 +27,7 @@ public class Added_Done_Activity extends AppCompatActivity {
 
                 //유저가 사업자면
                 if(user.equals("store manager")){
-                    Intent intent1 = new Intent(getApplicationContext(), Login_Activity.class);//변경 필요
+                    Intent intent1 = new Intent(getApplicationContext(), StoreManager_MainActivity.class);//변경 필요
                     startActivity(intent1);
                 }
                 //유저가 개인이면

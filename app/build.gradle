@@ -29,7 +29,6 @@ android {
 dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation "com.kakao.sdk:v2-user:2.4.2" // 카카오 로그인
 
 

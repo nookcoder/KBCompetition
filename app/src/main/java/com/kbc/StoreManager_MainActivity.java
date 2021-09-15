@@ -23,7 +23,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
-
+    private StoreManager_SalesList_Fragment storeManager_salesList_fragment =new StoreManager_SalesList_Fragment();
     private String storeManager_id;
     private Bundle bundle;
 
@@ -45,11 +45,6 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         bundle = new Bundle(1);
         bundle.putString("id" , storeManager_id);
 
-        //테스트용
-//        TextView test = (TextView)findViewById(R.id.test);
-//        test.setText(userId);
-
-
         storeManager_mainActivity = StoreManager_MainActivity.this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.commit();
@@ -57,7 +52,6 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         BottomNavigationView bottomNavigationView = findViewById(R.id.store_manger_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new bottomMenuSelectListener());
-
     }
 
     class bottomMenuSelectListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -68,7 +62,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             switch (item.getItemId()){
                 case R.id.nav_sale:
-
+                    fragmentTransaction.replace(R.id.fragment_container, storeManager_salesList_fragment).commit();
                     break;
 
                 case R.id.nav_chatting:

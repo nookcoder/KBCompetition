@@ -33,7 +33,7 @@ public class Select_Log_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //화면 전환 + 로그 전달
-                Intent intent2 = new Intent(getApplicationContext(),StoreManager_Login.class);
+                Intent intent2 = new Intent(getApplicationContext(),Login_Activity.class);
                 intent2.putExtra("log","signin up");
                 startActivity(intent2);
             }
