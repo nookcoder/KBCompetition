@@ -49,8 +49,8 @@ public class Login_Activity extends AppCompatActivity {
 
         //화면 전환 4개!
         //사업자 가게 정보 ㅇ , x
-        Intent intentForStoreO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
-        Intent intentForStoreX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
+        Intent intentForStoreO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);
+        Intent intentForStoreX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);
         //개인 기본 정보 ㅇ , x
         Intent intentForPsersonO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
         Intent intentForPsersonX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
@@ -144,14 +144,16 @@ public class Login_Activity extends AppCompatActivity {
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                //사업자 정보 등록 ㅇ
                 if(Boolean.valueOf(response)){
                     //데이터 전달 (userID)
                     intentO.putExtra("userID" , id);
+                    intentO.
                     startActivity(intentO);
                 }
-
+                //사업자 정보 등록 X
                 else{
+                    //데이터 전달 (userID)
                     intentx.putExtra("userID" , id);
                     startActivity(intentx);
                 }
