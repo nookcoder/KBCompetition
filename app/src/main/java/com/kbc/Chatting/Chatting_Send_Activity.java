@@ -52,11 +52,9 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     private static ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private Chatting_Send_RecycleAdapter chatting_send_recycleAdapter;
-
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
-    private FirebaseConnector dbconnector;
     private String storeManager_id;
     private TextView chatting_other_name;
     private  String click_chatting_list_name;
@@ -73,6 +71,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private String login_id, chat_mode;
 
 
+    public Chatting_Send_Activity(){}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -230,26 +229,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     for(String id: map.keySet()){
                         id_map = (Map<String, Object>) map.get(id);
                     }
-
 //                    Log.d(TAG, "카카오아이디 : "+ id_map.keySet());
 
-                    int check_id_count = 0;
-                    for(String id_inside : id_map.keySet()){
-
-                        //로그인 된 아이디의 데이터를 가져오기
-                        if(id_inside.equals(login_id)){
+                    for(String id_inside : id_map.keySet())
                             id_inside_map = (Map<String, Object>) id_map.get(id_inside);
-                            break;
-                        }
-                        check_id_count++;
-                    }
-
-                    //등록된적없는 id
-                    if( check_id_count == id_map.size()){
-                        Initialize_Id();
-                    }
-                    //등록된 적 있는 id
-                    else{
 
 //                        Log.d(TAG, "아이디 내부 : "+ id_inside_map);
 
@@ -257,13 +240,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                             switch (in_inside_key){
                                 //아이디 -> 채팅방 리스트에 담기
                                 case "chatrooms":
-
                                     chatrooms_arraylist = (ArrayList<HashMap<String, String>>)id_inside_map.get(in_inside_key);
-
                                     break;
+
                                 //아이디 -> 채팅 내역 리스트에 담기
                                 case "chatting":
-
                                     chatting_arraylist = (ArrayList<HashMap<String, String>>)id_inside_map.get(in_inside_key);
                                     break;
                             }
@@ -272,7 +253,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 //                        Log.d(TAG, "채팅방 내역 : " + chatrooms_arraylist);
 //                        Log.d(TAG, "채팅방 내용 : " + chatting_arraylist);
                         getChatting();
-                    }
+
                 }
                 chatting_send_recycleAdapter.notifyDataSetChanged();
             }
@@ -362,13 +343,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     }
 
-   //처음 채팅 아이디 넣기
-    private void Initialize_Id(){
 
-        databaseReference.child("id").child(login_id).child("chatrooms").child("0").setValue("채팅방없음");
-        databaseReference.child("id").child(login_id).child("chatting").child("0").setValue("채팅방없음");
-
-    }
 
     //시간순으로 아이템 넣기
     private void Insert_Date_Order_Item(Object[] send_chatting_me, Object[] send_chatting_other){

@@ -64,6 +64,10 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
         return chatting_items.size();
     }
 
+    public void addItem(Chatting_Item chatting_item){
+        chatting_items.add(chatting_item);
+    }
+
 
     //요소부르고
     public class ViewHolder extends RecyclerView.ViewHolder {
