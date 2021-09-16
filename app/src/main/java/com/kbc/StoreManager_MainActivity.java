@@ -3,8 +3,6 @@ package com.kbc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_List_Fragment;
+import com.kbc.Sale.StoreManager_SalesList_Fragment;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
 

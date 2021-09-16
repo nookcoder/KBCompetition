@@ -1,16 +1,15 @@
-package com.kbc;
+package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.kbc.R;
 
 import android.os.Bundle;
 
-import com.kbc.R;
-
-public class StoreManager_Product_RegisterActivity extends AppCompatActivity {
+public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.storemanager_product_register_activity);
+        setContentView(R.layout.storemanager_product_modify_activity);
     }
 }

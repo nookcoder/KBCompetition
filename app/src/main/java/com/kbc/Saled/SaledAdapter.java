@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Saled;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,13 +6,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.kbc.R;
 
 import java.util.ArrayList;
 
 public class SaledAdapter extends RecyclerView.Adapter<SaledAdapter.MyViewHolder>{
-    private ArrayList<com.kbc.Saled_Item> mDataset;
+    private ArrayList<Saled_Item> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView buyerNameInSaled, productNameInSaled, pickupDateInSaled, pickupTimeInSaled,saledQuantity;
@@ -29,7 +30,7 @@ public class SaledAdapter extends RecyclerView.Adapter<SaledAdapter.MyViewHolder
         }
     }
 
-    public SaledAdapter(ArrayList<com.kbc.Saled_Item> myData){
+    public SaledAdapter(ArrayList<Saled_Item> myData){
         this.mDataset = myData;
     }
 

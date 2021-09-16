@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Pickup;
 
 import android.widget.ImageView;
 

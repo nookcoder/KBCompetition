@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Sale;
 
 import android.widget.ImageView;
 

@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Sale;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kbc.Pickup.PickupAdapter;
+import com.kbc.Pickup.Pickup_Item;
+import com.kbc.R;
+import com.kbc.Saled.SaledAdapter;
+import com.kbc.Saled.Saled_Item;
 
 import java.util.ArrayList;
 
@@ -88,7 +93,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //제품 등록 화면으로 넘어가기
-                getActivity().startActivity(new Intent(getActivity(), StoreManager_Product_RegisterActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), StoreManager_Product_Register_Activity.class));
 
             }
         });
@@ -160,8 +165,21 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     @Override
     public void onItemClick(View view, int position) {
         SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
+        ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
+        Sale_Item sale_item = new Sale_Item(myViewHolder.name.getText().toString() ,
+                myViewHolder.category.getText().toString(),
+                Integer.parseInt(myViewHolder.stock.getText().toString()),
+                Integer.parseInt(myViewHolder.price.getText().toString()));
+
+        list.add(sale_item);
 
 
+        //상품 등록 액티비티로 들어가기
+        Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
+        intent.putExtra("sale_item_list", list);
+
+
+        startActivity(intent);
 
     }
 }

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Sale.StoreManager_Product_Inquiry_Activity">
+
+    <!--상품 사진들-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/productImageSrc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!--프로필 + 주소 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="20dp"
+        android:layout_weight="1.5"
+        android:orientation="horizontal"
+        android:background="@drawable/edge">
+
+        //프로필
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/storemanager_image_profile"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_margin="1dp"
+            android:src="@drawable/ic_information"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+
+            />
+
+        //아이디랑 주소
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            >
+            <TextView
+                android:id="@+id/storemanager_id"
+                android:text="집밥연구소"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+
+            <TextView
+                android:id="@+id/storemanager_location"
+                android:text="광명"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:layout_weight="1">
+
+        <!--제목 , 카테고리, 시간, 수정하기 버튼 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!--제목, 카테고리, 시간-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/product_title"
+                        android:text="동글동글 방울이 팔아요~ (100g)"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/product_category"
+                        android:text="채소/과일"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/previous_register_text_color"
+                        android:textSize="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <!--수정하기 버튼 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center|right"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginRight="10dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/product_modify_circleImageView"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_edit"
+                            android:background="@drawable/radius"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--판매가격, 재고 -->
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            >
+            <TextView
+                android:id="@+id/product_price"
+                android:text="판매가격 2000원"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:background="@drawable/edge"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:id="@+id/product_count"
+                android:text="재고 70개"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:background="@drawable/edge"
+                android:textSize="15dp"
+                />
+        </TableRow>
+
+        <!--상세설-->
+        <TextView
+            android:id="@+id/product_details"
+            android:text="강원도 양구 해발 500m 고지대에서 키운 삼색방울 토마토로 일교차가 큰 환경에서 키웠기에 당도가 높아요!!!
+            저희 가게에서는 박스 단위로 사용하였고, 아직 개봉하지 않은 여분의 방울토마토가 엄~~~~청 많습니다ㅠㅠㅠㅠ
+            당도가 더 떨어지기전에 꼭 구매하셨으면 좋겠어용 ㅠㅡㅠ"
+            android:layout_span="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            android:background="@drawable/edge"
+            android:textSize="15dp"
+            />
+    </TableLayout>
+</LinearLayout>
