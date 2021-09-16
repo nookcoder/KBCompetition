@@ -5,7 +5,7 @@ import android.widget.ImageView;
 public class Sale_Item {
     private String name, category;
     private int stock, price;
-    private ImageView imageView; //임의로 설정
+    //private String productImageSrc;
 
 
     public Sale_Item(String name, String category, int stock, int price) {
@@ -15,6 +15,9 @@ public class Sale_Item {
         this.price = price;
     }
 
+
+
+    //public String getProductImageSrc() {return productImageSrc;}
     public String getName() {
         return name;
     }
@@ -28,6 +31,7 @@ public class Sale_Item {
         return price;
     }
 
+    //public void serProductImageSrc(String productImageSrc) { this.productImageSrc = productImageSrc; }
     public void setName(String name) { this.name = name; }
     public void setCategory(String category) {
         this.category = category;

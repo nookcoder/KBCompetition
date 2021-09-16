@@ -1,8 +1,11 @@
 package com.kbc;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,10 +19,13 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, category, stock,price;
-
+        //public ImageView productImage;
+        public Drawable d;
         //ViewHolder
         public MyViewHolder(View view) {
             super(view);
+
+           // productImage = (ImageView) view.findViewById(R.id.productImage);
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
             stock = (TextView) view.findViewById(R.id.productStock);

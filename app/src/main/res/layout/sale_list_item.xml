@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:layout_weight="0.3"
-            android:src="@drawable/image_check1"></ImageView>
+            android:src="@drawable/sample1"></ImageView>
 
         <LinearLayout
             android:layout_width="0dp"

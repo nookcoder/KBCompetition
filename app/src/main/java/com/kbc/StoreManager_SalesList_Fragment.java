@@ -126,7 +126,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     }
 
     @Override
-    public void onClick(View v) {//button
+    public void onClick(View v) {
+//button
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
