@@ -1,5 +1,6 @@
 package com.kbc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -30,7 +33,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     Button pickupBtn;
     Button saledBtn;
     Button salesBtn;
-
+    FloatingActionButton addProductBtn;
     TextView toolbarText;
 
     @Override
@@ -42,28 +45,33 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.storemanager_saleslist, container, false);
-        prepareData();
 
-        //Text
+        //컴포넌트 할당
+            //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
-        //button
+            //button
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
-
-        //recyclerview
+        addProductBtn =(FloatingActionButton)v.findViewById(R.id.addProductBtn);
+             //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
+        //어댑터 할당
         saleAdapter = new SaleAdapter(salesList);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
+        //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        prepareData();//데이터 가져오기
         recyclerView.setAdapter(saleAdapter);
 
+
+        //판매중 버튼 눌렀을 때!
         salesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +81,18 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 toolbarText.setText("판매중");
+                addProductBtn.setVisibility(View.VISIBLE);
             }
         });
+            //제품 추가 버튼 눌렀을 때!
+        addProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //제품 등록 화면으로 넘어가기
+                getActivity().startActivity(new Intent(getActivity(), StoreManager_Product_RegisterActivity.class));
+
+            }
+        });
+        //픽업 대기중 버튼 눌렀을 떄!
         pickupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +102,10 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 pickupBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 toolbarText.setText("픽업대기중");
+                addProductBtn.setVisibility(View.INVISIBLE);
             }
         });
+        //판매 완료 버튼 눌렀을 때!
         saledBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,10 +115,13 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 toolbarText.setText("판매완료");
+                addProductBtn.setVisibility(View.INVISIBLE);
             }
         });
         return v;
     }
+
+
 
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -125,9 +148,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분",3));
     }
 
+    //버튼 할당
     @Override
     public void onClick(View v) {
-//button
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
