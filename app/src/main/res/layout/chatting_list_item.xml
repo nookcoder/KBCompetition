@@ -43,6 +43,9 @@
             android:layout_toLeftOf="@id/chatting_circle_imageview"
             android:layout_marginRight="16dp"
             android:padding="10dp"
+            android:maxLines="1"
+            android:maxLength="13"
+            android:ellipsize="end"
             android:background="@drawable/me_message_box"
             android:textColor="@color/black"/>
 
