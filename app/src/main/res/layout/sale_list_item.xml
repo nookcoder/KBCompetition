@@ -3,28 +3,96 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="120dp"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:weightSum="1"
+    >
+
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.3"
+        android:src="@drawable/image_check1"
+        ></ImageView>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_weight="0.3"
-            android:src="@drawable/resize_person_image"
-            android:layout_width="0dp"
-            android:layout_height="50dp" />
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="0.7"
+        android:orientation="vertical"
+        >
+    <TextView
+        android:id="@+id/productName"
+        android:paddingStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="23sp"
+        android:textColor="@color/black"
+        android:maxLines="1"
+        android:text="동글동글 방울토마토 100g">
+    </TextView>
 
-        <TextView
-            android:layout_weight="0.7"
-            android:id="@+id/name"
-            android:padding="8dp"
-            android:textSize="18dp"
-            android:text="즐겨찾기 이름"
-            android:gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="50dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/productCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:text="채소 / 과일"></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="40dp"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:text="재고 "></TextView>
+            <TextView
+                android:id="@+id/productStock"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:gravity="left"
+                android:maxLength="3"
+                android:text="70 "></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:text="개"></TextView>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:paddingStart="13dp"
+                android:textSize="35sp"
+                android:gravity="right"
+                android:textColor="@color/black"
+                android:text="2000 "></TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:text=" 원 "></TextView>
+        </LinearLayout>
     </LinearLayout>
-
-
 </LinearLayout>
