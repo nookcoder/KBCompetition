@@ -85,4 +85,12 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
     public int getItemCount() {
         return mDataset.size();
     }
+
+    public String getItemDetails(int position){
+        return mDataset.get(position).getDetails();
+    }
+
+    public String getItemRegister_Time(int position){
+        return mDataset.get(position).getRegister_time();
+    }
 }

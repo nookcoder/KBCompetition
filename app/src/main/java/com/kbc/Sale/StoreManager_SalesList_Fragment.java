@@ -22,6 +22,7 @@ import com.kbc.R;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
@@ -41,6 +42,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     FloatingActionButton addProductBtn;
     TextView toolbarText;
 
+    private Bundle bundle;
+    private String storeManager_id, storeManager_location;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,12 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.storemanager_saleslist, container, false);
+
+        bundle = getArguments();
+        if(bundle != null){
+            storeManager_id = bundle.getString("id");
+            storeManager_location = bundle.getString("location");
+        }
 
         //컴포넌트 할당
             //Text
@@ -67,6 +77,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         saleAdapter = new SaleAdapter(salesList, this);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
+
 
         //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -132,11 +143,11 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
         salesList.clear();
-        salesList.add(new Sale_Item("동글동글 방울토마토","채소 / 과일",70,2000));
-        salesList.add(new Sale_Item("신선한 상추","육류",30,1800));
-        salesList.add(new Sale_Item("눈물 쏙 양파","채소 / 과일",10,4000));
-        salesList.add(new Sale_Item("아삭아삭 콩나물","채소 / 과일",15,3300));
-        salesList.add(new Sale_Item("을지로입구역","육류",12,8000));
+        salesList.add(new Sale_Item("동글동글 방울토마토","채소 / 과일","2021년 09월 12일 12시 13분",70,2000,"상세설명"));
+        salesList.add(new Sale_Item("신선한 상추","육류","2021년 09월 12일 12시 13분",30,1800,"상세설명"));
+        salesList.add(new Sale_Item("눈물 쏙 양파","채소 / 과일","2021년 09월 12일 12시 13분",10,4000,"상세설명"));
+        salesList.add(new Sale_Item("아삭아삭 콩나물","채소 / 과일","2021년 09월 12일 12시 13분",15,3300,"상세설명"));
+        salesList.add(new Sale_Item("을지로입구역","육류","2021년 09월 12일 12시 13분",12,8000,"상세설명"));
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -168,8 +179,10 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
         Sale_Item sale_item = new Sale_Item(myViewHolder.name.getText().toString() ,
                 myViewHolder.category.getText().toString(),
+                saleAdapter.getItemRegister_Time(position),
                 Integer.parseInt(myViewHolder.stock.getText().toString()),
-                Integer.parseInt(myViewHolder.price.getText().toString()));
+                Integer.parseInt(myViewHolder.price.getText().toString()),
+                saleAdapter.getItemDetails(position));
 
         list.add(sale_item);
 
@@ -177,6 +190,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         //상품 등록 액티비티로 들어가기
         Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
         intent.putExtra("sale_item_list", list);
+        intent.putExtra("id", storeManager_id);
+        intent.putExtra("location",storeManager_location);
 
 
         startActivity(intent);
