@@ -13,4 +13,7 @@
     <color name="icon_color">#FD9F28</color>
     <color name="main_color_yellow">#FFCD4A</color>
     <color name="icon_color2">#FFC11B</color>
+    <color name="icon_color3">#EEEAB4</color>
+    <color name="grey">#383838</color>
+
 </resources>
