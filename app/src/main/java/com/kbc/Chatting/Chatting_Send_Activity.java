@@ -79,14 +79,21 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         setContentView(R.layout.chatting_send_activity);
 
 
-//        Intent intent = getIntent);
-//        chat_mode = intent.getExtras().getString("mode");
+        Intent intent = getIntent();
+        chat_mode = intent.getExtras().getString("mode");
 
-////        String click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
-////
-////
-//
-//        chatting_items.add(new Chatting_Item(click_chatting_list_name, "FF","채팅어렵다아아아ㅏ유ㅠㅠㅠ", "01:12",Chatting.LEFT_CONTENT));
+        click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
+
+
+        //채팅방 제목 -> 유저이름으로!!
+        chatting_other_name = findViewById(R.id.other_userName);
+        chatting_other_name.setText(click_chatting_list_name);
+
+        chatting_number = intent.getExtras().getInt("chatting_number");
+
+        Log.d(TAG, "채팅방 제목 -> " + click_chatting_list_name + " : 채팅방 번호 -> " + chatting_number );
+
+
         //파이어베이스 연동
         FirebaseConnector();
 
@@ -148,9 +155,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     //뒤로가기 이벤트
     public void click_back(View view){
-          switch (button_name){
+        Log.d(TAG, "버튼 이름-> " + view);
+
+          switch (view.getId()){
             //채팅방 나가기
-            case "chatting_close":
+              case R.id.chatting_close:
                 //채팅하는곳 액티비티 닫아주고,
                 finish();
                 //채팅방 목록 리스트 열어주기!
@@ -167,8 +176,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     public void FirebaseConnector(){
         //테스트 데이터
         login_id = "seohee";
-        chat_mode = Chatting.STORE_MANAGER_MODE;
-        chatting_number = 1;
 
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -249,9 +256,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                                     break;
                             }
                         }
-
-//                        Log.d(TAG, "채팅방 내역 : " + chatrooms_arraylist);
-//                        Log.d(TAG, "채팅방 내용 : " + chatting_arraylist);
                         getChatting();
 
                 }
@@ -268,17 +272,17 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     //채팅내역 불러오기
     private void getChatting() {
-        input_map = chatting_arraylist.get(1);
+        input_map = chatting_arraylist.get(chatting_number);
         chatting_map = input_map.values().toArray();
         chatrooms_map = (Map<String, Object>) chatting_map[0];
-//        Log.d(TAG, "채팅 내역 상세   : " + chatrooms_map.keySet());
+        Log.d(TAG, "채팅 내역 상세   : " + chatrooms_map.keySet());
 
         chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
         chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
 //
-//        Log.d(TAG, "나의 채팅 내역 : " + chatting_me_arraylist);
-//        Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1));
-//        Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1).values());
+        Log.d(TAG, "나의 채팅 내역 : " + chatting_me_arraylist);
+        Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1));
+        Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1).values());
 
         //키 인덱스 찾기
         Object[] send_key = chatting_me_arraylist.get(1).keySet().toArray();
@@ -308,10 +312,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
             send_chatting_me = chatting_me_arraylist.get(me_message_count).values().toArray();
             send_chatting_other = chatting_other_arraylist.get(other_message_count).values().toArray();
-
-            //채팅방 제목 -> 유저이름으로!!
-            chatting_other_name = findViewById(R.id.other_userName);
-            chatting_other_name.setText(send_chatting_other[name].toString());
 
             Insert_Date_Order_Item(send_chatting_me, send_chatting_other);
 

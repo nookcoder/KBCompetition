@@ -66,7 +66,10 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
 
     public void addItem(Chatting_Item chatting_item){
         chatting_items.add(chatting_item);
+        notifyDataSetChanged();
     }
+
+    public String getItemName(int index){return chatting_items.get(index).getName();}
 
 
     //요소부르고

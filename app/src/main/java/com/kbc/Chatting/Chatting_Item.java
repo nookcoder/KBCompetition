@@ -10,11 +10,12 @@ public class Chatting_Item {
     private int viewType;
 
     //채팅방 목록
-    public Chatting_Item(String name, String profileUrl, String message, String time){
+    public Chatting_Item(String name, String profileUrl, String message, String time, String date){
         this.name = name;
         this.profileUrl = profileUrl;
         this.message = message;
         this.time = time;
+        this.date = date;
     }
     //채팅내
     public Chatting_Item(String name, String profileUrl, String message, String time, int viewType){

@@ -69,13 +69,12 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         bundle = getArguments();
         if(bundle != null){
             login_id = bundle.getString("id");
+            chat_mode = bundle.getString("mode");
         }
         Log.d(TAG,"점주 아이디 : "+ login_id);
 
         //액티비티 가져오고,
         storeManager_mainActivity = (StoreManager_MainActivity)getActivity();
-        FirebaseConnector();
-        Get_Database();
 
         //RecycleView 연결
         recyclerView =rootViewGroup.findViewById(R.id.chatting_list_recycleView);
@@ -87,8 +86,14 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatting_list_recycleAdapter = new Chatting_List_RecycleAdapter(chatting_items, this);
         recyclerView.setAdapter(chatting_list_recycleAdapter);
 
-        chatting_list_recycleAdapter.notifyDataSetChanged();
+        FirebaseConnector();
+        Get_Database();
 
+
+        Log.d(TAG,chatting_list_recycleAdapter.getItemCount() +"");
+
+        for(int index = 0 ; index < chatting_list_recycleAdapter.getItemCount() ; index++)
+            Log.d(TAG, "어뎁터 이름 -> " + chatting_list_recycleAdapter.getItemName(index));
 
         return rootViewGroup;
     }
@@ -100,13 +105,14 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         //선택한 채팅방 이름 (상대방)
         String click_chatting_list_name = viewHolder.chatting_list_name.getText().toString();
-       Log.d("유저 이름 -> ",click_chatting_list_name);
-
+        //선택한 채팅방 번호
+        int chatting_number = position +1;
 
         //채팅방들어가기
         Intent intent = new Intent(getActivity(), Chatting_Send_Activity.class );
         intent.putExtra("click_chatting_list_name",click_chatting_list_name);
         intent.putExtra("mode", Chatting.STORE_MANAGER_MODE);
+        intent.putExtra("chatting_number", chatting_number);
 
         startActivity(intent);
 
@@ -115,18 +121,15 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
     }
 
     public void FirebaseConnector(){
-        //테스트 데이터
-        chat_mode = Chatting.STORE_MANAGER_MODE;
-
         FirebaseApp.initializeApp(storeManager_mainActivity);
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         switch (chat_mode){
-            case "Person":
+            case Chatting.PERSON:
                 databaseReference = firebaseDatabase.getReference("Person");
                 break;
 
-            case "StoreManager":
+            case Chatting.STORE_MANAGER_MODE:
                 databaseReference = firebaseDatabase.getReference("StoreManager");
                 break;
         }
@@ -154,7 +157,9 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
     private Chatting_Item chatting_last_item = new Chatting_Item();
 
 
+
     public void Get_Database(){
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
@@ -183,7 +188,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
                                 //아이디 -> 채팅 내역 리스트 담기
                                 case "chatrooms":
                                     chatrooms_arraylist = (ArrayList<HashMap<String, String>>)id_inside_map.get(in_inside_key);
-
                                     break;
 
                                 case "chatting":
@@ -194,6 +198,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
                         Get_Last_Chatting_Information();
                     }
                 }
+
                 chatting_list_recycleAdapter.notifyDataSetChanged();
             }
 
@@ -246,15 +251,15 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
     }
 
-    private void Insert_Chatroom_Ui(int position){ input_map = chatting_arraylist.get(1);
+    private void Insert_Chatroom_Ui(int position){
+        String last_name, last_profileUrl, last_message="", last_time="", last_date="";
+
+        input_map = chatting_arraylist.get(position+1);
         chatting_map = input_map.values().toArray();
-
-        chatrooms_map = (Map<String, Object>) chatting_map[position];
-
+        chatrooms_map = (Map<String, Object>) chatting_map[0];
 
         chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
         chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
-
 
         //마지막 채팅 정보 나, 상대방 각각 가져오기
         chatting_me_last_message = chatting_me_arraylist.get(chatting_me_arraylist.size()-1).values().toArray();
@@ -266,39 +271,40 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
                 chatting_me_last_message[time].toString(), chatting_other_last_message[time].toString());
 
         //프로필사진, 이름은 상대방으로 되어있어야 함!
-        chatting_last_item.setProfileUrl(chatting_other_last_message[profileUrl].toString());
-        chatting_last_item.setName(chatting_other_last_message[name].toString());
+        last_profileUrl = chatting_other_last_message[profileUrl].toString();
+        last_name = chatting_other_last_message[name].toString();
 
         switch (last_message_mode){
             //내 시간이 더 빠르면 상대방이 마지막
             case Chatting.ME:
-                chatting_last_item.setDate(chatting_other_last_message[date].toString());
-                chatting_last_item.setMessage(chatting_other_last_message[message].toString());
-                chatting_last_item.setTime(chatting_other_last_message[time].toString());
+                last_date = chatting_other_last_message[date].toString();
+                last_message = chatting_other_last_message[message].toString();
+                last_time = chatting_other_last_message[time].toString();
                 break;
 
             //상대방이 더빠르면 내가 마지막
             case Chatting.OTHER:
-                chatting_last_item.setDate(chatting_me_last_message[date].toString());
-                chatting_last_item.setMessage(chatting_me_last_message[message].toString());
-                chatting_last_item.setTime(chatting_me_last_message[time].toString());
+                last_date = chatting_me_last_message[date].toString();
+                last_message = chatting_me_last_message[message].toString();
+                last_time = chatting_me_last_message[time].toString();
                 break;
         }
 
-        Insert_Chatroom_DB(position+1);
-        chatting_list_recycleAdapter.addItem(chatting_last_item);
+        Insert_Chatroom_DB(position+1, last_name, last_date, last_message, last_profileUrl, last_time);
+        chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl,last_message,last_time,last_date));
     }
 
+
     //데베에 넣기
-    private void Insert_Chatroom_DB(int chatrooms_count){
+    private void Insert_Chatroom_DB(int chatrooms_count, String name, String date, String message, String profileUrl, String time){
 
         DatabaseReference chatroom_db =databaseReference.child("id").child(login_id).child("chatrooms").child(chatrooms_count+"");
 
-        chatroom_db.child(Chatting.NAME).setValue(chatting_last_item.getName());
-        chatroom_db.child(Chatting.DATE).setValue(chatting_last_item.getDate());
-        chatroom_db.child(Chatting.MESSAGE).setValue(chatting_last_item.getMessage());
-        chatroom_db.child(Chatting.PROFILEUTL).setValue(chatting_last_item.getProfileUrl());
-        chatroom_db.child(Chatting.TIME).setValue(chatting_last_item.getTime());
+        chatroom_db.child(Chatting.NAME).setValue(name);
+        chatroom_db.child(Chatting.DATE).setValue(date);
+        chatroom_db.child(Chatting.MESSAGE).setValue(message);
+        chatroom_db.child(Chatting.PROFILEUTL).setValue(profileUrl);
+        chatroom_db.child(Chatting.TIME).setValue(time);
 
     }
 }
