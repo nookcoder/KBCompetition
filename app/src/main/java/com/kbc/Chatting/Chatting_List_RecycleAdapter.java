@@ -54,6 +54,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
         holder.chatting_list_name.setText(chatting_items.get(position).getName());
         holder.chatting_list_send_message.setText(chatting_items.get(position).getMessage());
         holder.chatting_list_send_message_time.setText(chatting_items.get(position).getTime());
+        holder.chatting_list_send_message_date.setText(chatting_items.get(position).getDate());
 
         holder.itemView.setTag(position);
     }
@@ -71,6 +72,10 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
 
     public String getItemName(int index){return chatting_items.get(index).getName();}
 
+    public void removeAll(){
+        chatting_items.clear();
+    }
+
 
     //요소부르고
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,6 +85,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
         protected TextView chatting_list_name;
         protected TextView chatting_list_send_message;
         protected TextView chatting_list_send_message_time;
+        protected TextView chatting_list_send_message_date;
 
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -90,6 +96,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
             this.chatting_list_name = (TextView)itemView.findViewById(R.id.chatting_list_name);
             this.chatting_list_send_message = (TextView)itemView.findViewById(R.id.chatting_list_send_message);
             this.chatting_list_send_message_time = (TextView)itemView.findViewById(R.id.chatting_list_send_message_time);
+            this.chatting_list_send_message_date = (TextView)itemView.findViewById(R.id.chatting_list_send_message_date);
 
             itemView.setOnClickListener(new View.OnClickListener(){
 

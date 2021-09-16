@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,9 +50,10 @@ import static android.content.ContentValues.TAG;
 public class Chatting_Send_Activity extends AppCompatActivity {
 
 
+
     private EditText editText;
 
-    private static ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
+    private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
     private Chatting_Send_RecycleAdapter chatting_send_recycleAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -155,19 +158,15 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     //뒤로가기 이벤트
     public void click_back(View view){
-        Log.d(TAG, "버튼 이름-> " + view);
+
 
           switch (view.getId()){
             //채팅방 나가기
               case R.id.chatting_close:
                 //채팅하는곳 액티비티 닫아주고,
-                finish();
-                //채팅방 목록 리스트 열어주기!
-                Intent chatting_list_intent = new Intent(this, Chatting_List_Fragment.class);
-                startActivity(chatting_list_intent);
-                break;
-
-        }
+                  finish();
+              break;
+          }
     }
 
 

@@ -46,7 +46,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
     //데베 관련 변수
     private ArrayList<Chatting_Item> chatting_items = new ArrayList<>();
-    private FirebaseDatabase firebaseDatabase;
+    public static FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
     private String chat_mode;
@@ -86,8 +86,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatting_list_recycleAdapter = new Chatting_List_RecycleAdapter(chatting_items, this);
         recyclerView.setAdapter(chatting_list_recycleAdapter);
 
-        FirebaseConnector();
-        Get_Database();
+
 
 
         Log.d(TAG,chatting_list_recycleAdapter.getItemCount() +"");
@@ -96,6 +95,14 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
             Log.d(TAG, "어뎁터 이름 -> " + chatting_list_recycleAdapter.getItemName(index));
 
         return rootViewGroup;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        chatting_list_recycleAdapter.removeAll();
+        FirebaseConnector();
+        Get_Database();
     }
 
     @Override
@@ -114,8 +121,8 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         intent.putExtra("mode", Chatting.STORE_MANAGER_MODE);
         intent.putExtra("chatting_number", chatting_number);
 
-        startActivity(intent);
 
+        startActivity(intent);
 
 
     }
