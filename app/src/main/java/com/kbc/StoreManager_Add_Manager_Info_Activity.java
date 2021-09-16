@@ -86,7 +86,7 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
 
                     //intent로 화면 전환
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
-                    intent.putExtra("user", "store manager");
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                 }
             }
