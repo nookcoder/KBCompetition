@@ -21,7 +21,10 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
     private TextView et_order_address1;
     TextView IdCheck,nameCheck,birthCheck,addressCheck;
     EditText managerIdEditText,nameEditText,yearEditText,monthEditText,dayEditText,detailAddressEditText;
-    String managerId, name, birth, year, month, day, addressZipcode, fullAddress;
+    String year, month, day;
+    //추가로 등록한 데이터
+    String managerId, name, birth, addressZipcode, fullAddress;
+    String userId,storeName,storeNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,6 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
 
         //다음 버튼
         Button next = (Button) findViewById(R.id.next);
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,9 +78,15 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                 }
                 //다 입력되어 있으면
                 else if (managerId.length() != 0 || name.length() != 0 || year.length() != 0 || month.length() != 0 || day.length() != 0 || addressZipcode.length() != 0 || detailAddressEditText.getText().toString().length() != 0) {
-                    //intent로 화면 전환 + [user : 사업자] 전달
+                    //데이터 받아오기
+                    Intent intentForGet = getIntent();
+                     userId = intentForGet.getExtras().getString("userID");
+                     storeName =intentForGet.getExtras().getString("storeName");
+                     storeNum =intentForGet.getExtras().getString("storeNum");
+
+                    //intent로 화면 전환
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
-                    intent.putExtra("user", "store manager");
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                 }
             }
