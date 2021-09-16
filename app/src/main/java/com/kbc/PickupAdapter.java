@@ -15,12 +15,16 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
     private ArrayList<Pickup_Item> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, num, lon;
+        public TextView buyerName, productNameInPickupList, pickupDate, pickupTime,pickupQuantity;
 
         //ViewHolder
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.name);
+            buyerName = (TextView) view.findViewById(R.id.buyerName);
+            productNameInPickupList = (TextView) view.findViewById(R.id.productNameInPickupList);
+            pickupDate = (TextView) view.findViewById(R.id.pickupDate);
+            pickupTime = (TextView) view.findViewById(R.id.pickupTime);
+            pickupQuantity = (TextView) view.findViewById(R.id.pickupQuantity);
         }
     }
 
@@ -38,19 +42,11 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        holder.name.setText(mDataset.get(position).getName());
-
-        //클릭이벤트
-        holder.name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //클릭시 name과 좌표정보를 지도 프래그먼트로 보내자.
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                //activity.getFragmentManager().beginTransaction().replace(R.id.fragment_place, new Fragment1()).addToBackStack(null).commit();
-            }
-        });
-
+        holder.buyerName.setText(mDataset.get(position).getBuyerName());
+        holder.productNameInPickupList.setText(mDataset.get(position).getProductNameInPickupList());
+        holder.pickupDate.setText(mDataset.get(position).getPickupDate());
+        holder.pickupTime.setText(mDataset.get(position).getPickupTime());
+        holder.pickupQuantity.setText(String.valueOf(mDataset.get(position).getPickupQuantity()));
     }
 
     @Override

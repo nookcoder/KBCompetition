@@ -132,11 +132,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:textSize="19sp"
+                        android:textSize="18sp"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:paddingStart="7dp"
-                        android:text="수량 :"></TextView>
+                        android:text="수량:"></TextView>
 
                     <TextView
                         android:id="@+id/pickupQuantity"
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1"
                         android:text="개"
-                        android:textSize="19sp"
+                        android:textSize="18sp"
                         android:textColor="@color/black"
                         android:gravity="center"
                         ></TextView>

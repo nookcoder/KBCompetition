@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener {
 
     private ArrayList<Sale_Item> salesList = new ArrayList<Sale_Item>();
-    private ArrayList<Pickup_Item> favoritesList2 = new ArrayList<Pickup_Item>();
+    private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> favoritesList3 = new ArrayList<Saled_Item>();
 
     private RecyclerView recyclerView;
     private SaleAdapter saleAdapter;
-    private PickupAdapter mAdapter2;
+    private PickupAdapter pickupAdapter;
     private SaledAdapter mAdapter3;
 
     Button pickupBtn;
@@ -56,7 +56,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         recyclerView.setHasFixedSize(true);
 
         saleAdapter = new SaleAdapter(salesList);
-        mAdapter2 = new PickupAdapter(favoritesList2);
+        pickupAdapter = new PickupAdapter(pickupList);
         mAdapter3 = new SaledAdapter(favoritesList3);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -79,7 +79,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
             @Override
             public void onClick(View v) {
                 prepareData2();
-                recyclerView.setAdapter(mAdapter2);
+                recyclerView.setAdapter(pickupAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -113,12 +113,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
-        favoritesList2.clear();
-        favoritesList2.add(new Pickup_Item("서울시청2",37.54892296550104,126.99089033876304));
-        favoritesList2.add(new Pickup_Item("경복궁2",37.54892296550104,126.99089033876304));
-        favoritesList2.add(new Pickup_Item("서울역2",37.54892296550104,126.99089033876304));
-        favoritesList2.add(new Pickup_Item("남산2",37.54892296550104,126.99089033876304));
-        favoritesList2.add(new Pickup_Item("을지로입구역2",37.54892296550104,126.99089033876304));
+        pickupList.clear();
+        pickupList.add(new Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분",1));
+        pickupList.add(new Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분",3));
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
