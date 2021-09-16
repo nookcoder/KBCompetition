@@ -107,7 +107,6 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
 
                     //클릭이벤트 설정하기
                     onItemClickEventListener.onItemClick(v, position);
-
                     Log.d("test","position = "+ getAdapterPosition());
 
 

@@ -15,7 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
+
+    public interface OnItemClickEventListener{
+        void onItemClick(View view, int position);
+    }
+
     private ArrayList<Sale_Item> mDataset;
+    private OnItemClickEventListener onItemClickEventListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, category, stock,price;
@@ -30,11 +36,23 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
             category = (TextView) view.findViewById(R.id.productCategory);
             stock = (TextView) view.findViewById(R.id.productStock);
             price = (TextView) view.findViewById(R.id.productPrice);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //위치 받아오기
+                    int position = getAdapterPosition();
+                    //클릭 이벤트 설정하기
+                    onItemClickEventListener.onItemClick(v, position);
+
+                }
+            });
         }
     }
 
-    public SaleAdapter(ArrayList<Sale_Item> myData){
+    public SaleAdapter(ArrayList<Sale_Item> myData, OnItemClickEventListener onItemClickEventListener){
         this.mDataset = myData;
+        this.onItemClickEventListener = onItemClickEventListener;
     }
 
     @NonNull

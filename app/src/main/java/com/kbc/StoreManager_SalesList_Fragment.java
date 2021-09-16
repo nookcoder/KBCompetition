@@ -19,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener {
+public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
 
     private ArrayList<Sale_Item> salesList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
@@ -59,7 +59,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         recyclerView.setHasFixedSize(true);
 
         //어댑터 할당
-        saleAdapter = new SaleAdapter(salesList);
+        saleAdapter = new SaleAdapter(salesList, this);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
@@ -154,5 +154,14 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
+    }
+
+    //아이템 눌렀을때!
+    @Override
+    public void onItemClick(View view, int position) {
+        SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
+
+
+
     }
 }
