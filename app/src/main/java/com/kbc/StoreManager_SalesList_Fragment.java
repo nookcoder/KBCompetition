@@ -20,12 +20,12 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     private ArrayList<Sale_Item> salesList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
-    private ArrayList<Saled_Item> favoritesList3 = new ArrayList<Saled_Item>();
+    private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
 
     private RecyclerView recyclerView;
     private SaleAdapter saleAdapter;
     private PickupAdapter pickupAdapter;
-    private SaledAdapter mAdapter3;
+    private SaledAdapter saledAdapter;
 
     Button pickupBtn;
     Button saledBtn;
@@ -57,7 +57,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
         saleAdapter = new SaleAdapter(salesList);
         pickupAdapter = new PickupAdapter(pickupList);
-        mAdapter3 = new SaledAdapter(favoritesList3);
+        saledAdapter = new SaledAdapter(saledList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -90,7 +90,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
             @Override
             public void onClick(View v) {
                 prepareData3();
-                recyclerView.setAdapter(mAdapter3);
+                recyclerView.setAdapter(saledAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
@@ -120,20 +120,15 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData3() {
-        favoritesList3.clear();
-        favoritesList3.add(new Saled_Item("서울시청3",37.54892296550104,126.99089033876304));
-        favoritesList3.add(new Saled_Item("경복궁3",37.54892296550104,126.99089033876304));
-        favoritesList3.add(new Saled_Item("서울역3",37.54892296550104,126.99089033876304));
-        favoritesList3.add(new Saled_Item("남산3",37.54892296550104,126.99089033876304));
-        favoritesList3.add(new Saled_Item("을지로입구역3",37.54892296550104,126.99089033876304));
+        saledList.clear();
+        saledList.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분",1));
+        saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분",3));
     }
 
     @Override
-    public void onClick(View v) {
-//button
+    public void onClick(View v) {//button
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
-
     }
 }
