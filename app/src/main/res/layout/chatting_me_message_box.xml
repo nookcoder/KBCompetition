@@ -35,9 +35,10 @@
         android:layout_toLeftOf="@id/chatting_circle_imageview"
         android:layout_marginRight="16dp"
         android:padding="12dp"
-        android:maxWidth="250dp"
+        android:maxWidth="200dp"
         android:background="@drawable/me_message_box"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+       />
 
     <!--보낸 시간-->
     <TextView
