@@ -1,36 +1,38 @@
 package com.kbc;
+
 public class Sale_Item {
-    private String name;
-    private double lat, lon;
+    private String name, category;
+    private int stock, price;
 
 
-    public Sale_Item(String name, double lat, double lon){
+    public Sale_Item(String name, String category, int stock, int price) {
         this.name = name;
-        this.lat = lat;
-        this.lon = lon;
+        this.category = category;
+        this.stock = stock;
+        this.price = price;
     }
 
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public String getCategory() {
+        return category;
+    }
+    public int getStock() {
+        return stock;
+    }
+    public int getPrice() {
+        return price;
     }
 
-    public double getLat() {
-        return lat;
+    public void setName(String name) { this.name = name; }
+    public void setCategory(String category) {
+        this.category = category;
     }
-
-    public void setLat(float lat) {
-        this.lat = lat;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(float lon) {
-        this.lon = lon;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
