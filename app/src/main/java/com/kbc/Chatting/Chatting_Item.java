@@ -63,7 +63,7 @@ public class Chatting_Item {
         return profileUrl;
     }
 
-    public void setProfileUrl(String pofileUrl) {
+    public void setProfileUrl(String profileUrl) {
         this.profileUrl = profileUrl;
     }
 

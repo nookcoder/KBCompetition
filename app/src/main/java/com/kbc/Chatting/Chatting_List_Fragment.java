@@ -87,6 +87,9 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatting_list_recycleAdapter = new Chatting_List_RecycleAdapter(chatting_items, this);
         recyclerView.setAdapter(chatting_list_recycleAdapter);
 
+        chatting_list_recycleAdapter.notifyDataSetChanged();
+
+
         return rootViewGroup;
     }
 
@@ -217,12 +220,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatting_map = input_map.values().toArray();
         chatrooms_map = (Map<String, Object>) chatting_map[0];
 
-
-
-        Log.d(TAG, "채팅 방 갯수 -> " +  chatting_arraylist.size());
-        Log.d(TAG, "채팅 방 갯수 -> " +  chatting_arraylist.toString());
-        Log.d(TAG, "채팅 값들 -> " + chatting_map[0]);
-
         chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
         chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
         //키 인덱스 찾기
@@ -247,52 +244,61 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         for(int position=0; position< chatrooms_count ; position++)
             Insert_Chatroom_Ui(position);
 
-        for(int chatroom_number = 1 ; chatroom_number <= chatrooms_count ; chatroom_number++)
-            Insert_Chatroom_DB(chatroom_number);
     }
 
     private void Insert_Chatroom_Ui(int position){ input_map = chatting_arraylist.get(1);
         chatting_map = input_map.values().toArray();
 
-        chatrooms_map = (Map<String, Object>) chatting_map[position+1];
+        chatrooms_map = (Map<String, Object>) chatting_map[position];
 
 
         chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
         chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
 
+
         //마지막 채팅 정보 나, 상대방 각각 가져오기
         chatting_me_last_message = chatting_me_arraylist.get(chatting_me_arraylist.size()-1).values().toArray();
         chatting_other_last_message = chatting_other_arraylist.get(chatting_other_arraylist.size()-1).values().toArray();
+
 
         int last_message_mode = chatting_send_activity.Compare_Date(
                 chatting_me_last_message[date].toString().split(" "), chatting_other_last_message[date].toString().split(" "),
                 chatting_me_last_message[time].toString(), chatting_other_last_message[time].toString());
 
+        //프로필사진, 이름은 상대방으로 되어있어야 함!
         chatting_last_item.setProfileUrl(chatting_other_last_message[profileUrl].toString());
+        chatting_last_item.setName(chatting_other_last_message[name].toString());
 
         switch (last_message_mode){
             //내 시간이 더 빠르면 상대방이 마지막
             case Chatting.ME:
-                chatting_last_item.setName(chatting_other_last_message[name].toString());
+                chatting_last_item.setDate(chatting_other_last_message[date].toString());
                 chatting_last_item.setMessage(chatting_other_last_message[message].toString());
                 chatting_last_item.setTime(chatting_other_last_message[time].toString());
                 break;
 
             //상대방이 더빠르면 내가 마지막
             case Chatting.OTHER:
-                chatting_last_item.setName(chatting_me_last_message[name].toString());
+                chatting_last_item.setDate(chatting_me_last_message[date].toString());
                 chatting_last_item.setMessage(chatting_me_last_message[message].toString());
                 chatting_last_item.setTime(chatting_me_last_message[time].toString());
                 break;
         }
 
+        Insert_Chatroom_DB(position+1);
         chatting_list_recycleAdapter.addItem(chatting_last_item);
     }
 
     //데베에 넣기
     private void Insert_Chatroom_DB(int chatrooms_count){
 
+        DatabaseReference chatroom_db =databaseReference.child("id").child(login_id).child("chatrooms").child(chatrooms_count+"");
 
+        chatroom_db.child(Chatting.NAME).setValue(chatting_last_item.getName());
+        chatroom_db.child(Chatting.DATE).setValue(chatting_last_item.getDate());
+        chatroom_db.child(Chatting.MESSAGE).setValue(chatting_last_item.getMessage());
+        chatroom_db.child(Chatting.PROFILEUTL).setValue(chatting_last_item.getProfileUrl());
+        chatroom_db.child(Chatting.TIME).setValue(chatting_last_item.getTime());
 
     }
 }
