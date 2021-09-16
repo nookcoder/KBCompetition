@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.service.voice.VoiceInteractionSession;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -14,9 +15,23 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.MenuItemHoverListener;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
+import com.kbc.Server.LoginRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 //유저 선택 + 로그인 화면
 //To do 사업자 정보 등록되어 있는지 확인 필요!!
@@ -74,7 +89,6 @@ public class Login_Activity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> UserApiClient.getInstance().loginWithKakaoTalk(Login_Activity.this, (oAuthToken, error) -> {
             if (error != null) {
                 Log.e("으악", "로그인 실패", error);
-                startActivity(intentForStoreO);
             } else if (oAuthToken != null) {
                 Log.i("우왕", "로그인 성공(토큰) : " + oAuthToken.getAccessToken());
 
@@ -99,8 +113,7 @@ public class Login_Activity extends AppCompatActivity {
                     if(selectedUser.equals("사업자")) {
                         //1)정보 없는 경우 -> 정보 추가 화면으로
                         //데이터 전달 (userID)
-                        intentForStoreX.putExtra("userID" , id);
-                        startActivity(intentForStoreX);
+                        sendIdToServer(id,name,intentForStoreO,intentForStoreX);
                     }
 
                     //개인 화면 전환!!
@@ -125,6 +138,28 @@ public class Login_Activity extends AppCompatActivity {
         spannableString.setSpan(new StyleSpan(Typeface.NORMAL), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new RelativeSizeSpan(0.6f), start, end, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         radioButton.setText(spannableString);
+    }
+
+    public void sendIdToServer(String ID,String NAME, Intent intentO,Intent intentx){
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if(Boolean.valueOf(response)){
+                    //데이터 전달 (userID)
+                    intentO.putExtra("userID" , id);
+                    startActivity(intentO);
+                }
+
+                else{
+                    intentx.putExtra("userID" , id);
+                    startActivity(intentx);
+                }
+            }
+        };
+        LoginRequest loginRequest = new LoginRequest(ID,NAME,listener);
+        RequestQueue requestQueue = Volley.newRequestQueue(Login_Activity.this);
+        requestQueue.add(loginRequest);
     }
 }
 
