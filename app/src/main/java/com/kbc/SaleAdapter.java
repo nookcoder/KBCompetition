@@ -15,12 +15,15 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
     private ArrayList<Sale_Item> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, lan, lon;
+        public TextView name, category, stock,price;
 
         //ViewHolder
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.name);
+            name = (TextView) view.findViewById(R.id.productName);
+            category = (TextView) view.findViewById(R.id.productCategory);
+            stock = (TextView) view.findViewById(R.id.productStock);
+            price = (TextView) view.findViewById(R.id.productPrice);
         }
     }
 
@@ -40,17 +43,18 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.name.setText(mDataset.get(position).getName());
+        holder.category.setText(mDataset.get(position).getCategory());
+        holder.stock.setText(String.valueOf(mDataset.get(position).getStock()));
+        holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
         //클릭이벤트
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //클릭시 name과 좌표정보를 지도 프래그먼트로 보내자.
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 //activity.getFragmentManager().beginTransaction().replace(R.id.fragment_place, new Fragment1()).addToBackStack(null).commit();
             }
         });
-
     }
 
     @Override

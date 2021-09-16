@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener {
 
-    private ArrayList<Sale_Item> favoritesList1 = new ArrayList<Sale_Item>();
+    private ArrayList<Sale_Item> salesList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> favoritesList2 = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> favoritesList3 = new ArrayList<Saled_Item>();
 
     private RecyclerView recyclerView;
-    private SaleAdapter mAdapter1;
+    private SaleAdapter saleAdapter;
     private PickupAdapter mAdapter2;
     private SaledAdapter mAdapter3;
 
@@ -55,20 +55,20 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
-        mAdapter1 = new SaleAdapter(favoritesList1);
+        saleAdapter = new SaleAdapter(salesList);
         mAdapter2 = new PickupAdapter(favoritesList2);
         mAdapter3 = new SaledAdapter(favoritesList3);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter1);
+        recyclerView.setAdapter(saleAdapter);
 
         salesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 prepareData();
-                recyclerView.setAdapter(mAdapter1);
+                recyclerView.setAdapter(saleAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -103,12 +103,12 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
-        favoritesList1.clear();
-        favoritesList1.add(new Sale_Item("서울시청",37.54892296550104,126.99089033876304));
-        favoritesList1.add(new Sale_Item("경복궁",37.54892296550104,126.99089033876304));
-        favoritesList1.add(new Sale_Item("서울역",37.54892296550104,126.99089033876304));
-        favoritesList1.add(new Sale_Item("남산",37.54892296550104,126.99089033876304));
-        favoritesList1.add(new Sale_Item("을지로입구역",37.54892296550104,126.99089033876304));
+        salesList.clear();
+        salesList.add(new Sale_Item("동글동글 방울토마토","채소 / 과일",70,2000));
+        salesList.add(new Sale_Item("신선한 상추","육류",30,1800));
+        salesList.add(new Sale_Item("눈물 쏙 양파","채소 / 과일",10,4000));
+        salesList.add(new Sale_Item("아삭아삭 콩나물","채소 / 과일",15,3300));
+        salesList.add(new Sale_Item("을지로입구역","육류",12,8000));
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)

@@ -1,8 +1,11 @@
 package com.kbc;
 
+import android.widget.ImageView;
+
 public class Sale_Item {
     private String name, category;
     private int stock, price;
+    private ImageView imageView; //임의로 설정
 
 
     public Sale_Item(String name, String category, int stock, int price) {
