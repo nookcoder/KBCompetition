@@ -36,7 +36,8 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         //유저 데이터 받기
         Intent intentForGet = getIntent();
-//        String userId = intentForGet.getExtras().getString("userID");
+        //String userId = intentForGet.getExtras().getString("userID");
+
 
         //서히 테스트용
         storeManager_id = "seohee";

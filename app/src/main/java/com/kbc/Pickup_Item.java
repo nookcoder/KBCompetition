@@ -1,36 +1,48 @@
 package com.kbc;
+
+import android.widget.ImageView;
+
 public class Pickup_Item {
-    private String name;
-    private double lat, lon;
+    private String buyerName, productNameInPickupList, pickupDate, pickupTime;
+    private int pickupQuantity;
+    private ImageView imageView; //임의로 설정
 
 
-    public Pickup_Item(String name, double lat, double lon){
-        this.name = name;
-        this.lat = lat;
-        this.lon = lon;
+    public Pickup_Item(String buyerName, String productNameInPickupList, String pickupDate, String pickupTime, int pickupQuantity) {
+        this.buyerName = buyerName;
+        this.productNameInPickupList = productNameInPickupList;
+        this.pickupDate = pickupDate;
+        this.pickupTime = pickupTime;
+        this.pickupQuantity = pickupQuantity;
     }
 
-    public String getName() {
-        return name;
+    public String getBuyerName() {
+        return buyerName;
+    }
+    public String getProductNameInPickupList() {
+        return productNameInPickupList;
+    }
+    public String getPickupDate() {
+        return pickupDate;
+    }
+    public String getPickupTime() {
+        return pickupTime;
+    }
+    public int getPickupQuantity() {
+        return pickupQuantity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public void setBuyerName(String buyerName) { this.buyerName = buyerName; }
+    public void setProductNameInPickupList(String productNameInPickupList) { this.productNameInPickupList = productNameInPickupList; }
+    public void setPickupDate(String pickupDate) {
+        this.pickupDate = pickupDate;
+    }
+    public void setPickupTime(String pickupTime) {
+        this.pickupTime = pickupTime;
+    }
+    public void setPickupQuantity(int pickupQuantity) {
+        this.pickupQuantity = pickupQuantity;
     }
 
-    public double getLat() {
-        return lat;
-    }
-
-    public void setLat(float lat) {
-        this.lat = lat;
-    }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(float lon) {
-        this.lon = lon;
-    }
 }

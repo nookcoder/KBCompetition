@@ -15,12 +15,17 @@ public class SaledAdapter extends RecyclerView.Adapter<SaledAdapter.MyViewHolder
     private ArrayList<com.kbc.Saled_Item> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, lan, lon;
+        public TextView buyerNameInSaled, productNameInSaled, pickupDateInSaled, pickupTimeInSaled,saledQuantity;
+
 
         //ViewHolder
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.name);
+            buyerNameInSaled = (TextView) view.findViewById(R.id.buyerNameInSaled);
+            productNameInSaled = (TextView) view.findViewById(R.id.productNameInSaled);
+            pickupDateInSaled = (TextView) view.findViewById(R.id.pickupDateInSaled);
+            pickupTimeInSaled = (TextView) view.findViewById(R.id.pickupTimeInSaled);
+            saledQuantity = (TextView) view.findViewById(R.id.saledQuantity);
         }
     }
 
@@ -39,17 +44,11 @@ public class SaledAdapter extends RecyclerView.Adapter<SaledAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.name.setText(mDataset.get(position).getName());
-
-        //클릭이벤트
-        holder.name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //클릭시 name과 좌표정보를 지도 프래그먼트로 보내자.
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                //activity.getFragmentManager().beginTransaction().replace(R.id.fragment_place, new Fragment1()).addToBackStack(null).commit();
-            }
-        });
+        holder.buyerNameInSaled.setText(mDataset.get(position).getBuyerNameInSaled());
+        holder.productNameInSaled.setText(mDataset.get(position).getProductNameInSaled());
+        holder.pickupDateInSaled.setText(mDataset.get(position).getPickupDateInSaled());
+        holder.pickupTimeInSaled.setText(mDataset.get(position).getPickupTimeInSaled());
+        holder.saledQuantity.setText(String.valueOf(mDataset.get(position).getSaledQuantity()));
 
     }
 
