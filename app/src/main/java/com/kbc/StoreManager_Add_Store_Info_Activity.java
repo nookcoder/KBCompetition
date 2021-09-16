@@ -58,7 +58,14 @@ public class StoreManager_Add_Store_Info_Activity extends AppCompatActivity {
 
                 //다 입력되어 있으면
                 else if (name.length() != 0 && phone.length() != 0) {
+                    //데이터 받아오기
+                    Intent intentForGet = getIntent();
+                    String userId = intentForGet.getExtras().getString("userID");
+                    //화면 전환 + 데이터 전달( 회원Id, 가게 이름, 가게 번호)
                     Intent intent = new Intent(getApplicationContext(), StoreManager_Add_Manager_Info_Activity.class);
+                    intent.putExtra("userID" , userId);
+                    intent.putExtra("storeName" , name);
+                    intent.putExtra("storeNum" , phone);
                     startActivity(intent);
                 }
             }

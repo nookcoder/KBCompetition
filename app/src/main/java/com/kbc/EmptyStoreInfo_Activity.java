@@ -20,8 +20,12 @@ public class EmptyStoreInfo_Activity extends AppCompatActivity {
         goToAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //화면 전환
+                //데이터 받아오기
+                Intent intentForGet = getIntent();
+                String userId = intentForGet.getExtras().getString("userID");
+                //화면 전환 + 데이터 전달
                 Intent intent1 = new Intent(getApplicationContext(), StoreManager_Add_Store_Info_Activity.class);
+                intent1.putExtra("userID" , userId);
                 startActivity(intent1);
             }
         });
