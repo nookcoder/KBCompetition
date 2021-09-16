@@ -24,7 +24,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
     private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
     private StoreManager_SalesList_Fragment storeManager_salesList_fragment =new StoreManager_SalesList_Fragment();
-    private String storeManager_id;
+    private String storeManager_id, mode;
     private Bundle bundle;
 
     @Override
@@ -40,10 +40,11 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         //서히 테스트용
         storeManager_id = "seohee";
-
+        mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
-        bundle = new Bundle(1);
+        bundle = new Bundle(2);
         bundle.putString("id" , storeManager_id);
+        bundle.putString("mode", mode);
 
 
         storeManager_mainActivity = StoreManager_MainActivity.this;
