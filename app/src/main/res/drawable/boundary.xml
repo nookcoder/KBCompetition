@@ -6,7 +6,7 @@
         android:right="-5dp"
         android:top="-5dp"    >
         <shape android:shape="rectangle">
-            <stroke android:color="@color/previous_register_text_color"
+            <stroke android:color="@color/boundary"
                 android:width="1dp"/>
         </shape>
     </item>

@@ -217,7 +217,7 @@
         android:padding="3dp">
 
         <Button
-            android:id="@+id/chatting"
+            android:id="@+id/chattingBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="3dp"

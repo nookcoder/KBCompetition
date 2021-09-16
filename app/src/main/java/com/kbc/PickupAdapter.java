@@ -55,6 +55,13 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
 
                 Intent intent;//인텐트 선언
                 intent = new Intent(view.getContext(),PickupDetailActivity.class); //look_memo.class부분에 원하는 화면 연결
+                //데이터 전달
+                intent.putExtra("buyerName",mDataset.get(position).getBuyerName());
+                intent.putExtra("productNameInPickupList",mDataset.get(position).getProductNameInPickupList());
+                intent.putExtra("pickupDate",mDataset.get(position).getPickupDate());
+                intent.putExtra("pickupTime",mDataset.get(position).getPickupTime());
+                intent.putExtra("pickupQuantity",mDataset.get(position).getPickupQuantity());
+
                 view.getContext().startActivity(intent); //액티비티 열기
 
             }
