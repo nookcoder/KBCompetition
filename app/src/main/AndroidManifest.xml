@@ -27,7 +27,7 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
-      
+
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -56,15 +56,17 @@
         <activity android:name=".Select_User_Activity"></activity>
         <activity android:name=".StoreManager_Product_RegisterActivity"></activity>
         <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".PickupDetailActivity"></activity>
         <activity
             android:name=".Popup_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/popupTheme"></activity>
+
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face" />
 
-        <activity android:name=".Chatting.Chatting_Send_Activity"/>
+        <activity android:name=".Chatting.Chatting_Send_Activity" />
 
 
     </application>

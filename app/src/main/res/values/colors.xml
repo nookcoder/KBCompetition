@@ -15,5 +15,6 @@
     <color name="icon_color2">#FFC11B</color>
     <color name="icon_color3">#FFD976</color>
     <color name="grey">#383838</color>
+    <color name="boundary">#C9C9C9</color>
 
 </resources>
