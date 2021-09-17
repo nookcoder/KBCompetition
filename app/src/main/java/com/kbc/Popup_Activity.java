@@ -42,9 +42,12 @@ public class Popup_Activity extends AppCompatActivity {
             case "withdrawal":
                 popup_title.setText("탈퇴하기");
                 popup_context.setText("정말로 탈퇴하시겠습니까???");
+                break;
+            case "Pickup complete":
+                popup_title.setText("픽업 완료");
+               popup_context.setText("픽업을 완료했습니까?");
+               break;
         }
-
-
 
 
 
@@ -57,6 +60,7 @@ public class Popup_Activity extends AppCompatActivity {
     public void click_ok(View view){
         //사장님 액티비티 호출하고,
         StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
+        PickupDetailActivity pickupDetailActivity = (PickupDetailActivity)PickupDetailActivity.pickupDetailActivity;
 
         switch (button_name){
 
@@ -80,6 +84,12 @@ public class Popup_Activity extends AppCompatActivity {
                 startActivity(first_intent);
                 break;
 
+            //픽업 완료 했을때!
+            case "Pickup complete":
+                //팝업 액티비티 닫아주고,
+                finish();
+                pickupDetailActivity.finish();
+                break;
         }
     }
     //취소 버튼 클릭

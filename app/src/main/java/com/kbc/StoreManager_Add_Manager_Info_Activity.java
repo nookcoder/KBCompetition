@@ -2,6 +2,7 @@ package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,8 +10,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.kbc.R;
 import com.kbc.WebViewActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
@@ -21,7 +30,10 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
     private TextView et_order_address1;
     TextView IdCheck,nameCheck,birthCheck,addressCheck;
     EditText managerIdEditText,nameEditText,yearEditText,monthEditText,dayEditText,detailAddressEditText;
-    String managerId, name, birth, year, month, day, addressZipcode, fullAddress;
+    String year, month, day;
+    //추가로 등록한 데이터
+    String managerId, name, birth, addressZipcode, fullAddress;
+    String userId,storeName,storeNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +60,6 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
 
         //다음 버튼
         Button next = (Button) findViewById(R.id.next);
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,9 +87,21 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                 }
                 //다 입력되어 있으면
                 else if (managerId.length() != 0 || name.length() != 0 || year.length() != 0 || month.length() != 0 || day.length() != 0 || addressZipcode.length() != 0 || detailAddressEditText.getText().toString().length() != 0) {
-                    //intent로 화면 전환 + [user : 사업자] 전달
+                    //데이터 받아오기
+                    Intent intentForGet = getIntent();
+                     userId = intentForGet.getExtras().getString("userID");
+                     storeName =intentForGet.getExtras().getString("storeName");
+                     storeNum =intentForGet.getExtras().getString("storeNum");
+
+                    //intent로 화면 전환
+                    try {
+                        sendStoreData(userId,storeName,storeNum,name,birth,managerId,fullAddress);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
-                    intent.putExtra("user", "store manager");
+                    intent.putExtra("userId", userId);
+                    intent.putExtra("user","사업자");
                     startActivity(intent);
                 }
             }
@@ -101,6 +124,7 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(getApplicationContext(), StoreManager_Add_Store_Info_Activity.class);
+                intent1.putExtra("userID",userId);
                 startActivity(intent1);
             }
         });
@@ -135,5 +159,26 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
         //날짜 합치기
         combinedBirth = year + month + day;
         return combinedBirth;
+    }
+    public void sendStoreData(String userId,String storeName, String storeNum, String name, String birth, String managerId,String fullAddress) throws JSONException {
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/register";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id",userId);
+        jsonObject.put("storeName",storeName);
+        jsonObject.put("storePhoneNumber",storeNum);
+        jsonObject.put("representativeName",name);
+        jsonObject.put("openingDate",birth);
+        jsonObject.put("businessNumber",managerId);
+        jsonObject.put("location",fullAddress);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("Register","done register");
+            }
+        },null);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(StoreManager_Add_Manager_Info_Activity.this);
+        requestQueue.add(jsonObjectRequest);
     }
 }

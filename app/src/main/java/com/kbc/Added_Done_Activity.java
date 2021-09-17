@@ -18,6 +18,7 @@ public class Added_Done_Activity extends AppCompatActivity {
         //유저 데이터 받기
         Intent intentForGet = getIntent();
         String user = intentForGet.getExtras().getString("user");
+        String userId = intentForGet.getExtras().getString("userID");
 
         //다음 버튼
         Button next = (Button) findViewById(R.id.start);
@@ -27,7 +28,8 @@ public class Added_Done_Activity extends AppCompatActivity {
 
                 //유저가 사업자면
                 if(user.equals("store manager")){
-                    Intent intent1 = new Intent(getApplicationContext(), Login_Activity.class);//변경 필요
+                    Intent intent1 = new Intent(getApplicationContext(), StoreManager_MainActivity.class);
+                    intent1.putExtra("userID",userId);
                     startActivity(intent1);
                 }
                 //유저가 개인이면

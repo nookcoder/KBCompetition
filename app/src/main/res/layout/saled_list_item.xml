@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:background="@drawable/boundary">
 
         <ImageView
             android:layout_width="0dp"
