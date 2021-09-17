@@ -5,6 +5,8 @@ import android.widget.ImageView;
 import java.io.Serializable;
 
 public class Sale_Item implements Serializable {
+    //유저아이디
+    private String user_Id, user_location;
     //상품사진
     private String productImageSrc;
     //상품 이름, 카테고리
@@ -41,6 +43,8 @@ public class Sale_Item implements Serializable {
     }
 
 
+    public String getUser_Id(){return user_Id;}
+    public String getUser_location(){return user_location;}
     public String getProductImageSrc() {return productImageSrc;}
     public String getName() {
         return name;
@@ -63,6 +67,9 @@ public class Sale_Item implements Serializable {
     public String getDetails(){return  details;}
     public String getRegister_time(){return register_time;}
 
+
+    public void setUser_Id(String user_Id){this.user_Id = user_Id;}
+    public void setUser_location(String user_location){this.user_location = user_location;}
     public void serProductImageSrc(String productImageSrc) { this.productImageSrc = productImageSrc; }
     public void setName(String name) { this.name = name; }
     public void setCategory(String category) {

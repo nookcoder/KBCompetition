@@ -34,18 +34,18 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_activity_main);
 
-        //유저 데이터 받기
+//        //유저 데이터 받기
         Intent intentForGet = getIntent();
         String userId = intentForGet.getExtras().getString("userID");
 
 
         //서히 테스트용
-        storeManager_id = "seohee";
+//        storeManager_id = "seohee";
         storeManager_location = "광명동";
         mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
         bundle = new Bundle(2);
-        bundle.putString("id" , storeManager_id);
+        bundle.putString("id" , userId);
         bundle.putString("mode", mode);
         bundle.putString("location", storeManager_location);
 

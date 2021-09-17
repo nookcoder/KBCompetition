@@ -209,7 +209,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         list.add(sale_item);
 
 
-        //상품 등록 액티비티로 들어가기
+        //상품 조회 액티비티로 들어가기
         Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
         intent.putExtra("sale_item_list", list);
         intent.putExtra("id", storeManager_id);

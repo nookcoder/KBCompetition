@@ -47,6 +47,10 @@ public class Popup_Activity extends AppCompatActivity {
                 popup_title.setText("픽업 완료");
                popup_context.setText("픽업을 완료했습니까?");
                break;
+
+            case "product_register":
+                popup_title.setText("상품 등록");
+                popup_context.setText("");
         }
 
 

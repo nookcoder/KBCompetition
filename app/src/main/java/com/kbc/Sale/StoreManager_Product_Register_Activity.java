@@ -12,7 +12,9 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.kbc.Popup_Activity;
 import com.kbc.R;
+import com.kbc.StoreManager_MainActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class StoreManager_Product_Register_Activity extends AppCompatActivity {
+    //로그인정보
+    String storeManager_id, storeManager_location;
 
     //새로 등록하는 상품
     private Sale_Item register_item = new Sale_Item();
@@ -50,6 +54,11 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_register_activity);
+
+        Intent intent = new Intent();
+        //로그인 정보 가져오기
+        storeManager_id = intent.getExtras().getString("id");
+        storeManager_location = intent.getExtras().getString("location");
 
         //상품제목
         product_name = findViewById(R.id.product_name);
@@ -174,6 +183,8 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                register_item.setUser_Id(storeManager_id);
+
                 //이미지, 이름, 카테고리, 재고, 가격, 기한, 원산지, 상세설명
                 //이미지 넣기코드 필요 !!!!!!!!!!
                 register_item.setName(product_name.getText().toString());
@@ -189,6 +200,9 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 register_item.setOrigin(product_origin.getText().toString());
                 register_item.setDetails(product_details.getText().toString());
                 register_item.setRegister_time(Register_Time());
+
+                //확인창 띄워주고(팝업 그냥 확인버트!) 올린 상품 리스트보는 프래그먼트 띄워야델것가타!
+                //StoreManager_SaleList_Fragment로!
 
 
             }
