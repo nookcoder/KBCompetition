@@ -169,7 +169,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             }
         });
 
-        //등록하기
+        //등록하기!!!!!!!!!!!!!!!!!!!!!!
         product_register_sucess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +221,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         //메세지 보낸 시간
         Calendar calendar = Calendar.getInstance();
         DateFormat dateFormat_date = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm");
-
         return dateFormat_date.format(calendar.getTime());
     }
 
