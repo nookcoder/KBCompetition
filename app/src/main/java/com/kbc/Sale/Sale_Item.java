@@ -13,7 +13,7 @@ public class Sale_Item implements Serializable {
     //상품 수량, 가격
     private int stock, price;
     //유통기한(구입날짜), 원산지(거래처)
-    private String date, origin;
+    private String date, date_type, origin;
     //상품 게시글 내용, 상품 등록 시간
     private String details, register_time;
 
