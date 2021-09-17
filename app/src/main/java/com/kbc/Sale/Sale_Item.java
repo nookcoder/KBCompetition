@@ -12,13 +12,17 @@ public class Sale_Item implements Serializable {
     //상품 수량, 가격
     private String stock, price;
     //기한날짜, 유통/구입 구분변수 ,원산지(거래처)
-    private String date, date_type, origin;
+    private String date_year, date_month, date_day, date_type, origin;
     //상품 게시글 내용, 상품 등록 시간- (yyyy년 MM월 dd일 HH:mm)
     private String details, register_time;
 
+    public Sale_Item(){
+
+    }
 
     public Sale_Item(String productImageSrc, String name, String category, String stock, String price,
-                     String date, String origin, String details, String register_time){
+                     String date_year, String date_month, String date_day, String date_type,
+                     String origin, String details, String register_time){
         this.productImageSrc = productImageSrc;
 
         this.name = name;
@@ -26,7 +30,11 @@ public class Sale_Item implements Serializable {
         this.stock = stock;
         this.price = price;
 
-        this.date = date;
+        this.date_year = date_year;
+        this.date_month =date_month;
+        this.date_day = date_day;
+        this.date_type = date_type;
+
         this.origin = origin;
         this.details = details;
         this.register_time = register_time;
@@ -46,7 +54,11 @@ public class Sale_Item implements Serializable {
     public String getPrice() {
         return price;
     }
-    public String getDate(){return date;}
+    public String getDate_year(){return date_year;}
+    public String getDate_month(){return date_month;}
+    public String getDate_day(){ return date_day;}
+    public String getDate_type(){return date_type;}
+
     public String getOrigin(){return origin;}
     public String getDetails(){return  details;}
     public String getRegister_time(){return register_time;}
@@ -62,7 +74,11 @@ public class Sale_Item implements Serializable {
     public void setPrice(String price) {
         this.price = price;
     }
-    public void setDate(String date){this.date = date;}
+    public void setDate_year(String date_year){this.date_year = date_year;}
+    public void setDate_month(String date_month){this.date_month = date_month;}
+    public void setDate_day(String date_day){this.date_day = date_day;}
+    public void setDate_type(String date_type){this.date_type = date_type;}
+
     public void setOrigin(String origin){this.origin= origin;}
     public void setDetails(String details){this.details = details;}
     public void setRegister_time(String register_time){this.register_time = register_time;}

@@ -81,13 +81,21 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
         });
     }
 
+
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
 
+    public void removeAll(){
+        mDataset.clear();
+    }
+
     public String getItem_productImageSrc(int position){return mDataset.get(position).getProductImageSrc();}
-    public String getItem_date(int position){return mDataset.get(position).getDate();}
+    public String getItem_date_year(int position){return mDataset.get(position).getDate_year();}
+    public String getItem_date_month(int position){return mDataset.get(position).getDate_month();}
+    public String getItem_date_day(int position){return mDataset.get(position).getDate_day();}
+    public String getItem_date_type(int position){return mDataset.get(position).getDate_type();}
     public String getItem_origin(int position){return mDataset.get(position).getOrigin();}
     public String getItem_Details(int position){
         return mDataset.get(position).getDetails();

@@ -27,7 +27,7 @@
             />
 
         <ImageButton
-            android:id="@+id/product_register_close"
+            android:id="@+id/product_modify_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
@@ -102,7 +102,7 @@
                     android:id="@+id/product_title"
                     android:text="글 제목"
                     android:editable="true"
-                    android:layout_span="3"
+                    android:layout_span="5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
@@ -119,28 +119,22 @@
                 >
                 <Spinner
                     android:id="@+id/product_category"
-                    android:text="카테고리"
-                    android:editable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_span="2"
+                    android:layout_span="4"
                     android:padding="5dp"
-                    android:textSize="5dp"
                     android:layout_margin="10dp"
-                    android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"
                     />
 
                 <Spinner
                     android:id="@+id/product_stock"
-                    android:text="수량"
-                    android:editable="true"
-                    android:layout_span="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_span="1"
                     android:padding="5dp"
+
                     android:layout_margin="10dp"
-                    android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"
                     android:textSize="10dp"
                     />
@@ -151,23 +145,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp">
 
-                <TextView
-                    android:id="@+id/product_date"
-                    android:text="유통기한/구입날짜"
-                    android:editable="true"
+                <Spinner
+                    android:id="@+id/product_date_year"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_margin="10dp"
-                    android:textColor="@color/previous_register_text_color"
+                    android:padding="5dp"
                     android:background="@drawable/edge"
-                    android:textSize="15dp"
                     />
+
+                <Spinner
+                    android:id="@+id/product_date_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edge"
+                    />
+                <Spinner
+                    android:id="@+id/product_date_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edge"
+                    />
+
                 <Button
                     android:id="@+id/product_expiration"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
+                    android:padding="5dp"
+                    android:layout_span="1"
                     android:layout_margin="10dp"
                     android:background="@drawable/edge"
                     android:text="유통"
@@ -177,6 +186,7 @@
                     android:id="@+id/product_purchase"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_span="1"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/edge"
@@ -198,7 +208,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:layout_span="2"
+                    android:layout_span="4"
                     android:layout_margin="10dp"
                     android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"

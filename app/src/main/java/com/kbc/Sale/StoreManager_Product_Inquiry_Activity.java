@@ -76,11 +76,6 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         product_details.setText(sale_item.getDetails());
 
 
-        Log.d(TAG, "리스트 -> "+ sale_item.getDate());
-        Log.d(TAG, "리스트 -> "+ sale_item.getRegister_time());
-        Log.d(TAG, "리스트 -> "+ sale_item.getOrigin());
-
-
         //수정하기 버튼 이벤트
         product_modify_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +90,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
                 intent.putExtra("id", storeManager_id);
                 intent.putExtra("location",storeManager_location);
                 startActivity(intent);
+
                 finish();
             }
         });
