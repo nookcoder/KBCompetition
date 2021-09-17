@@ -117,31 +117,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 >
-                <TextView
+                <Spinner
                     android:id="@+id/product_category"
                     android:text="카테고리"
                     android:editable="true"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_span="2"
-                    android:padding="10dp"
+                    android:padding="5dp"
+                    android:textSize="5dp"
                     android:layout_margin="10dp"
                     android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"
-                    android:textSize="15dp"
                     />
-                <TextView
-                    android:id="@+id/product_count"
+
+                <Spinner
+                    android:id="@+id/product_stock"
                     android:text="수량"
                     android:editable="true"
                     android:layout_span="1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:layout_margin="10dp"
                     android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"
-                    android:textSize="15dp"
+                    android:textSize="10dp"
                     />
             </TableRow>
 
@@ -162,11 +163,6 @@
                     android:background="@drawable/edge"
                     android:textSize="15dp"
                     />
-                <!--                <LinearLayout-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:orientation="horizontal"-->
-                <!--                    >-->
                 <Button
                     android:id="@+id/product_expiration"
                     android:layout_width="wrap_content"
@@ -187,9 +183,6 @@
 
                     android:text="구입"
                     android:textSize="15dp"/>
-
-
-                <!--                </LinearLayout>-->
 
             </TableRow>
 
@@ -252,10 +245,11 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/product_register_sucess"
-            android:text="등록하기"
+            android:id="@+id/product_modify_sucess"
+            android:text="수정하기"
             android:paddingRight="30dp"
             android:paddingLeft="30dp"
+            android:layout_marginBottom="10dp"
             android:textStyle="bold"
             android:textSize="23dp"
             android:layout_gravity="center"

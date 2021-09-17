@@ -86,11 +86,13 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
         return mDataset.size();
     }
 
-    public String getItemDetails(int position){
+    public String getItem_productImageSrc(int position){return mDataset.get(position).getProductImageSrc();}
+    public String getItem_date(int position){return mDataset.get(position).getDate();}
+    public String getItem_origin(int position){return mDataset.get(position).getOrigin();}
+    public String getItem_Details(int position){
         return mDataset.get(position).getDetails();
     }
-
-    public String getItemRegister_Time(int position){
+    public String getItem_Register_Time(int position){
         return mDataset.get(position).getRegister_time();
     }
 }

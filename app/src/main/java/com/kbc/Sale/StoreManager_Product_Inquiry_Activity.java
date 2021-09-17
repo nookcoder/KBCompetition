@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.content.ContentValues.TAG;
+
 public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
     //인텐트에서 넘어오는 정보들
     private ArrayList<Sale_Item> sale_items ;
@@ -22,7 +25,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
 
     //상품 정보들
     private TextView storemanager_id, storemanager_location;
-    private TextView product_title, product_category,product_register_time, product_price, product_count, product_details;
+    private TextView product_title, product_category,product_register_time, product_price, product_stock, product_details;
 
     //창 닫기, 수정하기 버튼
     private ImageButton product_modify_imageButton, product_inquiry_close;
@@ -47,7 +50,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         product_category = findViewById(R.id.product_category);
         product_register_time = findViewById(R.id.product_register_time);
         product_price = findViewById(R.id.product_price);
-        product_count = findViewById(R.id.product_count);
+        product_stock = findViewById(R.id.product_stock);
         product_details = findViewById(R.id.product_details);
 
         product_modify_imageButton = findViewById(R.id.product_modify_imageButton);
@@ -67,22 +70,32 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
 
         //판매가격, 재고 넣기
         product_price.setText("가격 "+ sale_item.getPrice()+"원");
-        product_count.setText("재고 " + sale_item.getStock() +"개");
+        product_stock.setText("재고 " + sale_item.getStock() +"개");
 
         //상세설명
         product_details.setText(sale_item.getDetails());
+
+
+        Log.d(TAG, "리스트 -> "+ sale_item.getDate());
+        Log.d(TAG, "리스트 -> "+ sale_item.getRegister_time());
+        Log.d(TAG, "리스트 -> "+ sale_item.getOrigin());
+
 
         //수정하기 버튼 이벤트
         product_modify_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ArrayList<Sale_Item> sale_items = new ArrayList<Sale_Item>();
+                sale_items.add(sale_item);
+
                 //상품 등록 액티비티로 들어가기
                 Intent intent = new Intent(StoreManager_Product_Inquiry_Activity.this, StoreManager_Product_Modify_Activity.class);
                 intent.putExtra("sale_item_list", sale_items);
                 intent.putExtra("id", storeManager_id);
                 intent.putExtra("location",storeManager_location);
-
                 startActivity(intent);
+                finish();
             }
         });
 

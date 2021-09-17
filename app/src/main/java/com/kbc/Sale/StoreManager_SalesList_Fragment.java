@@ -143,11 +143,12 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
         salesList.clear();
-        salesList.add(new Sale_Item("","동글동글 방울토마토","채소 / 과일",70,2000,"2021년 09월 18일(유통)", "양구","상세설명","2021년 09월 12일 12:13"));
-        salesList.add(new Sale_Item("","신선한 상추","육류",30,1800,"2021년 09월 18일(구입)","광명","상세설명","2021년 09월 12일 12:13"));
-        salesList.add(new Sale_Item("","눈물 쏙 양파","채소 / 과일",10,4000,"2021년 09월 18일(유통)","광명","상세설명","2021년 09월 12일 11:11"));
-        salesList.add(new Sale_Item("","아삭아삭 콩나물","채소 / 과일",15,3300,"2021년 09월 20일(유통)","김포","상세설명","2021년 09월 10일 09:23"));
-        salesList.add(new Sale_Item("","을지로입구역","육류",12,8000,"2021년 09월 21일(구입)","잠실","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","동글동글 방울토마토","채소 / 과일","70","2000","2021년 09월 18일(유통)", "양구","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","신선한 상추","육류","30","1800","2021년 09월 18일(구입)","광명","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","눈물 쏙 양파","채소 / 과일","10","4000","2021년 09월 18일(유통)","광명","상세설명","2021년 09월 12일 11:11"));
+        salesList.add(new Sale_Item("","아삭아삭 콩나물","채소 / 과일","15","3300","2021년 09월 20일(유통)","김포","상세설명","2021년 09월 10일 09:23"));
+        salesList.add(new Sale_Item("","을지로입구역","육류","12","8000","2021년 09월 21일(구입)","잠실","상세설명","2021년 09월 12일 12:13"));
+
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -177,12 +178,16 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     public void onItemClick(View view, int position) {
         SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
         ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
-        Sale_Item sale_item = new Sale_Item(myViewHolder.name.getText().toString() ,
+        Sale_Item sale_item = new Sale_Item(
+                saleAdapter.getItem_productImageSrc(position),
+                myViewHolder.name.getText().toString() ,
                 myViewHolder.category.getText().toString(),
-                saleAdapter.getItemRegister_Time(position),
-                Integer.parseInt(myViewHolder.stock.getText().toString()),
-                Integer.parseInt(myViewHolder.price.getText().toString()),
-                saleAdapter.getItemDetails(position));
+                myViewHolder.stock.getText().toString(),
+               myViewHolder.price.getText().toString(),
+                saleAdapter.getItem_date(position),
+                saleAdapter.getItem_origin(position),
+                saleAdapter.getItem_Details(position),
+                saleAdapter.getItem_Register_Time(position));
 
         list.add(sale_item);
 
