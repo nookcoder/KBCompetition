@@ -60,13 +60,15 @@ public class PickupDetailActivity extends AppCompatActivity {
 
             }
         });
-        //뒤로가기 버튼 할당
-        ImageButton goBack = (ImageButton)findViewById(R.id.pickupCloseBtn);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
 
-            }
-        });
+    public void click_back(View view){
+        switch (view.getId()){
+            //채팅방 나가기
+            case R.id.pickupCloseBtn:
+                //채팅하는곳 액티비티 닫아주고,
+                finish();
+                break;
+        }
     }
 }
