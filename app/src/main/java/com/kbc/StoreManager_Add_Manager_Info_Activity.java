@@ -101,7 +101,7 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                     }
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
                     intent.putExtra("userId", userId);
-                    intent.putExtra("user","사업자");
+                    intent.putExtra("user","store manager");
                     startActivity(intent);
                 }
             }

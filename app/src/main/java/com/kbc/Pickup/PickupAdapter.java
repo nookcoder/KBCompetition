@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kbc.PickupDetailActivity;
 import com.kbc.R;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
             public void onClick(View view) {
 
                 Intent intent;//인텐트 선언
-                intent = new Intent(view.getContext(),PickupDetailActivity.class); //look_memo.class부분에 원하는 화면 연결
+                intent = new Intent(view.getContext(), PickupDetailActivity.class); //look_memo.class부분에 원하는 화면 연결
                 //데이터 전달
                 intent.putExtra("buyerName",mDataset.get(position).getBuyerName());
                 intent.putExtra("productNameInPickupList",mDataset.get(position).getProductNameInPickupList());
