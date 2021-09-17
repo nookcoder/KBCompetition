@@ -1,16 +1,16 @@
-package com.kbc;
+package com.kbc.Sale;
 
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.kbc.R;
 
 import java.util.ArrayList;
 
@@ -81,8 +81,26 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
         });
     }
 
+
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public void removeAll(){
+        mDataset.clear();
+    }
+
+    public String getItem_productImageSrc(int position){return mDataset.get(position).getProductImageSrc();}
+    public String getItem_date_year(int position){return mDataset.get(position).getDate_year();}
+    public String getItem_date_month(int position){return mDataset.get(position).getDate_month();}
+    public String getItem_date_day(int position){return mDataset.get(position).getDate_day();}
+    public String getItem_date_type(int position){return mDataset.get(position).getDate_type();}
+    public String getItem_origin(int position){return mDataset.get(position).getOrigin();}
+    public String getItem_Details(int position){
+        return mDataset.get(position).getDetails();
+    }
+    public String getItem_Register_Time(int position){
+        return mDataset.get(position).getRegister_time();
     }
 }

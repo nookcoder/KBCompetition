@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Saled;
 
 public class Saled_Item {
     private String buyerNameInSaled, productNameInSaled, pickupDateInSaled, pickupTimeInSaled;

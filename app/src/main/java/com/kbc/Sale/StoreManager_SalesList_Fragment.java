@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Sale;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kbc.Pickup.PickupAdapter;
+import com.kbc.Pickup.Pickup_Item;
+import com.kbc.R;
+import com.kbc.Saled.SaledAdapter;
+import com.kbc.Saled.Saled_Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
@@ -36,6 +42,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     FloatingActionButton addProductBtn;
     TextView toolbarText;
 
+    private Bundle bundle;
+    private String storeManager_id, storeManager_location;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +55,12 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.storemanager_saleslist, container, false);
 
+        bundle = getArguments();
+        if(bundle != null){
+            storeManager_id = bundle.getString("id");
+            storeManager_location = bundle.getString("location");
+        }
+
         //컴포넌트 할당
             //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
@@ -54,6 +69,16 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
         addProductBtn =(FloatingActionButton)v.findViewById(R.id.addProductBtn);
+
+
+
+        addProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getActivity(), StoreManager_Product_Register_Activity.class);
+                startActivity(intent);
+            }
+        });
              //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -62,6 +87,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         saleAdapter = new SaleAdapter(salesList, this);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
+
 
         //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -88,7 +114,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //제품 등록 화면으로 넘어가기
-                getActivity().startActivity(new Intent(getActivity(), StoreManager_Product_RegisterActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), StoreManager_Product_Register_Activity.class));
 
             }
         });
@@ -121,17 +147,22 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         return v;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        saleAdapter.notifyDataSetChanged();
+    }
 
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
         salesList.clear();
-        salesList.add(new Sale_Item("동글동글 방울토마토","채소 / 과일",70,2000));
-        salesList.add(new Sale_Item("신선한 상추","육류",30,1800));
-        salesList.add(new Sale_Item("눈물 쏙 양파","채소 / 과일",10,4000));
-        salesList.add(new Sale_Item("아삭아삭 콩나물","채소 / 과일",15,3300));
-        salesList.add(new Sale_Item("을지로입구역","육류",12,8000));
+        salesList.add(new Sale_Item("","동글동글 방울토마토","채소/과일","70","2000","2021", "09", "18", "유통","양구","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","신선한 상추","채소/과일","30","1800","2021", "09", "18","유통","광명","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","눈물 쏙 양파","채소/과일","10","4000","2021", "09", "18","유통","광명","상세설명","2021년 09월 12일 11:11"));
+        salesList.add(new Sale_Item("","아삭아삭 콩나물","채소/과일","15","3300","2021", "09", "18","유통","김포","상세설명","2021년 09월 10일 09:23"));
+        salesList.add(new Sale_Item("","을지로입구역","스낵/안주류","12","8000","2021", "09", "18","유통","잠실","상세설명","2021년 09월 12일 12:13"));
+
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -160,8 +191,34 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     @Override
     public void onItemClick(View view, int position) {
         SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
+        ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
+        Sale_Item sale_item = new Sale_Item(
+                saleAdapter.getItem_productImageSrc(position),
+                myViewHolder.name.getText().toString() ,
+                myViewHolder.category.getText().toString(),
+                myViewHolder.stock.getText().toString(),
+               myViewHolder.price.getText().toString(),
+                saleAdapter.getItem_date_year(position),
+                saleAdapter.getItem_date_month(position),
+                saleAdapter.getItem_date_day(position),
+                saleAdapter.getItem_date_type(position),
+                saleAdapter.getItem_origin(position),
+                saleAdapter.getItem_Details(position),
+                saleAdapter.getItem_Register_Time(position));
+
+        list.add(sale_item);
 
 
+        //상품 등록 액티비티로 들어가기
+        Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
+        intent.putExtra("sale_item_list", list);
+        intent.putExtra("id", storeManager_id);
+        intent.putExtra("location",storeManager_location);
+
+
+        startActivity(intent);
 
     }
+
+
 }
