@@ -11,13 +11,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PickupDetailActivity extends AppCompatActivity {
+    public static PickupDetailActivity pickupDetailActivity;
     TextView buyerNameView, productNameInPickupListView, pickupDateView, pickupTimeView,pickupQuantityView;
     String buyerName, productNameInPickupList, pickupDate, pickupTime;
+    private StoreManager_MainActivity storeManager_mainActivity;
     int pickupQuantity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanage_pickup_detail);
+
+        pickupDetailActivity = PickupDetailActivity.this;
 
         //정보 받아오기
         Intent intentForGet =getIntent();
@@ -57,7 +61,9 @@ public class PickupDetailActivity extends AppCompatActivity {
         pickupComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), Popup_Activity.class );
+                intent.putExtra("button_name","Pickup complete");
+                startActivity(intent);
             }
         });
     }
