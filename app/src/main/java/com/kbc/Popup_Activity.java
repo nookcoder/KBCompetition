@@ -42,10 +42,11 @@ public class Popup_Activity extends AppCompatActivity {
             case "withdrawal":
                 popup_title.setText("탈퇴하기");
                 popup_context.setText("정말로 탈퇴하시겠습니까???");
-
+                break;
             case "Pickup complete":
                 popup_title.setText("픽업 완료");
                popup_context.setText("픽업을 완료했습니까?");
+               break;
         }
 
 

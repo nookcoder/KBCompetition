@@ -21,6 +21,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
     public static StoreManager_MainActivity storeManager_mainActivity;
     private FragmentManager fragmentManager = getSupportFragmentManager();
+    private FragmentTransaction fragmentTransaction;
     private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
     private StoreManager_SalesList_Fragment storeManager_salesList_fragment =new StoreManager_SalesList_Fragment();
@@ -36,7 +37,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         //유저 데이터 받기
         Intent intentForGet = getIntent();
-        //String userId = intentForGet.getExtras().getString("userID");
+        String userId = intentForGet.getExtras().getString("userID");
 
 
         //서히 테스트용
@@ -56,6 +57,8 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.store_manger_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new bottomMenuSelectListener());
 
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, storeManager_salesList_fragment).commitAllowingStateLoss();
     }
 
     class bottomMenuSelectListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -63,7 +66,9 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+             fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,storeManager_salesList_fragment).commitAllowingStateLoss();
+
             switch (item.getItemId()){
                 case R.id.nav_sale:
                     fragmentTransaction.replace(R.id.fragment_container, storeManager_salesList_fragment).commit();

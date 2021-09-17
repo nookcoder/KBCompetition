@@ -154,6 +154,7 @@ public class Login_Activity extends AppCompatActivity {
                 else{
                     //데이터 전달 (userID)
                     intentx.putExtra("userID" , id);
+                    intentx.putExtra("user","개인");
                     startActivity(intentx);
                 }
             }
