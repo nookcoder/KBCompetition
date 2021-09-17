@@ -192,7 +192,7 @@
                 android:id="@+id/quantityInPickupDetail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.08"
+                android:layout_weight="0.1"
                 android:gravity="right"
                 android:text="1"
                 android:textColor="@color/black"
@@ -201,7 +201,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.67"
+                android:layout_weight="0.65"
                 android:text=" 개"
                 android:textColor="@color/black"
                 android:textSize="20sp"></TextView>
