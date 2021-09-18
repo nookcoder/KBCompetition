@@ -39,9 +39,9 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         setContentView(R.layout.storemanager_activity_main);
 
 //        //유저 데이터 받기
-//        Intent intentForGet = getIntent();
-//        String userId = intentForGet.getExtras().getString("userID");
-//
+        Intent intentForGet = getIntent();
+        userId = intentForGet.getExtras().getString("userID");
+
 
         //서히 테스트용
 //       storeManager_id = "seohee";
