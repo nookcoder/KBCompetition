@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     private Sale_Item register_item = new Sale_Item();
 
     //상품 정보들
-    private TextView product_name, product_register_time, product_price, product_origin, product_details;
+    private EditText product_name, product_register_time, product_price, product_origin, product_details;
 
 
     //카테고리, 재고
@@ -206,6 +207,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 register_item.setDate_day(product_date_day.getSelectedItem().toString());
 
                 //원산지, 상세정보 , 등록시간
+                register_item.setPrice(product_price.getText().toString());
                 register_item.setOrigin(product_origin.getText().toString());
                 register_item.setDetails(product_details.getText().toString());
                 register_item.setRegister_time(Register_Time());
