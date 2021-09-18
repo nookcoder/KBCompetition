@@ -47,8 +47,8 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
     private Button date_type_expiration, date_type_purchase;
     private String change_date_type;
 
-    //창 닫기, 수정하기 버튼
-    private ImageButton product_modify_close;
+    //창 닫기, 수정하기, 삭제하기 버튼
+    private ImageButton product_modify_close, product_remove;
     private Button product_modify_sucess;
 
     @Override
@@ -221,6 +221,8 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         //버튼 이벤트
         product_modify_close =findViewById(R.id.product_modify_close);
         product_modify_sucess = findViewById(R.id.product_modify_sucess);
+        product_remove = findViewById(R.id.product_remove);
+
 
         //창닫기
         product_modify_close.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +271,15 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
             }
         });
 
+        //삭제하기
+        product_remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //삭제 여부 확인 팝업 창
+                Intent delete_popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
+
+            }
+        });
 
     }
 
