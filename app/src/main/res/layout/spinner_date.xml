@@ -3,7 +3,7 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/spinnerText"
-    android:textSize="10sp"
+    android:textSize="15sp"
     android:textColor="@color/black"
     android:gravity="left"
     android:layout_width="match_parent"
