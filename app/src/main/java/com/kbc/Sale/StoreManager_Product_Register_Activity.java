@@ -247,7 +247,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     }
 
     private void sendToServer(String id,String name, String category,String stock,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
-            String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/";
+            String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/register";
 
             JSONObject jsonObject = new JSONObject();
 
