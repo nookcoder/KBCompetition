@@ -226,7 +226,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <TextView
+                <EditText
                     android:id="@+id/product_details"
                     android:text="게시글 내용을 입력해주세요"
                     android:editable="true"

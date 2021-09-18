@@ -46,6 +46,8 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         storeManager_id = intent.getExtras().getString("userID");
         storeManager_location = intent.getExtras().getString("location");
 
+        Log.d( "조회 액티비티 아이디 ->",storeManager_id);
+
         //컴포넌트 가져오기
         storemanager_id = findViewById(R.id.storemanager_id);
         storemanager_location  = findViewById(R.id.storemanager_location);

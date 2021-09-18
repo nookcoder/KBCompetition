@@ -1,6 +1,7 @@
 package com.kbc;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 public class StoreManager_Information_Fragment extends Fragment implements View.OnClickListener{
 
 
+    private Bundle bundle;
+    private String storeManager_id, storeManager_location;
 
     private StoreManager_MainActivity storeManager_mainActivity;
 
@@ -25,6 +28,13 @@ public class StoreManager_Information_Fragment extends Fragment implements View.
                              Bundle savedInstanceState) {
         ViewGroup rootViewGroup =(ViewGroup) inflater.inflate(R.layout.storemanager_information, container, false);
 
+        bundle = getArguments();
+        if(bundle != null){
+            storeManager_id = bundle.getString("userID");
+            storeManager_location = bundle.getString("location");
+
+        }
+        Log.d( "내정보 프래그먼트 아이디 ->",storeManager_id);
 
         Button logout_button = (Button)rootViewGroup.findViewById(R.id.logout);
         Button withdrawal_button = (Button)rootViewGroup.findViewById(R.id.withdrawal);

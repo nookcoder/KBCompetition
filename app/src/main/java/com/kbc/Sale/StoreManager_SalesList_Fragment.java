@@ -67,8 +67,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
             storeManager_location = bundle.getString("location");
 
         }
+        Log.d( "리스트 프래그먼트 아이디 ->",storeManager_id);
 
-        Log.d(TAG, "리스트 아이디 ->" + storeManager_id);
         //컴포넌트 할당
             //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
@@ -212,7 +212,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         //상품 조회 액티비티로 들어가기
         Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
         intent.putExtra("sale_item_list", list);
-        intent.putExtra("id", storeManager_id);
+        intent.putExtra("userID", storeManager_id);
         intent.putExtra("location",storeManager_location);
 
         startActivity(intent);

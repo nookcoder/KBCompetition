@@ -65,6 +65,8 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         storeManager_id = intent.getExtras().getString("userID");
         storeManager_location = intent.getExtras().getString("location");
 
+        Log.d( "수정 액티비티 아이디 ->",storeManager_id);
+
         //상품제목
         product_name = findViewById(R.id.product_name);
 
@@ -226,7 +228,6 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 ArrayList<Sale_Item> sale_items = new ArrayList<Sale_Item>();
-                Log.d(TAG, "날짜 ->" + previous_item.getDate_day());
                 sale_items.add(previous_item);
 
 //                //상품 조회 액티비티로 들어가기
@@ -285,13 +286,14 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
     private void Insert_Spinner_Current_Data(String []spinner_list, Spinner spinner, String current_data){
         for(int index = 0 ; index< spinner_list.length ; index++){
-            Log.d(TAG, "현재 데이터 -> " + current_data + "/ 스피너 리스트 -> " + spinner_list[index] + " 판별 -> "+current_data.equals(spinner_list[index]));
-            if(current_data.equals(spinner_list[index])){
+              if(current_data.equals(spinner_list[index])){
                 spinner.setSelection(index);
                 break;
             }
         }
     }
+
+    //이전 데이터 가지고 있기!!!!
 
     public void Previous_Sale_item(Sale_Item current_item){
         previous_item.serProductImageSrc(current_item.getProductImageSrc());

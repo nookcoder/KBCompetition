@@ -73,6 +73,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         storeManager_id = intent.getStringExtra("userID");
 //        storeManager_location = intent.getExtras().getString("location");
 
+        Log.d( "등록 액티비티 아이디 ->",storeManager_id);
 
         //상품제목
         product_name = findViewById(R.id.product_name);
