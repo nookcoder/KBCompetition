@@ -18,7 +18,7 @@ public class Personal_Add_Information extends AppCompatActivity {
     private Spinner towm1View, town2View;
     private ArrayAdapter<String> arrayAdapter;
     public static final String EXTRA_ADDRESS = "address";
-    private String name, nicName, num, town1, town2;
+    public String name, nicName, num, town1, town2; //이름,닉네임,번호,시/도,시/군/구
     private TextView nameCheck, perconalNumCheck, nicNameCheck, townCheck;
     EditText nameView, nicNameView, numView;
 
@@ -45,21 +45,25 @@ public class Personal_Add_Information extends AppCompatActivity {
         towm1View.setAdapter(arrayAdapter);
         town2View = (Spinner) findViewById(R.id.town2);
 
-        name = nameView.getText().toString();
-        nicName = nicNameView.getText().toString();
-        num = numView.getText().toString();
-        town1 = towm1View.getSelectedItem().toString();
-
+        //스피너 설정
         initAddressSpinner();
 
+        //버튼에 이벤트달기
         Button okBtn = findViewById(R.id.next);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //정보 받아오기
+                name = nameView.getText().toString();
+                nicName = nicNameView.getText().toString();
+                num = numView.getText().toString();
+                town1 = towm1View.getSelectedItem().toString();
+
                 //비어 있는 정보 있는지 확인
                 if (nameView.getText().toString().length() == 0 || nicNameView.getText().toString().length() == 0 || numView.getText().toString().length() == 0 || towm1View.getSelectedItemPosition() == 0) {
-                    if (nameView.getText().toString().length() == 0)
+                    if (name.length() == 0) {
                         nameCheck.setVisibility(view.VISIBLE);
+                    }
                     else {
                         nameCheck.setVisibility(view.INVISIBLE);
                     }
@@ -83,6 +87,7 @@ public class Personal_Add_Information extends AppCompatActivity {
                     nicNameCheck.setVisibility(view.INVISIBLE);
                     perconalNumCheck.setVisibility(view.INVISIBLE);
                     townCheck.setVisibility(view.INVISIBLE);
+                    town2 = town2View.getSelectedItem().toString();
 
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
                     intent.putExtra("userId", "hyunjin");//테스트용
@@ -90,7 +95,6 @@ public class Personal_Add_Information extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-
         });
     }
 
