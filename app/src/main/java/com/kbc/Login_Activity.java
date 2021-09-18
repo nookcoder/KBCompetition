@@ -126,8 +126,10 @@ public class Login_Activity extends AppCompatActivity {
                     //개인 화면 전환!!
                     else if(selectedUser.equals("개인")) {
                         //데이터 전달 (userID)
-                        intentForPsersonO.putExtra("userID" , id);
-                        startActivity(intentForPsersonO);
+                        //1)정보 없는 경우 -> 정보 추가 화면으로
+                        intentForPsersonX.putExtra("userID" , id);
+                        intentForPsersonX.putExtra("user" , "개인");
+                        startActivity(intentForPsersonX);
                     }
                     return null;
                 });
@@ -147,7 +149,7 @@ public class Login_Activity extends AppCompatActivity {
         radioButton.setText(spannableString);
     }
 
-    public void sendIdToServer(String ID,String NAME, Intent intentO,Intent intentx){
+    public void sendIdToServer(String ID,String NAME, Intent intentO, Intent intentx){
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -161,7 +163,7 @@ public class Login_Activity extends AppCompatActivity {
                 else{
                     //데이터 전달 (userID)
                     intentx.putExtra("userID" , id);
-                    intentx.putExtra("user","개인");
+                    intentx.putExtra("user","개인");//?이거 왜 여기?
                     startActivity(intentx);
                 }
             }

@@ -80,7 +80,6 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
              fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container,storeManager_salesList_fragment).commitAllowingStateLoss();
 
             switch (item.getItemId()){
                 case R.id.nav_sale:

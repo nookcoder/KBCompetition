@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kbc.Pickup.PickupDetailActivity;
+
 public class Popup_Activity extends AppCompatActivity {
 
     private  String button_name;
@@ -75,7 +77,7 @@ public class Popup_Activity extends AppCompatActivity {
                 //사장님 액티비티 닫고,
                 storeManager_mainActivity.finish();
                 //로그인 페이지 열어주기!
-                Intent login_intent = new Intent(this, Select_Log_Activity.class);
+                Intent login_intent = new Intent(this, Intro_Activity.class);
                 startActivity(login_intent);
                 break;
 
@@ -84,7 +86,7 @@ public class Popup_Activity extends AppCompatActivity {
                 //사장님 액티비티 닫고,
                 storeManager_mainActivity.finish();
                 //첫 페이지 열어주기!
-                Intent first_intent = new Intent(this, Select_Log_Activity.class);
+                Intent first_intent = new Intent(this, Intro_Activity.class);
                 startActivity(first_intent);
                 break;
 
