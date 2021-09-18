@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,12 +15,15 @@ import android.widget.TextView;
 
 import com.kbc.Popup_Activity;
 import com.kbc.R;
+import com.kbc.StoreManager_Information_Fragment;
 import com.kbc.StoreManager_MainActivity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static android.content.ContentValues.TAG;
 
 public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     //로그인정보
@@ -54,11 +58,14 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_register_activity);
-
-        Intent intent = new Intent();
+//
+        Intent intent = new Intent(this.getIntent());
         //로그인 정보 가져오기
-        storeManager_id = intent.getExtras().getString("id");
-        storeManager_location = intent.getExtras().getString("location");
+        storeManager_id = intent.getStringExtra("id");
+//        storeManager_location = intent.getExtras().getString("location");
+
+        Log.d(TAG, "로그인 아이디 -> "+ storeManager_id);
+
 
         //상품제목
         product_name = findViewById(R.id.product_name);
@@ -240,5 +247,11 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
 
 
+//    StoreManager_SalesList_Fragment.OnUserId_Listener onUserId_listener;
+//
+//    public void onUserId(String userId){
+//        storeManager_id = userId;
+//
+//    }
 
 }
