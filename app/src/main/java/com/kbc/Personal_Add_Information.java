@@ -1,75 +1,108 @@
 package com.kbc;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Personal_Add_Information extends AppCompatActivity implements View.OnClickListener {
+public class Personal_Add_Information extends AppCompatActivity {
 
-    private Spinner spinnerCity, spinnerSigungu;
+    private Spinner towm1View, town2View;
     private ArrayAdapter<String> arrayAdapter;
-    TextView townCheck;
     public static final String EXTRA_ADDRESS = "address";
+    private String name, nicName, num, town1, town2;
+    private TextView nameCheck, perconalNumCheck, nicNameCheck, townCheck;
+    EditText nameView, nicNameView, numView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.persona_add_information);
 
+        //컴포넌트 할당
+        nameView = (EditText) findViewById(R.id.personalName);
+        nicNameView = (EditText) findViewById(R.id.personalNicname);
+        numView = (EditText) findViewById(R.id.personalNum);
+
+        //텍스트뷰 할당
+        nameCheck = (TextView) findViewById(R.id.nameCheck);
+        nicNameCheck = (TextView) findViewById(R.id.nicNameCheck);
+        perconalNumCheck = (TextView) findViewById(R.id.perconalNumCheck);
+        townCheck = (TextView) findViewById(R.id.townCheck);
 
         //동네 구하기
-        spinnerCity = (Spinner) findViewById(R.id.town1);
+        towm1View = (Spinner) findViewById(R.id.town1);
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(R.array.spinner_region));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCity.setAdapter(arrayAdapter);
+        towm1View.setAdapter(arrayAdapter);
+        town2View = (Spinner) findViewById(R.id.town2);
 
-        spinnerSigungu = (Spinner) findViewById(R.id.town2);
+        name = nameView.getText().toString();
+        nicName = nicNameView.getText().toString();
+        num = numView.getText().toString();
+        town1 = towm1View.getSelectedItem().toString();
 
         initAddressSpinner();
 
         Button okBtn = findViewById(R.id.next);
-        okBtn.setOnClickListener(this);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //비어 있는 정보 있는지 확인
+                if (nameView.getText().toString().length() == 0 || nicNameView.getText().toString().length() == 0 || numView.getText().toString().length() == 0 || towm1View.getSelectedItemPosition() == 0) {
+                    if (nameView.getText().toString().length() == 0)
+                        nameCheck.setVisibility(view.VISIBLE);
+                    else {
+                        nameCheck.setVisibility(view.INVISIBLE);
+                    }
+                    if (nicNameView.getText().toString().length() == 0)
+                        nicNameCheck.setVisibility(view.VISIBLE);
+                    else {
+                        nicNameCheck.setVisibility(view.INVISIBLE);
+                    }
+                    if (numView.getText().toString().length() == 0)
+                        perconalNumCheck.setVisibility(view.VISIBLE);
+                    else {
+                        perconalNumCheck.setVisibility(view.INVISIBLE);
+                    }
+                    if (towm1View.getSelectedItemPosition() == 0)
+                        townCheck.setVisibility(view.VISIBLE);
+                    else {
+                        townCheck.setVisibility(view.INVISIBLE);
+                    }
+                } else {
+                    nameCheck.setVisibility(view.INVISIBLE);
+                    nicNameCheck.setVisibility(view.INVISIBLE);
+                    perconalNumCheck.setVisibility(view.INVISIBLE);
+                    townCheck.setVisibility(view.INVISIBLE);
 
-        townCheck = (TextView) findViewById(R.id.townCheck);
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.next) {
-            if (spinnerCity.getSelectedItemPosition() == 0) {
-                townCheck.setText("동네를 설정해주세요");
-            } else {
-                Intent data = new Intent();
-
-                if (spinnerSigungu.getSelectedItem() != null) {
-                    String address = spinnerCity.getSelectedItem().toString() + " " + spinnerSigungu.getSelectedItem().toString();
-                    data.putExtra(EXTRA_ADDRESS, address);
+                    Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
+                    intent.putExtra("userId", "hyunjin");//테스트용
+                    intent.putExtra("user", "person");
+                    startActivity(intent);
                 }
-
-                setResult(RESULT_OK, data);
-                finish();
             }
-        }
+
+        });
     }
+
 
     private void initAddressSpinner() {
-        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        towm1View.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // 시군구, 동의 스피너를 초기화한다.
                 switch (position) {
                     case 0:
-                        spinnerSigungu.setAdapter(null);
+                        town2View.setAdapter(null);
                         break;
                     case 1:
                         setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul);
@@ -133,11 +166,11 @@ public class Personal_Add_Information extends AppCompatActivity implements View.
             }
         });
 
-        spinnerSigungu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        town2View.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // 서울특별시 선택시
-                if (spinnerCity.getSelectedItemPosition() == 1 && spinnerSigungu.getSelectedItemPosition() > -1) {
+                if (towm1View.getSelectedItemPosition() == 1 && town2View.getSelectedItemPosition() > -1) {
                     switch (position) {
                         //25
                     }
@@ -156,14 +189,14 @@ public class Personal_Add_Information extends AppCompatActivity implements View.
 
     private void setSigunguSpinnerAdapterItem(int array_resource) {
         if (arrayAdapter != null) {
-            spinnerSigungu.setAdapter(null);
+            town2View.setAdapter(null);
             arrayAdapter = null;
         }
 
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(array_resource));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerSigungu.setAdapter(arrayAdapter);
+        town2View.setAdapter(arrayAdapter);
     }
 
     private void setDongSpinnerAdapterItem(int array_resource) {

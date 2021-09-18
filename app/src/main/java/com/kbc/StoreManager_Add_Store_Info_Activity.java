@@ -54,6 +54,7 @@ public class StoreManager_Add_Store_Info_Activity extends AppCompatActivity {
                     else if(phone.length()> 0){
                         phoneCheck.setVisibility(view.INVISIBLE);
                     }
+
                 }
 
                 //다 입력되어 있으면
