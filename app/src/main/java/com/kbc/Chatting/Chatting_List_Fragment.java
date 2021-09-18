@@ -68,7 +68,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         bundle = getArguments();
         if(bundle != null){
-            login_id = bundle.getString("id");
+            login_id = bundle.getString("userID");
             chat_mode = bundle.getString("mode");
         }
         Log.d(TAG,"점주 아이디 : "+ login_id);
@@ -228,33 +228,39 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         //채팅방 개수
         chatrooms_count = chatting_arraylist.size()-1;
 
-        input_map = chatting_arraylist.get(1);
-        chatting_map = input_map.values().toArray();
-        chatrooms_map = (Map<String, Object>) chatting_map[0];
+        Log.d("채팅 리스트", chatrooms_arraylist.toString());
 
-        chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
-        chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
-        //키 인덱스 찾기
-        Object[] send_key = chatting_me_arraylist.get(1).keySet().toArray();
-        for (int key_index = 0; key_index < send_key.length; key_index++) {
-            if (send_key[key_index].toString().equals(Chatting.NAME))
-                name = key_index;
 
-            if (send_key[key_index].toString().equals(Chatting.PROFILEUTL))
-                profileUrl = key_index;
+        if(chatting_arraylist.size() != 1){
+            input_map = chatting_arraylist.get(1);
+            chatting_map = input_map.values().toArray();
+            chatrooms_map = (Map<String, Object>) chatting_map[0];
 
-            if (send_key[key_index].toString().equals(Chatting.MESSAGE))
-                message = key_index;
+            chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
+            chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
+            //키 인덱스 찾기
+            Object[] send_key = chatting_me_arraylist.get(1).keySet().toArray();
+            for (int key_index = 0; key_index < send_key.length; key_index++) {
+                if (send_key[key_index].toString().equals(Chatting.NAME))
+                    name = key_index;
 
-            if (send_key[key_index].toString().equals(Chatting.TIME))
-                time = key_index;
+                if (send_key[key_index].toString().equals(Chatting.PROFILEUTL))
+                    profileUrl = key_index;
 
-            if (send_key[key_index].toString().equals(Chatting.DATE))
-                date = key_index;
+                if (send_key[key_index].toString().equals(Chatting.MESSAGE))
+                    message = key_index;
+
+                if (send_key[key_index].toString().equals(Chatting.TIME))
+                    time = key_index;
+
+                if (send_key[key_index].toString().equals(Chatting.DATE))
+                    date = key_index;
+            }
+
+            for(int position=0; position< chatrooms_count ; position++)
+                Insert_Chatroom_Ui(position);
+
         }
-
-        for(int position=0; position< chatrooms_count ; position++)
-            Insert_Chatroom_Ui(position);
 
     }
 

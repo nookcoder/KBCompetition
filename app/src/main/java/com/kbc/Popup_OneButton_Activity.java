@@ -32,7 +32,7 @@ public class Popup_OneButton_Activity extends AppCompatActivity {
 
         //이벤트 발생 버튼 확인을 위한 데이터 접근
         button_name = intent.getExtras().getString("button_name");
-        userId = intent.getExtras().getString("id");
+        userId = intent.getExtras().getString("userID");
 
         //팝업창 제목, 내용 바꾸기
         popup_title = findViewById(R.id.popup_title);
@@ -65,7 +65,7 @@ public class Popup_OneButton_Activity extends AppCompatActivity {
                 storeManager_product_register_activity.finish();
                 //로그인 페이지 열어주기!
                 Intent main_intent = new Intent(this, StoreManager_MainActivity.class);
-                main_intent.putExtra("id", userId);
+                main_intent.putExtra("userID", userId);
                 startActivity(main_intent);
                 break;
 
