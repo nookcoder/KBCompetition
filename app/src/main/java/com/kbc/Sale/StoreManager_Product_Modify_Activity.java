@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
     //상품 정보들
     private String storeManager_id, storeManager_location;
-    private TextView product_title, product_register_time, product_price, product_origin, product_details;
+    private EditText product_name, product_register_time, product_price, product_origin, product_details;
 
 
     //카테고리, 재고
@@ -65,7 +66,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         storeManager_location = intent.getExtras().getString("location");
 
         //상품제목
-        product_title = findViewById(R.id.product_title);
+        product_name = findViewById(R.id.product_name);
 
         //카테고리 스피너 가져오기
         product_category = findViewById(R.id.product_category);
@@ -180,7 +181,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
     //실제 값 넣기
 
         //상품제목
-        product_title.setText(sale_item.getName());
+        product_name.setText(sale_item.getName());
 
         //유통기한 넣고, 구입/ 유통인지 판별하기
 
@@ -246,7 +247,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 ArrayList<Sale_Item> sale_items = new ArrayList<Sale_Item>();
                 //이미지, 이름, 카테고리, 재고, 가격, 기한, 원산지, 상세설명
                 //이미지 넣기코드 필요 !!!!!!!!!!
-                sale_item.setName(product_title.getText().toString());
+                sale_item.setName(product_name.getText().toString());
                 sale_item.setCategory(product_category.getSelectedItem().toString());
                 sale_item.setStock(product_stock.getSelectedItem().toString());
 
