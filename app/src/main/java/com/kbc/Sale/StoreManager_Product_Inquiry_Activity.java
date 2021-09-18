@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.kbc.R;
+import com.kbc.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.content.ContentValues.TAG;
 
 public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
+    private StoreManager_Product_Inquiry_Activity storeManager_product_inquiry_activity;
     //인텐트에서 넘어오는 정보들
     private ArrayList<Sale_Item> sale_items ;
     private Sale_Item sale_item;
@@ -34,6 +36,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_inquiry_activity);
+        storeManager_product_inquiry_activity = this;
         //상품 정보 가져오기
         Intent intent = getIntent();
         sale_items = (ArrayList<Sale_Item>)intent.getSerializableExtra("sale_item_list");
@@ -99,6 +102,9 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                Intent intent = new Intent(storeManager_product_inquiry_activity, StoreManager_MainActivity.class);
+                intent.putExtra("userID",storeManager_id);
+                startActivity(intent);
             }
         });
 
