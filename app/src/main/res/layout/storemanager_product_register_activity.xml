@@ -49,20 +49,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:stretchColumns="*"
+            android:shrinkColumns="*"
             >
 
             <!--사진 등록 -->
             <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_span="3"
+                    android:layout_span="5"
                     android:orientation="horizontal"
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     >
 
                     <!--사진 추가-->
@@ -102,92 +102,82 @@
                     android:id="@+id/product_name"
                     android:text="글 제목"
                     android:layout_span="5"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:padding="10dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"
                     android:textSize="15dp"
                     />
             </TableRow>
             <!--카테고리,수량 -->
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                >
+            <TableRow>
                 <Spinner
                     android:id="@+id/product_category"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_span="4"
+                    android:layout_height="match_parent"
+                    android:layout_span="3"
                     android:padding="5dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     android:background="@drawable/edge"
                     />
 
                 <Spinner
                     android:id="@+id/product_stock"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_span="1"
+                    android:layout_height="match_parent"
+                    android:layout_span="2"
                     android:padding="5dp"
-
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     android:background="@drawable/edge"
                     android:textSize="10dp"
                     />
             </TableRow>
 
             <!--유통기한/구입날짜-->
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="0dp">
+            <TableRow>
 
                 <Spinner
                     android:id="@+id/product_date_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="6dp"
                     android:padding="5dp"
                     android:background="@drawable/edge"
                     />
 
                 <Spinner
                     android:id="@+id/product_date_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="6dp"
                     android:padding="5dp"
                     android:background="@drawable/edge"
                     />
                 <Spinner
                     android:id="@+id/product_date_day"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="6dp"
                     android:padding="5dp"
                     android:background="@drawable/edge"
                     />
 
                 <Button
                     android:id="@+id/product_expiration"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:layout_span="1"
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     android:background="@drawable/edge"
                     android:text="유통"
                     android:textSize="15dp"/>
 
                 <Button
                     android:id="@+id/product_purchase"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_span="1"
-                    android:padding="10dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     android:background="@drawable/edge"
 
                     android:text="구입"
@@ -207,8 +197,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:layout_span="4"
-                    android:layout_margin="10dp"
+                    android:layout_span="3"
+                    android:layout_margin="6dp"
                     android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"
                     android:textSize="15dp"
@@ -219,8 +209,9 @@
                     android:editable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_span="2"
                     android:padding="10dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     android:textColor="@color/previous_register_text_color"
                     android:background="@drawable/edge"
                     android:textSize="15dp"
@@ -228,21 +219,24 @@
             </TableRow>
 
             <!--글 게시 -->
-
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1">
             <EditText
                 android:id="@+id/product_details"
                 android:text="게시글 내용을 입력해주세요"
                 android:editable="true"
-                android:layout_span="3"
+                android:layout_span="5"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="9"
+                android:layout_height="match_parent"
                 android:padding="10dp"
-                android:layout_margin="10dp"
+                android:layout_margin="6dp"
                 android:textColor="@color/previous_register_text_color"
                 android:background="@drawable/edge"
                 android:textSize="15dp"
                 />
+            </TableRow>
         </TableLayout>
 
     </LinearLayout>

@@ -151,7 +151,7 @@ public class Login_Activity extends AppCompatActivity {
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //사업자 정보 등록 ㅇ
+                //사업자 정보 등록
                 if(Boolean.valueOf(response)){
                     //데이터 전달 (userID)
                     intentO.putExtra("userID" , id);

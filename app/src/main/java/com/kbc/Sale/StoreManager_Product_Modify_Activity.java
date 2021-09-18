@@ -1,6 +1,9 @@
 package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.kbc.Popup_OneButton_Activity;
+import com.kbc.Popup_TwoButton_Activity;
 import com.kbc.R;
 
 import android.content.Intent;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,13 +24,14 @@ import static android.content.ContentValues.TAG;
 
 public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
+    public static StoreManager_Product_Modify_Activity storeManager_product_modify_activity;
     //인텐트에서 넘어오는 정보들
     private ArrayList<Sale_Item> sale_items ;
-    private Sale_Item sale_item;
+    private Sale_Item sale_item, previous_item = new Sale_Item();
 
     //상품 정보들
     private String storeManager_id, storeManager_location;
-    private TextView product_title, product_register_time, product_price, product_origin, product_details;
+    private EditText product_name, product_register_time, product_price, product_origin, product_details;
 
 
     //카테고리, 재고
@@ -50,16 +55,18 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_modify_activity);
+        storeManager_product_modify_activity = this;
 
         //상품 정보 가져오기
         Intent intent = getIntent();
         sale_items = (ArrayList<Sale_Item>)intent.getSerializableExtra("sale_item_list");
         sale_item = sale_items.get(0);
-        storeManager_id = intent.getExtras().getString("id");
+        Previous_Sale_item(sale_item);
+        storeManager_id = intent.getExtras().getString("userID");
         storeManager_location = intent.getExtras().getString("location");
 
         //상품제목
-        product_title = findViewById(R.id.product_title);
+        product_name = findViewById(R.id.product_name);
 
         //카테고리 스피너 가져오기
         product_category = findViewById(R.id.product_category);
@@ -113,7 +120,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         year_adapter.setDropDownViewResource(R.layout.spinner_date);
         product_date_year.setAdapter(year_adapter);
         year_list = getResources().getStringArray(R.array.year);
-        Insert_Spinner_Current_Data(year_list, product_date_day,sale_item.getDate_year());
+        Insert_Spinner_Current_Data(year_list, product_date_year,sale_item.getDate_year());
         product_date_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -174,7 +181,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
     //실제 값 넣기
 
         //상품제목
-        product_title.setText(sale_item.getName());
+        product_name.setText(sale_item.getName());
 
         //유통기한 넣고, 구입/ 유통인지 판별하기
 
@@ -218,6 +225,18 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                ArrayList<Sale_Item> sale_items = new ArrayList<Sale_Item>();
+                Log.d(TAG, "날짜 ->" + previous_item.getDate_day());
+                sale_items.add(previous_item);
+
+//                //상품 조회 액티비티로 들어가기
+                Intent intent = new Intent(storeManager_product_modify_activity, StoreManager_Product_Inquiry_Activity.class);
+                intent.putExtra("sale_item_list", sale_items);
+                intent.putExtra("userID", storeManager_id);
+                intent.putExtra("location",storeManager_location);
+                startActivity(intent);
+
+
             }
         });
 
@@ -228,7 +247,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 ArrayList<Sale_Item> sale_items = new ArrayList<Sale_Item>();
                 //이미지, 이름, 카테고리, 재고, 가격, 기한, 원산지, 상세설명
                 //이미지 넣기코드 필요 !!!!!!!!!!
-                sale_item.setName(product_title.getText().toString());
+                sale_item.setName(product_name.getText().toString());
                 sale_item.setCategory(product_category.getSelectedItem().toString());
                 sale_item.setStock(product_stock.getSelectedItem().toString());
 
@@ -237,14 +256,15 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 sale_item.setDetails(product_details.getText().toString());
                 sale_items.add(sale_item);
 
-                //상품 등록 액티비티로 들어가기
-                Intent intent = new Intent(StoreManager_Product_Modify_Activity.this, StoreManager_Product_Inquiry_Activity.class);
+
+                //상품 수정 완료 확인 -> 조회 화면 또는 재수정
+                Intent popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
+                intent.putExtra("button_name","product_modify");
                 intent.putExtra("sale_item_list", sale_items);
-                intent.putExtra("id", storeManager_id);
-                intent.putExtra("location",storeManager_location);
+                intent.putExtra("userID",storeManager_id);
+                intent.putExtra("location", storeManager_location);
                 startActivity(intent);
 
-                finish();
             }
         });
 
@@ -265,12 +285,29 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
     private void Insert_Spinner_Current_Data(String []spinner_list, Spinner spinner, String current_data){
         for(int index = 0 ; index< spinner_list.length ; index++){
+            Log.d(TAG, "현재 데이터 -> " + current_data + "/ 스피너 리스트 -> " + spinner_list[index] + " 판별 -> "+current_data.equals(spinner_list[index]));
             if(current_data.equals(spinner_list[index])){
                 spinner.setSelection(index);
                 break;
             }
         }
     }
+
+    public void Previous_Sale_item(Sale_Item current_item){
+        previous_item.serProductImageSrc(current_item.getProductImageSrc());
+        previous_item.setName(current_item.getName());
+        previous_item.setCategory(current_item.getCategory());
+        previous_item.setStock(current_item.getStock());
+        previous_item.setPrice(current_item.getPrice());
+        previous_item.setDate_year(current_item.getDate_year());
+        previous_item.setDate_month(current_item.getDate_month());
+        previous_item.setDate_day(current_item.getDate_day());
+        previous_item.setDate_type(current_item.getDate_type());
+        previous_item.setOrigin(current_item.getOrigin());
+        previous_item.setDetails(current_item.getDetails());
+        previous_item.setRegister_time(current_item.getRegister_time());
+    }
+
 
 
 

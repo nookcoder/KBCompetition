@@ -63,11 +63,12 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
         bundle = getArguments();
         if(bundle != null){
-            storeManager_id = bundle.getString("id");
+            storeManager_id = bundle.getString("userID");
             storeManager_location = bundle.getString("location");
 
         }
 
+        Log.d(TAG, "리스트 아이디 ->" + storeManager_id);
         //컴포넌트 할당
             //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
@@ -156,11 +157,11 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
         salesList.clear();
-        salesList.add(new Sale_Item("","동글동글 방울토마토","채소/과일","70","2000","2021", "09", "18", "유통","양구","상세설명","2021년 09월 12일 12:13"));
-        salesList.add(new Sale_Item("","신선한 상추","채소/과일","30","1800","2021", "09", "18","유통","광명","상세설명","2021년 09월 12일 12:13"));
-        salesList.add(new Sale_Item("","눈물 쏙 양파","채소/과일","10","4000","2021", "09", "18","유통","광명","상세설명","2021년 09월 12일 11:11"));
-        salesList.add(new Sale_Item("","아삭아삭 콩나물","채소/과일","15","3300","2021", "09", "18","유통","김포","상세설명","2021년 09월 10일 09:23"));
-        salesList.add(new Sale_Item("","을지로입구역","스낵/안주류","12","8000","2021", "09", "18","유통","잠실","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","동글동글 방울토마토","채소/과일","70","2000","2021년", "9월", "18일", "유통","양구","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","신선한 상추","채소/과일","30","1800","2021년", "9월", "18일","유통","광명","상세설명","2021년 09월 12일 12:13"));
+        salesList.add(new Sale_Item("","눈물 쏙 양파","채소/과일","10","4000","2021년", "9월", "18일","유통","광명","상세설명","2021년 09월 12일 11:11"));
+        salesList.add(new Sale_Item("","아삭아삭 콩나물","채소/과일","15","3300","2021년", "9월", "18일","유통","김포","상세설명","2021년 09월 10일 09:23"));
+        salesList.add(new Sale_Item("","을지로입구역","스낵/안주류","12","8000","2021년", "9월", "18일","유통","잠실","상세설명","2021년 09월 12일 12:13"));
 
     }
 
@@ -214,31 +215,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         intent.putExtra("id", storeManager_id);
         intent.putExtra("location",storeManager_location);
 
-
         startActivity(intent);
 
     }
 
-
-//     public interface OnUserId_Listener{
-//        public void onUserId(String userId);
-//    }
-//
-//    OnUserId_Listener onUserId_listener;
-//
-//    public void onAttach(Context context) {
-//
-//        super.onAttach(context);
-//        if(context instanceof  OnUserId_Listener){
-//            onUserId_listener  = (OnUserId_Listener) context;
-//
-//        }else{
-//            throw  new ClassCastException((context.toString())+"오류!!!");
-//        }
-//    }
-//
-//    public void send_UserId(String userId){
-//        onUserId_listener.onUserId(userId);
-//    }
 
 }

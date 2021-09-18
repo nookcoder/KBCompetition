@@ -39,18 +39,18 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         setContentView(R.layout.storemanager_activity_main);
 
 //        //유저 데이터 받기
-//        Intent intentForGet = getIntent();
-//        String userId = intentForGet.getExtras().getString("userID");
-//
+        Intent intentForGet = getIntent();
+        userId = intentForGet.getExtras().getString("userID");
+
 
         //서히 테스트용
-//        storeManager_id = "seohee";
+//       storeManager_id = "seohee";
         userId = "seohee";
         storeManager_location = "광명동";
         mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
         bundle = new Bundle(3);
-        bundle.putString("id" , userId);
+        bundle.putString("userID" , userId);
         bundle.putString("mode", mode);
         bundle.putString("location", storeManager_location);
 
@@ -79,9 +79,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-             fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container,storeManager_salesList_fragment).commitAllowingStateLoss();
-
+            fragmentTransaction = fragmentManager.beginTransaction();
             switch (item.getItemId()){
                 case R.id.nav_sale:
 
@@ -97,14 +95,13 @@ public class StoreManager_MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_container, storeManager_information_fragment).commit();
                     break;
             }
-
             return true;
         }
     }
 
     public void Change_Activity(String userId){
         Intent intent = new Intent(StoreManager_MainActivity.this, StoreManager_Product_Register_Activity.class);
-        intent.putExtra("id", userId);
+        intent.putExtra("userID", userId);
         startActivity(intent);
 
     }

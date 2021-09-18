@@ -35,7 +35,7 @@ public class StoreManager_Information_Fragment extends Fragment implements View.
     }
 
     public void onClick(View view){
-        Intent intent = new Intent((StoreManager_MainActivity)getActivity(), Popup_Activity.class );
+        Intent intent = new Intent((StoreManager_MainActivity)getActivity(), Popup_TwoButton_Activity.class );
 
         switch (view.getId()){
                 //로그아웃

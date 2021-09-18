@@ -10,8 +10,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Popup_Activity extends AppCompatActivity {
+import com.kbc.Sale.Sale_Item;
+import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
+import com.kbc.Sale.StoreManager_Product_Modify_Activity;
 
+import java.util.ArrayList;
+
+public class Popup_TwoButton_Activity extends AppCompatActivity {
+
+    private Intent intent;
+    private String userId, userLocation;
     private  String button_name;
     private TextView popup_title, popup_context;
     Button ok_btn, cancle_btn;
@@ -22,10 +30,10 @@ public class Popup_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.popup_activity);
+        setContentView(R.layout.popup_onebutton_activity);
 
         //인텐트 가져오기
-        Intent intent = getIntent();
+        intent = getIntent();
 
         //이벤트 발생 버튼 확인을 위한 데이터 접근
         button_name = intent.getExtras().getString("button_name");
@@ -33,6 +41,10 @@ public class Popup_Activity extends AppCompatActivity {
         //팝업창 제목, 내용 바꾸기
         popup_title = findViewById(R.id.popup_title);
         popup_context = findViewById(R.id.popup_context);
+        //확인, 취소 버튼 가져오기
+        ok_btn = (Button)findViewById(R.id.ok_btn);
+        cancle_btn = (Button)findViewById(R.id.cancle_btn);
+
         switch (button_name){
             case "logout":
                 popup_title.setText("로그아웃");
@@ -48,16 +60,15 @@ public class Popup_Activity extends AppCompatActivity {
                popup_context.setText("픽업을 완료했습니까?");
                break;
 
-            case "product_register":
-                popup_title.setText("상품 등록");
-                popup_context.setText("");
+            case "product_modify":
+                popup_title.setText("수정 완료");
+                popup_context.setText("정보수정을 하시겠습니까?");
+                break;
         }
 
 
 
-        //확인, 취소 버튼 가져오기
-        ok_btn = (Button)findViewById(R.id.ok_btn);
-        cancle_btn = (Button)findViewById(R.id.cancle_btn);
+
     }
 
     //확인 버튼 클릭
@@ -65,6 +76,8 @@ public class Popup_Activity extends AppCompatActivity {
         //사장님 액티비티 호출하고,
         StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
         PickupDetailActivity pickupDetailActivity = (PickupDetailActivity)PickupDetailActivity.pickupDetailActivity;
+        StoreManager_Product_Modify_Activity storeManager_product_modify_activity = (StoreManager_Product_Modify_Activity)StoreManager_Product_Modify_Activity.storeManager_product_modify_activity;
+
 
         switch (button_name){
 
@@ -93,6 +106,20 @@ public class Popup_Activity extends AppCompatActivity {
                 //팝업 액티비티 닫아주고,
                 finish();
                 pickupDetailActivity.finish();
+                break;
+
+                //상품 수정완료
+            case "product_modify":
+                finish();
+                storeManager_product_modify_activity.finish();
+               //여기서 상품 최종 수정이 되어야함!!!!!!
+
+                //다시 수정 올려주기
+                Intent modify_intent = new Intent(this, StoreManager_Product_Modify_Activity.class);
+                intent.putExtra("sale_item_list", (ArrayList<Sale_Item>)intent.getSerializableExtra("sale_item_list"));
+                intent.putExtra("userID", intent.getStringExtra("userID"));
+                intent.putExtra("location", intent.getStringExtra("location"));
+                startActivity(modify_intent);
                 break;
         }
     }
