@@ -44,10 +44,14 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         storeManager_location = "광명동";
         mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
-        bundle = new Bundle(2);
+        bundle = new Bundle(3);
         bundle.putString("id" , userId);
         bundle.putString("mode", mode);
         bundle.putString("location", storeManager_location);
+
+        storeManager_salesList_fragment.setArguments(bundle);
+        storeManager_chatting_fragment.setArguments(bundle);
+        storeManager_information_fragment.setArguments(bundle);
 
 
         storeManager_mainActivity = StoreManager_MainActivity.this;
@@ -73,13 +77,11 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.nav_sale:
-                    storeManager_salesList_fragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.fragment_container, storeManager_salesList_fragment).commit();
                     break;
 
                 case R.id.nav_chatting:
                     //점주 아이디 번들 전달
-                    storeManager_chatting_fragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.fragment_container, storeManager_chatting_fragment).commit();
                     break;
 

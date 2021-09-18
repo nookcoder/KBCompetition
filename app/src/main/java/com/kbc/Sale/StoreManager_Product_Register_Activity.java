@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,9 +13,17 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.kbc.Popup_Activity;
 import com.kbc.R;
 import com.kbc.StoreManager_MainActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,10 +64,10 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_register_activity);
 
-        Intent intent = new Intent();
-        //로그인 정보 가져오기
-        storeManager_id = intent.getExtras().getString("id");
-        storeManager_location = intent.getExtras().getString("location");
+//        Intent intent = new Intent();
+//        //로그인 정보 가져오기
+//        storeManager_id = intent.getExtras().getString("id");
+//        storeManager_location = intent.getExtras().getString("location");
 
         //상품제목
         product_name = findViewById(R.id.product_name);
@@ -203,12 +212,9 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
                 //확인창 띄워주고(팝업 그냥 확인버트!) 올린 상품 리스트보는 프래그먼트 띄워야델것가타!
                 //StoreManager_SaleList_Fragment로!
-
-
+                sendToServer("1912728315",register_item.getName(),register_item.getCategory(),register_item.getStock(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
             }
         });
-
-
     }
 
     private void Change_Button_color(String date_type) {
@@ -238,7 +244,35 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         return dateFormat_date.format(calendar.getTime());
     }
 
+    private void sendToServer(String id,String name, String category,String stock,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
+            String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/";
 
+            JSONObject jsonObject = new JSONObject();
 
+            try {
+                jsonObject.put("userId",id);
+                jsonObject.put("name",name);
+                jsonObject.put("category",category);
+                jsonObject.put("stock",stock);
+                jsonObject.put("price",price);
+                jsonObject.put("dateYear",dateYear);
+                jsonObject.put("dateMonth",dateMonth);
+                jsonObject.put("dateDay",dateDay);
+                jsonObject.put("dateType",dateType);
+                jsonObject.put("origin",origin);
+                jsonObject.put("details",details);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("jsonObject",response.toString());
+                }
+            },null);
+
+            RequestQueue requestQueue = Volley.newRequestQueue(StoreManager_Product_Register_Activity.this);
+            requestQueue.add(jsonObjectRequest);
+    }
 }
