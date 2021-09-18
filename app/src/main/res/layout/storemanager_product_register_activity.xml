@@ -74,8 +74,8 @@
                         android:background="@drawable/edge"
                         android:padding="20dp">
 
-                        <ImageView
-
+                        <ImageButton
+                            android:id="@+id/open_carmera"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_camera"

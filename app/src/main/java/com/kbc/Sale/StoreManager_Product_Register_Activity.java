@@ -35,6 +35,8 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     String storeManager_id, storeManager_location;
     StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
 
+    //카메라 켜기
+    private ImageButton open_carmera;
     //새로 등록하는 상품
     private Sale_Item register_item = new Sale_Item();
 
@@ -185,6 +187,16 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
 
         //버튼 이벤트
+
+        //카메라 열기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        open_carmera = findViewById(R.id.open_carmera);
+        open_carmera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         //창닫기
         product_register_close.setOnClickListener(new View.OnClickListener() {
             @Override
