@@ -1,11 +1,13 @@
 package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.kbc.Popup_OneButton_Activity;
+import com.kbc.Popup_TwoButton_Activity;
 import com.kbc.R;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,10 +18,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static android.content.ContentValues.TAG;
-
 public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
+    public static StoreManager_Product_Modify_Activity storeManager_product_modify_activity;
     //인텐트에서 넘어오는 정보들
     private ArrayList<Sale_Item> sale_items ;
     private Sale_Item sale_item;
@@ -50,12 +51,13 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_modify_activity);
+        storeManager_product_modify_activity = this;
 
         //상품 정보 가져오기
         Intent intent = getIntent();
         sale_items = (ArrayList<Sale_Item>)intent.getSerializableExtra("sale_item_list");
         sale_item = sale_items.get(0);
-        storeManager_id = intent.getExtras().getString("id");
+        storeManager_id = intent.getExtras().getString("userID");
         storeManager_location = intent.getExtras().getString("location");
 
         //상품제목
@@ -217,7 +219,15 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         product_modify_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
+
+//                //상품 조회 액티비티로 들어가기
+                Intent intent = new Intent(StoreManager_Product_Modify_Activity.this, StoreManager_Product_Inquiry_Activity.class);
+                intent.putExtra("sale_item_list", sale_items);
+                intent.putExtra("id", storeManager_id);
+                intent.putExtra("location",storeManager_location);
+                startActivity(intent);
             }
         });
 
@@ -237,14 +247,15 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 sale_item.setDetails(product_details.getText().toString());
                 sale_items.add(sale_item);
 
-                //상품 등록 액티비티로 들어가기
-                Intent intent = new Intent(StoreManager_Product_Modify_Activity.this, StoreManager_Product_Inquiry_Activity.class);
+
+                //상품 수정 완료 확인 -> 조회 화면 또는 재수정
+                Intent popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
+                intent.putExtra("button_name","product_modify");
                 intent.putExtra("sale_item_list", sale_items);
-                intent.putExtra("id", storeManager_id);
-                intent.putExtra("location",storeManager_location);
+                intent.putExtra("userID",storeManager_id);
+                intent.putExtra("location", storeManager_location);
                 startActivity(intent);
 
-                finish();
             }
         });
 

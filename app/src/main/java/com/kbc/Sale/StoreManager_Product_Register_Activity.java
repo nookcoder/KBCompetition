@@ -12,16 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.kbc.Popup_Activity;
+import com.kbc.Popup_OneButton_Activity;
 import com.kbc.R;
-import com.kbc.StoreManager_Information_Fragment;
 import com.kbc.StoreManager_MainActivity;
 
 import org.json.JSONException;
@@ -29,14 +27,13 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
-import static android.content.ContentValues.TAG;
-
 public class StoreManager_Product_Register_Activity extends AppCompatActivity {
+    public static StoreManager_Product_Register_Activity storeManager_product_register_activity;
     //로그인정보
     String storeManager_id, storeManager_location;
+    StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
 
     //새로 등록하는 상품
     private Sale_Item register_item = new Sale_Item();
@@ -67,14 +64,15 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_register_activity);
+        storeManager_product_register_activity = this;
 
 //
+        storeManager_mainActivity.finish();
         Intent intent = new Intent(this.getIntent());
         //로그인 정보 가져오기
-        storeManager_id = intent.getStringExtra("id");
+        storeManager_id = intent.getStringExtra("userID");
 //        storeManager_location = intent.getExtras().getString("location");
 
-        Log.d(TAG, "로그인 아이디 -> "+ storeManager_id);
 
         //상품제목
         product_name = findViewById(R.id.product_name);
@@ -191,6 +189,9 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                Intent intent = new Intent(storeManager_product_register_activity, StoreManager_MainActivity.class);
+                intent.putExtra("userID",storeManager_id);
+                startActivity(intent);
             }
         });
 
@@ -220,6 +221,10 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
                 //확인창 띄워주고(팝업 그냥 확인버트!) 올린 상품 리스트보는 프래그먼트 띄워야델것가타!
                 //StoreManager_SaleList_Fragment로!
+                Intent intent = new Intent(storeManager_product_register_activity, Popup_OneButton_Activity.class);
+                intent.putExtra("button_name","product_register");
+                intent.putExtra("userID",storeManager_id);
+                startActivity(intent);
                 sendToServer("1912728315",register_item.getName(),register_item.getCategory(),register_item.getStock(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
             }
         });
@@ -254,7 +259,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
     private void sendToServer(String id,String name, String category,String stock,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
             String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/register";
-
             JSONObject jsonObject = new JSONObject();
 
             try {

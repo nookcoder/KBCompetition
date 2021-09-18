@@ -63,11 +63,12 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
         bundle = getArguments();
         if(bundle != null){
-            storeManager_id = bundle.getString("id");
+            storeManager_id = bundle.getString("userID");
             storeManager_location = bundle.getString("location");
 
         }
 
+        Log.d(TAG, "리스트 아이디 ->" + storeManager_id);
         //컴포넌트 할당
             //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
@@ -214,31 +215,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         intent.putExtra("id", storeManager_id);
         intent.putExtra("location",storeManager_location);
 
-
         startActivity(intent);
 
     }
 
-
-//     public interface OnUserId_Listener{
-//        public void onUserId(String userId);
-//    }
-//
-//    OnUserId_Listener onUserId_listener;
-//
-//    public void onAttach(Context context) {
-//
-//        super.onAttach(context);
-//        if(context instanceof  OnUserId_Listener){
-//            onUserId_listener  = (OnUserId_Listener) context;
-//
-//        }else{
-//            throw  new ClassCastException((context.toString())+"오류!!!");
-//        }
-//    }
-//
-//    public void send_UserId(String userId){
-//        onUserId_listener.onUserId(userId);
-//    }
 
 }
