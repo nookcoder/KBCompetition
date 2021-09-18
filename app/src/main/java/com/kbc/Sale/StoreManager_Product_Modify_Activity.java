@@ -2,6 +2,11 @@ package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.kbc.Popup_OneButton_Activity;
 import com.kbc.Popup_TwoButton_Activity;
 import com.kbc.R;
@@ -21,6 +26,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
@@ -256,6 +264,13 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 sale_item.setDetails(product_details.getText().toString());
                 sale_items.add(sale_item);
 
+                // 서버에 정보 업데이트
+                try {
+                    updateProductInfo(storeManager_id,sale_item.getName(),sale_item.getCategory(),sale_item.getStock(),sale_item.getPrice(),sale_item.getDate_year(),sale_item.getDate_month(),sale_item.getDate_day(),sale_item.getDate_type(),sale_item.getOrigin(),sale_item.getDetails(),sale_item.getRegister_time());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
                 //상품 수정 완료 확인 -> 조회 화면 또는 재수정
                 Intent popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
@@ -308,7 +323,52 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         previous_item.setRegister_time(current_item.getRegister_time());
     }
 
+    // 서버 정보 수정 함수
+    public void updateProductInfo(String id,String name, String category,String stock,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details,String registerTime) throws JSONException {
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/update";
 
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId",id);
+        jsonObject.put("name",name);
+        jsonObject.put("category",category);
+        jsonObject.put("stock",stock);
+        jsonObject.put("price",price);
+        jsonObject.put("dateYear",dateYear);
+        jsonObject.put("dateMonth",dateMonth);
+        jsonObject.put("dateDay",dateDay);
+        jsonObject.put("dateType",dateType);
+        jsonObject.put("origin",origin);
+        jsonObject.put("details",details);
+        jsonObject.put("registerTime",registerTime);
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("Result",response.toString());
+            }
+        },null);
 
+        RequestQueue requestQueue = Volley.newRequestQueue(StoreManager_Product_Modify_Activity.this);
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void deleteProductInfo(String id, String registerTiem){
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/delete";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("userId",id);
+            jsonObject.put("registerTime",registerTiem);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        },null);
+
+    }
 }
