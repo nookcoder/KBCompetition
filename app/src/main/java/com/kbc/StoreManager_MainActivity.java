@@ -2,6 +2,7 @@ package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_List_Fragment;
+import com.kbc.Sale.StoreManager_Product_Register_Activity;
 import com.kbc.Sale.StoreManager_SalesList_Fragment;
+
+import static android.content.ContentValues.TAG;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
 
@@ -24,7 +28,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
     private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
     private StoreManager_SalesList_Fragment storeManager_salesList_fragment =new StoreManager_SalesList_Fragment();
-    private String storeManager_id, mode, storeManager_location;
+    private String userId, mode, storeManager_location;
     private Bundle bundle;
 
     @Override
@@ -35,12 +39,13 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         setContentView(R.layout.storemanager_activity_main);
 
 //        //유저 데이터 받기
-        Intent intentForGet = getIntent();
-        String userId = intentForGet.getExtras().getString("userID");
-
+//        Intent intentForGet = getIntent();
+//        String userId = intentForGet.getExtras().getString("userID");
+//
 
         //서히 테스트용
 //        storeManager_id = "seohee";
+        userId = "seohee";
         storeManager_location = "광명동";
         mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
@@ -65,6 +70,8 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, storeManager_salesList_fragment).commitAllowingStateLoss();
+
+        storeManager_mainActivity = StoreManager_MainActivity.this;
     }
 
     class bottomMenuSelectListener implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -77,6 +84,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.nav_sale:
+
                     fragmentTransaction.replace(R.id.fragment_container, storeManager_salesList_fragment).commit();
                     break;
 
@@ -92,5 +100,12 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
             return true;
         }
+    }
+
+    public void Change_Activity(String userId){
+        Intent intent = new Intent(StoreManager_MainActivity.this, StoreManager_Product_Register_Activity.class);
+        intent.putExtra("id", userId);
+        startActivity(intent);
+
     }
 }

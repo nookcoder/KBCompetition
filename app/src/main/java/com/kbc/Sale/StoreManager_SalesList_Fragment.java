@@ -1,7 +1,9 @@
 package com.kbc.Sale;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +23,12 @@ import com.kbc.Pickup.Pickup_Item;
 import com.kbc.R;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
+import com.kbc.StoreManager_MainActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
 
@@ -43,6 +48,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     TextView toolbarText;
 
     private Bundle bundle;
+
     private String storeManager_id, storeManager_location;
 
     @Override
@@ -59,6 +65,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         if(bundle != null){
             storeManager_id = bundle.getString("id");
             storeManager_location = bundle.getString("location");
+
         }
 
         //컴포넌트 할당
@@ -75,8 +82,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(getActivity(), StoreManager_Product_Register_Activity.class);
-                startActivity(intent);
+                ((StoreManager_MainActivity)getActivity()).Change_Activity(storeManager_id);
             }
         });
              //recyclerview
@@ -110,14 +116,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 addProductBtn.setVisibility(View.VISIBLE);
             }
         });
-            //제품 추가 버튼 눌렀을 때!
-        addProductBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //제품 등록 화면으로 넘어가기
-                getActivity().startActivity(new Intent(getActivity(), StoreManager_Product_Register_Activity.class));
 
-            }
-        });
         //픽업 대기중 버튼 눌렀을 떄!
         pickupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,5 +219,26 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     }
 
+
+//     public interface OnUserId_Listener{
+//        public void onUserId(String userId);
+//    }
+//
+//    OnUserId_Listener onUserId_listener;
+//
+//    public void onAttach(Context context) {
+//
+//        super.onAttach(context);
+//        if(context instanceof  OnUserId_Listener){
+//            onUserId_listener  = (OnUserId_Listener) context;
+//
+//        }else{
+//            throw  new ClassCastException((context.toString())+"오류!!!");
+//        }
+//    }
+//
+//    public void send_UserId(String userId){
+//        onUserId_listener.onUserId(userId);
+//    }
 
 }
