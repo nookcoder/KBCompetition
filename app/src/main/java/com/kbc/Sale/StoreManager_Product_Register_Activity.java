@@ -9,14 +9,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.kbc.Popup_Activity;
 import com.kbc.R;
 import com.kbc.StoreManager_Information_Fragment;
 import com.kbc.StoreManager_MainActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,7 +42,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     private Sale_Item register_item = new Sale_Item();
 
     //상품 정보들
-    private TextView product_name, product_register_time, product_price, product_origin, product_details;
+    private EditText product_name, product_register_time, product_price, product_origin, product_details;
 
 
     //카테고리, 재고
@@ -58,6 +67,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_register_activity);
+
 //
         Intent intent = new Intent(this.getIntent());
         //로그인 정보 가져오기
@@ -65,7 +75,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 //        storeManager_location = intent.getExtras().getString("location");
 
         Log.d(TAG, "로그인 아이디 -> "+ storeManager_id);
-
 
         //상품제목
         product_name = findViewById(R.id.product_name);
@@ -204,18 +213,16 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 register_item.setDate_day(product_date_day.getSelectedItem().toString());
 
                 //원산지, 상세정보 , 등록시간
+                register_item.setPrice(product_price.getText().toString());
                 register_item.setOrigin(product_origin.getText().toString());
                 register_item.setDetails(product_details.getText().toString());
                 register_item.setRegister_time(Register_Time());
 
                 //확인창 띄워주고(팝업 그냥 확인버트!) 올린 상품 리스트보는 프래그먼트 띄워야델것가타!
                 //StoreManager_SaleList_Fragment로!
-
-
+                sendToServer("1912728315",register_item.getName(),register_item.getCategory(),register_item.getStock(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
             }
         });
-
-
     }
 
     private void Change_Button_color(String date_type) {
@@ -245,13 +252,36 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         return dateFormat_date.format(calendar.getTime());
     }
 
+    private void sendToServer(String id,String name, String category,String stock,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
+            String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/register";
 
+            JSONObject jsonObject = new JSONObject();
 
-//    StoreManager_SalesList_Fragment.OnUserId_Listener onUserId_listener;
-//
-//    public void onUserId(String userId){
-//        storeManager_id = userId;
-//
-//    }
+            try {
+                jsonObject.put("userId",id);
+                jsonObject.put("name",name);
+                jsonObject.put("category",category);
+                jsonObject.put("stock",stock);
+                jsonObject.put("price",price);
+                jsonObject.put("dateYear",dateYear);
+                jsonObject.put("dateMonth",dateMonth);
+                jsonObject.put("dateDay",dateDay);
+                jsonObject.put("dateType",dateType);
+                jsonObject.put("origin",origin);
+                jsonObject.put("details",details);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("jsonObject",response.toString());
+                }
+            },null);
+
+            RequestQueue requestQueue = Volley.newRequestQueue(StoreManager_Product_Register_Activity.this);
+            requestQueue.add(jsonObjectRequest);
+    }
 
 }

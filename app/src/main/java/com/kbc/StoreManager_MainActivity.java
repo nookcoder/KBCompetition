@@ -58,6 +58,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         storeManager_chatting_fragment.setArguments(bundle);
         storeManager_information_fragment.setArguments(bundle);
 
+
         storeManager_mainActivity = StoreManager_MainActivity.this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.commit();
