@@ -1,6 +1,9 @@
 package com.kbc;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -31,6 +35,8 @@ import com.kbc.Server.LoginRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 //유저 선택 + 로그인 화면
@@ -43,6 +49,7 @@ public class Login_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
@@ -163,5 +170,9 @@ public class Login_Activity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(Login_Activity.this);
         requestQueue.add(loginRequest);
     }
+
+
+
+
 }
 
