@@ -1,9 +1,19 @@
 package com.kbc.Sale;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +28,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Image.Image;
 import com.kbc.Popup_OneButton_Activity;
 import com.kbc.R;
 import com.kbc.StoreManager_MainActivity;
@@ -25,9 +36,14 @@ import com.kbc.StoreManager_MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
+
+import static android.content.ContentValues.TAG;
 
 public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     public static StoreManager_Product_Register_Activity storeManager_product_register_activity;
@@ -189,10 +205,17 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         //버튼 이벤트
 
         //카메라 열기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Uri photoUri;
         open_carmera = findViewById(R.id.open_carmera);
         open_carmera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //권한 요청 후!!
+                Get_Carmera_Permission();
+                Intent carmera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                startActivityForResult(carmera_intent, Image.TAKE_PICTURE);
 
             }
         });
@@ -300,5 +323,67 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(StoreManager_Product_Register_Activity.this);
             requestQueue.add(jsonObjectRequest);
     }
+
+
+
+    private void Get_Carmera_Permission(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(checkSelfPermission(Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED){
+                Log.d("카메라 권한", "권한 설정 완료");
+            }
+            else {
+                Log.d("카메라 권한", "권한 설정 요청");
+                ActivityCompat.requestPermissions(StoreManager_Product_Register_Activity.this,
+                       new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+            }
+        }
+    }
+
+    //실질적인 권한 요청
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                                     @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(TAG, "onRequestPermissionsResult");
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED
+                && grantResults[1] == PackageManager.PERMISSION_GRANTED ) {
+            Log.d(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        // 카메라 촬영을 하면 이미지뷰에 사진 삽입
+        if(requestCode == 0 && resultCode == RESULT_OK) {
+            // Bundle로 데이터를 입력
+            Bundle extras = intent.getExtras();
+            // Bitmap으로 컨버전
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+
+
+//        switch (requestCode) {
+//            case Image.TAKE_PICTURE:
+//                if (resultCode == RESULT_OK && intent.hasExtra("data")) {
+//                    Bitmap bitmap = (Bitmap) intent.getExtras().get("data");
+//
+//                    if (bitmap != null) {
+//                       //이밎 추가
+//                    }
+//                }
+//                break;
+        }
+
+
+
+    }
+
+
+
 
 }
