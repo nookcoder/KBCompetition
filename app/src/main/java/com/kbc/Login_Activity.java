@@ -27,6 +27,9 @@ import com.kakao.sdk.user.model.Account;
 import com.kbc.Server.LoginRequest;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 //유저 선택 + 로그인 화면
 //To do 사업자 정보 등록되어 있는지 확인 필요!!
 //To do 데이터(userId) 전달
@@ -161,7 +164,7 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void sendToServerPersonalData(String ID,Intent intentO,Intent intentx){
-        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal";
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/";
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -174,7 +177,7 @@ public class Login_Activity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     Boolean isRegister= response.getBoolean("isRegister");
-                    Log.d("code",response.getString("isRegister").toString());
+                    Log.d("코드",response.toString());
                     if(isRegister){
                         intentO.putExtra("userID" , ID);
                         intentO.putExtra("user","개인");
