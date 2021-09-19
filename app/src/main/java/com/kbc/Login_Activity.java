@@ -59,7 +59,7 @@ public class Login_Activity extends AppCompatActivity {
         Intent intentForStoreO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);
         Intent intentForStoreX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);
         //개인 기본 정보 ㅇ , x
-        Intent intentForPsersonO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
+        Intent intentForPsersonO = new Intent(Login_Activity.this, Personal_MainActivity.class);//변경 필요!!!
         Intent intentForPsersonX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
 
         // 라디오그룹 참조
@@ -157,7 +157,7 @@ public class Login_Activity extends AppCompatActivity {
                 if(Boolean.valueOf(response)){
                     //데이터 전달 (userID)
                     intentO.putExtra("userID" , id);
-                    intentO.putExtra("user","사업자");
+                    //intentO.putExtra("user","사업자");-> 이거 빼도 될듯
                     startActivity(intentO);
                 }
                 //사업자 정보 등록 X
