@@ -157,13 +157,14 @@ public class Login_Activity extends AppCompatActivity {
                 if(Boolean.valueOf(response)){
                     //데이터 전달 (userID)
                     intentO.putExtra("userID" , id);
+                    intentx.putExtra("user","사업자");
                     startActivity(intentO);
                 }
                 //사업자 정보 등록 X
                 else{
                     //데이터 전달 (userID)
                     intentx.putExtra("userID" , id);
-                    intentx.putExtra("user","개인");//?이거 왜 여기?
+                    intentx.putExtra("user","사업자");
                     startActivity(intentx);
                 }
             }
