@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.StoreManger;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.kbc.Login_Activity;
+import com.kbc.R;
 
 public class StoreManager_Add_Store_Info_Activity extends AppCompatActivity {
 

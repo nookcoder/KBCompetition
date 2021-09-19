@@ -20,7 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.kbc.Popup_OneButton_Activity;
 import com.kbc.R;
-import com.kbc.StoreManager_MainActivity;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

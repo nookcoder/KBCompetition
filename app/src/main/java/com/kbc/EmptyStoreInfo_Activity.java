@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import com.kbc.StoreManger.StoreManager_Add_Store_Info_Activity;
 
 public class EmptyStoreInfo_Activity extends AppCompatActivity {
 

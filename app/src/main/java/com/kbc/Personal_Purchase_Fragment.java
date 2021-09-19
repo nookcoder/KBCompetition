@@ -23,10 +23,11 @@ import com.kbc.Sale.Sale_Item;
 import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 
-public class Personal_PurchaseList_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
+public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
 
     private ArrayList<Sale_Item> perchaseList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();

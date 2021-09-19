@@ -11,11 +11,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kbc.Sale.Sale_Item;
-import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Sale.StoreManager_Product_Modify_Activity;
 
 import java.util.ArrayList;
 import com.kbc.Pickup.PickupDetailActivity;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 
 public class Popup_TwoButton_Activity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.StoreManger;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Added_Done_Activity;
 import com.kbc.R;
 import com.kbc.WebViewActivity;
 
@@ -34,6 +35,8 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
     //추가로 등록한 데이터
     String managerId, name, birth, addressZipcode, fullAddress;
     String userId,storeName,storeNum;
+    String town1,town2; // 시/도, 시/군/구
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,10 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                         birthCheck.setVisibility(view.VISIBLE);
                     if (addressZipcode.length() == 0 || detailAddressEditText.getText().toString().length() == 0)
                         addressCheck.setVisibility(view.VISIBLE);
+                    //town1 = 시/도 , town2 = 시/군/구
+                    town1 = fullAddress.split("\\s")[0];
+                    town2=fullAddress.split("\\s")[1];
+                    IdCheck.setText(town1 +" 이랑 " +town2);
                 }
                 //다 입력되어 있으면
                 else if (managerId.length() != 0 || name.length() != 0 || year.length() != 0 || month.length() != 0 || day.length() != 0 || addressZipcode.length() != 0 || detailAddressEditText.getText().toString().length() != 0) {
@@ -103,6 +110,11 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                     intent.putExtra("userId", userId);
                     intent.putExtra("user","store manager");
                     startActivity(intent);
+
+                    //town1 = 시/도 , town2 = 시/군/구
+                    town1 = fullAddress.split("\\s")[0];
+                    town2=fullAddress.split("\\s")[1];
+
                 }
             }
         });

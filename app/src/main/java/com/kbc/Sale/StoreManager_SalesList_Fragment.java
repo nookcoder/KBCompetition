@@ -1,6 +1,5 @@
 package com.kbc.Sale;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,13 +27,9 @@ import com.kbc.Pickup.Pickup_Item;
 import com.kbc.R;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
-import com.kbc.StoreManager_MainActivity;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 import org.json.JSONArray;
 import org.json.JSONException;

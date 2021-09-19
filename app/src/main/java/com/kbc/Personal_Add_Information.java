@@ -18,7 +18,7 @@ public class Personal_Add_Information extends AppCompatActivity {
     private Spinner towm1View, town2View;
     private ArrayAdapter<String> arrayAdapter;
     public static final String EXTRA_ADDRESS = "address";
-    public String name, nicName, num, town1, town2; //이름,닉네임,번호,시/도,시/군/구
+    public String name, nicName, num, town1, town2; //이름,닉네임,번호,시/도,시/군/구 입니다!!!!
     private String userId; //회원Id
     private TextView nameCheck, perconalNumCheck, nicNameCheck, townCheck;
     EditText nameView, nicNameView, numView;
@@ -26,7 +26,7 @@ public class Personal_Add_Information extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.persona_add_information);
+        setContentView(R.layout.personal_add_information);
 
         //회원Id 받아오기
         Intent intentForGet = getIntent();

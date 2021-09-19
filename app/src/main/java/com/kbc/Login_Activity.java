@@ -1,25 +1,19 @@
 package com.kbc;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.service.voice.VoiceInteractionSession;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.MenuItemHoverListener;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,13 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
 import com.kbc.Server.LoginRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Map;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 //유저 선택 + 로그인 화면
 //To do 사업자 정보 등록되어 있는지 확인 필요!!
