@@ -35,6 +35,8 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     String storeManager_id, storeManager_location;
     StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
 
+    //카메라 켜기
+    private ImageButton open_carmera;
     //새로 등록하는 상품
     private Sale_Item register_item = new Sale_Item();
 
@@ -73,6 +75,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         storeManager_id = intent.getStringExtra("userID");
 //        storeManager_location = intent.getExtras().getString("location");
 
+        Log.d( "등록 액티비티 아이디 ->",storeManager_id);
 
         //상품제목
         product_name = findViewById(R.id.product_name);
@@ -184,6 +187,16 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
 
         //버튼 이벤트
+
+        //카메라 열기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        open_carmera = findViewById(R.id.open_carmera);
+        open_carmera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         //창닫기
         product_register_close.setOnClickListener(new View.OnClickListener() {
             @Override

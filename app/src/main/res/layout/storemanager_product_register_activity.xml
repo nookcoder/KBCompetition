@@ -74,8 +74,8 @@
                         android:background="@drawable/edge"
                         android:padding="20dp">
 
-                        <ImageView
-
+                        <ImageButton
+                            android:id="@+id/open_carmera"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_camera"
@@ -89,14 +89,14 @@
                             android:textSize="15dp"
                             android:layout_gravity="center"
                             />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
-
                     </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/image_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp">
 
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
             </TableRow>
 

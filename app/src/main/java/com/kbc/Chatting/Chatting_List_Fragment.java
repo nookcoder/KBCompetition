@@ -71,7 +71,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
             login_id = bundle.getString("userID");
             chat_mode = bundle.getString("mode");
         }
-        Log.d(TAG,"점주 아이디 : "+ login_id);
+        Log.d("채팅 리스트 프래그먼 아이디 : ",login_id);
 
         //액티비티 가져오고,
         storeManager_mainActivity = (StoreManager_MainActivity)getActivity();

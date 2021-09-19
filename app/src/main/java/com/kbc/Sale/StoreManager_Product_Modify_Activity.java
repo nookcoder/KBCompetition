@@ -47,8 +47,8 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
     private Button date_type_expiration, date_type_purchase;
     private String change_date_type;
 
-    //창 닫기, 수정하기 버튼
-    private ImageButton product_modify_close;
+    //창 닫기, 수정하기, 삭제하기 버튼
+    private ImageButton product_modify_close, product_remove;
     private Button product_modify_sucess;
 
     @Override
@@ -64,6 +64,8 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         Previous_Sale_item(sale_item);
         storeManager_id = intent.getExtras().getString("userID");
         storeManager_location = intent.getExtras().getString("location");
+
+        Log.d( "수정 액티비티 아이디 ->",storeManager_id);
 
         //상품제목
         product_name = findViewById(R.id.product_name);
@@ -215,10 +217,11 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         product_details.setText(sale_item.getDetails());
 
 
-
         //버튼 이벤트
         product_modify_close =findViewById(R.id.product_modify_close);
         product_modify_sucess = findViewById(R.id.product_modify_sucess);
+        product_remove = findViewById(R.id.product_remove);
+
 
         //창닫기
         product_modify_close.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +229,6 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 ArrayList<Sale_Item> sale_items = new ArrayList<Sale_Item>();
-                Log.d(TAG, "날짜 ->" + previous_item.getDate_day());
                 sale_items.add(previous_item);
 
 //                //상품 조회 액티비티로 들어가기
@@ -259,15 +261,30 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
                 //상품 수정 완료 확인 -> 조회 화면 또는 재수정
                 Intent popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
-                intent.putExtra("button_name","product_modify");
-                intent.putExtra("sale_item_list", sale_items);
-                intent.putExtra("userID",storeManager_id);
-                intent.putExtra("location", storeManager_location);
-                startActivity(intent);
+                popup_intent.putExtra("button_name","product_modify");
+                popup_intent.putExtra("sale_item_list", sale_items);
+                popup_intent.putExtra("userID",storeManager_id);
+                popup_intent.putExtra("location", storeManager_location);
+                startActivity(popup_intent);
 
             }
         });
 
+        //삭제하기
+        product_remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //삭제 여부 확인 팝업 창
+                Intent delete_popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
+                delete_popup_intent.putExtra("button_name", "product_delete");
+                delete_popup_intent.putExtra("sale_item_list", sale_items);
+                delete_popup_intent.putExtra("userID",storeManager_id);
+                delete_popup_intent.putExtra("location", storeManager_location);
+                startActivity(delete_popup_intent);
+
+
+            }
+        });
 
     }
 
@@ -285,13 +302,14 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
     private void Insert_Spinner_Current_Data(String []spinner_list, Spinner spinner, String current_data){
         for(int index = 0 ; index< spinner_list.length ; index++){
-            Log.d(TAG, "현재 데이터 -> " + current_data + "/ 스피너 리스트 -> " + spinner_list[index] + " 판별 -> "+current_data.equals(spinner_list[index]));
-            if(current_data.equals(spinner_list[index])){
+              if(current_data.equals(spinner_list[index])){
                 spinner.setSelection(index);
                 break;
             }
         }
     }
+
+    //이전 데이터 가지고 있기!!!!
 
     public void Previous_Sale_item(Sale_Item current_item){
         previous_item.serProductImageSrc(current_item.getProductImageSrc());
