@@ -217,7 +217,6 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         product_details.setText(sale_item.getDetails());
 
 
-
         //버튼 이벤트
         product_modify_close =findViewById(R.id.product_modify_close);
         product_modify_sucess = findViewById(R.id.product_modify_sucess);
@@ -262,11 +261,11 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
                 //상품 수정 완료 확인 -> 조회 화면 또는 재수정
                 Intent popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
-                intent.putExtra("button_name","product_modify");
-                intent.putExtra("sale_item_list", sale_items);
-                intent.putExtra("userID",storeManager_id);
-                intent.putExtra("location", storeManager_location);
-                startActivity(intent);
+                popup_intent.putExtra("button_name","product_modify");
+                popup_intent.putExtra("sale_item_list", sale_items);
+                popup_intent.putExtra("userID",storeManager_id);
+                popup_intent.putExtra("location", storeManager_location);
+                startActivity(popup_intent);
 
             }
         });
@@ -277,6 +276,12 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 //삭제 여부 확인 팝업 창
                 Intent delete_popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
+                delete_popup_intent.putExtra("button_name", "product_delete");
+                delete_popup_intent.putExtra("sale_item_list", sale_items);
+                delete_popup_intent.putExtra("userID",storeManager_id);
+                delete_popup_intent.putExtra("location", storeManager_location);
+                startActivity(delete_popup_intent);
+
 
             }
         });
