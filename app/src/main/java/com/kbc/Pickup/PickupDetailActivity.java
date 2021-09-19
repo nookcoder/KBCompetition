@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.kbc.Popup_Activity;
+import com.kbc.Popup_TwoButton_Activity;
 import com.kbc.R;
 import com.kbc.StoreManager_MainActivity;
 

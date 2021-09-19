@@ -56,34 +56,28 @@
         <activity android:name=".Added_Done_Activity" />
         <activity android:name=".EmptyStoreInfo_Activity" />
         <activity android:name=".Login_Activity">
-
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
-
-
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
         </activity>
         <activity android:name=".StoreManager_Add_Manager_Info_Activity" />
         <activity android:name=".StoreManager_Add_Store_Info_Activity" />
-        <activity android:name=".StoreManager_Login" />
-        <activity android:name=".Select_User_Activity" />
         <activity android:name=".Sale.StoreManager_Product_Register_Activity" />
         <activity android:name=".WebViewActivity" />
-        <activity android:name=".PickupDetailActivity" />
+        <activity android:name=".Pickup.PickupDetailActivity"></activity>
+        <activity android:name=".Personal_MainActivity"></activity>
+        <activity android:name=".Personal_Add_Information"></activity>
         <activity
             android:name=".Popup_TwoButton_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/popupTheme" />
-
         <activity android:name=".Popup_OneButton_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/popupTheme"/>
-
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face" />
-
         <activity android:name=".Chatting.Chatting_Send_Activity" />
     </application>
 

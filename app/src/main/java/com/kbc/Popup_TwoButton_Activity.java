@@ -17,7 +17,6 @@ import com.kbc.Sale.StoreManager_Product_Modify_Activity;
 import java.util.ArrayList;
 import com.kbc.Pickup.PickupDetailActivity;
 
-public class Popup_Activity extends AppCompatActivity {
 
 public class Popup_TwoButton_Activity extends AppCompatActivity {
 
