@@ -100,9 +100,14 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                      storeName =intentForGet.getExtras().getString("storeName");
                      storeNum =intentForGet.getExtras().getString("storeNum");
 
+
+                    //town1 = 시/도 , town2 = 시/군/구
+                    town1 = fullAddress.split("\\s")[0];
+                    town2=fullAddress.split("\\s")[1];
+
                     //intent로 화면 전환
                     try {
-                        sendStoreData(userId,storeName,storeNum,name,birth,managerId,fullAddress);
+                        sendStoreData(userId,storeName,storeNum,name,birth,managerId,fullAddress,town1,town2);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -111,9 +116,6 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                     intent.putExtra("user","store manager");
                     startActivity(intent);
 
-                    //town1 = 시/도 , town2 = 시/군/구
-                    town1 = fullAddress.split("\\s")[0];
-                    town2=fullAddress.split("\\s")[1];
 
                 }
             }
@@ -172,7 +174,7 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
         combinedBirth = year + month + day;
         return combinedBirth;
     }
-    public void sendStoreData(String userId,String storeName, String storeNum, String name, String birth, String managerId,String fullAddress) throws JSONException {
+    public void sendStoreData(String userId,String storeName, String storeNum, String name, String birth, String managerId,String fullAddress,String town1,String town2) throws JSONException {
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/register";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id",userId);
@@ -182,6 +184,8 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
         jsonObject.put("openingDate",birth);
         jsonObject.put("businessNumber",managerId);
         jsonObject.put("location",fullAddress);
+        jsonObject.put("town1",town1);
+        jsonObject.put("town2",town2);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
