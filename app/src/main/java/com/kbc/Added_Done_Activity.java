@@ -33,7 +33,7 @@ public class Added_Done_Activity extends AppCompatActivity {
                 }
                 //유저가 개인이면
                 else if(user.equals("person")){
-                    Intent intent2 = new Intent(getApplicationContext(), Login_Activity.class);//변경 필요
+                    Intent intent2 = new Intent(getApplicationContext(), Personal_MainActivity.class);//변경 필요
                     startActivity(intent2);
                 }
             }
