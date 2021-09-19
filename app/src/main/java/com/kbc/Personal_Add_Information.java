@@ -19,6 +19,7 @@ public class Personal_Add_Information extends AppCompatActivity {
     private ArrayAdapter<String> arrayAdapter;
     public static final String EXTRA_ADDRESS = "address";
     public String name, nicName, num, town1, town2; //이름,닉네임,번호,시/도,시/군/구
+    private String userId; //회원Id
     private TextView nameCheck, perconalNumCheck, nicNameCheck, townCheck;
     EditText nameView, nicNameView, numView;
 
@@ -26,6 +27,10 @@ public class Personal_Add_Information extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.persona_add_information);
+
+        //회원Id 받아오기
+        Intent intentForGet = getIntent();
+        userId = intentForGet.getExtras().getString("userID");
 
         //컴포넌트 할당
         nameView = (EditText) findViewById(R.id.personalName);
@@ -82,7 +87,9 @@ public class Personal_Add_Information extends AppCompatActivity {
                     else {
                         townCheck.setVisibility(view.INVISIBLE);
                     }
-                } else {
+                }
+                //비어있는 정보 없으면
+                else {
                     nameCheck.setVisibility(view.INVISIBLE);
                     nicNameCheck.setVisibility(view.INVISIBLE);
                     perconalNumCheck.setVisibility(view.INVISIBLE);
@@ -90,7 +97,7 @@ public class Personal_Add_Information extends AppCompatActivity {
                     town2 = town2View.getSelectedItem().toString();
 
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
-                    intent.putExtra("userId", "hyunjin");//테스트용
+                    intent.putExtra("userId", userId);
                     intent.putExtra("user", "person");
                     startActivity(intent);
                 }
