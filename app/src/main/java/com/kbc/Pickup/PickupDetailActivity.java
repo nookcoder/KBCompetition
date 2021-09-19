@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kbc.Popup_TwoButton_Activity;
 import com.kbc.R;
-import com.kbc.StoreManager_MainActivity;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 public class PickupDetailActivity extends AppCompatActivity {
     public static PickupDetailActivity pickupDetailActivity;

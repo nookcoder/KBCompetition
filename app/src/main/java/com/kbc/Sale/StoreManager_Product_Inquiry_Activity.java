@@ -1,7 +1,6 @@
 package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -14,13 +13,9 @@ import android.widget.TextView;
 import com.kbc.Image.ImageAdapter;
 import com.kbc.Image.Image_Item;
 import com.kbc.R;
-import com.kbc.StoreManager_MainActivity;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.content.ContentValues.TAG;
 
 public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
     private StoreManager_Product_Inquiry_Activity storeManager_product_inquiry_activity;

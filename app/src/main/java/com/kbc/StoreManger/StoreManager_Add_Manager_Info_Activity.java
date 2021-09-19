@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.StoreManger;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Added_Done_Activity;
 import com.kbc.R;
 import com.kbc.WebViewActivity;
 
@@ -34,6 +35,8 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
     //추가로 등록한 데이터
     String managerId, name, birth, addressZipcode, fullAddress;
     String userId,storeName,storeNum;
+    String town1,town2; // 시/도, 시/군/구
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,10 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                         birthCheck.setVisibility(view.VISIBLE);
                     if (addressZipcode.length() == 0 || detailAddressEditText.getText().toString().length() == 0)
                         addressCheck.setVisibility(view.VISIBLE);
+                    //town1 = 시/도 , town2 = 시/군/구
+                    town1 = fullAddress.split("\\s")[0];
+                    town2=fullAddress.split("\\s")[1];
+                    IdCheck.setText(town1 +" 이랑 " +town2);
                 }
                 //다 입력되어 있으면
                 else if (managerId.length() != 0 || name.length() != 0 || year.length() != 0 || month.length() != 0 || day.length() != 0 || addressZipcode.length() != 0 || detailAddressEditText.getText().toString().length() != 0) {
@@ -93,9 +100,14 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                      storeName =intentForGet.getExtras().getString("storeName");
                      storeNum =intentForGet.getExtras().getString("storeNum");
 
+
+                    //town1 = 시/도 , town2 = 시/군/구
+                    town1 = fullAddress.split("\\s")[0];
+                    town2=fullAddress.split("\\s")[1];
+
                     //intent로 화면 전환
                     try {
-                        sendStoreData(userId,storeName,storeNum,name,birth,managerId,fullAddress);
+                        sendStoreData(userId,storeName,storeNum,name,birth,managerId,fullAddress,town1,town2);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -103,6 +115,8 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
                     intent.putExtra("userId", userId);
                     intent.putExtra("user","store manager");
                     startActivity(intent);
+
+
                 }
             }
         });
@@ -160,7 +174,7 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
         combinedBirth = year + month + day;
         return combinedBirth;
     }
-    public void sendStoreData(String userId,String storeName, String storeNum, String name, String birth, String managerId,String fullAddress) throws JSONException {
+    public void sendStoreData(String userId,String storeName, String storeNum, String name, String birth, String managerId,String fullAddress,String town1,String town2) throws JSONException {
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/register";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id",userId);
@@ -170,6 +184,8 @@ public class StoreManager_Add_Manager_Info_Activity extends AppCompatActivity {
         jsonObject.put("openingDate",birth);
         jsonObject.put("businessNumber",managerId);
         jsonObject.put("location",fullAddress);
+        jsonObject.put("town1",town1);
+        jsonObject.put("town2",town2);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override

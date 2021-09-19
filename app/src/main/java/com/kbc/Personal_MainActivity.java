@@ -1,6 +1,5 @@
 package com.kbc;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -13,8 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_List_Fragment;
-import com.kbc.Sale.StoreManager_Product_Register_Activity;
-import com.kbc.Sale.StoreManager_SalesList_Fragment;
+import com.kbc.StoreManger.StoreManager_Information_Fragment;
 
 public class Personal_MainActivity extends AppCompatActivity {
 
@@ -22,9 +20,9 @@ public class Personal_MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction fragmentTransaction;
 
-   // private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
-   // private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
-    private Personal_PurchaseList_Fragment personal_purchaseList_fragment =new Personal_PurchaseList_Fragment();
+    private Personal_Purchase_Fragment personal_purchase_fragment = new Personal_Purchase_Fragment();
+    private Personal_Chattion_Fragment personal_chattion_fragment = new Personal_Chattion_Fragment();
+    private Personal_Information_Fragment personal_information_fragment = new Personal_Information_Fragment();
 
     private String userId, mode, storeManager_location;
     private Bundle bundle;
@@ -46,49 +44,49 @@ public class Personal_MainActivity extends AppCompatActivity {
         mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
         bundle = new Bundle(3);
-        bundle.putString("id" , userId);
+        bundle.putString("id", userId);
         bundle.putString("mode", mode);
         bundle.putString("location", storeManager_location);
 
-        personal_purchaseList_fragment.setArguments(bundle);
-     //   storeManager_chatting_fragment.setArguments(bundle);
-     //   storeManager_information_fragment.setArguments(bundle);
+        personal_purchase_fragment.setArguments(bundle);
+        //   storeManager_chatting_fragment.setArguments(bundle);
+        //   storeManager_information_fragment.setArguments(bundle);
 
 
         personal_mainActivity = Personal_MainActivity.this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.commit();
-        personal_purchaseList_fragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.fragment_container, personal_purchaseList_fragment);
+        personal_purchase_fragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.fragment_container, personal_purchase_fragment);
         fragmentTransaction.addToBackStack(null);
         BottomNavigationView bottomNavigationView = findViewById(R.id.personal_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new bottomMenuSelectListener());
 
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, personal_purchaseList_fragment).commitAllowingStateLoss();
+        fragmentTransaction.replace(R.id.fragment_container, personal_purchase_fragment).commitAllowingStateLoss();
 
         personal_mainActivity = Personal_MainActivity.this;
     }
 
-    class bottomMenuSelectListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+    class bottomMenuSelectListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             fragmentTransaction = fragmentManager.beginTransaction();
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.nav_sale:
-                    fragmentTransaction.replace(R.id.fragment_container, personal_purchaseList_fragment).commit();
+                    fragmentTransaction.replace(R.id.fragment_container, personal_purchase_fragment).commit();
                     break;
 
                 case R.id.nav_chatting:
                     //점주 아이디 번들 전달
-                   // fragmentTransaction.replace(R.id.fragment_container, storeManager_chatting_fragment).commit();
+                    // fragmentTransaction.replace(R.id.fragment_container, storeManager_chatting_fragment).commit();
                     break;
 
                 case R.id.nav_information:
-                   // fragmentTransaction.replace(R.id.fragment_container, storeManager_information_fragment).commit();
+                    // fragmentTransaction.replace(R.id.fragment_container, storeManager_information_fragment).commit();
                     break;
             }
             return true;

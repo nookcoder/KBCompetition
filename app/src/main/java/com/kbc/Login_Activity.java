@@ -1,25 +1,19 @@
 package com.kbc;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.service.voice.VoiceInteractionSession;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.MenuItemHoverListener;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,13 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
 import com.kbc.Server.LoginRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Map;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 //유저 선택 + 로그인 화면
 //To do 사업자 정보 등록되어 있는지 확인 필요!!
@@ -59,7 +47,7 @@ public class Login_Activity extends AppCompatActivity {
         Intent intentForStoreO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);
         Intent intentForStoreX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);
         //개인 기본 정보 ㅇ , x
-        Intent intentForPsersonO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
+        Intent intentForPsersonO = new Intent(Login_Activity.this, Personal_MainActivity.class);//변경 필요!!!
         Intent intentForPsersonX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
 
         // 라디오그룹 참조
@@ -155,7 +143,7 @@ public class Login_Activity extends AppCompatActivity {
                 if(Boolean.valueOf(response)){
                     //데이터 전달 (userID)
                     intentO.putExtra("userID" , id);
-                    intentO.putExtra("user","사업자");
+                    //intentO.putExtra("user","사업자");-> 이거 빼도 될듯
                     startActivity(intentO);
                 }
                 //사업자 정보 등록 X

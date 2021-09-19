@@ -1,8 +1,7 @@
-package com.kbc;
+package com.kbc.StoreManger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -15,10 +14,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_List_Fragment;
+import com.kbc.R;
 import com.kbc.Sale.StoreManager_Product_Register_Activity;
 import com.kbc.Sale.StoreManager_SalesList_Fragment;
-
-import static android.content.ContentValues.TAG;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
 
