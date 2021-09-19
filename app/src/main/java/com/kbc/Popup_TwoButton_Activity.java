@@ -15,6 +15,9 @@ import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Sale.StoreManager_Product_Modify_Activity;
 
 import java.util.ArrayList;
+import com.kbc.Pickup.PickupDetailActivity;
+
+public class Popup_Activity extends AppCompatActivity {
 
 public class Popup_TwoButton_Activity extends AppCompatActivity {
 
@@ -43,21 +46,19 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
 
         //!!서버 관련 데이터 가져오기 !!!!!!
         userId = intent.getStringExtra("userID");
-        sale_items = (ArrayList<Sale_Item>)intent.getSerializableExtra("sale_item_list");
+        sale_items = (ArrayList<Sale_Item>) intent.getSerializableExtra("sale_item_list");
         //실질적으로 수정 / 삭제 해야하는 정보 담은 객체!!!!!!!
         sale_item = sale_items.get(0);
-
-
 
 
         //팝업창 제목, 내용 바꾸기
         popup_title = findViewById(R.id.popup_title);
         popup_context = findViewById(R.id.popup_context);
         //확인, 취소 버튼 가져오기
-        ok_btn = (Button)findViewById(R.id.ok_btn);
-        cancle_btn = (Button)findViewById(R.id.cancle_btn);
+        ok_btn = (Button) findViewById(R.id.ok_btn);
+        cancle_btn = (Button) findViewById(R.id.cancle_btn);
 
-        switch (button_name){
+        switch (button_name) {
             case "logout":
                 popup_title.setText("로그아웃");
                 popup_context.setText("로그아웃을 하시겠습니까?");
@@ -69,8 +70,8 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
                 break;
             case "Pickup complete":
                 popup_title.setText("픽업 완료");
-               popup_context.setText("픽업을 완료했습니까?");
-               break;
+                popup_context.setText("픽업을 완료했습니까?");
+                break;
 
             case "product_modify":
                 popup_title.setText("수정 완료");
@@ -81,13 +82,13 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
                 popup_title.setText("상품 삭제");
                 popup_context.setText("정말로 삭제하시겠습니까???");
                 break;
+            case "product_register":
+                popup_title.setText("상품 등록");
+                popup_context.setText("");
         }
 
 
-
-
     }
-
     //확인 버튼 클릭
     public void click_ok(View view){
         //사장님 액티비티 호출하고,
