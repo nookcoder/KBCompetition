@@ -127,9 +127,7 @@ public class Login_Activity extends AppCompatActivity {
                     else if(selectedUser.equals("개인")) {
                         //데이터 전달 (userID)
                         //1)정보 없는 경우 -> 정보 추가 화면으로
-                        intentForPsersonX.putExtra("userID" , id);
-                        intentForPsersonX.putExtra("user" , "개인");
-                        startActivity(intentForPsersonX);
+                        sendToServerPersonalData(id,intentForPsersonO,intentForPsersonX);
                     }
                     return null;
                 });
@@ -174,8 +172,40 @@ public class Login_Activity extends AppCompatActivity {
         requestQueue.add(loginRequest);
     }
 
+    public void sendToServerPersonalData(String ID,Intent intentO,Intent intentx){
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal";
 
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("userId",ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,URL,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Boolean isRegister= response.getBoolean("isRegister");
+                    Log.d("code",response.getString("isRegister").toString());
+                    if(isRegister){
+                        intentO.putExtra("userID" , ID);
+                        intentO.putExtra("user","개인");
+                        startActivity(intentO);
+                    }
+                    else{
+                        intentx.putExtra("userID" , ID);
+                        intentx.putExtra("user","개인");
+                        startActivity(intentx);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },null);
 
+        RequestQueue requestQueue = Volley.newRequestQueue(Login_Activity.this);
+        requestQueue.add(jsonObjectRequest);
+    }
 
 }
 
