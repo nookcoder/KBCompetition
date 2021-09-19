@@ -73,12 +73,12 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         product_modify_imageButton = findViewById(R.id.product_modify_imageButton);
         product_inquiry_close = findViewById(R.id.product_inquiry_close);
 
-        //상품 사진들 넣어야함!!!!!!!!!!!!!!!!!!!!!!!!!!
-        recyclerView = findViewById(R.id.image_recyclerview);
-        //이미지아이템에 사진 경로를 넣어야합니다아~
-        imageAdapter = new ImageAdapter(image_items);
-        recyclerView.setAdapter(imageAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+//        //상품 사진들 넣어야함!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        recyclerView = findViewById(R.id.image_recyclerview);
+//        //이미지아이템에 사진 경로를 넣어야합니다아~
+//        imageAdapter = new ImageAdapter(image_items);
+//        recyclerView.setAdapter(imageAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
 
 
 

@@ -34,11 +34,11 @@
         <activity
             android:name=".StoreManager_MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
@@ -57,12 +57,12 @@
         <activity android:name=".EmptyStoreInfo_Activity" />
         <activity android:name=".Login_Activity">
 
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
 
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity android:name=".StoreManager_Add_Manager_Info_Activity" />
         <activity android:name=".StoreManager_Add_Store_Info_Activity" />
