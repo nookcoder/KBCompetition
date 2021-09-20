@@ -91,7 +91,6 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
 
         //판매가격, 재고 넣기
         product_price.setText("가격 "+ sale_item.getPrice()+"원");
-        product_stock.setText("재고 " + sale_item.getStock() +"개");
 
         //상세설명
         product_details.setText(sale_item.getDetails());

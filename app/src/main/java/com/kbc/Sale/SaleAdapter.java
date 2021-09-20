@@ -34,7 +34,6 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
            // productImage = (ImageView) view.findViewById(R.id.productImage);
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
-            stock = (TextView) view.findViewById(R.id.productStock);
             price = (TextView) view.findViewById(R.id.productPrice);
 
             view.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +67,6 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
 
         holder.name.setText(mDataset.get(position).getName());
         holder.category.setText(mDataset.get(position).getCategory());
-        holder.stock.setText(String.valueOf(mDataset.get(position).getStock()));
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
         //클릭이벤트

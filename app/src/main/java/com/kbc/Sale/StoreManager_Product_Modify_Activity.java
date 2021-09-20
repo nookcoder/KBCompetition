@@ -44,7 +44,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
 
     //카테고리, 재고
-    private Spinner product_category,product_stock;
+    private Spinner product_category;
     private ArrayAdapter category_adapter, stock_adapter;
     private String[] category_list , stock_list;
 
@@ -103,28 +103,6 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
             }
         });
 
-
-        //재고 스피너 가져오기
-        product_stock = findViewById(R.id.product_stock);
-        stock_adapter = ArrayAdapter.createFromResource(this, R.array.stock,
-                R.layout.spinner_item);
-        stock_adapter.setDropDownViewResource(R.layout.spinner_item);
-        product_stock.setAdapter(stock_adapter);
-        stock_list = getResources().getStringArray(R.array.stock);
-        Insert_Spinner_Current_Data(stock_list, product_stock, sale_item.getStock());
-
-        product_stock.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String select_stock = stock_adapter.getItem(position).toString();
-                sale_item.setStock(select_stock);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         //상품 기한 -년
         product_date_year =findViewById(R.id.product_date_year);
@@ -261,7 +239,6 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 //이미지 넣기코드 필요 !!!!!!!!!!
                 sale_item.setName(product_name.getText().toString());
                 sale_item.setCategory(product_category.getSelectedItem().toString());
-                sale_item.setStock(product_stock.getSelectedItem().toString());
 
                 //기한, 가격
                 sale_item.setOrigin(product_origin.getText().toString());
@@ -324,7 +301,6 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         previous_item.serProductImageSrc(current_item.getProductImageSrc());
         previous_item.setName(current_item.getName());
         previous_item.setCategory(current_item.getCategory());
-        previous_item.setStock(current_item.getStock());
         previous_item.setPrice(current_item.getPrice());
         previous_item.setDate_year(current_item.getDate_year());
         previous_item.setDate_month(current_item.getDate_month());

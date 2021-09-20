@@ -173,7 +173,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     private void setSalesList(JSONObject jsonObject){
         try {
-            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("stock"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
+            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
             Log.d("salesList",jsonObject.getString("category"));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -252,7 +252,6 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saleAdapter.getItem_productImageSrc(position),
                 myViewHolder.name.getText().toString() ,
                 myViewHolder.category.getText().toString(),
-                myViewHolder.stock.getText().toString(),
                myViewHolder.price.getText().toString(),
                 saleAdapter.getItem_date_year(position),
                 saleAdapter.getItem_date_month(position),
