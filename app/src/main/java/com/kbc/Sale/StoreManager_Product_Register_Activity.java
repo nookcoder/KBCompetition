@@ -269,7 +269,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 intent.putExtra("button_name","product_register");
                 intent.putExtra("userID",storeManager_id);
                 startActivity(intent);
-                sendToServer("1912728315",register_item.getName(),register_item.getCategory(),register_item.getStock(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
+                sendToServer(storeManager_id,register_item.getName(),register_item.getCategory(),register_item.getStock(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
             }
         });
     }
