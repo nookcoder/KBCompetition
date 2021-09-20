@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context=".StoreManger.StoreManager_MainActivity">
+    tools:context=".Personal_MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
@@ -16,15 +16,14 @@
     </androidx.fragment.app.FragmentContainerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/store_manger_bottom_navigation"
+        android:id="@+id/personal_bottom_navigation"
         android:layout_weight="9"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="?attr/actionBarTheme"
-        app:menu = "@menu/storemanager_navigation"
+        app:menu = "@menu/personal_navigation"
         android:background="@color/bottom_navigation_bar"
         app:itemIconTint="@color/icon_color"
         app:itemTextColor="@color/black"
         app:labelVisibilityMode="labeled"/>
-
 </LinearLayout>

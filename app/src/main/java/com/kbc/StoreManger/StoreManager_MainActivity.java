@@ -1,9 +1,7 @@
-
-package com.kbc;
+package com.kbc.StoreManger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -16,10 +14,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_List_Fragment;
+import com.kbc.R;
 import com.kbc.Sale.StoreManager_Product_Register_Activity;
 import com.kbc.Sale.StoreManager_SalesList_Fragment;
-
-import static android.content.ContentValues.TAG;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
 
@@ -51,8 +48,6 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
-        Log.d( "리스트 프래그먼트 아이디 ->", userId);
-
         bundle = new Bundle(3);
         bundle.putString("userID" , userId);
         bundle.putString("mode", mode);
@@ -99,6 +94,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_container, storeManager_information_fragment).commit();
                     break;
             }
+
             return true;
         }
     }

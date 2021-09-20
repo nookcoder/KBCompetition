@@ -2,11 +2,12 @@ package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 //이전 intent 에서 유저가 누군지 받아와야됨!
 public class Added_Done_Activity extends AppCompatActivity {
@@ -25,7 +26,6 @@ public class Added_Done_Activity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //유저가 사업자면
                 if(user.equals("store manager")){
                     Intent intent1 = new Intent(getApplicationContext(), StoreManager_MainActivity.class);
@@ -34,10 +34,9 @@ public class Added_Done_Activity extends AppCompatActivity {
                 }
                 //유저가 개인이면
                 else if(user.equals("person")){
-                    Intent intent2 = new Intent(getApplicationContext(), Login_Activity.class);//변경 필요
+                    Intent intent2 = new Intent(getApplicationContext(), Personal_MainActivity.class);//변경 필요
                     startActivity(intent2);
                 }
-
             }
         });
     }

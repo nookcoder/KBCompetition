@@ -27,7 +27,7 @@ import com.kbc.Image.Image_Item;
 import com.kbc.Image.Image_Popup_Activity;
 import com.kbc.Popup_OneButton_Activity;
 import com.kbc.R;
-import com.kbc.StoreManager_MainActivity;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

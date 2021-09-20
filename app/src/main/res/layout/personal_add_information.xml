@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/storemanager_information"
+        android:id="@+id/store_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/icon_color2">
@@ -15,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="본인 인증(1/3)"
+            android:text="개인 정보"
             android:textColor="@color/black"
             android:textSize="23dp" />
 
@@ -34,20 +36,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="55dp"
-        android:text="휴대폰 본인인증"
+        android:text="개인 정보 입력"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/informationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
-        android:text="회원여부 확인 및 가입을 진행합니다."
-        android:textColor="#000000"
-        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="23dp"
             android:text="이름 "
             android:textColor="@color/black"
             android:textSize="20dp" />
@@ -67,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="18dp"
             android:text="*"
             android:textColor="#FF0000"
             android:textSize="20sp" />
@@ -76,7 +69,7 @@
             android:id="@+id/nameCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="23dp"
             android:text=" 필수로 입력해야 하는 값입니다."
             android:textColor="#F90000"
             android:textSize="13sp"
@@ -84,14 +77,13 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/personalName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="3dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/layout_rount_edittext"
-        android:hint="  이름 입력"
         android:padding="7dp"
         android:textSize="20sp" />
 
@@ -104,177 +96,164 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
-            android:text="주민등록번호 "
+            android:layout_marginTop="18dp"
+            android:text="닉네임"
             android:textColor="@color/black"
             android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="13dp"
             android:text="*"
             android:textColor="#FF0000"
             android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/birthCheck"
+            android:id="@+id/nicNameCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text=" 필수로 입력해야 하는 값입니다."
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="18dp"
+            android:text="필수로 입력해야 하는 값입니다."
             android:textColor="#F90000"
             android:textSize="13sp"
             android:visibility="invisible" />
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/personalNicname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/layout_rount_edittext"
+        android:padding="7dp"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="18dp"
+            android:text="전화번호"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="*"
+            android:textColor="#FF0000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/perconalNumCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="18dp"
+            android:text="필수로 입력해야 하는 값입니다."
+            android:textColor="#F90000"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/personalNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/layout_rount_edittext"
+        android:padding="7dp"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="18dp"
+            android:text="우리 동네 "
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="*"
+            android:textColor="#FF0000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/townCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="18dp"
+            android:text="필수로 입력해야 하는 값입니다."
+            android:textColor="#F90000"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:padding="3dp"
+        android:layout_margin="3dp">
 
-        <EditText
-            android:id="@+id/birth"
+        <Spinner
+            android:id="@+id/town1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1.9"
-            android:background="@drawable/layout_rount_edittext"
-            android:hint="  생년 월일"
-            android:padding="7dp"
-            android:textSize="20sp" />
+            android:layout_height="40dp"
+            android:layout_weight="1.5"
+            android:dropDownWidth="wrap_content"
+            android:spinnerMode="dialog"
+            android:background="@drawable/layout_spinner_custom"></Spinner>
 
-        <TextView
-            android:id="@+id/bar"
+        <Spinner
+            android:id="@+id/town2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:text="-"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="40dp"
+            android:layout_weight="1.2"
+            android:dropDownWidth="wrap_content"
+            android:background="@drawable/layout_spinner_custom"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3sp">
+        </Spinner>
 
-        <EditText
-            android:id="@+id/sex"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="8dp"
-            android:layout_weight="0.55"
-            android:background="@drawable/layout_rount_edittext"
-            android:padding="7dp"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/circle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.34"
-            android:text=" ● ● ● ● ● ●"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
-            android:text="전화번호 "
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="*"
-            android:textColor="#FF0000"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/phoneCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text=" 필수로 입력해야 하는 값입니다."
-            android:textColor="#F90000"
-            android:textSize="13sp"
-            android:visibility="invisible" />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/layout_rount_edittext"
-        android:hint="  휴대전화번호 입력"
-        android:padding="7dp"
-        android:textSize="20sp" />
 
     <Button
-        android:id="@+id/getchecknum"
+        android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/radius"
-        android:text="인증문자 받기"
+        android:padding="7dp"
+        android:text="다음"
         android:textColor="@color/black"
         android:textSize="20sp"></Button>
 
-    <TextView
-        android:id="@+id/certificationNumView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:text="인증번호"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:visibility="invisible"
-        />
-
-    <EditText
-        android:id="@+id/certificationNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/layout_rount_edittext"
-        android:hint="  인증번호 입력"
-        android:padding="7dp"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        />
-
-    <Button
-        android:id="@+id/checkCertificationNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/radius"
-        android:padding="7dp"
-        android:text="인증번호 확인"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        ></Button>
 
 </LinearLayout>

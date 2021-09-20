@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.user.UserApiClient;
 import com.kakao.sdk.user.model.Account;
 import com.kbc.Server.LoginRequest;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +60,7 @@ public class Login_Activity extends AppCompatActivity {
         Intent intentForStoreO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);
         Intent intentForStoreX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);
         //개인 기본 정보 ㅇ , x
-        Intent intentForPsersonO = new Intent(Login_Activity.this, StoreManager_MainActivity.class);//변경 필요!!!
+        Intent intentForPsersonO = new Intent(Login_Activity.this, Personal_MainActivity.class);//변경 필요!!!
         Intent intentForPsersonX = new Intent(Login_Activity.this, EmptyStoreInfo_Activity.class);//변경 필요!!!
 
         // 라디오그룹 참조
@@ -147,22 +148,22 @@ public class Login_Activity extends AppCompatActivity {
         radioButton.setText(spannableString);
     }
 
-    public void sendIdToServer(String ID,String NAME, Intent intentO,Intent intentx){
-        Log.d("DDqqqqqDD", "DDqqqqqDD");
+    public void sendIdToServer(String ID,String NAME, Intent intentO, Intent intentx){
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //사업자 정보 등록
                 if(Boolean.valueOf(response)){
                     //데이터 전달 (userID)
-                    intentO.putExtra("userID" ,id);
+                    intentO.putExtra("userID" , id);
+                    //intentO.putExtra("user","사업자");-> 이거 빼도 될듯
                     startActivity(intentO);
                 }
                 //사업자 정보 등록 X
                 else{
                     //데이터 전달 (userID)
                     intentx.putExtra("userID" , id);
-                    intentx.putExtra("user","개인");
+                    intentx.putExtra("user","사업자");
                     startActivity(intentx);
                 }
             }
@@ -172,8 +173,40 @@ public class Login_Activity extends AppCompatActivity {
         requestQueue.add(loginRequest);
     }
 
+    public void sendToServerPersonalData(String ID,Intent intentO,Intent intentx){
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/";
 
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("userId",ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,URL,jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Boolean isRegister= response.getBoolean("isRegister");
+                    Log.d("코드",response.toString());
+                    if(isRegister){
+                        intentO.putExtra("userID" , ID);
+                        intentO.putExtra("user","개인");
+                        startActivity(intentO);
+                    }
+                    else{
+                        intentx.putExtra("userID" , ID);
+                        intentx.putExtra("user","개인");
+                        startActivity(intentx);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },null);
 
+        RequestQueue requestQueue = Volley.newRequestQueue(Login_Activity.this);
+        requestQueue.add(jsonObjectRequest);
+    }
 
 }
 

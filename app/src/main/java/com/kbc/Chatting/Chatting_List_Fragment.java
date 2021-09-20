@@ -18,9 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.kbc.FirebaseConnector;
 import com.kbc.R;
-import com.kbc.StoreManager_MainActivity;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 

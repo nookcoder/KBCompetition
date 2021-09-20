@@ -1,8 +1,7 @@
-package com.kbc.Sale;
+package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,30 +15,23 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
-import com.kbc.R;
+import com.kbc.Sale.SaleAdapter;
+import com.kbc.Sale.Sale_Item;
+import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
 
-public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
-
-    private ArrayList<Sale_Item> salesList = new ArrayList<Sale_Item>();
+    private ArrayList<Sale_Item> perchaseList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
-    private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
+    private ArrayList<Saled_Item> purchaseHistory = new ArrayList<Saled_Item>();
 
     private RecyclerView recyclerView;
     private SaleAdapter saleAdapter;
@@ -68,16 +60,15 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
         bundle = getArguments();
         if(bundle != null){
-            storeManager_id = bundle.getString("userID");
+            storeManager_id = bundle.getString("id");
             storeManager_location = bundle.getString("location");
 
         }
-        Log.d( "리스트 프래그먼트 아이디 ->", storeManager_id);
 
         //컴포넌트 할당
-            //Text
+        //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
-            //button
+        //button
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
@@ -91,49 +82,35 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 ((StoreManager_MainActivity)getActivity()).Change_Activity(storeManager_id);
             }
         });
-             //recyclerview
+        //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
         //어댑터 할당
-        saleAdapter = new SaleAdapter(salesList, this);
+        saleAdapter = new SaleAdapter(perchaseList, this);
         pickupAdapter = new PickupAdapter(pickupList);
-        saledAdapter = new SaledAdapter(saledList);
+        saledAdapter = new SaledAdapter(purchaseHistory);
 
 
         //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        // 여기도========================================================================================================================
-        salesList.clear();
-        try {
-            getProductsDataFromServer(storeManager_id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        prepareData();//데이터 가져오기
         recyclerView.setAdapter(saleAdapter);
-        saleAdapter.notifyDataSetChanged();
 
 
         //판매중 버튼 눌렀을 때!
         salesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 여기랑 ========================================================================================================================
-                salesList.clear();
+                prepareData();
                 recyclerView.setAdapter(saleAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 toolbarText.setText("판매중");
                 addProductBtn.setVisibility(View.VISIBLE);
-                try {
-                    getProductsDataFromServer(storeManager_id);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                saleAdapter.notifyDataSetChanged();
             }
         });
 
@@ -172,54 +149,16 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         saleAdapter.notifyDataSetChanged();
     }
 
-    private void setSalesList(JSONObject jsonObject){
-        try {
-            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("stock"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
-            Log.d("salesList",jsonObject.getString("category"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData(JSONObject jsonObject) {
-        salesList.clear();
-        try {
-            JSONArray jsonArray = jsonObject.getJSONArray("products");
-            int jsonArrayCount = jsonArray.length();
-            for(int index=0; index<jsonArrayCount; index++){
-                setSalesList(jsonArray.getJSONObject(index));
-            }
+    private void prepareData() {
+        perchaseList.clear();
+        perchaseList.add(new Sale_Item("","동글동글 방울토마토","채소/과일","70","2000","2021", "09", "18", "유통","양구","상세설명","2021년 09월 12일 12:13"));
+        perchaseList.add(new Sale_Item("","신선한 상추","채소/과일","30","1800","2021", "09", "18","유통","광명","상세설명","2021년 09월 12일 12:13"));
+        perchaseList.add(new Sale_Item("","눈물 쏙 양파","채소/과일","10","4000","2021", "09", "18","유통","광명","상세설명","2021년 09월 12일 11:11"));
+        perchaseList.add(new Sale_Item("","아삭아삭 콩나물","채소/과일","15","3300","2021", "09", "18","유통","김포","상세설명","2021년 09월 10일 09:23"));
+        perchaseList.add(new Sale_Item("","을지로입구역","스낵/안주류","12","8000","2021", "09", "18","유통","잠실","상세설명","2021년 09월 12일 12:13"));
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //서버 데이터 전달
-    private void getProductsDataFromServer(String id) throws JSONException {
-        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/"+id+"/products/";
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id",id);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.d("JSON", response.getJSONArray("products").toString());
-                    JSONArray jsonArray = response.getJSONArray("products");
-                    for(int index=0; index<jsonArray.length();index++)
-                    {
-                        setSalesList(jsonArray.getJSONObject(index));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        },null);
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        requestQueue.add(jsonObjectRequest);
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -231,9 +170,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData3() {
-        saledList.clear();
-        saledList.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분",1));
-        saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분",3));
+        purchaseHistory.clear();
+        purchaseHistory.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분",1));
+        purchaseHistory.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분",3));
     }
 
     //버튼 할당
@@ -254,7 +193,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 myViewHolder.name.getText().toString() ,
                 myViewHolder.category.getText().toString(),
                 myViewHolder.stock.getText().toString(),
-               myViewHolder.price.getText().toString(),
+                myViewHolder.price.getText().toString(),
                 saleAdapter.getItem_date_year(position),
                 saleAdapter.getItem_date_month(position),
                 saleAdapter.getItem_date_day(position),
@@ -269,12 +208,34 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         //상품 조회 액티비티로 들어가기
         Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
         intent.putExtra("sale_item_list", list);
-        intent.putExtra("userID", storeManager_id);
+        intent.putExtra("id", storeManager_id);
         intent.putExtra("location",storeManager_location);
+
 
         startActivity(intent);
 
     }
 
+
+//     public interface OnUserId_Listener{
+//        public void onUserId(String userId);
+//    }
+//
+//    OnUserId_Listener onUserId_listener;
+//
+//    public void onAttach(Context context) {
+//
+//        super.onAttach(context);
+//        if(context instanceof  OnUserId_Listener){
+//            onUserId_listener  = (OnUserId_Listener) context;
+//
+//        }else{
+//            throw  new ClassCastException((context.toString())+"오류!!!");
+//        }
+//    }
+//
+//    public void send_UserId(String userId){
+//        onUserId_listener.onUserId(userId);
+//    }
 
 }

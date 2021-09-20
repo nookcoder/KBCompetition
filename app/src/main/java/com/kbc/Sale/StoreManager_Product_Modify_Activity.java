@@ -2,6 +2,11 @@ package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.kbc.Popup_OneButton_Activity;
 import com.kbc.Popup_TwoButton_Activity;
 import com.kbc.R;
@@ -21,6 +26,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
@@ -258,6 +266,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 sale_item.setDetails(product_details.getText().toString());
                 sale_items.add(sale_item);
 
+                Log.d("Result",storeManager_id);
 
                 //상품 수정 완료 확인 -> 조회 화면 또는 재수정
                 Intent popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
@@ -281,8 +290,6 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 delete_popup_intent.putExtra("userID",storeManager_id);
                 delete_popup_intent.putExtra("location", storeManager_location);
                 startActivity(delete_popup_intent);
-
-
             }
         });
 
@@ -325,8 +332,4 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         previous_item.setDetails(current_item.getDetails());
         previous_item.setRegister_time(current_item.getRegister_time());
     }
-
-
-
-
 }

@@ -9,6 +9,12 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.kbc.Image.ImageAdapter;
+import com.kbc.Image.Image_Item;
+
+import java.util.ArrayList;
 
 public class StoreManager_Information_Fragment extends Fragment implements View.OnClickListener{
 
