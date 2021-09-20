@@ -24,9 +24,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Sale.StoreManager_Product_Modify_Activity" />
+        <activity android:name=".Sale.StoreManager_Product_Modify_Activity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Sale.StoreManager_Product_Inquiry_Activity" />
-
+        <activity android:name=".Sale.StoreManager_Product_Register_Activity"
+            android:windowSoftInputMode="adjustResize"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="kakao26e7f00a7916014db9a382d3086501a4" />
@@ -63,7 +65,6 @@
         </activity>
         <activity android:name=".StoreManger.StoreManager_Add_Manager_Info_Activity" />
         <activity android:name=".StoreManger.StoreManager_Add_Store_Info_Activity" />
-        <activity android:name=".Sale.StoreManager_Product_Register_Activity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".Pickup.PickupDetailActivity"></activity>
         <activity android:name=".Personal_MainActivity">
