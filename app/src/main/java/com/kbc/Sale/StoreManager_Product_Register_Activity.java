@@ -215,7 +215,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 Get_Carmera_Permission();
                 Intent carmera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                startActivityForResult(carmera_intent, Image.TAKE_PICTURE);
+                startActivityForResult(carmera_intent, Image.PICK_FROM_CAMERA);
 
             }
         });
