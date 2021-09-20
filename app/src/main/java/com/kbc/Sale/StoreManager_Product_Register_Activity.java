@@ -81,14 +81,13 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         setContentView(R.layout.storemanager_product_register_activity);
         storeManager_product_register_activity = this;
 
-//
-//        storeManager_mainActivity.finish();
-//        Intent intent = new Intent(this.getIntent());
-//        //로그인 정보 가져오기
-//        storeManager_id = intent.getStringExtra("userID");
-////        storeManager_location = intent.getExtras().getString("location");
 
-        storeManager_id = "seohee";
+        storeManager_mainActivity.finish();
+        Intent intent = new Intent(this.getIntent());
+        //로그인 정보 가져오기
+        storeManager_id = intent.getStringExtra("userID");
+//        storeManager_location = intent.getExtras().getString("location");
+
         Log.d( "등록 액티비티 아이디 ->",storeManager_id);
 
         //상품제목

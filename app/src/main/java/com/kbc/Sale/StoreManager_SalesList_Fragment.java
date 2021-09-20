@@ -77,7 +77,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
             storeManager_location = bundle.getString("location");
 
         }
-        Log.d( "리스트 프래그먼트 아이디 ->",storeManager_id);
+        Log.d( "리스트 프래그먼트 아이디 ->", storeManager_id);
 
         //컴포넌트 할당
             //Text

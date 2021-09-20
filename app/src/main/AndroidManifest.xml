@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true"
+        >
 
         <activity android:name=".Image.Image_Check_Activity" />
 
@@ -46,12 +47,6 @@
             android:name=".StoreManager_MainActivity"
             android:exported="true" >
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" >
             <intent-filter>
@@ -69,27 +64,20 @@
         <activity android:name=".Added_Done_Activity" />
         <activity android:name=".EmptyStoreInfo_Activity" />
         <activity android:name=".Login_Activity" >
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
+
         <activity android:name=".StoreManager_Add_Manager_Info_Activity" />
         <activity android:name=".StoreManager_Add_Store_Info_Activity" />
         <activity android:name=".StoreManager_Login" />
         <activity android:name=".Select_User_Activity" />
-        <activity android:name=".Sale.StoreManager_Product_Register_Activity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Sale.StoreManager_Product_Register_Activity" ></activity>
         <activity android:name=".WebViewActivity" />
         <activity android:name=".PickupDetailActivity" />
+
         <activity
             android:name=".Popup_TwoButton_Activity"
             android:screenOrientation="portrait"
