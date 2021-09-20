@@ -169,6 +169,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         return v;
     }
 
+    //동네값 기본값으로 설정!!!
     private void setUserTown() {
         town1.setSelection(3);
         town2.setSelection(0);
