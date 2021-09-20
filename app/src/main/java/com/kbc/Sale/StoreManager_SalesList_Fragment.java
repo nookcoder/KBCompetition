@@ -121,7 +121,6 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
             @Override
             public void onClick(View v) {
                 // 여기랑 ========================================================================================================================
-                salesList.clear();
                 recyclerView.setAdapter(saleAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
