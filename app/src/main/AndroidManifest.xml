@@ -25,10 +25,10 @@
         android:theme="@style/Theme.KBC"
         android:usesCleartextTraffic="true">
         <activity android:name=".Sale.StoreManager_Product_Modify_Activity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".Sale.StoreManager_Product_Inquiry_Activity" />
         <activity android:name=".Sale.StoreManager_Product_Register_Activity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustResize"/>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

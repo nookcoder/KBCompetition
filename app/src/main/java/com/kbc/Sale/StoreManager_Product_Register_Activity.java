@@ -81,7 +81,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_register_activity);
         storeManager_product_register_activity = this;
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         storeManager_mainActivity.finish();
         Intent intent = new Intent(this.getIntent());

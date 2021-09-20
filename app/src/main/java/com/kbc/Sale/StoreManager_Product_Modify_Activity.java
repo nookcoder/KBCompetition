@@ -65,7 +65,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_modify_activity);
         storeManager_product_modify_activity = this;
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         //상품 정보 가져오기
         Intent intent = getIntent();
