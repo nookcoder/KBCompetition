@@ -65,11 +65,10 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_modify_activity);
         storeManager_product_modify_activity = this;
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         //상품 정보 가져오기
         Intent intent = getIntent();
-        storeManager_id = intent.getExtras().getString("userID");
+        storeManager_id = intent.getStringExtra("userID");
         Log.d( "수정 액티비티 아이디 ->",storeManager_id);
 
         sale_items = (ArrayList<Sale_Item>)intent.getSerializableExtra("sale_item_list");
