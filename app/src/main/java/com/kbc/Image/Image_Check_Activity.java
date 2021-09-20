@@ -38,11 +38,14 @@ public class Image_Check_Activity extends AppCompatActivity implements View.OnCl
         imageView = findViewById(R.id.get_image);
 
         Intent intent = getIntent();
+        //이미지 아이템 객체에 카메라로 찍은 건지, 갤러리에서 가져온건지 유형 구분
         image_item.setImage_type( intent.getStringExtra("image_type"));
+        //이미지 파일 경로 가져오기
         image_item.setImage_file_path(intent.getStringExtra("image_file_path"));
+        //비트맵으로 변환하기
         bitmap_image = image_item.get_Bitmap();
 
-
+        //띄우기
         imageView.setImageBitmap(bitmap_image);
 
         image_register_close = findViewById(R.id.image_register_close);

@@ -37,6 +37,7 @@ public class Image_Item implements Serializable {
 
     public Bitmap get_Bitmap() {
 
+        //카메라로 촬영!!!!
         if (image_type.equals(Image.CARMERA_TYPE)) {
             //이미지뷰에 파일 경로 사진을 가져와서 출력!
             Bitmap bitmap = BitmapFactory.decodeFile(image_file_path);
@@ -60,6 +61,7 @@ public class Image_Item implements Serializable {
             }
             return  Rotate_Image(bitmap, degree);
         }
+        // 갤러리에서 가져온 이미지
         else if (image_type.equals(Image.GALLERY_TYPE)) {
 
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -80,6 +82,7 @@ public class Image_Item implements Serializable {
 
         return  0;
     }
+
     //이미지 돌리기 !!
     private Bitmap Rotate_Image(Bitmap bitmap, float degree){
         Matrix matrix = new Matrix();
