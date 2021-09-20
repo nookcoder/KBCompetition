@@ -141,7 +141,6 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
 
                 //상품 수정완료
             case "product_modify":
-                finish();
                 //여기서 상품 최종 수정이 되어야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // 서버에 정보 업데이트
                 try {
@@ -152,11 +151,15 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
 //                //다시 수정 올려주기
 //                Log.d("팝업창 아이디", userId);
 //
-//                Intent modify_intent = new Intent(this, StoreManager_Product_Modify_Activity.class);
-//                intent.putExtra("sale_item_list", sale_items);
-//                intent.putExtra("userID", userId);
-//                intent.putExtra("location", userLocation);
-//                startActivity(modify_intent);
+                storeManager_mainActivity.finish();
+
+                Intent main_intent = new Intent(this, StoreManager_MainActivity.class);
+                main_intent.putExtra("userID",userId);
+                startActivity(main_intent);
+
+                finish();
+
+
                 break;
 
                 //상품 삭제 완료
@@ -164,13 +167,12 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
                 storeManager_mainActivity.finish();
                 //여기서 상품 삭제!!!!!
                 deleteProductInfo(userId,sale_item.getRegister_time());
-                Log.d("userId",userId);
-                Log.d("userId",sale_item.getRegister_time());
                 Intent intent = new Intent(this, StoreManager_MainActivity.class);
-                intent.putExtra("userID",intent.getStringExtra("userID"));
+                intent.putExtra("userID",userId);
                 startActivity(intent);
+                Log.d("userId",userId);
 
-                finish();
+
                 storeManager_product_modify_activity.finish();
 
         }

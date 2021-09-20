@@ -25,10 +25,10 @@
         android:theme="@style/Theme.KBC"
         android:usesCleartextTraffic="true">
         <activity android:name=".Sale.StoreManager_Product_Modify_Activity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Sale.StoreManager_Product_Inquiry_Activity" />
         <activity android:name=".Sale.StoreManager_Product_Register_Activity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="kakao26e7f00a7916014db9a382d3086501a4" />
@@ -36,11 +36,6 @@
         <activity
             android:name=".StoreManger.StoreManager_MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
