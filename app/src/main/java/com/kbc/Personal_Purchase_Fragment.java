@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,22 +40,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
+public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener {
 
-    private ArrayList<Sale_Item> salesList = new ArrayList<Sale_Item>();
+    private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
 
     private RecyclerView recyclerView;
-    private SaleAdapter saleAdapter;
+    private PurchaseAdapter purchaseAdapter;
     private PickupAdapter pickupAdapter;
     private SaledAdapter saledAdapter;
 
     Button pickupBtn;
     Button saledBtn;
-    Button salesBtn;
-    FloatingActionButton addProductBtn;
+    Button purchaseBtn;
     TextView toolbarText;
+    Spinner town1,town2,category;
+    Button search;
+    SearchView searchView;
 
     private Bundle bundle;
 
@@ -67,39 +71,29 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.storemanager_saleslist, container, false);
-
-        bundle = getArguments();
-        if(bundle != null){
-            storeManager_id = bundle.getString("userID");
-            storeManager_location = bundle.getString("location");
-
-        }
-        Log.d( "리스트 프래그먼트 아이디 ->",storeManager_id);
+        View v =  inflater.inflate(R.layout.personal_purchase_fragment, container, false);
 
         //컴포넌트 할당
         //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
         //button
-        salesBtn = (Button) v.findViewById(R.id.button1);
+        purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
-        addProductBtn =(FloatingActionButton)v.findViewById(R.id.addProductBtn);
+        search = (Button) v.findViewById(R.id.search);
+        //스피너
+        town1=(Spinner) v.findViewById(R.id.town1);
+        town2=(Spinner) v.findViewById(R.id.town2);
+        category=(Spinner) v.findViewById(R.id.category);
+        //검색창
+        searchView = (SearchView) v.findViewById(R.id.search_view);
 
-
-
-        addProductBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((StoreManager_MainActivity)getActivity()).Change_Activity(storeManager_id);
-            }
-        });
         //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
         //어댑터 할당
-        saleAdapter = new SaleAdapter(salesList, this);
+        purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
@@ -108,35 +102,25 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        // 여기도========================================================================================================================
-        salesList.clear();
-        try {
-            getProductsDataFromServer(storeManager_id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        recyclerView.setAdapter(saleAdapter);
-        saleAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(purchaseAdapter);
+        purchaseAdapter.notifyDataSetChanged();
 
 
         //판매중 버튼 눌렀을 때!
-        salesBtn.setOnClickListener(new View.OnClickListener() {
+        purchaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 여기랑 ========================================================================================================================
-                salesList.clear();
-                recyclerView.setAdapter(saleAdapter);
-                salesBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
+                prepareData();
+                recyclerView.setAdapter(purchaseAdapter);
+                purchaseBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
-                toolbarText.setText("판매중");
-                addProductBtn.setVisibility(View.VISIBLE);
-                try {
-                    getProductsDataFromServer(storeManager_id);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                saleAdapter.notifyDataSetChanged();
+                toolbarText.setText("장보기");
+                town1.setVisibility(View.VISIBLE);
+                town2.setVisibility(View.VISIBLE);
+                category.setVisibility(View.VISIBLE);
+                search.setVisibility(View.VISIBLE);
+                searchView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -146,11 +130,15 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             public void onClick(View v) {
                 prepareData2();
                 recyclerView.setAdapter(pickupAdapter);
-                salesBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
+                purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
+                town1.setVisibility(View.GONE);
+                town2.setVisibility(View.GONE);
+                category.setVisibility(View.GONE);
+                search.setVisibility(View.GONE);
+                searchView.setVisibility(View.GONE);
                 toolbarText.setText("픽업대기중");
-                addProductBtn.setVisibility(View.INVISIBLE);
             }
         });
         //판매 완료 버튼 눌렀을 때!
@@ -159,11 +147,15 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             public void onClick(View v) {
                 prepareData3();
                 recyclerView.setAdapter(saledAdapter);
-                salesBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
+                purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
-                toolbarText.setText("판매완료");
-                addProductBtn.setVisibility(View.INVISIBLE);
+                town1.setVisibility(View.GONE);
+                town2.setVisibility(View.GONE);
+                category.setVisibility(View.GONE);
+                search.setVisibility(View.GONE);
+                searchView.setVisibility(View.GONE);
+                toolbarText.setText("구매내역");
             }
         });
         return v;
@@ -172,58 +164,19 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        saleAdapter.notifyDataSetChanged();
+        purchaseAdapter.notifyDataSetChanged();
     }
 
-    private void setSalesList(JSONObject jsonObject){
-        try {
-            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("stock"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
-            Log.d("salesList",jsonObject.getString("category"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData(JSONObject jsonObject) {
-        salesList.clear();
-        try {
-            JSONArray jsonArray = jsonObject.getJSONArray("products");
-            int jsonArrayCount = jsonArray.length();
-            for(int index=0; index<jsonArrayCount; index++){
-                setSalesList(jsonArray.getJSONObject(index));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private void prepareData() {
+        purchaseItemArrayList.clear();
+        purchaseItemArrayList.add(new Purchase_Item("엔샵상점","지옥의 코딩볶음면","가공식품",10,500));
+        purchaseItemArrayList.add(new Purchase_Item("교촌치킨","생 닭다리","냉동식품",10,10000));
     }
 
-    //서버 데이터 전달
-    private void getProductsDataFromServer(String id) throws JSONException {
-        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/"+id+"/products/";
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id",id);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.d("JSON", response.getJSONArray("products").toString());
-                    JSONArray jsonArray = response.getJSONArray("products");
-                    for(int index=0; index<jsonArray.length();index++)
-                    {
-                        setSalesList(jsonArray.getJSONObject(index));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        },null);
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        requestQueue.add(jsonObjectRequest);
-    }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
@@ -242,13 +195,13 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //버튼 할당
     @Override
     public void onClick(View v) {
-        salesBtn = (Button) v.findViewById(R.id.button1);
+        purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
     }
 
     //아이템 눌렀을때!
-    @Override
+    /*@Override
     public void onItemClick(View view, int position) {
         SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
         ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
@@ -278,6 +231,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         startActivity(intent);
 
     }
-
+*/
 
 }
