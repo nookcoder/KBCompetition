@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kbc.Chatting.Chatting_Item;
 import com.kbc.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,7 @@ public class ImageAdapter  extends RecyclerView.Adapter<ImageAdapter.ViewHolder>
 
         Image_Item image_item = image_items.get(position);
 
-        holder.imageView_item.setImageResource(R.drawable.ic_information);
+        holder.imageView_item.setImageBitmap(image_item.get_Bitmap());
     }
 
     @Override
@@ -57,5 +58,10 @@ public class ImageAdapter  extends RecyclerView.Adapter<ImageAdapter.ViewHolder>
 
             imageView_item = (ImageView)itemView.findViewById(R.id.imageView_item);
         }
+    }
+
+    public void addItem(Image_Item image_item){
+        image_items.add(image_item);
+        notifyDataSetChanged();
     }
 }

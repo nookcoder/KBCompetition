@@ -42,6 +42,7 @@ public class Image_Popup_Activity extends AppCompatActivity {
 
     private Uri image_Uri;
     private File image_file;
+    private Image_Item image_item= new Image_Item();
     private String image_type ;
     private String image_file_path;
 

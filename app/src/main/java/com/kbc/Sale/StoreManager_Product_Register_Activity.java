@@ -14,12 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Image.Image;
 import com.kbc.Image.ImageAdapter;
 import com.kbc.Image.Image_Item;
 import com.kbc.Image.Image_Popup_Activity;
@@ -51,7 +53,8 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     private Sale_Item register_item = new Sale_Item();
 
     //상품 정보들
-    private EditText product_name, product_register_time, product_price, product_origin, product_details;
+    private EditText product_name,product_register_time, product_price, product_origin, product_details;
+    private TextView image_count;
 
 
     //카테고리, 재고
@@ -99,7 +102,10 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
         imageAdapter = new ImageAdapter(image_items);
         image_recyclerview.setAdapter(imageAdapter);
+        imageAdapter.notifyDataSetChanged();
 
+        image_count = findViewById(R.id.image_count);
+        image_count.setText(imageAdapter.getItemCount()+"");
 
 
 
@@ -326,4 +332,13 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(StoreManager_Product_Register_Activity.this);
             requestQueue.add(jsonObjectRequest);
     }
+
+    public void Insert_Adapter_item(Image_Item image_item){
+
+        imageAdapter.addItem(image_item);
+        image_count.setText(imageAdapter.getItemCount()+"");
+
+    }
+
+
 }
