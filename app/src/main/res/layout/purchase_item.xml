@@ -59,7 +59,7 @@
                 android:id="@+id/productName"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1.2"
+                android:layout_weight="1"
                 android:autoSizeMaxTextSize="23sp"
                 android:autoSizeTextType="uniform"
                 android:gravity="right"
@@ -72,7 +72,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.7"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -94,19 +94,22 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
-                    android:gravity="right"
                     android:text="2000 "
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center|right"
+                    android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="32sp"></TextView>
+                    android:textSize="29sp"></TextView>
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="right"
+                    android:layout_weight="0.2"
                     android:paddingRight="15dp"
-                    android:text=" 원 "
+                    android:text="원"
                     android:textColor="@color/black"
-                    android:textSize="32sp"></TextView>
+                    android:textSize="23sp"></TextView>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
