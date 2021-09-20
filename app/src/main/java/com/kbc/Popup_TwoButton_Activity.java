@@ -144,7 +144,7 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
                 //여기서 상품 최종 수정이 되어야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // 서버에 정보 업데이트
                 try {
-                    updateProductInfo(userId,sale_item.getName(),sale_item.getCategory(),sale_item.getStock(),sale_item.getPrice(),sale_item.getDate_year(),sale_item.getDate_month(),sale_item.getDate_day(),sale_item.getDate_type(),sale_item.getOrigin(),sale_item.getDetails(),sale_item.getRegister_time());
+                    updateProductInfo(userId,sale_item.getName(),sale_item.getCategory(),sale_item.getPrice(),sale_item.getDate_year(),sale_item.getDate_month(),sale_item.getDate_day(),sale_item.getDate_type(),sale_item.getOrigin(),sale_item.getDetails(),sale_item.getRegister_time());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -199,14 +199,13 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
     }
 
     // 서버 정보 수정 함수
-    public void updateProductInfo(String id,String name, String category,String stock,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details,String registerTime) throws JSONException {
+    public void updateProductInfo(String id,String name, String category,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details,String registerTime) throws JSONException {
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/update";
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId",id);
         jsonObject.put("name",name);
         jsonObject.put("category",category);
-        jsonObject.put("stock",stock);
         jsonObject.put("price",price);
         jsonObject.put("dateYear",dateYear);
         jsonObject.put("dateMonth",dateMonth);

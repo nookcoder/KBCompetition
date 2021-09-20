@@ -59,9 +59,9 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
 
     //카테고리, 재고
-    private Spinner product_category, product_stock;
-    private ArrayAdapter category_adapter, stock_adapter;
-    private String[] category_list, stock_list;
+    private Spinner product_category;
+    private ArrayAdapter category_adapter;
+    private String[] category_list;
 
     //기한
     private Spinner product_date_year, product_date_month, product_date_day;
@@ -110,21 +110,18 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
         //카테고리, 재고, 기한(년,월,일) 스피너 가져오기
         product_category = findViewById(R.id.product_category);
-        product_stock = findViewById(R.id.product_stock);
         product_date_year = findViewById(R.id.product_date_year);
         product_date_month = findViewById(R.id.product_date_month);
         product_date_day = findViewById(R.id.product_date_day);
 
         //스피너 어뎁터 초기화
         category_adapter = ArrayAdapter.createFromResource(this, R.array.category, R.layout.spinner_item);
-        stock_adapter = ArrayAdapter.createFromResource(this, R.array.stock, R.layout.spinner_item);
         year_adapter = ArrayAdapter.createFromResource(this, R.array.year, R.layout.spinner_date);
         month_adapter = ArrayAdapter.createFromResource(this, R.array.month, R.layout.spinner_date);
         day_adapter = ArrayAdapter.createFromResource(this, R.array.day, R.layout.spinner_date);
 
         //스피너 형성
         Create_Spinner(product_category, category_adapter, R.layout.spinner_item);
-        Create_Spinner(product_stock,stock_adapter, R.layout.spinner_item);
         Create_Spinner(product_date_year,year_adapter,R.layout.spinner_date);
         Create_Spinner(product_date_month,month_adapter, R.layout.spinner_date);
         Create_Spinner(product_date_day,day_adapter, R.layout.spinner_date);
@@ -152,16 +149,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        //재고 넣기
-        product_stock.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String select_stock = stock_adapter.getItem(position).toString();
-                register_item.setStock(select_stock);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
 
         //년 넣기
         product_date_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -250,7 +237,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 //이미지 넣기코드 필요 !!!!!!!!!!
                 register_item.setName(product_name.getText().toString());
                 register_item.setCategory(product_category.getSelectedItem().toString());
-                register_item.setStock(product_stock.getSelectedItem().toString());
 
                 //날짜
                 register_item.setDate_year(product_date_year.getSelectedItem().toString());
@@ -269,7 +255,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 intent.putExtra("button_name","product_register");
                 intent.putExtra("userID",storeManager_id);
                 startActivity(intent);
-                sendToServer(storeManager_id,register_item.getName(),register_item.getCategory(),register_item.getStock(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
+                sendToServer(storeManager_id,register_item.getName(),register_item.getCategory(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
             }
         });
     }
@@ -301,7 +287,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         return dateFormat_date.format(calendar.getTime());
     }
 
-    private void sendToServer(String id,String name, String category,String stock,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
+    private void sendToServer(String id,String name, String category,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
             String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/product/register";
             JSONObject jsonObject = new JSONObject();
 
@@ -309,7 +295,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 jsonObject.put("userId",id);
                 jsonObject.put("name",name);
                 jsonObject.put("category",category);
-                jsonObject.put("stock",stock);
                 jsonObject.put("price",price);
                 jsonObject.put("dateYear",dateYear);
                 jsonObject.put("dateMonth",dateMonth);
