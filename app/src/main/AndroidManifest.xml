@@ -75,6 +75,9 @@
         <activity android:name=".Popup_OneButton_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/popupTheme"/>
+        <activity android:name=".Image.Image_Popup_Activity"
+            android:theme="@style/popupTheme"/>
+
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face" />
