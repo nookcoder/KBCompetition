@@ -17,7 +17,6 @@ public class PickupDetailActivity extends AppCompatActivity {
     TextView buyerNameView, productNameInPickupListView, pickupDateView, pickupTimeView,pickupQuantityView;
     String buyerName, productNameInPickupList, pickupDate, pickupTime;
     private StoreManager_MainActivity storeManager_mainActivity;
-    int pickupQuantity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,21 +30,18 @@ public class PickupDetailActivity extends AppCompatActivity {
         productNameInPickupList = intentForGet.getExtras().getString("productNameInPickupList");
         pickupDate = intentForGet.getExtras().getString("pickupDate");
         pickupTime = intentForGet.getExtras().getString("pickupTime");
-        pickupQuantity = intentForGet.getIntExtra("pickupQuantity",1);
 
         //텍스트뷰 할당
         TextView buyerNameView = (TextView)findViewById(R.id.buyerNameInPickup);
         TextView productNameInPickupListView = (TextView)findViewById(R.id.productNameInPickupDetail);
         TextView pickupDateView = (TextView)findViewById(R.id.producDateInPickupDetail);
         TextView pickupTimeView = (TextView)findViewById(R.id.productTimeInPickupDetail);
-        TextView pickupQuantityView = (TextView)findViewById(R.id.quantityInPickupDetail);
 
         //텍스트뷰에 데이터 셋팅
         buyerNameView.setText(buyerName);
         productNameInPickupListView.setText(productNameInPickupList);
         pickupDateView.setText(pickupDate);
         pickupTimeView.setText(pickupTime);
-        pickupQuantityView.setText(String.valueOf(pickupQuantity));
 
         //채팅 버튼 할당
         Button chattingBtn = (Button)findViewById(R.id.chattingBtn);

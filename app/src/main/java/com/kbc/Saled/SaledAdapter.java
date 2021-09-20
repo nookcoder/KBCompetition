@@ -16,7 +16,7 @@ public class SaledAdapter extends RecyclerView.Adapter<SaledAdapter.MyViewHolder
     private ArrayList<Saled_Item> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView buyerNameInSaled, productNameInSaled, pickupDateInSaled, pickupTimeInSaled,saledQuantity;
+        public TextView buyerNameInSaled, productNameInSaled, pickupDateInSaled, pickupTimeInSaled;
 
 
         //ViewHolder
@@ -26,7 +26,6 @@ public class SaledAdapter extends RecyclerView.Adapter<SaledAdapter.MyViewHolder
             productNameInSaled = (TextView) view.findViewById(R.id.productNameInSaled);
             pickupDateInSaled = (TextView) view.findViewById(R.id.pickupDateInSaled);
             pickupTimeInSaled = (TextView) view.findViewById(R.id.pickupTimeInSaled);
-            saledQuantity = (TextView) view.findViewById(R.id.saledQuantity);
         }
     }
 
@@ -49,7 +48,6 @@ public class SaledAdapter extends RecyclerView.Adapter<SaledAdapter.MyViewHolder
         holder.productNameInSaled.setText(mDataset.get(position).getProductNameInSaled());
         holder.pickupDateInSaled.setText(mDataset.get(position).getPickupDateInSaled());
         holder.pickupTimeInSaled.setText(mDataset.get(position).getPickupTimeInSaled());
-        holder.saledQuantity.setText(String.valueOf(mDataset.get(position).getSaledQuantity()));
 
     }
 

@@ -11,8 +11,8 @@ public class Sale_Item implements Serializable {
     private String productImageSrc;
     //상품 이름, 카테고리
     private String name, category;
-    //상품 수량, 가격
-    private String stock, price;
+    //상품 가격
+    private String price;
     //기한날짜, 유통/구입 구분변수 ,원산지(거래처)
     private String date_year, date_month, date_day, date_type, origin;
     //상품 게시글 내용, 상품 등록 시간- (yyyy년 MM월 dd일 HH:mm)
@@ -22,14 +22,13 @@ public class Sale_Item implements Serializable {
 
     }
 
-    public Sale_Item(String productImageSrc, String name, String category, String stock, String price,
+    public Sale_Item(String productImageSrc, String name, String category, String price,
                      String date_year, String date_month, String date_day, String date_type,
                      String origin, String details, String register_time){
         this.productImageSrc = productImageSrc;
 
         this.name = name;
         this.category = category;
-        this.stock = stock;
         this.price = price;
 
         this.date_year = date_year;
@@ -52,9 +51,6 @@ public class Sale_Item implements Serializable {
     public String getCategory() {
         return category;
     }
-    public String getStock() {
-        return stock;
-    }
     public String getPrice() {
         return price;
     }
@@ -74,9 +70,6 @@ public class Sale_Item implements Serializable {
     public void setName(String name) { this.name = name; }
     public void setCategory(String category) {
         this.category = category;
-    }
-    public void setStock(String stock) {
-        this.stock = stock;
     }
     public void setPrice(String price) {
         this.price = price;
