@@ -17,6 +17,7 @@ import com.kbc.Chatting.Chatting_List_Fragment;
 import com.kbc.R;
 import com.kbc.Sale.StoreManager_Product_Register_Activity;
 import com.kbc.Sale.StoreManager_SalesList_Fragment;
+import com.kbc.StoreManager_Information_Fragment;
 
 public class StoreManager_MainActivity extends AppCompatActivity {
 

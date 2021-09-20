@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
-import com.kbc.Chatting.Chatting_List_Fragment;
-import com.kbc.StoreManger.StoreManager_Information_Fragment;
 
 public class Personal_MainActivity extends AppCompatActivity {
 

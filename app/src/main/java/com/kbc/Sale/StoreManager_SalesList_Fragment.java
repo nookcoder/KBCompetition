@@ -106,7 +106,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         // 여기도========================================================================================================================
-        salesList.clear();
+
         try {
             getProductsDataFromServer(storeManager_id);
         } catch (JSONException e) {
