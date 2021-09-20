@@ -68,6 +68,7 @@
         <activity android:name=".Pickup.PickupDetailActivity"></activity>
         <activity android:name=".Personal_MainActivity"></activity>
         <activity android:name=".Personal_Add_Information"></activity>
+        <activity android:name=".Image.Image_Check_Activity"/>
         <activity
             android:name=".Popup_TwoButton_Activity"
             android:screenOrientation="portrait"
