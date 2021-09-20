@@ -67,13 +67,14 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
         //상품 정보 가져오기
         Intent intent = getIntent();
+        storeManager_id = intent.getExtras().getString("userID");
+        Log.d( "수정 액티비티 아이디 ->",storeManager_id);
+
         sale_items = (ArrayList<Sale_Item>)intent.getSerializableExtra("sale_item_list");
         sale_item = sale_items.get(0);
         Previous_Sale_item(sale_item);
-        storeManager_id = intent.getExtras().getString("userID");
         storeManager_location = intent.getExtras().getString("location");
 
-        Log.d( "수정 액티비티 아이디 ->",storeManager_id);
 
         //상품제목
         product_name = findViewById(R.id.product_name);
