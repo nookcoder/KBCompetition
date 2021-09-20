@@ -56,17 +56,18 @@
         <activity android:name=".Added_Done_Activity" />
         <activity android:name=".EmptyStoreInfo_Activity" />
         <activity android:name=".Login_Activity">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
         </activity>
         <activity android:name=".StoreManger.StoreManager_Add_Manager_Info_Activity" />
         <activity android:name=".StoreManger.StoreManager_Add_Store_Info_Activity" />
         <activity android:name=".Sale.StoreManager_Product_Register_Activity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".Pickup.PickupDetailActivity"></activity>
-        <activity android:name=".Personal_MainActivity"></activity>
+        <activity android:name=".Personal_MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Personal_Add_Information"></activity>
         <activity android:name=".Image.Image_Check_Activity"/>
         <provider
