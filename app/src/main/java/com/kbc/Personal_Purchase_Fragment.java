@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -88,6 +88,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         //검색창
         searchView = (SearchView) v.findViewById(R.id.search_view);
 
+
+
         //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -115,12 +117,12 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 purchaseBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
-                toolbarText.setText("장보기");
                 town1.setVisibility(View.VISIBLE);
                 town2.setVisibility(View.VISIBLE);
                 category.setVisibility(View.VISIBLE);
                 search.setVisibility(View.VISIBLE);
                 searchView.setVisibility(View.VISIBLE);
+                toolbarText.setText("장보기");
             }
         });
 

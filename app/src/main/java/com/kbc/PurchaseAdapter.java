@@ -39,14 +39,14 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
 
     @NonNull
     @Override
-    public PurchaseAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.purchase_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PurchaseAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.storeName.setText(mDataset.get(position).getStoreName());
         holder.name.setText(mDataset.get(position).getProductName());
