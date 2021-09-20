@@ -48,6 +48,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
     private ArrayAdapter<String> arrayAdapter;
+    private ArrayAdapter category_adapter;
     private RecyclerView recyclerView;
     private PurchaseAdapter purchaseAdapter;
     private PickupAdapter pickupAdapter;
@@ -103,9 +104,26 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(R.array.spinner_region));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         town1.setAdapter(arrayAdapter);
-        //스피너 설정
+        category_adapter = ArrayAdapter.createFromResource(getActivity(), R.array.category, R.layout.spinner_item);
+        Create_Spinner(category, category_adapter, R.layout.spinner_item);
+
+        //카테고리 넣기
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String select_category = category_adapter.getItem(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        //스피너 초기 설정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         initAddressSpinner();
-        setUserTown();
+        //임의로 설정
+        townPosition1=3;townPosition2=0;
+        //
+        town1.setSelection(townPosition1);
+        town2.setSelection(townPosition2);
 
         //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -168,12 +186,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             }
         });
         return v;
-    }
-
-    //동네값 기본값으로 설정!!!
-    private void setUserTown() {
-        town1.setSelection(3);
-        town2.setSelection(0);
     }
 
     @Override
@@ -244,7 +256,14 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         startActivity(intent);
 
     }
-*/
+*///스피너 형성
+    private void Create_Spinner(Spinner spinner, ArrayAdapter arrayAdapter,  int layout_type){
+
+        arrayAdapter.setDropDownViewResource(layout_type);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(0);
+
+    }
 
     private void initAddressSpinner() {
         town1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
