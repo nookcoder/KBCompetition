@@ -1,8 +1,6 @@
 package com.kbc;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,27 +18,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
-import com.kbc.R;
-import com.kbc.Sale.SaleAdapter;
-import com.kbc.Sale.Sale_Item;
-import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
+import com.kbc.Purchase.Purchase_Item;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
-import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.kbc.Purchase.PurchaseAdapter;
 
 public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener {
 

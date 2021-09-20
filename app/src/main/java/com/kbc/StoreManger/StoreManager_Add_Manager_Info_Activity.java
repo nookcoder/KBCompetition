@@ -17,7 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.kbc.Added_Done_Activity;
 import com.kbc.R;
-import com.kbc.WebViewActivity;
+import com.kbc.Etc.WebViewActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

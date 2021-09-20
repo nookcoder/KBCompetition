@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Purchase;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.kbc.R;
 
 import java.util.ArrayList;
 

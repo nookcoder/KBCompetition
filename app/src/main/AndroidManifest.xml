@@ -16,7 +16,7 @@
 
     <application
 
-        android:name=".GlobalApplication"
+        android:name=".Etc.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -52,20 +52,21 @@
                     android:scheme="26e7f00a7916014db9a382d3086501a4" />
             </intent-filter>
         </activity>
-        <activity android:name=".Intro_Activity" />
+        <activity android:name=".Common.Intro_Activity" />
         <activity android:name=".Added_Done_Activity" />
-        <activity android:name=".EmptyStoreInfo_Activity" />
-        <activity android:name=".Login_Activity"></activity>
-        <activity android:name=".StoreManger.StoreManager_Add_Manager_Info_Activity" />
-        <activity android:name=".StoreManger.StoreManager_Add_Store_Info_Activity" />
-        <activity android:name=".Sale.StoreManager_Product_Register_Activity" />
-        <activity android:name=".WebViewActivity" />
-        <activity android:name=".Pickup.PickupDetailActivity"></activity>
-        <activity android:name=".Personal_MainActivity">
+        <activity android:name=".Common.EmptyStoreInfo_Activity" />
+        <activity android:name=".Common.Login_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".StoreManger.StoreManager_Add_Manager_Info_Activity" />
+        <activity android:name=".StoreManger.StoreManager_Add_Store_Info_Activity" />
+        <activity android:name=".Sale.StoreManager_Product_Register_Activity" />
+        <activity android:name=".Etc.WebViewActivity" />
+        <activity android:name=".Pickup.PickupDetailActivity"></activity>
+        <activity android:name=".Personal_MainActivity">
         </activity>
         <activity android:name=".Personal_Add_Information"></activity>
         <activity android:name=".Image.Image_Check_Activity"/>

@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Etc;
 
 import android.app.Application;
 import com.kakao.sdk.common.KakaoSdk;
