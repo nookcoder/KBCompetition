@@ -18,12 +18,10 @@ import com.kbc.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.content.ContentValues.TAG;
-
 public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
+
     private StoreManager_Product_Inquiry_Activity storeManager_product_inquiry_activity;
+
     //인텐트에서 넘어오는 정보들
     private ArrayList<Sale_Item> sale_items ;
     private Sale_Item sale_item;
@@ -37,7 +35,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
     private ImageButton product_modify_imageButton, product_inquiry_close;
 
 
-    //이미지 업로드를 위한 리사이큷뷰
+    //이미지 업로드를 위한 리사이클뷰
     private RecyclerView recyclerView;
     private ArrayList<Image_Item> image_items = new ArrayList<>();
     private ImageAdapter imageAdapter;
@@ -73,13 +71,14 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         product_modify_imageButton = findViewById(R.id.product_modify_imageButton);
         product_inquiry_close = findViewById(R.id.product_inquiry_close);
 
+
 //        //상품 사진들 넣어야함!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        recyclerView = findViewById(R.id.image_recyclerview);
 //        //이미지아이템에 사진 경로를 넣어야합니다아~
 //        imageAdapter = new ImageAdapter(image_items);
 //        recyclerView.setAdapter(imageAdapter);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
-
+//
 
 
         //가게 이름, 주소 넣기

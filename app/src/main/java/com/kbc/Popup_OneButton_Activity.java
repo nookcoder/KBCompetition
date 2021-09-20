@@ -25,7 +25,7 @@ public class Popup_OneButton_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.popup_twobutton_activity);
+        setContentView(R.layout.popup_onebutton_activity);
 
         //인텐트 가져오기
         Intent intent = getIntent();

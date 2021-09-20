@@ -1,3 +1,4 @@
+
 package com.kbc;
 
 import android.content.Intent;
@@ -50,6 +51,8 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 
         mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
+        Log.d( "리스트 프래그먼트 아이디 ->", userId);
+
         bundle = new Bundle(3);
         bundle.putString("userID" , userId);
         bundle.putString("mode", mode);

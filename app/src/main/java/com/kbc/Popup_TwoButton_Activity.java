@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kbc.Sale.Sale_Item;
-import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Sale.StoreManager_Product_Modify_Activity;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.popup_onebutton_activity);
+        setContentView(R.layout.popup_twobutton_activity);
 
         //인텐트 가져오기
         intent = getIntent();

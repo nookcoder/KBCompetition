@@ -148,19 +148,20 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     public void sendIdToServer(String ID,String NAME, Intent intentO,Intent intentx){
+        Log.d("DDqqqqqDD", "DDqqqqqDD");
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //사업자 정보 등록
                 if(Boolean.valueOf(response)){
                     //데이터 전달 (userID)
-                    intentO.putExtra("userID" ,ID);
+                    intentO.putExtra("userID" ,id);
                     startActivity(intentO);
                 }
                 //사업자 정보 등록 X
                 else{
                     //데이터 전달 (userID)
-                    intentx.putExtra("userID" , ID);
+                    intentx.putExtra("userID" , id);
                     intentx.putExtra("user","개인");
                     startActivity(intentx);
                 }

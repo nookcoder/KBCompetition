@@ -1,6 +1,8 @@
 package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Image.Image;
+import com.kbc.Image.ImageAdapter;
+import com.kbc.Image.Image_Item;
+import com.kbc.Image.Image_Popup_Activity;
 import com.kbc.Popup_OneButton_Activity;
 import com.kbc.R;
 import com.kbc.StoreManager_MainActivity;
@@ -27,6 +34,7 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class StoreManager_Product_Register_Activity extends AppCompatActivity {
@@ -35,13 +43,18 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     String storeManager_id, storeManager_location;
     StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
 
-    //카메라 켜기
+    //카메라 관련!
     private ImageButton open_carmera;
+    private RecyclerView image_recyclerview;
+    private LinearLayoutManager linearLayoutManager;
+    private ImageAdapter imageAdapter;
+    private ArrayList<Image_Item> image_items = new ArrayList<>();
     //새로 등록하는 상품
     private Sale_Item register_item = new Sale_Item();
 
     //상품 정보들
-    private EditText product_name, product_register_time, product_price, product_origin, product_details;
+    private EditText product_name,product_register_time, product_price, product_origin, product_details;
+    private TextView image_count;
 
 
     //카테고리, 재고
@@ -68,7 +81,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         setContentView(R.layout.storemanager_product_register_activity);
         storeManager_product_register_activity = this;
 
-//
+
         storeManager_mainActivity.finish();
         Intent intent = new Intent(this.getIntent());
         //로그인 정보 가져오기
@@ -79,6 +92,21 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
 
         //상품제목
         product_name = findViewById(R.id.product_name);
+
+        //사진 리사이클뷰 형성
+        //RecycleView 연결
+        image_recyclerview = findViewById(R.id.image_recyclerview);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        image_recyclerview.setLayoutManager(linearLayoutManager);
+
+        imageAdapter = new ImageAdapter(image_items);
+        image_recyclerview.setAdapter(imageAdapter);
+        imageAdapter.notifyDataSetChanged();
+
+        image_count = findViewById(R.id.image_count);
+        image_count.setText(imageAdapter.getItemCount()+"");
+
+
 
         //카테고리, 재고, 기한(년,월,일) 스피너 가져오기
         product_category = findViewById(R.id.product_category);
@@ -194,6 +222,9 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent image_take_intent = new Intent(StoreManager_Product_Register_Activity.this, Image_Popup_Activity.class);
+                startActivity(image_take_intent);
+
             }
         });
 
@@ -300,5 +331,13 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(StoreManager_Product_Register_Activity.this);
             requestQueue.add(jsonObjectRequest);
     }
+
+    public void Insert_Adapter_item(Image_Item image_item){
+
+        imageAdapter.addItem(image_item);
+        image_count.setText(imageAdapter.getItemCount()+"");
+
+    }
+
 
 }
