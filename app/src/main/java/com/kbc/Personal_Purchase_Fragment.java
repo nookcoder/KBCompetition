@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,7 +47,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
-
+    private ArrayAdapter<String> arrayAdapter;
     private RecyclerView recyclerView;
     private PurchaseAdapter purchaseAdapter;
     private PickupAdapter pickupAdapter;
@@ -87,9 +89,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         category=(Spinner) v.findViewById(R.id.category);
         //검색창
         searchView = (SearchView) v.findViewById(R.id.search_view);
-
-
-
         //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -99,6 +98,13 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
+        //스피너
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(R.array.spinner_region));
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        town1.setAdapter(arrayAdapter);
+        //스피너 설정
+        initAddressSpinner();
+        setUserTown();
 
         //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -163,6 +169,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         return v;
     }
 
+    private void setUserTown() {
+        town1.setSelection(3);
+        town2.setSelection(0);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -177,8 +188,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         purchaseItemArrayList.add(new Purchase_Item("엔샵상점","지옥의 코딩볶음면","가공식품",10,500));
         purchaseItemArrayList.add(new Purchase_Item("교촌치킨","생 닭다리","냉동식품",10,10000));
     }
-
-
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
@@ -235,4 +244,85 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     }
 */
 
+    private void initAddressSpinner() {
+        town1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 시군구, 동의 스피너를 초기화한다.
+                switch (position) {
+                    case 0:
+                        town2.setAdapter(null);
+                        break;
+                    case 1:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul);
+                        break;
+                    case 2:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_busan);
+                        break;
+                    case 3:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daegu);
+                        break;
+                    case 4:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_incheon);
+                        break;
+                    case 5:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gwangju);
+                        break;
+                    case 6:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daejeon);
+                        break;
+                    case 7:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_ulsan);
+                        break;
+                    case 8:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_sejong);
+                        break;
+                    case 9:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeonggi);
+                        break;
+                    case 10:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gangwon);
+                        break;
+                    case 11:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_buk);
+                        break;
+                    case 12:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_nam);
+
+                        break;
+                    case 13:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_buk);
+                        break;
+                    case 14:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_nam);
+                        break;
+                    case 15:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_buk);
+                        break;
+                    case 16:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_nam);
+                        break;
+                    case 17:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeju);
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    private void setSigunguSpinnerAdapterItem(int array_resource) {
+        if (arrayAdapter != null) {
+            town2.setAdapter(null);
+            arrayAdapter = null;
+        }
+
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(array_resource));
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        town2.setAdapter(arrayAdapter);
+    }
 }

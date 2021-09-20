@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     >
 
     <LinearLayout
@@ -69,22 +71,29 @@
                 android:id="@+id/town1"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"></Spinner>
+                android:layout_weight="1"
+                android:spinnerMode="dialog"
+                android:background="@drawable/layout_spinner_custom2"></Spinner>
             <Spinner
             android:id="@+id/town2"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_weight="1"></Spinner>
+            android:layout_weight="1"
+                android:spinnerMode="dialog"
+                android:background="@drawable/layout_spinner_custom2"></Spinner>
             <Spinner
                 android:id="@+id/category"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1.5"></Spinner>
+                android:layout_weight="1.5"
+                android:spinnerMode="dialog"
+                android:background="@drawable/layout_spinner_custom2"></Spinner>
             <Button
                 android:id="@+id/search"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:text="검색"
+                android:text="적용"
+                android:background="@drawable/radius2"
                 android:layout_weight="0.6"></Button>
         </LinearLayout>
 
@@ -94,6 +103,8 @@
             android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
             app:queryHint="검색어를 입력하시오"
+            android:windowSoftInputMode="stateAlwaysHidden"
+
             />
     </LinearLayout>
 
