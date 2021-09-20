@@ -167,10 +167,11 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
                 Log.d("userId",userId);
                 Log.d("userId",sale_item.getRegister_time());
                 Intent intent = new Intent(this, StoreManager_MainActivity.class);
-                intent.putExtra("userID",intent.getStringExtra("userID"));
+                intent.putExtra("userID",userId);
                 startActivity(intent);
+                Log.d("userId",userId);
 
-                finish();
+
                 storeManager_product_modify_activity.finish();
 
         }
