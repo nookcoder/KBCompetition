@@ -216,7 +216,6 @@
                 <EditText
                     android:id="@+id/product_origin"
                     android:text="원산지/거래"
-                    android:editable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -229,7 +228,6 @@
                 <EditText
                     android:id="@+id/product_price"
                     android:text="가격"
-                    android:editable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_span="2"
@@ -249,7 +247,6 @@
             <EditText
                 android:id="@+id/product_details"
                 android:text="게시글 내용을 입력해주세요"
-                android:editable="true"
                 android:layout_span="5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
