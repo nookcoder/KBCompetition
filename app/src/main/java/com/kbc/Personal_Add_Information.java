@@ -2,6 +2,7 @@ package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,15 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Personal_Add_Information extends AppCompatActivity {
 
@@ -96,6 +106,7 @@ public class Personal_Add_Information extends AppCompatActivity {
                     townCheck.setVisibility(view.INVISIBLE);
                     town2 = town2View.getSelectedItem().toString();
 
+                    updateUserInfo(userId,name,nicName,num,town1,town2);
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("user", "person");
@@ -217,5 +228,31 @@ public class Personal_Add_Information extends AppCompatActivity {
 
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(array_resource));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    }
+
+    private void updateUserInfo(String userId,String userName,String nickName,String userPhoneNumber, String firstLocation, String secondLocation){
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/register";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("userId",userId);
+            jsonObject.put("userName",userName);
+            jsonObject.put("nickName",nickName);
+            jsonObject.put("userPhoneNumber",userPhoneNumber);
+            jsonObject.put("firstLocation",firstLocation);
+            jsonObject.put("secondLocation",secondLocation);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("코드",response.toString());
+            }
+        },null);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(Personal_Add_Information.this);
+        requestQueue.add(jsonObjectRequest);
     }
 }
