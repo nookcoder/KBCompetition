@@ -52,6 +52,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private PurchaseAdapter purchaseAdapter;
     private PickupAdapter pickupAdapter;
     private SaledAdapter saledAdapter;
+    private int townPosition1,townPosition2;
 
     Button pickupBtn;
     Button saledBtn;
