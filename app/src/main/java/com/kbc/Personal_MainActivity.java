@@ -1,5 +1,6 @@
 package com.kbc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -30,21 +31,21 @@ public class Personal_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_activity_main);
 
-//        //유저 데이터 받기
-//        Intent intentForGet = getIntent();
-//        String userId = intentForGet.getExtras().getString("userID");
-//
+       //유저 데이터 받기
+        Intent intentForGet = getIntent();
+        userId = intentForGet.getExtras().getString("userID");
+
 
         //서히 테스트용
 //        storeManager_id = "seohee";
-        userId = "seohee";
-        storeManager_location = "광명동";
-        mode = Chatting.STORE_MANAGER_MODE;
+        //userId = "seohee";
+       // storeManager_location = "광명동";
+       // mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달
-        bundle = new Bundle(3);
+        /*bundle = new Bundle(3);
         bundle.putString("id", userId);
         bundle.putString("mode", mode);
-        bundle.putString("location", storeManager_location);
+        bundle.putString("location", storeManager_location);*/
 
         personal_purchase_fragment.setArguments(bundle);
         //   storeManager_chatting_fragment.setArguments(bundle);
