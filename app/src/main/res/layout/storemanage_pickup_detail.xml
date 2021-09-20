@@ -38,7 +38,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_weight="0.44"
+        android:layout_weight="0.5"
         android:layout_height="0dp"
         app:srcCompat="@drawable/sample1"
         android:scaleType="fitXY"/>
@@ -166,49 +166,7 @@
             android:textSize="20sp"></TextView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="0.09"
-        android:gravity="center"
-        android:padding="10dp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:gravity="right"
-            android:text=" 수 량 :  "
-            android:textColor="@color/black"
-            android:textSize="20sp"></TextView>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/quantityInPickupDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:gravity="right"
-                android:text="1"
-                android:textColor="@color/black"
-                android:textSize="20sp"></TextView>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.65"
-                android:text=" 개"
-                android:textColor="@color/black"
-                android:textSize="20sp"></TextView>
-        </LinearLayout>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

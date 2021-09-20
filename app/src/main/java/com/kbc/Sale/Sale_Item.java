@@ -11,7 +11,7 @@ public class Sale_Item implements Serializable {
     private String productImageSrc;
     //상품 이름, 카테고리
     private String name, category;
-    //상품 수량, 가격
+    //상품 가격
     private String price;
     //기한날짜, 유통/구입 구분변수 ,원산지(거래처)
     private String date_year, date_month, date_day, date_type, origin;

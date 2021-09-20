@@ -24,7 +24,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
     private OnItemClickEventListener onItemClickEventListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, category, stock,price;
+        public TextView name, category,price;
         //public ImageView productImage;
         public Drawable d;
         //ViewHolder
