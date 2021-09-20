@@ -202,17 +202,7 @@
                 android:background="@drawable/edge"
                 android:textSize="15dp"
                 />
-            <TextView
-                android:id="@+id/product_stock"
-                android:text="재고 70개"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:textColor="@color/black"
-                android:background="@drawable/edge"
-                android:textSize="15dp"
-                />
+
         </TableRow>
 
         <!--상세설명 -->

@@ -2,6 +2,7 @@ package com.kbc.StoreManger;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ public class StoreManager_MainActivity extends AppCompatActivity {
 //        //유저 데이터 받기
         Intent intentForGet = getIntent();
         userId = intentForGet.getExtras().getString("userID");
+        Log.d("점주 메인 ", userId);
 
 //
 
