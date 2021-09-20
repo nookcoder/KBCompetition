@@ -21,7 +21,7 @@ public class Personal_MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
 
     private Personal_Purchase_Fragment personal_purchase_fragment = new Personal_Purchase_Fragment();
-    private Personal_Chattion_Fragment personal_chattion_fragment = new Personal_Chattion_Fragment();
+    private Personal_Chatting_Fragment personal_chatting_fragment = new Personal_Chatting_Fragment();
     private Personal_Information_Fragment personal_information_fragment = new Personal_Information_Fragment();
 
     private String userId, mode, storeManager_location;
@@ -82,11 +82,11 @@ public class Personal_MainActivity extends AppCompatActivity {
 
                 case R.id.nav_chatting:
                     //점주 아이디 번들 전달
-                    // fragmentTransaction.replace(R.id.fragment_container, storeManager_chatting_fragment).commit();
+                    fragmentTransaction.replace(R.id.fragment_container, personal_chatting_fragment).commit();
                     break;
 
                 case R.id.nav_information:
-                    // fragmentTransaction.replace(R.id.fragment_container, storeManager_information_fragment).commit();
+                    fragmentTransaction.replace(R.id.fragment_container, personal_information_fragment).commit();
                     break;
             }
             return true;
