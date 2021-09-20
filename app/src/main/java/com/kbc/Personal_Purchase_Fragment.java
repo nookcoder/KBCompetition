@@ -2,6 +2,8 @@ package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -42,7 +45,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener {
+public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener, TextWatcher {
 
     private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
@@ -54,13 +57,16 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private PickupAdapter pickupAdapter;
     private SaledAdapter saledAdapter;
     private int townPosition1,townPosition2;
+    ArrayList<Purchase_Item> filteredList;
 
+
+    EditText search;
     Button pickupBtn;
     Button saledBtn;
     Button purchaseBtn;
     TextView toolbarText;
     Spinner town1,town2,category;
-    Button search;
+    Button searchBtn;
     SearchView searchView;
 
     private Bundle bundle;
@@ -70,6 +76,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        filteredList=new ArrayList<>();
     }
 
     @Override
@@ -79,18 +86,17 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         //컴포넌트 할당
         //Text
+        search = (EditText) v.findViewById(R.id.search_view);
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
         //button
         purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
-        search = (Button) v.findViewById(R.id.search);
+        searchBtn = (Button) v.findViewById(R.id.search);
         //스피너
         town1=(Spinner) v.findViewById(R.id.town1);
         town2=(Spinner) v.findViewById(R.id.town2);
         category=(Spinner) v.findViewById(R.id.category);
-        //검색창
-        searchView = (SearchView) v.findViewById(R.id.search_view);
         //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -116,6 +122,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
 
         //스피너 초기 설정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         initAddressSpinner();
@@ -145,8 +152,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 town1.setVisibility(View.VISIBLE);
                 town2.setVisibility(View.VISIBLE);
                 category.setVisibility(View.VISIBLE);
+                searchBtn.setVisibility(View.VISIBLE);
                 search.setVisibility(View.VISIBLE);
-                searchView.setVisibility(View.VISIBLE);
                 toolbarText.setText("장보기");
             }
         });
@@ -163,8 +170,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 town1.setVisibility(View.GONE);
                 town2.setVisibility(View.GONE);
                 category.setVisibility(View.GONE);
+                searchBtn.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
-                searchView.setVisibility(View.GONE);
                 toolbarText.setText("픽업대기중");
             }
         });
@@ -180,8 +187,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 town1.setVisibility(View.GONE);
                 town2.setVisibility(View.GONE);
                 category.setVisibility(View.GONE);
+                searchBtn.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
-                searchView.setVisibility(View.GONE);
                 toolbarText.setText("구매내역");
             }
         });
@@ -336,6 +343,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             }
         });
     }
+
     private void setSigunguSpinnerAdapterItem(int array_resource) {
         if (arrayAdapter != null) {
             town2.setAdapter(null);
@@ -346,4 +354,33 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         town2.setAdapter(arrayAdapter);
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String searchText = search.getText().toString();
+        searchFilter(searchText);
+    }
+
+    public void searchFilter(String searchText) {
+        filteredList.clear();
+
+        for (int i = 0; i < purchaseItemArrayList.size(); i++) {
+            if (purchaseItemArrayList.get(i).getProductName().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(purchaseItemArrayList.get(i));
+            }
+        }
+
+        //PurchaseAdapter.filterList(filteredList);
+    }
+
 }
