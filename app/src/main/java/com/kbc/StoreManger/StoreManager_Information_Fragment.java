@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.StoreManger;
 
 import android.content.Intent;
 import android.util.Log;
@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kbc.Image.ImageAdapter;
 import com.kbc.Image.Image_Item;
+import com.kbc.Popup_TwoButton_Activity;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
+import com.kbc.R;
 
 public class StoreManager_Information_Fragment extends Fragment implements View.OnClickListener{
 
