@@ -28,7 +28,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
 
     //상품 정보들
     private TextView storemanager_id, storemanager_location;
-    private TextView product_title, product_category,product_register_time, product_price, product_stock, product_details;
+    private TextView product_title, product_category,product_register_time, product_price, product_details;
 
     //창 닫기, 수정하기 버튼
     private ImageButton product_modify_imageButton, product_inquiry_close;
@@ -64,7 +64,6 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         product_category = findViewById(R.id.product_category);
         product_register_time = findViewById(R.id.product_register_time);
         product_price = findViewById(R.id.product_price);
-        product_stock = findViewById(R.id.product_stock);
         product_details = findViewById(R.id.product_details);
 
         product_modify_imageButton = findViewById(R.id.product_modify_imageButton);

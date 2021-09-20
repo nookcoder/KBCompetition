@@ -17,7 +17,7 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
     private ArrayList<Pickup_Item> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView buyerName, productNameInPickupList, pickupDate, pickupTime,pickupQuantity;
+        public TextView buyerName, productNameInPickupList, pickupDate, pickupTime;
 
         //ViewHolder
         public MyViewHolder(View view) {

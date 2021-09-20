@@ -16,7 +16,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     private ArrayList<Purchase_Item> mDataset;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView storeName, name, category, stock, price;
+        public TextView storeName, name, category,  price;
         //public ImageView productImage;
         public Drawable d;
 
@@ -28,7 +28,6 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
             storeName = (TextView) view.findViewById(R.id.storeName);
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
-            stock = (TextView) view.findViewById(R.id.productStock);
             price = (TextView) view.findViewById(R.id.productPrice);
         }
     }
@@ -51,7 +50,6 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
         holder.storeName.setText(mDataset.get(position).getStoreName());
         holder.name.setText(mDataset.get(position).getProductName());
         holder.category.setText(mDataset.get(position).getCategory());
-        holder.stock.setText(String.valueOf(mDataset.get(position).getStock()));
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
         //클릭이벤트
