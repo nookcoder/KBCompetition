@@ -36,11 +36,6 @@
         <activity
             android:name=".StoreManger.StoreManager_MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
@@ -68,6 +63,7 @@
         <activity android:name=".Etc.WebViewActivity" />
         <activity android:name=".Pickup.PickupDetailActivity"></activity>
         <activity android:name=".Personal_MainActivity">
+
         </activity>
         <activity android:name=".Personal_Add_Information"></activity>
         <activity android:name=".Image.Image_Check_Activity"/>
