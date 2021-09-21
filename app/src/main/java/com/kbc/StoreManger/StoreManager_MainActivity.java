@@ -23,12 +23,14 @@ import com.kbc.StoreManger.StoreManager_Information_Fragment;
 public class StoreManager_MainActivity extends AppCompatActivity {
 
     public static StoreManager_MainActivity storeManager_mainActivity;
+    public static String userId;
+
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction fragmentTransaction;
     private Chatting_List_Fragment storeManager_chatting_fragment = new Chatting_List_Fragment();
     private StoreManager_Information_Fragment storeManager_information_fragment = new StoreManager_Information_Fragment();
     private StoreManager_SalesList_Fragment storeManager_salesList_fragment =new StoreManager_SalesList_Fragment();
-    private String userId, mode, storeManager_location;
+    private String  mode, storeManager_location;
     private Bundle bundle;
 
     @Override
@@ -39,12 +41,12 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         setContentView(R.layout.storemanager_activity_main);
 
 //        //유저 데이터 받기
-        Intent intentForGet = getIntent();
-        userId = intentForGet.getExtras().getString("userID");
-        Log.d("점주 메인 ", userId);
+//        Intent intentForGet = getIntent();
+//        userId = intentForGet.getExtras().getString("userID");
+//        Log.d("점주 메인 ", userId);
 
 //
-
+//
 //        //서히 테스트용
 //        storeManager_location = "광명동";
 //        userId = "1915040308";
