@@ -1,5 +1,6 @@
 package com.kbc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -31,13 +32,14 @@ public class Personal_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_activity_main);
 
-//        //유저 데이터 받기
-//        Intent intentForGet = getIntent();
-//        String userId = intentForGet.getExtras().getString("userID");
-//
+       //유저 데이터 받기
+        Intent intentForGet = getIntent();
+        userId = intentForGet.getExtras().getString("userID");
+
 
         //서히 테스트용
 //        storeManager_id = "seohee";
+
         userId = "seohee";
         location = "광명동";
         mode = Chatting.PERSONAL;
@@ -47,6 +49,7 @@ public class Personal_MainActivity extends AppCompatActivity {
         bundle.putString("userID", userId);
         bundle.putString("mode", mode);
         bundle.putString("location", location);
+
 
         personal_purchase_fragment.setArguments(bundle);
         //채팅 프래그먼트에 번들 전달

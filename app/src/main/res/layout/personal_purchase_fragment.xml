@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,40 +61,54 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="  검색어를 입력하시오."
+            android:windowSoftInputMode="stateAlwaysHidden"></androidx.appcompat.widget.SearchView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Spinner
                 android:id="@+id/town1"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"></Spinner>
+                android:layout_weight="0.9"
+                android:background="@drawable/layout_spinner_custom2"
+                android:spinnerMode="dialog"></Spinner>
+
             <Spinner
-            android:id="@+id/town2"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"></Spinner>
+                android:id="@+id/town2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.9"
+                android:background="@drawable/layout_spinner_custom2"
+                android:spinnerMode="dialog"></Spinner>
+
             <Spinner
                 android:id="@+id/category"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="2"></Spinner>
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/layout_spinner_custom2"
+                android:maxLines="1"
+                android:spinnerMode="dialog"></Spinner>
+
             <Button
                 android:id="@+id/search"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:text="검색"
-                android:layout_weight="0.6"></Button>
+                android:layout_weight="0.6"
+                android:background="@drawable/radius2"
+                android:text="적용"></Button>
         </LinearLayout>
 
-        <SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryHint="검색어를 입력하시오"
-            />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

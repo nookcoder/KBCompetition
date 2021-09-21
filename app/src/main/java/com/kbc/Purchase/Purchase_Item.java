@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Purchase;
 
 public class Purchase_Item {
     private String storeName, productName, category;
