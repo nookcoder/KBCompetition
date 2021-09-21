@@ -39,8 +39,8 @@ public class Personal_MainActivity extends AppCompatActivity {
 
         //서히 테스트용
 //        storeManager_id = "seohee";
-
-        userId = "seohee";
+//
+//        userId = "seohee";
         location = "광명동";
         mode = Chatting.PERSONAL;
 
