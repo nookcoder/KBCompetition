@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kbc.Pickup.Personal_PickupAdapter;
 import com.kbc.Pickup.Personal_Pickup_Item;
 import com.kbc.Purchase.Purchase_Item;
+import com.kbc.Purchase.PurchasedAdapter;
+import com.kbc.Purchase.Purchased_Item;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
 
@@ -32,19 +34,19 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
     private ArrayList<Personal_Pickup_Item> pickupList = new ArrayList<Personal_Pickup_Item>();
-    private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
+    private ArrayList<Purchased_Item> purchasedList = new ArrayList<Purchased_Item>();
     private ArrayAdapter<String> arrayAdapter;
     private ArrayAdapter category_adapter;
     private RecyclerView recyclerView;
     private PurchaseAdapter purchaseAdapter;
     private Personal_PickupAdapter personalPickupAdapter;
-    private SaledAdapter saledAdapter;
+    private PurchasedAdapter purchasedAdapter;
     private int townPosition1,townPosition2;
 
     Button pickupBtn;
     Button saledBtn;
     Button purchaseBtn;
-    TextView toolbarText,is;
+    TextView toolbarText,who;
     Spinner town1,town2,category;
     Button search;
     SearchView searchView;
@@ -61,12 +63,13 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        prepareData();
         View v =  inflater.inflate(R.layout.personal_purchase_fragment, container, false);
 
         //컴포넌트 할당
         //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
-        is=(TextView)v.findViewById(R.id.is);
+        who=(TextView)v.findViewById(R.id.who);
         //button
         purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
@@ -85,7 +88,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         //어댑터 할당
         purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList);
         personalPickupAdapter = new Personal_PickupAdapter(pickupList);
-        saledAdapter = new SaledAdapter(saledList);
+        purchasedAdapter = new PurchasedAdapter(purchasedList);
 
         //스피너
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(R.array.spinner_region));
@@ -160,7 +163,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             @Override
             public void onClick(View v) {
                 prepareData3();
-                recyclerView.setAdapter(saledAdapter);
+                recyclerView.setAdapter(purchasedAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
@@ -199,9 +202,9 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData3() {
-        saledList.clear();
-        saledList.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
-        saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
+        purchasedList.clear();
+        purchasedList.add(new Purchased_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
+        purchasedList.add(new Purchased_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
     }
 
     //버튼 할당

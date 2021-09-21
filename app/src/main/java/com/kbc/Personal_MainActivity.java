@@ -48,8 +48,8 @@ public class Personal_MainActivity extends AppCompatActivity {
         bundle.putString("location", storeManager_location);*/
 
         personal_purchase_fragment.setArguments(bundle);
-        //   storeManager_chatting_fragment.setArguments(bundle);
-        //   storeManager_information_fragment.setArguments(bundle);
+        // storeManager_chatting_fragment.setArguments(bundle);
+        // storeManager_information_fragment.setArguments(bundle);
 
 
         personal_mainActivity = Personal_MainActivity.this;
