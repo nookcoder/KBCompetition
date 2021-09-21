@@ -325,6 +325,30 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                                     break;
                             }
                         }
+                        //여기서 상대방 닉네임 비교해서 중복되는게 있는지 체크해야함!
+                        Log.d("채팅방리스트", chatrooms_arraylist.toString());
+                        Log.d("채팅 첫번쨰", chatrooms_arraylist.get(1).values().toString());
+//
+                        int count_break = 0;
+                        for(int index = 1 ; index< chatrooms_arraylist.size() ; index++){
+
+                            input_map  = chatrooms_arraylist.get(index);
+                            chatting_map = input_map.values().toArray();
+
+                            for(int information_index = 0 ; information_index < chatting_map.length ; information_index++){
+
+                                if(click_chatting_list_name.equals(chatting_map[information_index])){
+                                    chatting_number = index;
+                                    count_break =1;
+                                    break;
+                                }
+                            }
+                        }
+                        if(count_break == 0){
+                            chatting_number = chatrooms_arraylist.size();
+
+                        }
+
                     }
                 }
 
@@ -346,7 +370,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     //채팅내역 불러오기
     private void getChatting() {
-        if(chatting_arraylist.size() != 1) {
+        if(chatting_arraylist.size() != 1 && chatting_arraylist.size() != chatting_number) {
             input_map = chatting_arraylist.get(chatting_number);
             chatting_map = input_map.values().toArray();
             chatrooms_map = (Map<String, Object>) chatting_map[0];
