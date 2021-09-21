@@ -25,8 +25,8 @@ public class Chatting {
     public static final String TIME = "time";
     public static final String MESSAGE = "message";
 
-    public static final String STORE_MANAGER_MODE = "StoreManager";
-    public static final String PERSON = "Person";
+    public static final String STORE_MANAGER = "StoreManager";
+    public static final String PERSONAL = "Personal";
 
     public static final int ME = 1;
     public static final int OTHER = 2;
