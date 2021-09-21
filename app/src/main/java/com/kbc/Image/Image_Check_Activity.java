@@ -147,7 +147,7 @@ public class Image_Check_Activity extends AppCompatActivity implements View.OnCl
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e) {   
             e.printStackTrace();
         }
 
