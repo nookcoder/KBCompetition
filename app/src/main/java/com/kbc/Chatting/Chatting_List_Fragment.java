@@ -124,6 +124,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         //채팅방들어가기
         Intent intent = new Intent(getActivity(), Chatting_Send_Activity.class );
         intent.putExtra("click_chatting_list_name",click_chatting_list_name);
+        intent.putExtra("userID", userId);
         //모드 구분해주기
         if(chat_mode.equals(Chatting.STORE_MANAGER))
             intent.putExtra("mode", Chatting.STORE_MANAGER);
@@ -131,7 +132,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
             intent.putExtra("mode", Chatting.PERSONAL);
 
         intent.putExtra("chatting_number", chatting_number);
-
 
         startActivity(intent);
 
@@ -251,6 +251,8 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
             chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
             chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
+            Log.d("키~", chatting_me_arraylist.toString());
+
             //키 인덱스 찾기
             Object[] send_key = chatting_me_arraylist.get(1).keySet().toArray();
             for (int key_index = 0; key_index < send_key.length; key_index++) {
@@ -292,29 +294,38 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatting_other_last_message = chatting_other_arraylist.get(chatting_other_arraylist.size()-1).values().toArray();
 
 
-        int last_message_mode = chatting_send_activity.Compare_Date(
-                chatting_me_last_message[date].toString().split(" "), chatting_other_last_message[date].toString().split(" "),
-                chatting_me_last_message[time].toString(), chatting_other_last_message[time].toString());
+        if(chatting_other_arraylist.size() != 1){
+            int last_message_mode = chatting_send_activity.Compare_Date(
+                    chatting_me_last_message[date].toString().split(" "), chatting_other_last_message[date].toString().split(" "),
+                    chatting_me_last_message[time].toString(), chatting_other_last_message[time].toString());
+
+            switch (last_message_mode){
+                //내 시간이 더 빠르면 상대방이 마지막
+                case Chatting.ME:
+                    last_date = chatting_other_last_message[date].toString();
+                    last_message = chatting_other_last_message[message].toString();
+                    last_time = chatting_other_last_message[time].toString();
+                    break;
+
+                //상대방이 더빠르면 내가 마지막
+                case Chatting.OTHER:
+                    last_date = chatting_me_last_message[date].toString();
+                    last_message = chatting_me_last_message[message].toString();
+                    last_time = chatting_me_last_message[time].toString();
+                    break;
+            }
+        }
+        else{
+            last_date = chatting_me_last_message[date].toString();
+            last_message = chatting_me_last_message[message].toString();
+            last_time = chatting_me_last_message[time].toString();
+        }
 
         //프로필사진, 이름은 상대방으로 되어있어야 함!
         last_profileUrl = chatting_other_last_message[profileUrl].toString();
         last_name = chatting_other_last_message[name].toString();
 
-        switch (last_message_mode){
-            //내 시간이 더 빠르면 상대방이 마지막
-            case Chatting.ME:
-                last_date = chatting_other_last_message[date].toString();
-                last_message = chatting_other_last_message[message].toString();
-                last_time = chatting_other_last_message[time].toString();
-                break;
 
-            //상대방이 더빠르면 내가 마지막
-            case Chatting.OTHER:
-                last_date = chatting_me_last_message[date].toString();
-                last_message = chatting_me_last_message[message].toString();
-                last_time = chatting_me_last_message[time].toString();
-                break;
-        }
 
         Insert_Chatroom_DB(position+1, last_name, last_date, last_message, last_profileUrl, last_time);
         chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl,last_message,last_time,last_date));

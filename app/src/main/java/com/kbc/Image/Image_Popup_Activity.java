@@ -160,11 +160,15 @@ public class Image_Popup_Activity extends AppCompatActivity {
     private File Create_Image_File() throws  IOException{
         //파일 경로 세팅 + 저장경로
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        Log.d("타임스탬프 -> ", timeStamp);
+
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File StorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         File get_image_file = File.createTempFile(imageFileName, ".jpg", storageDir);
+        Log.d("이미지 파일 이름 -> ", imageFileName);
+        Log.d("저장소 다이렉트 -> ", storageDir.toString());
 
         image_file_path = get_image_file.getAbsolutePath();
 

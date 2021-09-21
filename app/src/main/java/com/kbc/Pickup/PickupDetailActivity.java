@@ -23,6 +23,7 @@ public class PickupDetailActivity extends AppCompatActivity {
     //픽업 대기 중에서 넘어올때 점주 아이디 받아오기!!!
     String storeManagerId = StoreManager_MainActivity.userId;
 
+
     private StoreManager_MainActivity storeManager_mainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,10 @@ public class PickupDetailActivity extends AppCompatActivity {
                 //관리자 아이디 + 개인 아이디 전달 해야함
                 Intent chatting_intent = new Intent(pickupDetailActivity, Chatting_Send_Activity.class);
                 chatting_intent.putExtra("mode", Chatting.STORE_MANAGER);
-                chatting_intent.putExtra("storeMangerId", storeManagerId);
-                chatting_intent.putExtra("personalId", buyerName);
-                //Intent intent1 = new Intent(getApplicationContext(),Select_User_Activity.class);
-                //intent1.putExtra("storemanager","sign up");
-               // startActivity(intent1);
+                chatting_intent.putExtra("userID", storeManagerId);
+                chatting_intent.putExtra("click_chatting_list_name", buyerName);
+                startActivity(chatting_intent);
+
             }
         });
         //픽업 완료 버튼 할당

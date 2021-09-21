@@ -31,5 +31,8 @@ public class Chatting {
     public static final int ME = 1;
     public static final int OTHER = 2;
 
+    public static final String PICK_UP_TYPE = "픽업채팅";
+    public static final String CHATTING_LIST_TYPE = "채팅리스트";
+
 
 }
