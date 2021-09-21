@@ -23,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true">
         <activity android:name=".Sale.StoreManager_Product_Modify_Activity" />
         <activity android:name=".Sale.StoreManager_Product_Inquiry_Activity" />
 
