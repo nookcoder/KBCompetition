@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kbc.Pickup.PickupAdapter;
-import com.kbc.Pickup.Pickup_Item;
+import com.kbc.Pickup.Personal_PickupAdapter;
+import com.kbc.Pickup.Personal_Pickup_Item;
 import com.kbc.Purchase.Purchase_Item;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
@@ -31,20 +31,20 @@ import com.kbc.Purchase.PurchaseAdapter;
 public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener {
 
     private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
-    private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
+    private ArrayList<Personal_Pickup_Item> pickupList = new ArrayList<Personal_Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
     private ArrayAdapter<String> arrayAdapter;
     private ArrayAdapter category_adapter;
     private RecyclerView recyclerView;
     private PurchaseAdapter purchaseAdapter;
-    private PickupAdapter pickupAdapter;
+    private Personal_PickupAdapter personalPickupAdapter;
     private SaledAdapter saledAdapter;
     private int townPosition1,townPosition2;
 
     Button pickupBtn;
     Button saledBtn;
     Button purchaseBtn;
-    TextView toolbarText;
+    TextView toolbarText,is;
     Spinner town1,town2,category;
     Button search;
     SearchView searchView;
@@ -66,6 +66,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         //컴포넌트 할당
         //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
+        is=(TextView)v.findViewById(R.id.is);
         //button
         purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
@@ -83,7 +84,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         //어댑터 할당
         purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList);
-        pickupAdapter = new PickupAdapter(pickupList);
+        personalPickupAdapter = new Personal_PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
         //스피너
@@ -142,16 +143,16 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             @Override
             public void onClick(View v) {
                 prepareData2();
-                recyclerView.setAdapter(pickupAdapter);
+                recyclerView.setAdapter(personalPickupAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 town1.setVisibility(View.GONE);
                 town2.setVisibility(View.GONE);
                 category.setVisibility(View.GONE);
-                search.setVisibility(View.GONE);
+               search.setVisibility(View.GONE);
                 searchView.setVisibility(View.GONE);
-                toolbarText.setText("픽업대기중");
+               toolbarText.setText("픽업대기중");
             }
         });
         //판매 완료 버튼 눌렀을 때!
@@ -186,14 +187,14 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private void prepareData() {
         purchaseItemArrayList.clear();
         purchaseItemArrayList.add(new Purchase_Item("엔샵상점","지옥의 코딩볶음면","가공식품",10));
-        purchaseItemArrayList.add(new Purchase_Item("교촌치킨","생 닭다리","냉동식품",10));
+        purchaseItemArrayList.add(new Purchase_Item("교촌치킨","생 닭다리","냉동식품",10000));
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
         pickupList.clear();
-        pickupList.add(new Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
-        pickupList.add(new Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
+        pickupList.add(new Personal_Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
+        pickupList.add(new Personal_Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)

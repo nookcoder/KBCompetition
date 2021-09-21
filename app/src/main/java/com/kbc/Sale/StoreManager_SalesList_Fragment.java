@@ -77,7 +77,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         //컴포넌트 할당
             //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
-            //button
+
+        //button
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);

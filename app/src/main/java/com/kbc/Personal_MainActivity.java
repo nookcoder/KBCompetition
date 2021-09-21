@@ -33,12 +33,12 @@ public class Personal_MainActivity extends AppCompatActivity {
 
        //유저 데이터 받기
         Intent intentForGet = getIntent();
-        userId = intentForGet.getExtras().getString("userID");
+       // userId = intentForGet.getExtras().getString("userID");
 
 
         //서히 테스트용
 //        storeManager_id = "seohee";
-        //userId = "seohee";
+        userId = "seohee";
        // storeManager_location = "광명동";
        // mode = Chatting.STORE_MANAGER_MODE;
         //fragment로 데이터 전달

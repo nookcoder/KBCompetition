@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="110dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white">
 
     <LinearLayout
@@ -19,7 +20,7 @@
             android:layout_height="90dp"
             android:layout_weight="0.3"
             android:padding="5dp"
-            android:src="@drawable/image_buyer"></ImageView>
+            android:src="@drawable/image_store"></ImageView>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -34,7 +35,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/buyerName"
+                    android:id="@+id/storeName2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoSizeMaxTextSize="17sp"
@@ -50,13 +51,13 @@
                     android:id="@+id/is"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 님의"
+                    android:text=" 가게의"
                     android:textColor="@color/black"
                     android:textSize="17sp"></TextView>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/productNameInPickupList"
+                android:id="@+id/productNameInPickupList2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="동글동글 방울토마토 100g"
@@ -90,7 +91,7 @@
                             android:textStyle="bold"></TextView>
 
                         <TextView
-                            android:id="@+id/pickupDate"
+                            android:id="@+id/pickupDate2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="21/09/08"
@@ -113,7 +114,7 @@
                             android:textStyle="bold"></TextView>
 
                         <TextView
-                            android:id="@+id/pickupTime"
+                            android:id="@+id/pickupTime2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="오후 9시 30분"
