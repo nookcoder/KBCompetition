@@ -173,7 +173,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     private void setSalesList(JSONObject jsonObject){
         try {
-            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("stock"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
+            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
             Log.d("salesList",jsonObject.getString("category"));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -224,15 +224,15 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
         pickupList.clear();
-        pickupList.add(new Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분",1));
-        pickupList.add(new Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분",3));
+        pickupList.add(new Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
+        pickupList.add(new Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData3() {
         saledList.clear();
-        saledList.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분",1));
-        saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분",3));
+        saledList.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
+        saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
     }
 
     //버튼 할당
@@ -252,7 +252,6 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saleAdapter.getItem_productImageSrc(position),
                 myViewHolder.name.getText().toString() ,
                 myViewHolder.category.getText().toString(),
-                myViewHolder.stock.getText().toString(),
                myViewHolder.price.getText().toString(),
                 saleAdapter.getItem_date_year(position),
                 saleAdapter.getItem_date_month(position),

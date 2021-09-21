@@ -16,18 +16,20 @@
 
     <application
 
-        android:name=".GlobalApplication"
+        android:name=".Etc.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name=".Sale.StoreManager_Product_Modify_Activity" />
+       android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Sale.StoreManager_Product_Modify_Activity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Sale.StoreManager_Product_Inquiry_Activity" />
-
+        <activity android:name=".Sale.StoreManager_Product_Register_Activity"
+            android:windowSoftInputMode="adjustPan"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="kakao26e7f00a7916014db9a382d3086501a4" />
@@ -35,11 +37,6 @@
         <activity
             android:name=".StoreManger.StoreManager_MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
@@ -53,10 +50,10 @@
                     android:scheme="26e7f00a7916014db9a382d3086501a4" />
             </intent-filter>
         </activity>
-        <activity android:name=".Intro_Activity" />
+        <activity android:name=".Common.Intro_Activity" />
         <activity android:name=".Added_Done_Activity" />
-        <activity android:name=".EmptyStoreInfo_Activity" />
-        <activity android:name=".Login_Activity">
+        <activity android:name=".Common.EmptyStoreInfo_Activity" />
+        <activity android:name=".Common.Login_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -64,10 +61,10 @@
         </activity>
         <activity android:name=".StoreManger.StoreManager_Add_Manager_Info_Activity" />
         <activity android:name=".StoreManger.StoreManager_Add_Store_Info_Activity" />
-        <activity android:name=".Sale.StoreManager_Product_Register_Activity" />
-        <activity android:name=".WebViewActivity" />
+        <activity android:name=".Etc.WebViewActivity" />
         <activity android:name=".Pickup.PickupDetailActivity"></activity>
         <activity android:name=".Personal_MainActivity">
+
         </activity>
         <activity android:name=".Personal_Add_Information"></activity>
         <activity android:name=".Image.Image_Check_Activity"/>

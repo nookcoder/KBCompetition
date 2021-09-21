@@ -4,16 +4,14 @@ import android.widget.ImageView;
 
 public class Pickup_Item {
     private String buyerName, productNameInPickupList, pickupDate, pickupTime;
-    private int pickupQuantity;
     private ImageView imageView; //임의로 설정
 
 
-    public Pickup_Item(String buyerName, String productNameInPickupList, String pickupDate, String pickupTime, int pickupQuantity) {
+    public Pickup_Item(String buyerName, String productNameInPickupList, String pickupDate, String pickupTime) {
         this.buyerName = buyerName;
         this.productNameInPickupList = productNameInPickupList;
         this.pickupDate = pickupDate;
         this.pickupTime = pickupTime;
-        this.pickupQuantity = pickupQuantity;
     }
 
     public String getBuyerName() {
@@ -28,9 +26,6 @@ public class Pickup_Item {
     public String getPickupTime() {
         return pickupTime;
     }
-    public int getPickupQuantity() {
-        return pickupQuantity;
-    }
 
 
     public void setBuyerName(String buyerName) { this.buyerName = buyerName; }
@@ -40,9 +35,6 @@ public class Pickup_Item {
     }
     public void setPickupTime(String pickupTime) {
         this.pickupTime = pickupTime;
-    }
-    public void setPickupQuantity(int pickupQuantity) {
-        this.pickupQuantity = pickupQuantity;
     }
 
 }

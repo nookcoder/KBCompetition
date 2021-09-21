@@ -128,23 +128,13 @@
                     android:id="@+id/product_category"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_span="3"
+                    android:layout_span="5"
                     android:padding="5dp"
                     android:layout_margin="6dp"
                     android:background="@drawable/edge"
                     />
 
-                <Spinner
-                    android:id="@+id/product_stock"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_span="2"
-                    android:padding="5dp"
 
-                    android:layout_margin="6dp"
-                    android:background="@drawable/edge"
-                    android:textSize="10dp"
-                    />
             </TableRow>
 
             <!--유통기한/구입날짜-->

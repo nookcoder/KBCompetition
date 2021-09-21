@@ -10,14 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kbc.R;
+import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 
 public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHolder>{
     private ArrayList<Pickup_Item> mDataset;
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView buyerName, productNameInPickupList, pickupDate, pickupTime,pickupQuantity;
+        public TextView buyerName, productNameInPickupList, pickupDate, pickupTime;
 
         //ViewHolder
         public MyViewHolder(View view) {
@@ -26,7 +28,6 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
             productNameInPickupList = (TextView) view.findViewById(R.id.productNameInPickupList);
             pickupDate = (TextView) view.findViewById(R.id.pickupDate);
             pickupTime = (TextView) view.findViewById(R.id.pickupTime);
-            pickupQuantity = (TextView) view.findViewById(R.id.pickupQuantity);
         }
     }
 
@@ -48,7 +49,6 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
         holder.productNameInPickupList.setText(mDataset.get(position).getProductNameInPickupList());
         holder.pickupDate.setText(mDataset.get(position).getPickupDate());
         holder.pickupTime.setText(mDataset.get(position).getPickupTime());
-        holder.pickupQuantity.setText(String.valueOf(mDataset.get(position).getPickupQuantity()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +57,11 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
                 Intent intent;//인텐트 선언
                 intent = new Intent(view.getContext(), PickupDetailActivity.class); //look_memo.class부분에 원하는 화면 연결
                 //데이터 전달
+
                 intent.putExtra("buyerName",mDataset.get(position).getBuyerName());
                 intent.putExtra("productNameInPickupList",mDataset.get(position).getProductNameInPickupList());
                 intent.putExtra("pickupDate",mDataset.get(position).getPickupDate());
                 intent.putExtra("pickupTime",mDataset.get(position).getPickupTime());
-                intent.putExtra("pickupQuantity",mDataset.get(position).getPickupQuantity());
 
                 view.getContext().startActivity(intent); //액티비티 열기
 
