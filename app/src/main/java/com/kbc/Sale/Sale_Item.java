@@ -5,6 +5,9 @@ import android.widget.ImageView;
 import java.io.Serializable;
 
 public class Sale_Item implements Serializable {
+    //구입자 아이디
+    private String personal_Id;
+
     //유저아이디
     private String user_Id, user_location;
     //상품사진
@@ -41,6 +44,29 @@ public class Sale_Item implements Serializable {
         this.register_time = register_time;
     }
 
+    public Sale_Item(String productImageSrc,  String name, String category, String price,
+                     String date_year, String date_month, String date_day, String date_type,
+                     String origin, String details, String register_time, String personal_Id, String user_Id,String user_location){
+        this.productImageSrc = productImageSrc;
+
+        this.name = name;
+        this.category = category;
+        this.price = price;
+
+        this.date_year = date_year;
+        this.date_month =date_month;
+        this.date_day = date_day;
+        this.date_type = date_type;
+
+        this.origin = origin;
+        this.details = details;
+        this.register_time = register_time;
+
+        this.personal_Id = personal_Id;
+        this.user_Id = user_Id;
+        this.user_location = user_location;
+    }
+
 
     public String getUser_Id(){return user_Id;}
     public String getUser_location(){return user_location;}
@@ -63,6 +89,11 @@ public class Sale_Item implements Serializable {
     public String getDetails(){return  details;}
     public String getRegister_time(){return register_time;}
 
+    public String getPersonal_Id() { return personal_Id; }
+
+    public void setPersonal_Id(String personal_Id) {
+        this.personal_Id = personal_Id;
+    }
 
     public void setUser_Id(String user_Id){this.user_Id = user_Id;}
     public void setUser_location(String user_location){this.user_location = user_location;}

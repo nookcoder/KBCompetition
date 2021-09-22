@@ -21,18 +21,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
-import com.kbc.Purchase.Purchase_Item;
 import com.kbc.R;
+import com.kbc.Sale.Sale_Item;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
 
 import java.util.ArrayList;
 
-import com.kbc.Purchase.PurchaseAdapter;
-
 public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener, PurchaseAdapter.OnItemClickEventListener {
 
-    private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
+    private ArrayList<Sale_Item> purchaseItemArrayList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
     private ArrayAdapter<String> arrayAdapter;
@@ -180,6 +178,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     public void onResume() {
         super.onResume();
         purchaseAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -187,8 +186,9 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
         purchaseItemArrayList.clear();
-        purchaseItemArrayList.add(new Purchase_Item("엔샵상점","지옥의 코딩볶음면","가공식품",10));
-        purchaseItemArrayList.add(new Purchase_Item("교촌치킨","생 닭다리","냉동식품",10));
+        purchaseItemArrayList.add(new Sale_Item("","지옥의 코딩볶음면","가공식품","200","2021년","1월","12알","구입","서히집"
+                ,"매워매워매워매워!!!!!!!","2021:01:12","seohee","19011320","경기도 광명시"));
+
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -308,10 +308,10 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public void onItemClick(View view, int position) {
         PurchaseAdapter.MyViewHolder myViewHolder = (PurchaseAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
-        ArrayList<Purchase_Item>purchase_items = new ArrayList<>();
+        ArrayList<Sale_Item>purchase_items = new ArrayList<>();
 
         //해당 위치 장보기 상품 담아오기
-        Purchase_Item purchase_item = purchaseAdapter.getPositionItem(position);
+        Sale_Item purchase_item = purchaseAdapter.getPositionItem(position);
         purchase_items.add(purchase_item);
 
         //상품 조회 액티비티로 들어가기
