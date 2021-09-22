@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Payment.Payment_Check_Activity"></activity>
+        <activity android:name=".Payment_Personal.Payment_Check_Activity"></activity>
         <activity android:name=".Purchase.Personal_Purchase_Inquiry_Activity" />
         <activity
             android:name=".Sale.StoreManager_Product_Modify_Activity"

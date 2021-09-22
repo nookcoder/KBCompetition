@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,7 +12,7 @@ import android.widget.TextView;
 
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_Send_Activity;
-import com.kbc.Payment.Payment_Check_Activity;
+import com.kbc.Payment_Personal.Payment_Check_Activity;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 import com.kbc.StoreManger.StoreManager_MainActivity;

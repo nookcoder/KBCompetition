@@ -1,4 +1,4 @@
-package com.kbc.Payment;
+package com.kbc.Payment_Personal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
