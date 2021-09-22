@@ -291,6 +291,10 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         Intent intent = new Intent(getActivity(), Personal_Purchase_Inquiry_Activity.class);
         intent.putExtra("purchase_item_list", sale_items);
+        intent.putExtra("userID",personal_id);
+        intent.putExtra("town2",personal_town2);
+
+
         startActivity(intent);
     }
     ///스피너 형성

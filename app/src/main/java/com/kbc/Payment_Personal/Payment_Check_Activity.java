@@ -45,7 +45,7 @@ public class Payment_Check_Activity extends AppCompatActivity {
     private Button payment_open;
     private ImageButton payment_close;
 
-    String productName, paymentId, category;
+    String productName, paymentId, category,personal_id,personal_town2;
     int price, stuck;
 
     @Override
@@ -57,6 +57,8 @@ public class Payment_Check_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         purchase_item = ((ArrayList<Sale_Item>) intent.getSerializableExtra("purchase_item_list")).get(0);
+        personal_id = intent.getExtras().getString("userId",personal_id);
+        personal_town2 = intent.getExtras().getString("town2",personal_town2);
 
         buyerNameInPickup = findViewById(R.id.buyerNameInPickup);
         productNameInPickupDetail = findViewById(R.id.productNameInPickupDetail);
@@ -141,6 +143,8 @@ public class Payment_Check_Activity extends AppCompatActivity {
                             public void onDone(@Nullable String message) {
                                 Log.d("done", message);
                                 Intent intent = new Intent(Payment_Check_Activity.this,Payment_Finished.class);
+                                intent.putExtra("userID",personal_id);
+                                intent.putExtra("town2",personal_town2);
                                 startActivity(intent);
                             }
                         })

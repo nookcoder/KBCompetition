@@ -28,10 +28,11 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
 
     private CircleImageView storemanager_image_profile;
     private ImageButton product_inquiry_close, chatting_imageButton;
-    private TextView storemanager_id, storemanager_location, product_title, product_category, product_date_type, product_deadline_time
-            ,product_price,product_details;
+    private TextView storemanager_id, storemanager_location, product_title, product_category, product_date_type, product_deadline_time, product_price, product_details;
 
     private Button product_payment;
+
+    String personal_id, personal_town2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,9 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         personal_purchase_inquiry_activity = this;
         //선택한 장보기 아이템 가져오기 (사업자이름 , 상품이름 , 카테고리, 가격 만 있음!)
         Intent intent = getIntent();
-        purchase_item = ((ArrayList<Sale_Item>)intent.getSerializableExtra("purchase_item_list")).get(0);
-
+        purchase_item = ((ArrayList<Sale_Item>) intent.getSerializableExtra("purchase_item_list")).get(0);
+        personal_id = intent.getExtras().getString("userID", personal_id);
+        personal_town2 = intent.getExtras().getString("town2", personal_town2);
 
         //상품 조회 창 닫기
         product_inquiry_close = findViewById(R.id.product_inquiry_close);
@@ -69,12 +71,12 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         product_title.setText(purchase_item.getName());
         product_category.setText(purchase_item.getCategory());
 
-        if(purchase_item.getDate_type().equals("유통"))
+        if (purchase_item.getDate_type().equals("유통"))
             product_date_type.setText("유통기한");
         else
             product_date_type.setText("구입날짜");
-        product_deadline_time.setText(purchase_item.getDate_year() +" "+ purchase_item.getDate_month() + " " + purchase_item.getDate_day());
-        product_price.setText( "가격 "+ purchase_item.getPrice()+"원");
+        product_deadline_time.setText(purchase_item.getDate_year() + " " + purchase_item.getDate_month() + " " + purchase_item.getDate_day());
+        product_price.setText("가격 " + purchase_item.getPrice() + "원");
         product_details.setText(purchase_item.getDetails());
 
 
@@ -96,11 +98,13 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         product_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Sale_Item>sale_items = new ArrayList<>();
+                ArrayList<Sale_Item> sale_items = new ArrayList<>();
                 sale_items.add(purchase_item);
-                    Intent payment_intent = new Intent(personal_purchase_inquiry_activity, Payment_Check_Activity.class);
-                    payment_intent.putExtra("purchase_item_list",sale_items);
-                    startActivity(payment_intent);
+                Intent payment_intent = new Intent(personal_purchase_inquiry_activity, Payment_Check_Activity.class);
+                payment_intent.putExtra("purchase_item_list", sale_items);
+                payment_intent.putExtra("userID", personal_id);
+                payment_intent.putExtra("town2", personal_town2);
+                startActivity(payment_intent);
             }
         });
 
