@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -81,7 +83,7 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
 
 
         //채팅 버튼 누르면 -> 유저 아이디 + 사업자 아이디 전달해야함 + mode까지 !!!!!!!!
-        chatting_imageButton.findViewById(R.id.chatting_imageButton);
+        chatting_imageButton = findViewById(R.id.chatting_imageButton);
         chatting_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +96,7 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         });
 
         //결제 창 누르면 -> 픽업 시간, 날짜, 선택하고, 밑에서 결제 누르고 -> 최종 결제 하면 -> -데이터 서버로 전달
-        product_payment.findViewById(R.id.product_payment);
+        product_payment = findViewById(R.id.product_payment);
         product_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

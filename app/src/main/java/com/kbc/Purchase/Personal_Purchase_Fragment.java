@@ -86,10 +86,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         Bundle bundle = getArguments();
         if(bundle != null){
-            personal_id = bundle.getString("userId");
+            personal_id = bundle.getString("userID");
             personal_town2 = bundle.getString("town2");
             mode = bundle.getString("mode");
         }
+
 
         //컴포넌트 할당
         //Text
@@ -226,6 +227,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        purchaseAdapter.notifyDataSetChanged();
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -283,8 +285,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public void onItemClick(View view, int position) {
         PurchaseAdapter.MyViewHolder myViewHolder =(PurchaseAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
-
         ArrayList<Sale_Item>sale_items = new ArrayList<>();
+        purchaseAdapter.getPositionItem(position).setPersonal_Id(personal_id);
         sale_items.add(purchaseAdapter.getPositionItem(position));
 
         Intent intent = new Intent(getActivity(), Personal_Purchase_Inquiry_Activity.class);
