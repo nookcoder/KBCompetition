@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_Send_Activity;
+import com.kbc.Payment.Payment_Check_Activity;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 import com.kbc.StoreManger.StoreManager_MainActivity;
@@ -39,6 +40,7 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         //선택한 장보기 아이템 가져오기 (사업자이름 , 상품이름 , 카테고리, 가격 만 있음!)
         Intent intent = getIntent();
         purchase_item = ((ArrayList<Sale_Item>)intent.getSerializableExtra("purchase_item_list")).get(0);
+
 
         //상품 조회 창 닫기
         product_inquiry_close = findViewById(R.id.product_inquiry_close);
@@ -96,7 +98,11 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         product_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ArrayList<Sale_Item>sale_items = new ArrayList<>();
+                sale_items.add(purchase_item);
+                    Intent payment_intent = new Intent(personal_purchase_inquiry_activity, Payment_Check_Activity.class);
+                    payment_intent.putExtra("purchase_item_list",sale_items);
+                    startActivity(payment_intent);
             }
         });
 

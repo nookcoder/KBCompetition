@@ -3,6 +3,7 @@ package com.kbc.Pickup;
 import android.widget.ImageView;
 
 public class Pickup_Item {
+
     private String buyerName, productNameInPickupList, pickupDate, pickupTime;
     private ImageView imageView; //임의로 설정
 
