@@ -7,14 +7,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kbc.R;
+import com.kbc.Sale.SaleAdapter;
 
 import java.util.ArrayList;
 
 public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyViewHolder> {
+    public interface OnItemClickEventListener{
+        void onItemClick(View view, int position);
+    }
     private ArrayList<Purchase_Item> mDataset;
+    private PurchaseAdapter.OnItemClickEventListener onItemClickEventListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView storeName, name, category,  price;
@@ -30,6 +36,13 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
             price = (TextView) view.findViewById(R.id.productPrice);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getLayoutPosition();
+                    onItemClickEventListener.onItemClick(v, position);
+                }
+            });
         }
     }
 
@@ -42,6 +55,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.purchase_item, parent, false);
+
         return new MyViewHolder(view);
     }
 
@@ -54,6 +68,12 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
         //클릭이벤트
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            }
+        });
     }
     @Override
     public int getItemCount() {
