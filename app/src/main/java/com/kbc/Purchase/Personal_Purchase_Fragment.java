@@ -44,7 +44,7 @@ import org.json.JSONObject;
 public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener ,PurchaseAdapter.OnItemClickEventListener
 {
 
-    private ArrayList<Sale_Item> purchaseItemArrayList = new ArrayList<Sale_Item>();
+    private ArrayList<Sale_Item> purchaseList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
 
@@ -97,7 +97,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         recyclerView.setHasFixedSize(true);
 
         //어댑터 할당
-        purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList,this);
+        purchaseAdapter = new PurchaseAdapter(purchaseList,this);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
@@ -175,11 +175,21 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
-        purchaseItemArrayList.clear();
+        purchaseList.clear();
 
     }
 
+    //장보기 물품 담아주는 함수 !!!!!!!!!
+    private void setPurchaseList(JSONObject jsonObject){
+        try {
+            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
+            Log.d("salesList",jsonObject.getString("category"));
 
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
