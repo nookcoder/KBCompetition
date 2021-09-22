@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -183,9 +183,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private void setPurchaseList(JSONObject jsonObject){
         try {
             purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
-            Log.d("salesList",jsonObject.getString("category"));
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -231,6 +228,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             public void onResponse(JSONObject response) {
                 try {
                     JSONArray jsonArray = response.getJSONArray("products");
+                    for(int index = 0 ; index<jsonArray.length(); index++)
+                    {
+                        setPurchaseList(jsonArray.getJSONObject(index));
+                        Log.d("purchaseList",purchaseList.get(index).getName());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
