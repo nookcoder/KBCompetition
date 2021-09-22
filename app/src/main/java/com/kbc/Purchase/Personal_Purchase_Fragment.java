@@ -138,7 +138,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         //스피너 초기 설정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         initAddressSpinner();
         //임의로 설정
-        townPosition1=3;townPosition2=0;
+        townPosition1=9;townPosition2=7;
         //
         town1.setSelection(townPosition1);
         town2.setSelection(townPosition2);

@@ -71,7 +71,7 @@
 
         <activity android:name=".Personal_Add_Information" />
         <activity android:name=".Image.Image_Check_Activity" />
-        <activity android:name=".Payment">
+        <activity android:name=".Payment_Personal.Payment_Finished">
         </activity>
 
         <provider

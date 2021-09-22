@@ -41,7 +41,7 @@ public class Payment extends AppCompatActivity {
         price=10000;
         catogory="야채";
 
-        button = findViewById(R.id.test);
+        button = findViewById(R.id.payment_open);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
