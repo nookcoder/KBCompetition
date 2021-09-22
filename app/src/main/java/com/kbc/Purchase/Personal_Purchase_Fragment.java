@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,6 +26,8 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kbc.Pickup.Personal_PickupAdapter;
+import com.kbc.Pickup.Personal_Pickup_Item;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
 import com.kbc.Purchase.PurchaseAdapter;
@@ -45,13 +49,18 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 {
 
     private ArrayList<Sale_Item> purchaseList = new ArrayList<Sale_Item>();
-    private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
+    private ArrayList<Personal_Pickup_Item> pickupList = new ArrayList<Personal_Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
 
+    private ArrayAdapter<String> arrayAdapter;
+    private ArrayAdapter category_adapter;
     private RecyclerView recyclerView;
     private PurchaseAdapter purchaseAdapter;
-    private PickupAdapter pickupAdapter;
     private SaledAdapter saledAdapter;
+    private Personal_PickupAdapter personalPickupAdapter;
+    private int townPosition1,townPosition2;
+
+
 
     Button pickupBtn;
     Button saledBtn;
@@ -63,7 +72,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     private Bundle bundle;
 
-    private String storeManager_id, storeManager_location;
+    private String personal_id, personal_town2,mode;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +83,13 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.personal_purchase_fragment, container, false);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            personal_id = bundle.getString("userId");
+            personal_town2 = bundle.getString("town2");
+            mode = bundle.getString("mode");
+        }
 
         //컴포넌트 할당
         //Text
@@ -98,9 +114,33 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         //어댑터 할당
         purchaseAdapter = new PurchaseAdapter(purchaseList,this);
-        pickupAdapter = new PickupAdapter(pickupList);
+        personalPickupAdapter = new Personal_PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
+//스피너
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(R.array.spinner_region));
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        town1.setAdapter(arrayAdapter);
+        category_adapter = ArrayAdapter.createFromResource(getActivity(), R.array.category, R.layout.spinner_item);
+        Create_Spinner(category, category_adapter, R.layout.spinner_item);
+
+        //카테고리 넣기
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String select_category = category_adapter.getItem(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        //스피너 초기 설정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        initAddressSpinner();
+        //임의로 설정
+        townPosition1=3;townPosition2=0;
+        //
+        town1.setSelection(townPosition1);
+        town2.setSelection(townPosition2);
 
         //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -114,7 +154,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         purchaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareData();
+                getProductFromServer("김포시");
                 recyclerView.setAdapter(purchaseAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -133,7 +173,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             @Override
             public void onClick(View v) {
                 prepareData2();
-                recyclerView.setAdapter(pickupAdapter);
+                recyclerView.setAdapter(personalPickupAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -182,10 +222,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //장보기 물품 담아주는 함수 !!!!!!!!!
     private void setPurchaseList(JSONObject jsonObject){
         try {
-            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
-            Log.d("salesList",jsonObject.getString("category"));
-
-
+            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),personal_id,jsonObject.getString("userId"),jsonObject.getString("location")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -194,8 +231,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
         pickupList.clear();
-        pickupList.add(new Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
-        pickupList.add(new Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
+        pickupList.add(new Personal_Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
+        pickupList.add(new Personal_Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
@@ -213,10 +250,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         saledBtn = (Button) v.findViewById(R.id.button3);
     }
 
-    private void setProductsData(JSONObject product){
-
-    }
-
     private void getProductFromServer(String town){
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/product";
         JSONObject jsonObject = new JSONObject();
@@ -231,6 +264,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             public void onResponse(JSONObject response) {
                 try {
                     JSONArray jsonArray = response.getJSONArray("products");
+                    for(int index = 0 ; index<jsonArray.length(); index++)
+                    {
+                        setPurchaseList(jsonArray.getJSONObject(index));
+                        Log.d("purchaseList",purchaseList.get(index).getName());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -253,5 +291,94 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         intent.putExtra("purchase_item_list", sale_items);
         startActivity(intent);
     }
+    ///스피너 형성
+    private void Create_Spinner(Spinner spinner, ArrayAdapter arrayAdapter,  int layout_type){
 
+        arrayAdapter.setDropDownViewResource(layout_type);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelection(0);
+
+    }
+
+    private void initAddressSpinner() {
+        town1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 시군구, 동의 스피너를 초기화한다.
+                switch (position) {
+                    case 0:
+                        town2.setAdapter(null);
+                        break;
+                    case 1:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul);
+                        break;
+                    case 2:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_busan);
+                        break;
+                    case 3:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daegu);
+                        break;
+                    case 4:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_incheon);
+                        break;
+                    case 5:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gwangju);
+                        break;
+                    case 6:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daejeon);
+                        break;
+                    case 7:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_ulsan);
+                        break;
+                    case 8:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_sejong);
+                        break;
+                    case 9:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeonggi);
+                        break;
+                    case 10:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gangwon);
+                        break;
+                    case 11:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_buk);
+                        break;
+                    case 12:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_nam);
+
+                        break;
+                    case 13:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_buk);
+                        break;
+                    case 14:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_nam);
+                        break;
+                    case 15:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_buk);
+                        break;
+                    case 16:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_nam);
+                        break;
+                    case 17:
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeju);
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    private void setSigunguSpinnerAdapterItem(int array_resource) {
+        if (arrayAdapter != null) {
+            town2.setAdapter(null);
+            arrayAdapter = null;
+        }
+
+        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(array_resource));
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        town2.setAdapter(arrayAdapter);
+    }
 }

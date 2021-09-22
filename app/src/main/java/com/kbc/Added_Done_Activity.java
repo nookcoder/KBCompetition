@@ -21,6 +21,7 @@ public class Added_Done_Activity extends AppCompatActivity {
         String user = intentForGet.getExtras().getString("user");
         String userId = intentForGet.getExtras().getString("userID");
 
+
         //다음 버튼
         Button next = (Button) findViewById(R.id.start);
         next.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +36,9 @@ public class Added_Done_Activity extends AppCompatActivity {
                 //유저가 개인이면
                 else if(user.equals("person")){
                     Intent intent2 = new Intent(getApplicationContext(), Personal_MainActivity.class);//변경 필요
+                    String town2 = intentForGet.getExtras().getString("town2");
                     intent2.putExtra("userID",userId);
+                    intent2.putExtra("town2", town2);
                     startActivity(intent2);
                 }
             }
