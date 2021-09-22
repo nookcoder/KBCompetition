@@ -114,7 +114,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         purchaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareData();
+                getProductFromServer("김포시");
                 recyclerView.setAdapter(purchaseAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -182,7 +182,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //장보기 물품 담아주는 함수 !!!!!!!!!
     private void setPurchaseList(JSONObject jsonObject){
         try {
-            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
+            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),"유저아이디",jsonObject.getString("userId"),jsonObject.getString("location")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -208,10 +208,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
-    }
-
-    private void setProductsData(JSONObject product){
-
     }
 
     private void getProductFromServer(String town){
