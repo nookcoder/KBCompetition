@@ -48,9 +48,8 @@ public class Personal_MainActivity extends AppCompatActivity {
 
 
         personal_purchase_fragment.setArguments(bundle);
-        //   storeManager_chatting_fragment.setArguments(bundle);
-        //   storeManager_information_fragment.setArguments(bundle);
-
+        personal_chatting_fragment.setArguments(bundle);
+        personal_information_fragment.setArguments(bundle);
 
         personal_mainActivity = Personal_MainActivity.this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -80,7 +79,6 @@ public class Personal_MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.nav_chatting:
-                    //점주 아이디 번들 전달
                     fragmentTransaction.replace(R.id.fragment_container, personal_chatting_fragment).commit();
                     break;
 

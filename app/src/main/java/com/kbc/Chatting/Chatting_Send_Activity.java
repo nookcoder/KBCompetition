@@ -70,18 +70,24 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         setContentView(R.layout.chatting_send_activity);
 
 
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         //채팅방 모드
         chat_mode = intent.getExtras().getString("mode");
         // 상대방이름
         click_chatting_list_name = intent.getExtras().getString("click_chatting_list_name");
         // 내 아이디
         userId = intent.getStringExtra("userID");
+*/
+        userId = "1915040308";
+        click_chatting_list_name = "1912728315";
+        chat_mode = Chatting.PERSONAL;
 
         chatting_number = Find_Chatting_Number(chat_mode);
 
 
         Log.d("내 아이디", userId);
+
+        Get_Communication_Chatting();
 
         //채팅방 제목 -> 유저이름으로!!
         chatting_other_name = findViewById(R.id.other_userName);
@@ -242,9 +248,14 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     }
                     Log.d(TAG, "카카오아이디 : "+ id_map.keySet());
 
-                    for(String id_inside : id_map.keySet())
-                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
 
+                    for (String id_inside : id_map.keySet()) {
+                        //내 아이디 찾기
+                        if (id_inside.equals(userId)) {
+                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
+                            break;
+                        }
+                    }
                         Log.d(TAG, "아이디 내부 : "+ id_inside_map);
 
                         for(String in_inside_key: id_inside_map.keySet()){
@@ -297,7 +308,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     }
 
                     if(check_id_count == id_map.size()){
-                        Initialize_Id();
+                        Initialize_Id(userId, chat_mode);
                     }
                     else {
                         for (String in_inside_key : id_inside_map.keySet()) {
@@ -346,10 +357,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     }
 
     //처음 채팅 아이디 넣기
-    private void Initialize_Id(){
+    private void Initialize_Id(String insertId, String mode){
 
-        FirebaseDatabase.getInstance().getReference(chat_mode).child("id").child(userId).child("chatrooms").child("0").setValue("채팅방없음");
-        FirebaseDatabase.getInstance().getReference(chat_mode).child("id").child(userId).child("chatting").child("0").setValue("채팅방없음");
+        FirebaseDatabase.getInstance().getReference(mode).child("id").child(insertId).child("chatrooms").child("0").setValue("채팅방없음");
+        FirebaseDatabase.getInstance().getReference(mode).child("id").child(insertId).child("chatting").child("0").setValue("채팅방없음");
 
     }
 
@@ -511,6 +522,196 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     }
 
 
+    //Personal , StoreManger 로
+
+    public void Get_Communication_Chatting(){
+        switch (chat_mode){
+            //반대로 객체 참조
+            case Chatting.PERSONAL:
+                databaseReference = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER);
+                break;
+
+            case Chatting.STORE_MANAGER:
+                databaseReference = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL);
+                break;
+        }
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                map = (Map<String, Object>) dataSnapshot.getValue();
+
+                if (map != null) {
+                    //아이디 별로 맵에 담기
+                    for (String id : map.keySet()) {
+                        id_map = (Map<String, Object>) map.get(id);
+                    }
+
+                    Log.d("아이디 키맵", id_map.keySet().toString());
+
+                    int check_id_count = 0;
+                    for (String id_inside : id_map.keySet()) {
+
+                        //상대방 아이디 찾기
+                        if (id_inside.equals(click_chatting_list_name)) {
+                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
+                            break;
+                        }
+                        check_id_count++;
+                    }
+
+                    Log.d("체크 ", check_id_count + "/" + id_map.size());
+                    if (check_id_count == id_map.size()) {
+                        if (chat_mode.equals(Chatting.STORE_MANAGER))
+                            Initialize_Id(click_chatting_list_name, Chatting.PERSONAL);
+                        else
+                            Initialize_Id(click_chatting_list_name, Chatting.STORE_MANAGER);
+                    }
+
+
+                    for (String id_inside : id_map.keySet()) {
+
+                        //내 아이디 찾기
+                        if (id_inside.equals(userId)) {
+                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @org.jetbrains.annotations.NotNull DatabaseError error) {
+            }
+        });
+
+
+        switch (chat_mode){
+            case Chatting.PERSONAL:
+                databaseReference = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL);
+                break;
+
+            case Chatting.STORE_MANAGER:
+                databaseReference = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER);
+                break;
+        }
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @org.jetbrains.annotations.NotNull DataSnapshot dataSnapshot) {
+                map = (Map<String, Object>) dataSnapshot.getValue();
+
+                if (map != null) {
+                    //아이디 별로 맵에 담기
+                    for (String id : map.keySet()) {
+                        id_map = (Map<String, Object>) map.get(id);
+                    }
+
+
+                    Log.d(TAG, "아이디 내부 : " + id_inside_map);
+
+                    for (String in_inside_key : id_inside_map.keySet()) {
+                        switch (in_inside_key) {
+                            //아이디 -> 채팅방 리스트에 담기
+                            case "chatrooms":
+                                chatrooms_arraylist = (ArrayList<HashMap<String, String>>) id_inside_map.get(in_inside_key);
+                                break;
+
+                            //아이디 -> 채팅 내역 리스트에 담기
+                            case "chatting":
+                                chatting_arraylist = (ArrayList<HashMap<String, String>>) id_inside_map.get(in_inside_key);
+                                break;
+                        }
+                    }
+                    //상대방
+                    Log.d("상대방 내역 ", chatting_arraylist.toString() +"/" +chatting_number);
+
+                    if( chatting_arraylist.size() != chatting_number) {
+                        input_map = chatting_arraylist.get(chatting_number);
+                        chatting_map = input_map.values().toArray();
+                        chatrooms_map = (Map<String, Object>) chatting_map[0];
+                        Log.d(TAG, "채팅 내역 상세   : " + chatrooms_map.keySet());
+
+                        chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
+
+                        Log.d(TAG, "나의 채팅 내역 : " + chatting_me_arraylist);
+                        Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1));
+                        Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1).values());
+
+                        //키 인덱스 찾기
+                        Object[] send_key = chatting_me_arraylist.get(1).keySet().toArray();
+                        for (int key_index = 0; key_index < send_key.length; key_index++) {
+                            if (send_key[key_index].toString().equals(Chatting.NAME))
+                                name = key_index;
+
+                            if (send_key[key_index].toString().equals(Chatting.PROFILEUTL))
+                                profileUrl = key_index;
+
+                            if (send_key[key_index].toString().equals(Chatting.MESSAGE))
+                                message = key_index;
+
+                            if (send_key[key_index].toString().equals(Chatting.TIME))
+                                time = key_index;
+
+                            if (send_key[key_index].toString().equals(Chatting.DATE))
+                                date = key_index;
+                        }
+
+
+                        while (true) {
+                            if (me_message_count == chatting_me_arraylist.size() ||
+                                    other_message_count == chatting_other_arraylist.size())
+                                break;
+
+                            send_chatting_me = chatting_me_arraylist.get(me_message_count).values().toArray();
+                            send_chatting_other = chatting_other_arraylist.get(other_message_count).values().toArray();
+
+                            Insert_Date_Order_Item(send_chatting_me, send_chatting_other);
+
+                        }
+
+                        while (me_message_count != chatting_me_arraylist.size()) {
+                            //예외처리,,,,?
+
+                            send_chatting_me = chatting_me_arraylist.get(me_message_count).values().toArray();
+                            Check_New_Date(send_chatting_me[date].toString());
+                            chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_me[name].toString(), send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(), send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
+                            me_message_count++;
+
+                            if (me_message_count == chatting_me_arraylist.size())
+                                break;
+
+                            send_chatting_me = chatting_me_arraylist.get(me_message_count).values().toArray();
+
+                        }
+
+                        while (other_message_count != chatting_other_arraylist.size()) {
+                            Check_New_Date(send_chatting_other[date].toString());
+                            chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_other[name].toString(), send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
+                            other_message_count++;
+
+                            if (other_message_count == chatting_other_arraylist.size())
+                                break;
+
+                            send_chatting_other = chatting_other_arraylist.get(other_message_count).values().toArray();
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @org.jetbrains.annotations.NotNull DatabaseError error) {
+
+            }
+        });
+
+
+
+    }
+    //접속을 하면 상대방이 보낸 내역이 있는 지를 먼저찾아야함
+    //이를 나의 채팅방에 넣어주어햐하고 !!!!!
+    //없으면 내가 채팅을 보낼때 -> 상대방에 아이디 + 채팅방 형성 + 메세지 데이터들을 넣어주어야한다.
 
 
 

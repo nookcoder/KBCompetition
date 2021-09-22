@@ -56,10 +56,10 @@
         <activity android:name=".Added_Done_Activity" />
         <activity android:name=".Common.EmptyStoreInfo_Activity" />
         <activity android:name=".Common.Login_Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".StoreManger.StoreManager_Add_Manager_Info_Activity" />
         <activity android:name=".StoreManger.StoreManager_Add_Store_Info_Activity" />
@@ -104,7 +104,12 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face" />
 
-        <activity android:name=".Chatting.Chatting_Send_Activity" />
+        <activity android:name=".Chatting.Chatting_Send_Activity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
