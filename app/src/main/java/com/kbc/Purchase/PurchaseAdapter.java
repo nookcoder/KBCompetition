@@ -46,8 +46,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
         }
     }
 
-    public PurchaseAdapter(ArrayList<Purchase_Item> myData) {
+    public PurchaseAdapter(ArrayList<Purchase_Item> myData, OnItemClickEventListener onItemClickEventListener) {
         this.mDataset = myData;
+        this.onItemClickEventListener = onItemClickEventListener;
     }
 
     @NonNull
@@ -79,4 +80,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     public int getItemCount() {
         return mDataset.size();
     }
+
+    public Purchase_Item getPositionItem (int position){
+        return mDataset.get(position);
+    }
+
 }

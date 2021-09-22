@@ -1,5 +1,6 @@
-package com.kbc;
+package com.kbc.Purchase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
 import com.kbc.Purchase.Purchase_Item;
+import com.kbc.R;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
 
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 
 import com.kbc.Purchase.PurchaseAdapter;
 
-public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener {
+public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener, PurchaseAdapter.OnItemClickEventListener {
 
     private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
@@ -82,7 +84,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         recyclerView.setHasFixedSize(true);
 
         //어댑터 할당
-        purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList);
+        purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList,this);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
@@ -211,38 +213,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         saledBtn = (Button) v.findViewById(R.id.button3);
     }
 
-    //아이템 눌렀을때!
-    /*@Override
-    public void onItemClick(View view, int position) {
-        SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
-        ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
-        Sale_Item sale_item = new Sale_Item(
-                saleAdapter.getItem_productImageSrc(position),
-                myViewHolder.name.getText().toString() ,
-                myViewHolder.category.getText().toString(),
-                myViewHolder.stock.getText().toString(),
-                myViewHolder.price.getText().toString(),
-                saleAdapter.getItem_date_year(position),
-                saleAdapter.getItem_date_month(position),
-                saleAdapter.getItem_date_day(position),
-                saleAdapter.getItem_date_type(position),
-                saleAdapter.getItem_origin(position),
-                saleAdapter.getItem_Details(position),
-                saleAdapter.getItem_Register_Time(position));
-
-        list.add(sale_item);
-
-
-        //상품 조회 액티비티로 들어가기
-        Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
-        intent.putExtra("sale_item_list", list);
-        intent.putExtra("userID", storeManager_id);
-        intent.putExtra("location",storeManager_location);
-
-        startActivity(intent);
-
-    }
-*///스피너 형성
+///스피너 형성
     private void Create_Spinner(Spinner spinner, ArrayAdapter arrayAdapter,  int layout_type){
 
         arrayAdapter.setDropDownViewResource(layout_type);
@@ -331,5 +302,22 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(array_resource));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         town2.setAdapter(arrayAdapter);
+    }
+
+    //장보기에서 눌렀을떄!!
+    @Override
+    public void onItemClick(View view, int position) {
+        PurchaseAdapter.MyViewHolder myViewHolder = (PurchaseAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
+        ArrayList<Purchase_Item>purchase_items = new ArrayList<>();
+
+        //해당 위치 장보기 상품 담아오기
+        Purchase_Item purchase_item = purchaseAdapter.getPositionItem(position);
+        purchase_items.add(purchase_item);
+
+        //상품 조회 액티비티로 들어가기
+        Intent intent = new Intent(getActivity(),Personal_Purchase_Inquiry_Activity.class );
+        intent.putExtra("purchase_item_list", purchase_items);
+        startActivity(intent);
+
     }
 }
