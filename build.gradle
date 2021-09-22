@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.2'
         classpath 'com.google.gms:google-services:4.3.10'
-
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
@@ -17,6 +17,7 @@ allprojects {
 
         jcenter() // Warning: this repository is going to shut down soon
         maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
+        maven { url 'https://jitpack.io' }
     }
 
 }
