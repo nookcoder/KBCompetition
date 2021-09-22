@@ -1,30 +1,10 @@
-package com.kbc;
+package com.kbc.Etc;
 
 import android.app.Activity;
-import android.util.Log;
-import android.widget.ListView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.ChildEventListener;
-import com.kbc.Chatting.Chatting;
-import com.kbc.Chatting.ChattingAdapter;
-import com.kbc.Chatting.Chatting_Item;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 public class FirebaseConnector {
 

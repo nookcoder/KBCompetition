@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Common;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kbc.Personal_Add_Information;
+import com.kbc.R;
 import com.kbc.StoreManger.StoreManager_Add_Store_Info_Activity;
 
 public class EmptyStoreInfo_Activity extends AppCompatActivity {

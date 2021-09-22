@@ -1,28 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/storemanager_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/icon_color2"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text ="내 정보"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="23dp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="horizontal"
+        android:background="@color/information_background"
+        >
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/storemanager_information"
-            android:layout_width="match_parent"
+        //프로필
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/storemanager_image_profile"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_information"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+
+            />
+
+        //아이디랑 주
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/icon_color2">
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            >
+            <TextView
+                android:id="@+id/storemanager_id"
+                android:text="집밥연구소"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
 
             <TextView
-                android:id="@+id/toolbarText"
-                android:layout_width="wrap_content"
+                android:id="@+id/storemanager_location"
+                android:text="광명"
+                android:textSize="15dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="내 정보"
-                android:textSize="23dp"
-                android:textStyle="bold" />
-        </androidx.appcompat.widget.Toolbar>
+                android:layout_width="wrap_content"
+                />
+        </LinearLayout>
     </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <Button
+        android:id="@+id/notice"
+        android:text="공지사항"
+        android:gravity="left|center_vertical"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:paddingLeft="37dp"
+        android:drawableLeft="@drawable/ic_megaphone"
+        android:drawablePadding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@android:color/transparent" />
+
+
+    <Button
+        android:id="@+id/logout"
+        android:text="로그아웃"
+
+        android:gravity="left|center_vertical"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:paddingLeft="40dp"
+        android:drawableLeft="@drawable/ic_logout"
+        android:drawablePadding="20dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@android:color/transparent"
+        />
+
+
+    <Button
+        android:id="@+id/withdrawal"
+        android:text="탈퇴하기"
+        android:drawablePadding="20dp"
+        android:gravity="left|center_vertical"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:paddingLeft="40dp"
+        android:drawableLeft="@drawable/ic_remove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@android:color/transparent"
+        />
+</LinearLayout>

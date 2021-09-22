@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Purchase;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -10,10 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kbc.R;
+import com.kbc.Sale.SaleAdapter;
+import com.kbc.Sale.Sale_Item;
+
 import java.util.ArrayList;
 
 public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyViewHolder> {
-    private ArrayList<Purchase_Item> mDataset;
+    public interface OnItemClickEventListener{
+        void onItemClick(View view, int position);
+    }
+    private ArrayList<Sale_Item> mDataset;
+    private PurchaseAdapter.OnItemClickEventListener onItemClickEventListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView storeName, name, category,  price;
@@ -29,11 +37,19 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
             price = (TextView) view.findViewById(R.id.productPrice);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getLayoutPosition();
+                    onItemClickEventListener.onItemClick(v, position);
+                }
+            });
         }
     }
 
-    public PurchaseAdapter(ArrayList<Purchase_Item> myData) {
+    public PurchaseAdapter(ArrayList<Sale_Item> myData, OnItemClickEventListener onItemClickEventListener) {
         this.mDataset = myData;
+        this.onItemClickEventListener = onItemClickEventListener;
     }
 
     @NonNull
@@ -41,21 +57,33 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.purchase_item, parent, false);
+
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.storeName.setText(mDataset.get(position).getStoreName());
-        holder.name.setText(mDataset.get(position).getProductName());
+        holder.storeName.setText(mDataset.get(position).getUser_Id());
+        holder.name.setText(mDataset.get(position).getName());
         holder.category.setText(mDataset.get(position).getCategory());
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
         //클릭이벤트
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+            }
+        });
     }
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
+
+    public Sale_Item getPositionItem (int position){
+        return mDataset.get(position);
+    }
+
 }

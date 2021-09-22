@@ -22,7 +22,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kbc.Pickup.PickupAdapter;
@@ -36,8 +35,6 @@ import com.kbc.Saled.Saled_Item;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -88,9 +85,10 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         town1=(Spinner) v.findViewById(R.id.town1);
         town2=(Spinner) v.findViewById(R.id.town2);
         category=(Spinner) v.findViewById(R.id.category);
-
         //검색창
         searchView = (SearchView) v.findViewById(R.id.search_view);
+
+
 
         //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
@@ -115,7 +113,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             @Override
             public void onClick(View v) {
                 prepareData();
-                getProductFromServer("김포시");
                 recyclerView.setAdapter(purchaseAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
