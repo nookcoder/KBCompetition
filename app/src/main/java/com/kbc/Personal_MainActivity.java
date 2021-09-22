@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
+import com.kbc.Chatting.Chatting_List_Fragment;
 
 public class Personal_MainActivity extends AppCompatActivity {
 
@@ -20,10 +21,10 @@ public class Personal_MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
 
     private Personal_Purchase_Fragment personal_purchase_fragment = new Personal_Purchase_Fragment();
-    private Personal_Chatting_Fragment personal_chatting_fragment = new Personal_Chatting_Fragment();
+    private Chatting_List_Fragment personal_chatting_fragment = new Chatting_List_Fragment();
     private Personal_Information_Fragment personal_information_fragment = new Personal_Information_Fragment();
 
-    private String userId, mode, storeManager_location;
+    private String userId, mode, location;
     private Bundle bundle;
 
     @Override
@@ -33,23 +34,27 @@ public class Personal_MainActivity extends AppCompatActivity {
 
        //유저 데이터 받기
         Intent intentForGet = getIntent();
-       // userId = intentForGet.getExtras().getString("userID");
+        userId = intentForGet.getExtras().getString("userID");
 
 
         //서히 테스트용
 //        storeManager_id = "seohee";
-        userId = "seohee";
-       // storeManager_location = "광명동";
-       // mode = Chatting.STORE_MANAGER_MODE;
+//
+//        userId = "seohee";
+        location = "광명동";
+        mode = Chatting.PERSONAL;
+
         //fragment로 데이터 전달
-        /*bundle = new Bundle(3);
-        bundle.putString("id", userId);
+        bundle = new Bundle(3);
+        bundle.putString("userID", userId);
         bundle.putString("mode", mode);
-        bundle.putString("location", storeManager_location);*/
+        bundle.putString("location", location);
+
 
         personal_purchase_fragment.setArguments(bundle);
-        // storeManager_chatting_fragment.setArguments(bundle);
-        // storeManager_information_fragment.setArguments(bundle);
+        //채팅 프래그먼트에 번들 전달
+        personal_chatting_fragment.setArguments(bundle);
+
 
 
         personal_mainActivity = Personal_MainActivity.this;
@@ -80,7 +85,7 @@ public class Personal_MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.nav_chatting:
-                    //점주 아이디 번들 전달
+                    //채팅 아이디 전다
                     fragmentTransaction.replace(R.id.fragment_container, personal_chatting_fragment).commit();
                     break;
 

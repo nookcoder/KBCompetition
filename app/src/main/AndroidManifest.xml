@@ -23,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KBC"
+       android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
         <activity android:name=".Sale.StoreManager_Product_Modify_Activity"
             android:windowSoftInputMode="adjustPan"/>
@@ -36,11 +37,6 @@
         <activity
             android:name=".StoreManger.StoreManager_MainActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
@@ -68,6 +64,7 @@
         <activity android:name=".Etc.WebViewActivity" />
         <activity android:name=".Pickup.PickupDetailActivity"></activity>
         <activity android:name=".Personal_MainActivity">
+
         </activity>
         <activity android:name=".Pickup.Personal_PickupDetailActivity"></activity>
         <activity android:name=".Personal_Add_Information"></activity>
@@ -90,6 +87,8 @@
             android:theme="@style/popupTheme"/>
         <activity android:name=".Image.Image_Popup_Activity"
             android:theme="@style/popupTheme"/>
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
