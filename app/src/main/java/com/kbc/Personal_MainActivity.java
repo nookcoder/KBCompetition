@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_List_Fragment;
+import com.kbc.Purchase.Personal_Purchase_Fragment;
 
 public class Personal_MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class Personal_MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction fragmentTransaction;
 
-    private com.kbc.Personal_Purchase_Fragment personal_purchase_fragment = new com.kbc.Personal_Purchase_Fragment();
+    private Personal_Purchase_Fragment personal_purchase_fragment = new Personal_Purchase_Fragment();
     private Chatting_List_Fragment personal_chatting_fragment = new Chatting_List_Fragment();
     private Personal_Information_Fragment personal_information_fragment = new Personal_Information_Fragment();
 
