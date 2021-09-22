@@ -58,7 +58,6 @@
         <activity android:name=".Common.Login_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -72,6 +71,8 @@
 
         <activity android:name=".Personal_Add_Information" />
         <activity android:name=".Image.Image_Check_Activity" />
+        <activity android:name=".Payment">
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
