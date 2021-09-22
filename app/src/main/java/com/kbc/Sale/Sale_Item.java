@@ -44,6 +44,7 @@ public class Sale_Item implements Serializable {
         this.register_time = register_time;
     }
 
+
     public Sale_Item(String productImageSrc,  String name, String category, String price,
                      String date_year, String date_month, String date_day, String date_type,
                      String origin, String details, String register_time, String personal_Id, String user_Id,String user_location){

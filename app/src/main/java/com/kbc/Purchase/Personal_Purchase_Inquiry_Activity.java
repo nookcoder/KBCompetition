@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.kbc.Chatting.Chatting;
+import com.kbc.Chatting.Chatting_Send_Activity;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 import com.kbc.StoreManger.StoreManager_MainActivity;
@@ -76,7 +78,27 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         product_details.setText(purchase_item.getDetails());
 
 
+        //채팅 버튼 누르면 -> 유저 아이디 + 사업자 아이디 전달해야함 + mode까지 !!!!!!!!
+        chatting_imageButton.findViewById(R.id.chatting_imageButton);
+        chatting_imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chatting_intent = new Intent(personal_purchase_inquiry_activity, Chatting_Send_Activity.class);
+                chatting_intent.putExtra("mode", Chatting.PERSONAL);
+                chatting_intent.putExtra("userID", purchase_item.getPersonal_Id());
+                chatting_intent.putExtra("click_chatting_list_name", purchase_item.getUser_Id());
+                startActivity(chatting_intent);
+            }
+        });
 
+        //결제 창 누르면 -> 픽업 시간, 날짜, 선택하고, 밑에서 결제 누르고 -> 최종 결제 하면 -> -데이터 서버로 전달
+        product_payment.findViewById(R.id.product_payment);
+        product_payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
