@@ -111,6 +111,7 @@ public class Personal_Add_Information extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("user", "person");
+                    intent.putExtra("town2", town2);
                     townPostion1=towm1View.getSelectedItemPosition();
                     townPosition2=town2View.getSelectedItemPosition();
                     startActivity(intent);

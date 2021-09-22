@@ -53,6 +53,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private PickupAdapter pickupAdapter;
     private SaledAdapter saledAdapter;
 
+
+
     Button pickupBtn;
     Button saledBtn;
     Button purchaseBtn;
@@ -63,7 +65,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     private Bundle bundle;
 
-    private String storeManager_id, storeManager_location;
+    private String personal_id, personal_town2,mode;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +76,13 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.personal_purchase_fragment, container, false);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            personal_id = bundle.getString("userId");
+            personal_town2 = bundle.getString("town2");
+            mode = bundle.getString("mode");
+        }
 
         //컴포넌트 할당
         //Text
