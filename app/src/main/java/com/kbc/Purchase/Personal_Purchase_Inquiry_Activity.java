@@ -50,9 +50,6 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent intent = new Intent(personal_purchase_inquiry_activity, StoreManager_MainActivity.class);
-                intent.putExtra("userID",purchase_item.getPersonal_Id());
-                startActivity(intent);
             }
         });
 
