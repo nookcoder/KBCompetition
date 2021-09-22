@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kbc.R;
 import com.kbc.Sale.SaleAdapter;
+import com.kbc.Sale.Sale_Item;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     public interface OnItemClickEventListener{
         void onItemClick(View view, int position);
     }
-    private ArrayList<Purchase_Item> mDataset;
+    private ArrayList<Sale_Item> mDataset;
     private PurchaseAdapter.OnItemClickEventListener onItemClickEventListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -46,8 +47,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
         }
     }
 
-    public PurchaseAdapter(ArrayList<Purchase_Item> myData) {
+    public PurchaseAdapter(ArrayList<Sale_Item> myData, OnItemClickEventListener onItemClickEventListener) {
         this.mDataset = myData;
+        this.onItemClickEventListener = onItemClickEventListener;
     }
 
     @NonNull
@@ -62,8 +64,8 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.storeName.setText(mDataset.get(position).getStoreName());
-        holder.name.setText(mDataset.get(position).getProductName());
+        holder.storeName.setText(mDataset.get(position).getUser_Id());
+        holder.name.setText(mDataset.get(position).getName());
         holder.category.setText(mDataset.get(position).getCategory());
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
@@ -79,4 +81,9 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     public int getItemCount() {
         return mDataset.size();
     }
+
+    public Sale_Item getPositionItem (int position){
+        return mDataset.get(position);
+    }
+
 }
