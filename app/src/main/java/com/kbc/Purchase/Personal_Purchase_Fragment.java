@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Purchase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
+import com.kbc.Purchase.PurchaseAdapter;
 import com.kbc.R;
 import com.kbc.Sale.SaleAdapter;
 import com.kbc.Sale.Sale_Item;
@@ -40,9 +41,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener {
+public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener ,PurchaseAdapter.OnItemClickEventListener
+{
 
-    private ArrayList<Purchase_Item> purchaseItemArrayList = new ArrayList<Purchase_Item>();
+    private ArrayList<Sale_Item> purchaseItemArrayList = new ArrayList<Sale_Item>();
     private ArrayList<Pickup_Item> pickupList = new ArrayList<Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
 
@@ -95,7 +97,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         recyclerView.setHasFixedSize(true);
 
         //어댑터 할당
-        purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList);
+        purchaseAdapter = new PurchaseAdapter(purchaseItemArrayList,this);
         pickupAdapter = new PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
@@ -174,8 +176,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData() {
         purchaseItemArrayList.clear();
-        purchaseItemArrayList.add(new Purchase_Item("엔샵상점","지옥의 코딩볶음면","가공식품",10));
-        purchaseItemArrayList.add(new Purchase_Item("교촌치킨","생 닭다리","냉동식품",10));
+
     }
 
 
@@ -231,37 +232,16 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         requestQueue.add(jsonObjectRequest);
     }
 
-    //아이템 눌렀을때!
-    /*@Override
+    @Override
     public void onItemClick(View view, int position) {
-        SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
-        ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
-        Sale_Item sale_item = new Sale_Item(
-                saleAdapter.getItem_productImageSrc(position),
-                myViewHolder.name.getText().toString() ,
-                myViewHolder.category.getText().toString(),
-                myViewHolder.stock.getText().toString(),
-                myViewHolder.price.getText().toString(),
-                saleAdapter.getItem_date_year(position),
-                saleAdapter.getItem_date_month(position),
-                saleAdapter.getItem_date_day(position),
-                saleAdapter.getItem_date_type(position),
-                saleAdapter.getItem_origin(position),
-                saleAdapter.getItem_Details(position),
-                saleAdapter.getItem_Register_Time(position));
+        PurchaseAdapter.MyViewHolder myViewHolder =(PurchaseAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
 
-        list.add(sale_item);
+        ArrayList<Sale_Item>sale_items = new ArrayList<>();
+        sale_items.add(purchaseAdapter.getPositionItem(position));
 
-
-        //상품 조회 액티비티로 들어가기
-        Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
-        intent.putExtra("sale_item_list", list);
-        intent.putExtra("userID", storeManager_id);
-        intent.putExtra("location",storeManager_location);
-
+        Intent intent = new Intent(getActivity(), Personal_Purchase_Inquiry_Activity.class);
+        intent.putExtra("purchase_item_list", sale_items);
         startActivity(intent);
-
     }
-*/
 
 }

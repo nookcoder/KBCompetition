@@ -24,7 +24,6 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         purchase_item = ((ArrayList<Sale_Item>)intent.getSerializableExtra("purchase_item_list")).get(0);
 
 
-        //사업자 아이디 + 상품 이름으로 서버에서 데이터를 가져와야하는데,,,,
     }
 
 }
