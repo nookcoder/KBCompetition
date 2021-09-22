@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Common;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kbc.Personal_MainActivity;
+import com.kbc.R;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 //이전 intent 에서 유저가 누군지 받아와야됨!

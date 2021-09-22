@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Common;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.kbc.Common.Login_Activity;
+import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 import com.kbc.Sale.StoreManager_Product_Modify_Activity;
 

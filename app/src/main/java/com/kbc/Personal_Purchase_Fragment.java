@@ -1,4 +1,4 @@
-package com.kbc.Purchase;
+package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +30,7 @@ import com.kbc.Pickup.Personal_PickupAdapter;
 import com.kbc.Pickup.Personal_Pickup_Item;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
+import com.kbc.Purchase.Personal_Purchase_Inquiry_Activity;
 import com.kbc.Purchase.PurchaseAdapter;
 import com.kbc.R;
 import com.kbc.Sale.SaleAdapter;

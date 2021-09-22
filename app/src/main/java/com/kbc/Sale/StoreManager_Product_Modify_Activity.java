@@ -2,34 +2,21 @@ package com.kbc.Sale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.kbc.Popup_OneButton_Activity;
-import com.kbc.Popup_TwoButton_Activity;
+import com.kbc.Common.Popup_TwoButton_Activity;
 import com.kbc.R;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 

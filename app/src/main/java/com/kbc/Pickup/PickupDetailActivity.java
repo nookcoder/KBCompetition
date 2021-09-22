@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_Send_Activity;
-import com.kbc.Popup_TwoButton_Activity;
+import com.kbc.Common.Popup_TwoButton_Activity;
 import com.kbc.R;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 

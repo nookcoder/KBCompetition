@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Common.Intro_Activity" />
-        <activity android:name=".Added_Done_Activity" />
+        <activity android:name=".Common.Added_Done_Activity" />
         <activity android:name=".Common.EmptyStoreInfo_Activity" />
         <activity android:name=".Common.Login_Activity">
             <intent-filter>
@@ -85,11 +85,11 @@
         </provider>
 
         <activity
-            android:name=".Popup_TwoButton_Activity"
+            android:name=".Common.Popup_TwoButton_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/popupTheme" />
         <activity
-            android:name=".Popup_OneButton_Activity"
+            android:name=".Common.Popup_OneButton_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/popupTheme" />
         <activity

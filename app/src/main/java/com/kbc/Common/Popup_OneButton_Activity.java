@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Common;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.kbc.R;
 import com.kbc.Sale.StoreManager_Product_Register_Activity;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 

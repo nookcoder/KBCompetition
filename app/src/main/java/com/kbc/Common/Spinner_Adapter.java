@@ -1,4 +1,4 @@
-package com.kbc;
+package com.kbc.Common;
 
 import android.content.Context;
 import android.view.LayoutInflater;

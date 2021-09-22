@@ -12,9 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.kbc.Popup_TwoButton_Activity;
-import com.kbc.R;
-import com.kbc.StoreManger.StoreManager_MainActivity;
+import com.kbc.Common.Popup_TwoButton_Activity;
 
 public class Personal_Information_Fragment extends Fragment implements View.OnClickListener{
 
