@@ -148,6 +148,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         //임의로 설정
         townPosition1=9;townPosition2=7;
         //
+        getPersonDate(personal_id);
         town1.setSelection(townPosition1);
         town2.setSelection(townPosition2);
 
