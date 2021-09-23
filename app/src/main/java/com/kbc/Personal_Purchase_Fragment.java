@@ -39,6 +39,7 @@ import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
 import com.kbc.Server.Personal;
+import com.kbc.Server.PickUpData;
 import com.kbc.Server.RetrofitBulider;
 import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
@@ -242,6 +243,19 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2() {
         pickupList.clear();
+        Call<PickUpData> call = new RetrofitBulider().getPickUpData(personal_id);
+        call.enqueue(new Callback<PickUpData>() {
+            @Override
+            public void onResponse(Call<PickUpData> call, retrofit2.Response<PickUpData> response) {
+                PickUpData pickUpData = response.body();
+                Log.d("PickUpData",response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<PickUpData> call, Throwable t) {
+
+            }
+        });
         pickupList.add(new Personal_Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
         pickupList.add(new Personal_Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
     }

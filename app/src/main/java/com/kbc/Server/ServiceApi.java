@@ -35,6 +35,6 @@ public interface ServiceApi {
     @GET("/personal/{userId}")
     Call<Personal> getPersonalData(@Path("userId") String userId);
 
-    @GET("/pickUp/get")
-    Call<PickUpData> getPickUpDate();
+    @GET("/pickUp/{userId}")
+    Call<PickUpData> getPickUpDate(@Path("userId") String userId);
 }

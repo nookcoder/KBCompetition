@@ -1,12 +1,19 @@
 package com.kbc.Server;
 
+import android.util.Log;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBulider {
+
+    private ServiceApi serviceApi;
 
     public RetrofitBulider(){
 
@@ -19,10 +26,15 @@ public class RetrofitBulider {
         return serviceApi;
     }
 
-    public RequestBody setRequestBody(String data){
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"),data);
+    public Call<PickUpData> getPickUpData(String userId){
+        ServiceApi serviceApi;
+        serviceApi = initRetrofit();
 
-        return requestBody;
+        PickUpData returnPickUpDate;
+
+        Call<PickUpData> call = serviceApi.getPickUpDate(userId);
+
+        return call;
     }
 }
 
