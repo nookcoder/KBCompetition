@@ -79,9 +79,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         // 내 아이디
         userId = intent.getStringExtra("userID");
 
-        userId = "1915040308";
-        click_chatting_list_name = "1912728315";
-        chat_mode = Chatting.PERSONAL;
 
         chatting_number = Find_Chatting_Number(chat_mode);
 
