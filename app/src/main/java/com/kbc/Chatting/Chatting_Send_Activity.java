@@ -58,8 +58,9 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    private int chatting_number = 1;
+    private int chatting_number = 1, other_chatting_number = 1, chatting_message_count;
     private String userId, chat_mode;
+
 
 
     public Chatting_Send_Activity(){}
@@ -78,10 +79,17 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         // 내 아이디
         userId = intent.getStringExtra("userID");
 
+        userId = "1915040308";
+        click_chatting_list_name = "1912728315";
+        chat_mode = Chatting.PERSONAL;
+
         chatting_number = Find_Chatting_Number(chat_mode);
 
 
         Log.d("내 아이디", userId);
+
+        other_chatting_number = Get_Other_Communication_Chatting();
+        Log.d("상대방과 나의 채팅 기록 넘버", other_chatting_number+"");
 
         //채팅방 제목 -> 유저이름으로!!
         chatting_other_name = findViewById(R.id.other_userName);
@@ -94,6 +102,9 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         // 후에 채팅방 번호 찾기
         chatting_number = Find_Chatting_Number(chat_mode);
 
+        Log.d("나의 채팅방 번호", chatting_number+"");
+
+
         //채팅 리스트 불러오기
         recyclerView = findViewById(R.id.chatrooms_recycleView);
         linearLayoutManager = new LinearLayoutManager(this);
@@ -104,6 +115,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         chatting_send_recycleAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(chatting_send_recycleAdapter);
 
+        chatting_message_count = Get_Me_Message_Count();
 
         //메세지 입력내용 받아오기
         editText = findViewById(R.id.chatting_input_text);
@@ -120,22 +132,60 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 send_date = dateFormat_date.format(calendar.getTime());
                 send_time = dateFormat_time.format(calendar.getTime());
 
-                int chatting_message_count = Get_Me_Message_Count();
+
+
+                Log.d("채팅내역 수 " , chatting_message_count+ "");
 
                 if(chatting_message_count == 0){
                     databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
                             child("me").child(chatting_message_count+"").setValue("메세지없음");
 
-                    //상대 초기화
+                    //나의 기록에서 -> 상대 초기화
                     DatabaseReference insert_other_init = databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
                             child("other").child(chatting_message_count+"");
+
                     insert_other_init.child(Chatting.DATE).setValue("0");
                     insert_other_init.child(Chatting.MESSAGE).setValue("0");
                     insert_other_init.child(Chatting.NAME).setValue(click_chatting_list_name);
                     insert_other_init.child(Chatting.TIME).setValue("0");
                     insert_other_init.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
+                    DatabaseReference insert_other_db;
+
+                    if(chat_mode.equals(Chatting.PERSONAL)){
+                        Log.d("상대방 아이디", click_chatting_list_name);
+
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                                .child("other").child(chatting_message_count+"");
+
+                        insert_other_db.child(Chatting.DATE).setValue("0");
+                        insert_other_db.child(Chatting.MESSAGE).setValue("0");
+                        insert_other_db.child(Chatting.NAME).setValue(userId);
+                        insert_other_db.child(Chatting.TIME).setValue("0");
+                        insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
+
+                        FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                                .child("me").child("0").setValue("메세지없음");
+                    }
+                    else {
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                                .child("other").child(chatting_message_count+"");
+
+
+                        insert_other_db.child(Chatting.DATE).setValue("0");
+                        insert_other_db.child(Chatting.MESSAGE).setValue("0");
+                        insert_other_db.child(Chatting.NAME).setValue(userId);
+                        insert_other_db.child(Chatting.TIME).setValue("0");
+                        insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
+
+                        FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                                .child("me").child("0").setValue("메세지없음");
+
+                    }
+
                     chatting_message_count++;
+
+
                 }
                 //데이터베이스에 쓰기
                 DatabaseReference insert_dbRef = databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
@@ -147,6 +197,24 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 insert_dbRef.child(Chatting.TIME).setValue(send_time);
                 insert_dbRef.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
+
+                DatabaseReference insert_other_db;
+
+                if(chat_mode.equals(Chatting.PERSONAL)){
+                    insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                            .child("other").child(chatting_message_count+"");
+                }
+                else {
+                    insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                            .child("other").child(chatting_message_count+"");
+                }
+
+                insert_other_db.child(Chatting.DATE).setValue(send_date);
+                insert_other_db.child(Chatting.MESSAGE).setValue(editText.getText().toString());
+                insert_other_db.child(Chatting.NAME).setValue(userId);
+                insert_other_db.child(Chatting.TIME).setValue(send_time);
+                insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
+
                 chatting_send_recycleAdapter.addItem(new Chatting_Item(userId, "http://seohee", editText.getText().toString(), send_time, Chatting.RIGHT_CONTENT));
 
                 //키패드 안보이게!
@@ -155,7 +223,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                 editText.setText("");
 
-
+                chatting_message_count++;
                 linearLayoutManager.scrollToPosition(chatting_send_recycleAdapter.getItemCount()-1);
 
 
@@ -242,9 +310,14 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     }
                     Log.d(TAG, "카카오아이디 : "+ id_map.keySet());
 
-                    for(String id_inside : id_map.keySet())
-                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
 
+                    for (String id_inside : id_map.keySet()) {
+                        //내 아이디 찾기
+                        if (id_inside.equals(userId)) {
+                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
+                            break;
+                        }
+                    }
                         Log.d(TAG, "아이디 내부 : "+ id_inside_map);
 
                         for(String in_inside_key: id_inside_map.keySet()){
@@ -297,7 +370,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     }
 
                     if(check_id_count == id_map.size()){
-                        Initialize_Id();
+                        Initialize_Id(userId, chat_mode);
                     }
                     else {
                         for (String in_inside_key : id_inside_map.keySet()) {
@@ -346,10 +419,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     }
 
     //처음 채팅 아이디 넣기
-    private void Initialize_Id(){
+    private void Initialize_Id(String insertId, String mode){
 
-        FirebaseDatabase.getInstance().getReference(chat_mode).child("id").child(userId).child("chatrooms").child("0").setValue("채팅방없음");
-        FirebaseDatabase.getInstance().getReference(chat_mode).child("id").child(userId).child("chatting").child("0").setValue("채팅방없음");
+        FirebaseDatabase.getInstance().getReference(mode).child("id").child(insertId).child("chatrooms").child("0").setValue("채팅방없음");
+        FirebaseDatabase.getInstance().getReference(mode).child("id").child(insertId).child("chatting").child("0").setValue("채팅방없음");
 
     }
 
@@ -511,7 +584,111 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     }
 
 
+    //Personal , StoreManger
+    //접속을 하면 상대방이 보낸 내역이 있는 지를 먼저찾아야함
+    //이를 나의 채팅방에 넣어주어햐하고 !!!!!
+    //없으면 내가 채팅을 보낼때 -> 상대방에 아이디 + 채팅방 형성 + 메세지 데이터들을 넣어주어야한다.
 
+    //나 -> userId, 상대방 -> click_chatting_list_name
+
+    public int Get_Other_Communication_Chatting() {
+        switch (chat_mode) {
+            //반대로 객체 참조
+            case Chatting.PERSONAL:
+                databaseReference = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER);
+                break;
+
+            case Chatting.STORE_MANAGER:
+                databaseReference = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL);
+                break;
+        }
+
+        //상대방 먼저 있는지 체크 click_chatting_list_name
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                map = (Map<String, Object>) dataSnapshot.getValue();
+
+                if (map != null) {
+                    //아이디 별로 맵에 담기
+                    for (String id : map.keySet()) {
+                        id_map = (Map<String, Object>) map.get(id);
+                    }
+
+                    Log.d("아이디 키맵", id_map.keySet().toString());
+
+                    int check_id_count = 0;
+                    for (String id_inside : id_map.keySet()) {
+
+                        //상대방 아이디 찾기
+                        if (id_inside.equals(click_chatting_list_name)) {
+                            id_inside_map = (Map<String, Object>) id_map.get(id_inside);
+                            break;
+                        }
+                        check_id_count++;
+                    }
+
+                    Log.d("체크 ", check_id_count + "/" + id_map.toString());
+                    //상대방의 아이디는 잇는데 아직 채팅방이 없으때? 넣어주고!
+                    if (check_id_count == id_map.size()) {
+                        if (chat_mode.equals(Chatting.STORE_MANAGER))
+                            Initialize_Id(click_chatting_list_name, Chatting.PERSONAL);
+                        else
+                            Initialize_Id(click_chatting_list_name, Chatting.STORE_MANAGER);
+                    }
+                    //중간에 상대방의 아이디가 있다?
+                    else{
+                        for (String id_inside : id_map.keySet()) {
+
+                            //내 아이디 찾기
+                            if (id_inside.equals(click_chatting_list_name)) {
+                                id_inside_map = (Map<String, Object>) id_map.get(id_inside);
+                                break;
+                            }
+                        }
+                        Log.d("상대방의 채팅목록", id_inside_map.toString());
+
+                        for(String in_inside_key: id_inside_map.keySet()){
+                            switch (in_inside_key){
+                               case "chatting":
+                                    chatting_arraylist = (ArrayList<HashMap<String, String>>)id_inside_map.get(in_inside_key);
+                                    break;
+                            }
+                        }
+                        Log.d("상대방의 채팅상세내역들", chatting_arraylist.toString());
+
+                        if(chatting_arraylist.size() >1){
+
+                            for(int index = 1; index< chatting_arraylist.size(); index++){
+                                input_map = chatting_arraylist.get(index);
+                                chatting_map = input_map.values().toArray();
+                                chatrooms_map = (Map<String, Object>) chatting_map[0];
+                                Log.d(TAG, "채팅 내역 상세   : " + chatrooms_map.keySet());
+
+                                chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
+
+                                if(chatting_me_arraylist.get(0).values().toArray()[2].equals(userId)){
+                                    other_chatting_number = index;
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @org.jetbrains.annotations.NotNull DatabaseError error) {
+            }
+        });
+
+        return other_chatting_number;
+    }
 
 
 }
