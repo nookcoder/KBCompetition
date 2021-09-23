@@ -283,6 +283,9 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatting_map = input_map.values().toArray();
         chatrooms_map = (Map<String, Object>) chatting_map[0];
 
+        Log.d("어디일까", chatting_map.toString());
+        Log.d("채팅맵", chatrooms_map.toString());
+
         chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
         chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
 

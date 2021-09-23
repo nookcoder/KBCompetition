@@ -45,12 +45,6 @@ public class StoreManager_MainActivity extends AppCompatActivity {
         userId = intentForGet.getExtras().getString("userID");
         Log.d("점주 메인 ", userId);
 
-//
-//
-////        //서히 테스트용
-//        storeManager_location = "광명동";
-//        userId = "1915040308";
-
         mode = Chatting.STORE_MANAGER;
         //fragment로 데이터 전달
         bundle = new Bundle(3);
