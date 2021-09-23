@@ -12,9 +12,17 @@ public class PickUpData {
     String pickregisterTime;
     Boolean isPickUp;
 
-    public PickUpData(String merchantId, String personalId, String registerTime) {
+    public PickUpData(String merchantId, String personalId, String pickUpYear, String pickUpMonth, String pickUpDay, String pickUpNoon, String pickUpMinute, String pickUpHour, String location, String productName, String registerTime) {
         this.merchantId = merchantId;
         this.personalId = personalId;
+        this.pickUpYear = pickUpYear;
+        this.pickUpMonth = pickUpMonth;
+        this.pickUpDay = pickUpDay;
+        this.pickUpNoon = pickUpNoon;
+        this.pickUpMinute = pickUpMinute;
+        this.pickUpHour = pickUpHour;
+        this.location = location;
+        this.productName = productName;
         this.registerTime = registerTime;
     }
 

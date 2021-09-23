@@ -31,4 +31,7 @@ public interface ServiceApi {
 
     @POST("/pickUp/")
     Call<PickUpData> sendPickUpData(@Body PickUpData pickUpData);
+
+    @GET("/pickUp/get")
+    Call<PickUpData> getPickUpDate();
 }
