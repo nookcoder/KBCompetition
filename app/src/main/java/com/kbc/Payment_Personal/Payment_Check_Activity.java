@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.kbc.Payment;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 
