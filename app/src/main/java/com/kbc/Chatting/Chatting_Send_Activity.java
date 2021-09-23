@@ -135,8 +135,19 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 Log.d("채팅내역 수 " , chatting_message_count+ "");
 
                 if(chatting_message_count == 0){
+//                    databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
+//                            child("me").child(chatting_message_count+"").setValue("메세지없음");
+
                     databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
-                            child("me").child(chatting_message_count+"").setValue("메세지없음");
+                            child("me").child(chatting_message_count+"").child(Chatting.DATE).setValue("0");
+                    databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
+                            child("me").child(chatting_message_count+"").child(Chatting.MESSAGE).setValue("0");
+                    databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
+                            child("me").child(chatting_message_count+"").child(Chatting.NAME).setValue(userId);
+                    databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
+                            child("me").child(chatting_message_count+"").child(Chatting.TIME).setValue("0");
+                    databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
+                            child("me").child(chatting_message_count+"").child(Chatting.PROFILEUTL).setValue("http://seohee");
 
                     //나의 기록에서 -> 상대 초기화
                     DatabaseReference insert_other_init = databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
@@ -162,8 +173,14 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         insert_other_db.child(Chatting.TIME).setValue("0");
                         insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
-                        FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                                .child("input").child("me").child("0").setValue("메세지없음");
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                                .child("input").child("me").child("0");
+
+                        insert_other_db.child(Chatting.DATE).setValue("0");
+                        insert_other_db.child(Chatting.MESSAGE).setValue("0");
+                        insert_other_db.child(Chatting.NAME).setValue(click_chatting_list_name);
+                        insert_other_db.child(Chatting.TIME).setValue("0");
+                        insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
                     }
                     else {
                         insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
@@ -176,9 +193,14 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         insert_other_db.child(Chatting.TIME).setValue("0");
                         insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
-                        FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                                .child("input").child("me").child("0").setValue("메세지없음");
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                                .child("input").child("me").child("0");
 
+                        insert_other_db.child(Chatting.DATE).setValue("0");
+                        insert_other_db.child(Chatting.MESSAGE).setValue("0");
+                        insert_other_db.child(Chatting.NAME).setValue(click_chatting_list_name);
+                        insert_other_db.child(Chatting.TIME).setValue("0");
+                        insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
                     }
 
                     chatting_message_count++;

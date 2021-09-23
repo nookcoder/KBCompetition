@@ -2,6 +2,7 @@ package com.kbc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class Personal_MainActivity extends AppCompatActivity {
         bundle.putString("mode", mode);
         bundle.putString("town2",town2);
 
+        Log.d("유저", userId);
 
         personal_purchase_fragment.setArguments(bundle);
         personal_chatting_fragment.setArguments(bundle);
