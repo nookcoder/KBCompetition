@@ -58,7 +58,7 @@ public class Payment_Check_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         purchase_item = ((ArrayList<Sale_Item>) intent.getSerializableExtra("purchase_item_list")).get(0);
-        personal_id = intent.getExtras().getString("userId",personal_id);
+        personal_id = intent.getExtras().getString("userID",personal_id);
         personal_town2 = intent.getExtras().getString("town2",personal_town2);
 
         buyerNameInPickup = findViewById(R.id.buyerNameInPickup);
@@ -150,12 +150,12 @@ public class Payment_Check_Activity extends AppCompatActivity {
                                 intent.putExtra("userID",personal_id);
                                 intent.putExtra("merchantId",merchantId);
                                 intent.putExtra("registerTime",registerTime);
-                                intent.putExtra("pickUpYear",pickup_date_year.toString());
-                                intent.putExtra("pickUpMonth",pickup_date_month.toString());
-                                intent.putExtra("pickUpDay",pickup_date_day.toString());
-                                intent.putExtra("pickUpNoon",pickup_am_pm.toString());
-                                intent.putExtra("pickUpHour",pickup_hour.toString());
-                                intent.putExtra("pickUpMinute",pickup_minute.toString());
+                                intent.putExtra("pickUpYear",pickup_date_year.getSelectedItem().toString());
+                                intent.putExtra("pickUpMonth",pickup_date_month.getSelectedItem().toString());
+                                intent.putExtra("pickUpDay",pickup_date_day.getSelectedItem().toString());
+                                intent.putExtra("pickUpNoon",pickup_am_pm.getSelectedItem().toString());
+                                intent.putExtra("pickUpHour",pickup_hour.getSelectedItem().toString());
+                                intent.putExtra("pickUpMinute",pickup_minute.getSelectedItem().toString());
                                 intent.putExtra("location",location);
                                 intent.putExtra("productName",productName);
                                 intent.putExtra("town2",personal_town2);

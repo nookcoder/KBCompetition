@@ -108,7 +108,7 @@ public class Personal_Add_Information extends AppCompatActivity {
                     townCheck.setVisibility(view.INVISIBLE);
                     town2 = town2View.getSelectedItem().toString();
 
-                    updateUserInfo(userId,name,nicName,num,town1,town2);
+                    updateUserInfo(userId,name,nicName,num,town1,town2,townPostion1,townPosition2);
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("user", "person");
@@ -235,7 +235,7 @@ public class Personal_Add_Information extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
-    private void updateUserInfo(String userId,String userName,String nickName,String userPhoneNumber, String firstLocation, String secondLocation){
+    private void updateUserInfo(String userId,String userName,String nickName,String userPhoneNumber, String firstLocation, String secondLocation,int townPosition1,int townPosition2){
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/register";
 
         JSONObject jsonObject = new JSONObject();
@@ -246,6 +246,8 @@ public class Personal_Add_Information extends AppCompatActivity {
             jsonObject.put("userPhoneNumber",userPhoneNumber);
             jsonObject.put("firstLocation",firstLocation);
             jsonObject.put("secondLocation",secondLocation);
+            jsonObject.put("townPosition1",townPosition1);
+            jsonObject.put("townPosition2",townPosition2);
         } catch (JSONException e) {
             e.printStackTrace();
         }

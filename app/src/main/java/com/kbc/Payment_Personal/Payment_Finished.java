@@ -49,12 +49,14 @@ public class Payment_Finished extends AppCompatActivity {
         pickUpMinute = intent.getExtras().getString("pickUpMinute");
         location =intent.getExtras().getString("location");
         productName = intent.getExtras().getString("productName");
-        PickUpData pickUpData = new PickUpData(merchantId,personal_id,registerTime);
+
+        PickUpData pickUpData = new PickUpData(merchantId,personal_id,pickUpYear,pickUpMonth,pickUpDay,pickUpNoon,pickUpMinute,pickUpHour,location,productName,registerTime);
 
         next=(Button)findViewById(R.id.finished_payment);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("아이디","사업자 : " + merchantId+ "/ 개인 : "+personal_id+"/ 등록시간 : " +registerTime) ;
                 //서버로 전송
                 serviceApi = new RetrofitBulider().initRetrofit();
                 Call<PickUpData> call = serviceApi.sendPickUpData(pickUpData);
