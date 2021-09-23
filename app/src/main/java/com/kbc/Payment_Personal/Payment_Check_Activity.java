@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.kbc.Payment;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 
@@ -47,6 +46,8 @@ public class Payment_Check_Activity extends AppCompatActivity {
 
     String productName, paymentId, category,personal_id,personal_town2;
     int price, stuck;
+
+    String merchantId,registerTime,location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +143,21 @@ public class Payment_Check_Activity extends AppCompatActivity {
                             @Override
                             public void onDone(@Nullable String message) {
                                 Log.d("done", message);
+                                merchantId = purchase_item.getUser_Id();
+                                registerTime = purchase_item.getRegister_time();
+                                location = purchase_item.getUser_location();
                                 Intent intent = new Intent(Payment_Check_Activity.this,Payment_Finished.class);
                                 intent.putExtra("userID",personal_id);
+                                intent.putExtra("merchantId",merchantId);
+                                intent.putExtra("registerTime",registerTime);
+                                intent.putExtra("pickUpYear",pickup_date_year.toString());
+                                intent.putExtra("pickUpMonth",pickup_date_month.toString());
+                                intent.putExtra("pickUpDay",pickup_date_day.toString());
+                                intent.putExtra("pickUpNoon",pickup_am_pm.toString());
+                                intent.putExtra("pickUpHour",pickup_hour.toString());
+                                intent.putExtra("pickUpMinute",pickup_minute.toString());
+                                intent.putExtra("location",location);
+                                intent.putExtra("productName",productName);
                                 intent.putExtra("town2",personal_town2);
                                 startActivity(intent);
                             }
