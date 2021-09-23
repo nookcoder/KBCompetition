@@ -28,4 +28,10 @@ public interface ServiceApi {
 
     @POST("/product/register")
     Call<ProductData> sendProductData(@Body ProductData productData);
+
+    @POST("/pickUp/")
+    Call<PickUpData> sendPickUpData(@Body PickUpData pickUpData);
+
+    @GET("/pickUp/get")
+    Call<PickUpData> getPickUpDate();
 }
