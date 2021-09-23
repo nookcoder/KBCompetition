@@ -38,6 +38,9 @@ import com.kbc.Sale.Sale_Item;
 import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
+import com.kbc.Server.Personal;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
@@ -45,6 +48,9 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener ,PurchaseAdapter.OnItemClickEventListener
 {
@@ -61,7 +67,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private Personal_PickupAdapter personalPickupAdapter;
     private int townPosition1,townPosition2;
 
-
+    ServiceApi serviceApi;
 
     Button pickupBtn;
     Button saledBtn;
@@ -78,6 +84,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        serviceApi = new RetrofitBulider().initRetrofit();
     }
 
     @Override
@@ -119,7 +126,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         personalPickupAdapter = new Personal_PickupAdapter(pickupList);
         saledAdapter = new SaledAdapter(saledList);
 
-//스피너
+        //스피너
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(R.array.spinner_region));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         town1.setAdapter(arrayAdapter);
@@ -191,6 +198,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         saledBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getPersonDate(personal_id);
                 prepareData3();
                 recyclerView.setAdapter(saledAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -251,36 +259,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
-    }
-
-    private void getProductFromServer(String town){
-        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/product";
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("town",town);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("products");
-                    for(int index = 0 ; index<jsonArray.length(); index++)
-                    {
-                        setPurchaseList(jsonArray.getJSONObject(index));
-                        Log.d("purchaseList",purchaseList.get(index).getName());
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        },null);
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        requestQueue.add(jsonObjectRequest);
     }
 
     @Override
@@ -388,4 +366,51 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         town2.setAdapter(arrayAdapter);
     }
+    private void getProductFromServer(String town){
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/product";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("town",town);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("products");
+                    for(int index = 0 ; index<jsonArray.length(); index++)
+                    {
+                        setPurchaseList(jsonArray.getJSONObject(index));
+                        Log.d("purchaseList",purchaseList.get(index).getName());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        },null);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void getPersonDate(String userId){
+        Call<Personal> call = serviceApi.getPersonalData(userId);
+        call.enqueue(new Callback<Personal>() {
+            @Override
+            public void onResponse(Call<Personal> call, retrofit2.Response<Personal> response) {
+                Personal personalData = response.body();
+                townPosition1 = personalData.getTownPosition1();
+                townPosition2 = personalData.getTownPosition2();
+            }
+
+            @Override
+            public void onFailure(Call<Personal> call, Throwable t) {
+
+            }
+        });
+    }
+
 }
