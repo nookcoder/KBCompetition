@@ -25,7 +25,8 @@ public class Personal_MainActivity extends AppCompatActivity {
     private Chatting_List_Fragment personal_chatting_fragment = new Chatting_List_Fragment();
     private Personal_Information_Fragment personal_information_fragment = new Personal_Information_Fragment();
 
-    private String userId, mode, town2, storeManager_location;
+    private String mode, town2, storeManager_location;
+    public static String userId;
     private Bundle bundle;
 
     @Override
@@ -39,6 +40,9 @@ public class Personal_MainActivity extends AppCompatActivity {
         town2 = intentForGet.getExtras().getString("town2");
         mode = Chatting.PERSONAL;
 
+//        //서히 테스트용
+//        userId = "1915040308";
+//        town2 = "광명";
         //fragment로 데이터 전달
         bundle = new Bundle(3);
         bundle.putString("userID", userId);

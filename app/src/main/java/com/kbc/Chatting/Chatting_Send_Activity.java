@@ -59,7 +59,8 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    private int chatting_number = 1, other_chatting_number = 1, chatting_message_count;
+    private int chatting_number = 1, other_chatting_number = 1;
+    static int chatting_message_count;
     private String userId, chat_mode;
 
 
@@ -113,7 +114,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         chatting_send_recycleAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(chatting_send_recycleAdapter);
 
-        chatting_message_count = Get_Me_Message_Count();
 
         //메세지 입력내용 받아오기
         editText = findViewById(R.id.chatting_input_text);
@@ -129,7 +129,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                 send_date = dateFormat_date.format(calendar.getTime());
                 send_time = dateFormat_time.format(calendar.getTime());
-
 
 
                 Log.d("채팅내역 수 " , chatting_message_count+ "");
@@ -164,7 +163,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     if(chat_mode.equals(Chatting.PERSONAL)){
                         Log.d("상대방 아이디", click_chatting_list_name);
 
-                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(other_chatting_number+"")
                                 .child("input").child("other").child(chatting_message_count+"");
 
                         insert_other_db.child(Chatting.DATE).setValue("0");
@@ -173,7 +172,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         insert_other_db.child(Chatting.TIME).setValue("0");
                         insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
-                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(other_chatting_number+"")
                                 .child("input").child("me").child("0");
 
                         insert_other_db.child(Chatting.DATE).setValue("0");
@@ -183,7 +182,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
                     }
                     else {
-                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(other_chatting_number+"")
                                 .child("input").child("other").child(chatting_message_count+"");
 
 
@@ -193,7 +192,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         insert_other_db.child(Chatting.TIME).setValue("0");
                         insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
-                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                        insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(other_chatting_number+"")
                                 .child("input").child("me").child("0");
 
                         insert_other_db.child(Chatting.DATE).setValue("0");
@@ -208,8 +207,8 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                 }
                 //데이터베이스에 쓰기
-                DatabaseReference insert_dbRef = databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"").child("input").
-                        child("me").child(chatting_message_count+"");
+                DatabaseReference insert_dbRef = databaseReference.child("id").child(userId).child("chatting").child(chatting_number+"")
+                        .child("input").child("me").child(chatting_message_count+"");
 
                 insert_dbRef.child(Chatting.DATE).setValue(send_date);
                 insert_dbRef.child(Chatting.MESSAGE).setValue(editText.getText().toString());
@@ -221,11 +220,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 DatabaseReference insert_other_db;
 
                 if(chat_mode.equals(Chatting.PERSONAL)){
-                    insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                    insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(other_chatting_number+"")
                             .child("input").child("other").child(chatting_message_count+"");
                 }
                 else {
-                    insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child(click_chatting_list_name).child("chatting").child(chatting_number+"")
+                    insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(other_chatting_number+"")
                             .child("input").child("other").child(chatting_message_count+"");
                 }
 
@@ -259,6 +258,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
               case R.id.chatting_close:
                 //채팅하는곳 액티비티 닫아주고,
                   finish();
+                  chatting_message_count= 0;
               break;
 
           }
@@ -441,6 +441,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     //처음 채팅 아이디 넣기
     private void Initialize_Id(String insertId, String mode){
 
+        Log.d("처음 등록", insertId + "/" + mode);
         FirebaseDatabase.getInstance().getReference(mode).child("id").child(insertId).child("chatrooms").child("0").setValue("채팅방없음");
         FirebaseDatabase.getInstance().getReference(mode).child("id").child(insertId).child("chatting").child("0").setValue("채팅방없음");
 
@@ -455,13 +456,14 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
             chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
             chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
-//
+
+            chatting_message_count = chatting_me_arraylist.size();
             Log.d(TAG, "나의 채팅 내역 : " + chatting_me_arraylist);
-            Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1));
-            Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1).values());
+//            Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1));
+//            Log.d(TAG, "나의 채팅 기록 갯수 : " + chatting_me_arraylist.get(1).values());
 
             //키 인덱스 찾기
-            Object[] send_key = chatting_me_arraylist.get(1).keySet().toArray();
+            Object[] send_key = chatting_me_arraylist.get(0).keySet().toArray();
             for (int key_index = 0; key_index < send_key.length; key_index++) {
                 if (send_key[key_index].toString().equals(Chatting.NAME))
                     name = key_index;
@@ -508,6 +510,8 @@ public class Chatting_Send_Activity extends AppCompatActivity {
             }
 
             while (other_message_count != chatting_other_arraylist.size()) {
+                send_chatting_other = chatting_other_arraylist.get(other_message_count).values().toArray();
+
                 Check_New_Date(send_chatting_other[date].toString());
                 chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_other[name].toString(), send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
                 other_message_count++;
@@ -594,15 +598,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         }
     }
 
-
-    public int Get_Me_Message_Count(){
-        if(chatting_me_arraylist != null)
-            return chatting_me_arraylist.size() ;
-
-        return 0;
-    }
-
-
     //Personal , StoreManger
     //접속을 하면 상대방이 보낸 내역이 있는 지를 먼저찾아야함
     //이를 나의 채팅방에 넣어주어햐하고 !!!!!
@@ -639,7 +634,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                     int check_id_count = 0;
                     for (String id_inside : id_map.keySet()) {
-
+                        Log.d("음", id_inside + "/" + id_map.size());
                         //상대방 아이디 찾기
                         if (id_inside.equals(click_chatting_list_name)) {
                             id_inside_map = (Map<String, Object>) id_map.get(id_inside);
@@ -649,6 +644,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     }
 
                     Log.d("체크 ", check_id_count + "/" + id_map.toString());
+
                     //상대방의 아이디는 잇는데 아직 채팅방이 없으때? 넣어주고!
                     if (check_id_count == id_map.size()) {
                         if (chat_mode.equals(Chatting.STORE_MANAGER))
