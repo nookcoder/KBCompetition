@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 import com.kbc.R;
+import com.kbc.Sale.Sale_Item;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -153,7 +154,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         Log.d("상대방 아이디", click_chatting_list_name);
 
                         insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                                .child("other").child(chatting_message_count+"");
+                                .child("input").child("other").child(chatting_message_count+"");
 
                         insert_other_db.child(Chatting.DATE).setValue("0");
                         insert_other_db.child(Chatting.MESSAGE).setValue("0");
@@ -162,11 +163,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
                         FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                                .child("me").child("0").setValue("메세지없음");
+                                .child("input").child("me").child("0").setValue("메세지없음");
                     }
                     else {
                         insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                                .child("other").child(chatting_message_count+"");
+                                .child("input").child("other").child(chatting_message_count+"");
 
 
                         insert_other_db.child(Chatting.DATE).setValue("0");
@@ -176,7 +177,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                         insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
                         FirebaseDatabase.getInstance().getReference(Chatting.PERSONAL).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                                .child("me").child("0").setValue("메세지없음");
+                                .child("input").child("me").child("0").setValue("메세지없음");
 
                     }
 
@@ -199,11 +200,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                 if(chat_mode.equals(Chatting.PERSONAL)){
                     insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child("id").child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                            .child("other").child(chatting_message_count+"");
+                            .child("input").child("other").child(chatting_message_count+"");
                 }
                 else {
                     insert_other_db = FirebaseDatabase.getInstance().getReference(Chatting.STORE_MANAGER).child(click_chatting_list_name).child("chatting").child(chatting_number+"")
-                            .child("other").child(chatting_message_count+"");
+                            .child("input").child("other").child(chatting_message_count+"");
                 }
 
                 insert_other_db.child(Chatting.DATE).setValue(send_date);
@@ -429,7 +430,6 @@ public class Chatting_Send_Activity extends AppCompatActivity {
             input_map = chatting_arraylist.get(chatting_number);
             chatting_map = input_map.values().toArray();
             chatrooms_map = (Map<String, Object>) chatting_map[0];
-            Log.d(TAG, "채팅 내역 상세   : " + chatrooms_map.keySet());
 
             chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
             chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
@@ -638,7 +638,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                     else{
                         for (String id_inside : id_map.keySet()) {
 
-                            //내 아이디 찾기
+                            //상대방 아이디 찾기
                             if (id_inside.equals(click_chatting_list_name)) {
                                 id_inside_map = (Map<String, Object>) id_map.get(id_inside);
                                 break;
@@ -660,7 +660,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                             for(int index = 1; index< chatting_arraylist.size(); index++){
                                 input_map = chatting_arraylist.get(index);
                                 chatting_map = input_map.values().toArray();
-                                chatrooms_map = (Map<String, Object>) chatting_map[0];
+
+                                Log.d("채팅맵", chatting_map[0].toString());
+                                chatrooms_map =  (Map<String, Object>)chatting_map[0];
+
                                 Log.d(TAG, "채팅 내역 상세   : " + chatrooms_map.keySet());
 
                                 chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");

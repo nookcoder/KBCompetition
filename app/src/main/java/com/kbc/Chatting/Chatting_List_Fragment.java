@@ -93,8 +93,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         recyclerView.setAdapter(chatting_list_recycleAdapter);
 
 
-
-
         Log.d(TAG,chatting_list_recycleAdapter.getItemCount() +"");
 
         for(int index = 0 ; index < chatting_list_recycleAdapter.getItemCount() ; index++)
