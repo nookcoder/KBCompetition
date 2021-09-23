@@ -117,8 +117,7 @@ public class Login_Activity extends AppCompatActivity {
                     //개인 화면 전환!!
                     else if(selectedUser.equals("개인")) {
                         //데이터 전달 (userID)
-                        intentForPsersonO.putExtra("userID" , id);
-                        startActivity(intentForPsersonO);
+                        sendToServerPersonalData(id,intentForPsersonO,intentForPsersonX);
                     }
                     return null;
                 });
