@@ -31,7 +31,7 @@ public class Personal_Add_Information extends AppCompatActivity {
     public static final String EXTRA_ADDRESS = "address";
     public String name, nicName, num, town1, town2; //이름,닉네임,번호,시/도,시/군/구 입니다!!!!
     private String userId; //회원Id
-    private int townPostion1,townPosition2;
+    private int townPosition1,townPosition2;
     private TextView nameCheck, perconalNumCheck, nicNameCheck, townCheck;
     EditText nameView, nicNameView, numView;
 
@@ -107,14 +107,15 @@ public class Personal_Add_Information extends AppCompatActivity {
                     perconalNumCheck.setVisibility(view.INVISIBLE);
                     townCheck.setVisibility(view.INVISIBLE);
                     town2 = town2View.getSelectedItem().toString();
-
-                    updateUserInfo(userId,name,nicName,num,town1,town2,townPostion1,townPosition2);
+                    //타운포지션 설정
+                    townPosition1=towm1View.getSelectedItemPosition();
+                    townPosition2=town2View.getSelectedItemPosition();
+                    updateUserInfo(userId,name,nicName,num,town1,town2,townPosition1,townPosition2);
                     Intent intent = new Intent(getApplicationContext(), Added_Done_Activity.class);
                     intent.putExtra("userId", userId);
                     intent.putExtra("user", "person");
                     intent.putExtra("town2", town2);
-                    townPostion1=towm1View.getSelectedItemPosition();
-                    townPosition2=town2View.getSelectedItemPosition();
+
                     startActivity(intent);
                 }
             }
