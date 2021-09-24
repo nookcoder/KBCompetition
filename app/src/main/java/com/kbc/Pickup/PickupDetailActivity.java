@@ -69,6 +69,7 @@ public class PickupDetailActivity extends AppCompatActivity {
 
             }
         });
+
         //픽업 완료 버튼 할당
         Button pickupComplete = (Button)findViewById(R.id.pickupComplete);
         pickupComplete.setOnClickListener(new View.OnClickListener() {

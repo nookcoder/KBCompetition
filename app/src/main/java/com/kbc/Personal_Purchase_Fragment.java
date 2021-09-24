@@ -1,7 +1,9 @@
 package com.kbc;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,8 @@ import com.kbc.Server.ServiceApi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.function.LongFunction;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,6 +76,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     Spinner town1,town2,category;
     Button search;
     SearchView searchView;
+
 
     private Bundle bundle;
 
@@ -147,6 +152,9 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         town1.setSelection(townPosition1);
         town2.setSelection(townPosition2);
+
+        Log.d("town2", String.valueOf(townPosition1)+String.valueOf(townPosition2));
+
 
         //리사이클러뷰 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -398,11 +406,14 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     private void getProductFromServer(String town){
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/product";
         JSONObject jsonObject = new JSONObject();
+
         try {
             jsonObject.put("town",town);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -426,13 +437,19 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     }
 
     private void getPersonDate(String userId){
+
+
+        Log.d("town", userId);
+
         Call<Personal> call = serviceApi.getPersonalData(userId);
+
         call.enqueue(new Callback<Personal>() {
             @Override
             public void onResponse(Call<Personal> call, retrofit2.Response<Personal> response) {
                 Personal personalData = response.body();
                 townPosition1 = personalData.getTownPosition1();
                 townPosition2 = personalData.getTownPosition2();
+                Log.d("개인 데이터", personalData.getTownPosition2() +"/"+ personalData.getNickName());
                 Log.d("town", String.valueOf(townPosition1)+String.valueOf(townPosition2));
             }
 
@@ -441,6 +458,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 Log.d("town",t.getMessage());
             }
         });
+
     }
 
 }
