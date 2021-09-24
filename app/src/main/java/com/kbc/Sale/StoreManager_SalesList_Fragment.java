@@ -22,18 +22,27 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.kbc.Common.Creating;
+import com.kbc.Pickup.Personal_Pickup_Item;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
 import com.kbc.R;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
+import com.kbc.Server.PickUpData;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class StoreManager_SalesList_Fragment extends Fragment implements View.OnClickListener, SaleAdapter.OnItemClickEventListener {
 
@@ -53,12 +62,14 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     TextView toolbarText;
 
     private Bundle bundle;
-
+    private ServiceApi serviceApi;
     private String storeManager_id, storeManager_location;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        serviceApi = new RetrofitBulider().initRetrofit();
     }
 
     @Override
@@ -140,26 +151,28 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         pickupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareData2();
+                prepareData2(storeManager_id);
                 recyclerView.setAdapter(pickupAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 toolbarText.setText("픽업대기중");
                 addProductBtn.setVisibility(View.INVISIBLE);
+                pickupAdapter.notifyDataSetChanged();
             }
         });
         //판매 완료 버튼 눌렀을 때!
         saledBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareData3();
+                prepareData3(storeManager_id);
                 recyclerView.setAdapter(saledAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 saledBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 toolbarText.setText("판매완료");
                 addProductBtn.setVisibility(View.INVISIBLE);
+                saledAdapter.notifyDataSetChanged();
             }
         });
         return v;
@@ -222,17 +235,47 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData2() {
-        pickupList.clear();
-        pickupList.add(new Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
-        pickupList.add(new Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
+    private void prepareData2(String userId) {
+      //  pickupList.clear();
+        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
+        call.enqueue(new Callback<List<PickUpData>>() {
+            @Override
+            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
+                List<PickUpData> pickUpDataList = response.body();
+                for(int index=0; index < pickUpDataList.size(); index++){
+                    PickUpData pickUpData = pickUpDataList.get(index);
+                    if(pickUpData.getPickUp()==0){
+                        pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
+            }
+        });
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData3() {
+    private void prepareData3(String userId) {
         saledList.clear();
-        saledList.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
-        saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
+        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
+        call.enqueue(new Callback<List<PickUpData>>() {
+            @Override
+            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
+                List<PickUpData> pickUpDataList = response.body();
+                for(int index=0; index < pickUpDataList.size(); index++){
+                    PickUpData pickUpData = pickUpDataList.get(index);
+                    if(pickUpData.getPickUp()==1){
+                        saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
+            }
+        });
     }
 
     //버튼 할당
@@ -252,7 +295,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saleAdapter.getItem_productImageSrc(position),
                 myViewHolder.name.getText().toString() ,
                 myViewHolder.category.getText().toString(),
-               myViewHolder.price.getText().toString(),
+                myViewHolder.price.getText().toString(),
                 saleAdapter.getItem_date_year(position),
                 saleAdapter.getItem_date_month(position),
                 saleAdapter.getItem_date_day(position),

@@ -25,6 +25,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Common.Creating;
 import com.kbc.Pickup.Personal_PickupAdapter;
 import com.kbc.Pickup.Personal_Pickup_Item;
 import com.kbc.Purchase.Personal_Purchase_Inquiry_Activity;
@@ -243,20 +244,17 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         call.enqueue(new Callback<List<PickUpData>>() {
             @Override
             public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
-                Log.d("픽업","통신성공");
                 List<PickUpData> pickUpDataList = response.body();
                 for(int index=0; index < pickUpDataList.size(); index++){
                     PickUpData pickUpData = pickUpDataList.get(index);
                     if(pickUpData.getPickUp()==0){
-                        pickupList.add(new Personal_Pickup_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),createPickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),createPickUpDate(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
-                        Log.d("픽업","들어왔어욤");
+                        pickupList.add(new Personal_Pickup_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<PickUpData>> call, Throwable t) {
-                Log.d("픽업",t.getMessage());
             }
         });
     }
@@ -268,31 +266,19 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         call.enqueue(new Callback<List<PickUpData>>() {
             @Override
             public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
-                Log.d("픽업","통신성공");
                 List<PickUpData> pickUpDataList = response.body();
                 for(int index=0; index < pickUpDataList.size(); index++){
                     PickUpData pickUpData = pickUpDataList.get(index);
                     if(pickUpData.getPickUp()==1){
-                        saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),createPickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),createPickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                        saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<PickUpData>> call, Throwable t) {
-                Log.d("픽업",t.getMessage());
             }
         });
-    }
-
-    // pickUpDate 출력 함수
-    private String createPickUpDate(String year,String month,String day){
-        return year+"/"+month+"/"+day+"/";
-    }
-
-    // pickUpTime 출력함수
-    private String createPickUpTime(String noon,String hour,String minute){
-        return noon + " "+hour+"시"+minute+"분";
     }
 
     //버튼 할당
