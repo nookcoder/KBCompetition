@@ -381,6 +381,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         requestQueue.add(jsonObjectRequest);
     }
+    private void getPersonDate(String userId){
+        ArrayList<Integer> position = new ArrayList<>();
+        Call<Personal> call = serviceApi.getPersonalData(userId);
+        new Insert_Position().execute(call);
+    }
     private class Insert_Position extends AsyncTask<Call, Void, ArrayList<Integer>>{
 
         ArrayList<Integer> townPosition = new ArrayList<>();
@@ -406,33 +411,14 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             town1 = (Spinner)v.findViewById(R.id.town1);
             town2 = (Spinner)v.findViewById(R.id.town2);
 
+            townPosition1 = townPosition.get(0);
+            townPosition2 = townPosition.get(1);
+
             town1.setSelection(townPosition.get(0));
             initAddressSpinner(townPosition.get(1));
 
 
         }
-    }
-
-    private void getPersonDate(String userId){
-        ArrayList<Integer> position = new ArrayList<>();
-
-        Call<Personal> call = serviceApi.getPersonalData(userId);
-//        call.enqueue(new Callback<Personal>() {
-//            @Override
-//            public void onResponse(Call<Personal> call, retrofit2.Response<Personal> response) {
-//                Personal personalData = response.body();
-//                townPosition1 = personalData.getTownPosition1();
-//                townPosition2 = personalData.getTownPosition2();
-//                Log.d("개인 데이터", personalData.getTownPosition2() +"/"+ personalData.getNickName());
-//                Log.d("town", String.valueOf(townPosition1)+String.valueOf(townPosition2));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Personal> call, Throwable t) {
-//                Log.d("town",t.getMessage());
-//            }
-//        });
-
     }
 
     //픽업대기중
@@ -499,7 +485,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             saledAdapter.notifyDataSetChanged();
         }
     }
-
 }
 
 
