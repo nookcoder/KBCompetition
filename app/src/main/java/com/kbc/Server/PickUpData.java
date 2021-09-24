@@ -1,16 +1,43 @@
 package com.kbc.Server;
 
+import androidx.annotation.NonNull;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
 public class PickUpData {
+    @SerializedName("merchantId")
     String merchantId;
+    @SerializedName("merchantName")
     String merchantName;
+    @SerializedName("personalId")
     String personalId;
+    @SerializedName("personalName")
     String personalName;
-    String pickUpYear, pickUpMonth,pickUpDay;
-    String pickUpNoon, pickUpMinute,pickUpHour;
-    String location, productName;
+    @SerializedName("pickUpYear")
+    String pickUpYear;
+    @SerializedName("pickUpMonth")
+    String pickUpMonth;
+    @SerializedName("pickUpDay")
+    String pickUpDay;
+    @SerializedName("pickUpNoon")
+    String pickUpNoon;
+    @SerializedName("pickUpMinute")
+    String pickUpMinute;
+    @SerializedName("pickUpHour")
+    String pickUpHour;
+    @SerializedName("location")
+    String location;
+    @SerializedName("productName")
+    String productName;
+    @SerializedName("registerTime")
     String registerTime;
+    @SerializedName("pickregisterTime")
     String pickregisterTime;
-    Boolean isPickUp;
+    @SerializedName("isPickUp")
+    int isPickUp;
 
     public PickUpData(String merchantId, String personalId, String pickUpYear, String pickUpMonth, String pickUpDay, String pickUpNoon, String pickUpMinute, String pickUpHour, String location, String productName, String registerTime) {
         this.merchantId = merchantId;
@@ -130,14 +157,13 @@ public class PickUpData {
         this.registerTime = registerTime;
     }
 
-    public Boolean getPickUp() {
+    public int getPickUp() {
         return isPickUp;
     }
 
-    public void setPickUp(Boolean pickUp) {
+    public void setPickUp(int pickUp) {
         isPickUp = pickUp;
     }
-
 
     public String getPickregisterTime() {
         return pickregisterTime;
@@ -146,4 +172,5 @@ public class PickUpData {
     public void setPickregisterTime(String pickregisterTime) {
         this.pickregisterTime = pickregisterTime;
     }
+
 }

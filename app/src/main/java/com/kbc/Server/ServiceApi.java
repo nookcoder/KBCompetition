@@ -2,9 +2,12 @@ package com.kbc.Server;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -35,6 +38,7 @@ public interface ServiceApi {
     @GET("/personal/{userId}")
     Call<Personal> getPersonalData(@Path("userId") String userId);
 
-    @GET("/pickUp/get")
-    Call<PickUpData> getPickUpDate();
+    @GET("/pickUp/{userId}")
+    Call<List<PickUpData>> getPickUpDate(@Path("userId") String userId);
+
 }
