@@ -8,12 +8,11 @@ public class Pickup_Item {
     private ImageView imageView; //임의로 설정
     private String registerTime;
 
-    public Pickup_Item(String buyerName, String productNameInPickupList, String pickupDate, String pickupTime, String registerTime) {
+    public Pickup_Item(String buyerName, String productNameInPickupList, String pickupDate, String pickupTime) {
         this.buyerName = buyerName;
         this.productNameInPickupList = productNameInPickupList;
         this.pickupDate = pickupDate;
         this.pickupTime = pickupTime;
-        this.registerTime = registerTime;
     }
 
     public String getBuyerName() {
