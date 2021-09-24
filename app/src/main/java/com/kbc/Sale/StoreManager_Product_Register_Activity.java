@@ -346,8 +346,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             @Override
 
             public void onResponse(Call<ProductData> call, Response<ProductData> response) {
-                ProductData productData = response.body();
-                Log.d("filePaht",productData.getName());
             }
 
             @Override
