@@ -149,6 +149,8 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         initAddressSpinner();
 
 
+        Log.d("개인 아이디", personal_id);
+
         Call<Personal> call = serviceApi.getPersonalData(personal_id);
         new Insert_Position().execute(call);
 //        //설정
@@ -432,7 +434,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     private void getPersonDate(String userId){
         Call<Personal> call = serviceApi.getPersonalData(userId);
-
         call.enqueue(new Callback<Personal>() {
             @Override
             public void onResponse(Call<Personal> call, retrofit2.Response<Personal> response) {
@@ -476,13 +477,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
             town1.setSelection(townPosition.get(0));
             town2.setSelection(townPosition.get(1));
+
             Log.d("town-2", townPosition.get(0) + "/"+ townPosition.get(1)
             + "/ " + town1.getSelectedItemPosition() + "/" + town2.getSelectedItemPosition());
         }
-
     }
-
-
 }
 
 
