@@ -8,6 +8,6 @@ public class Creating {
 
     // pickUpTime 출력함수
     public String pickUpTime(String noon,String hour,String minute){
-        return noon + " "+hour+"시"+minute+"분";
+        return noon + " "+hour+" "+minute+" ";
     }
 }

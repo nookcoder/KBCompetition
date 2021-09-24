@@ -62,6 +62,7 @@ public class PickupAdapter extends RecyclerView.Adapter<PickupAdapter.MyViewHold
                 intent.putExtra("productNameInPickupList",mDataset.get(position).getProductNameInPickupList());
                 intent.putExtra("pickupDate",mDataset.get(position).getPickupDate());
                 intent.putExtra("pickupTime",mDataset.get(position).getPickupTime());
+                intent.putExtra("registerTime",mDataset.get(position).getRegisterTime());
 
                 view.getContext().startActivity(intent); //액티비티 열기
 

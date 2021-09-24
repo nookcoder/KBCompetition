@@ -41,4 +41,7 @@ public interface ServiceApi {
     @GET("/pickUp/{userId}")
     Call<List<PickUpData>> getPickUpDate(@Path("userId") String userId);
 
+    @POST("/pickUp/done/{userId}")
+    Call<PickUpData> donePickUp(@Path("userId") String userId,@Body PickUpData pickUpData);
+
 }
