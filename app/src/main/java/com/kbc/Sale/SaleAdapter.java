@@ -1,9 +1,13 @@
 package com.kbc.Sale;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kbc.R;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
@@ -25,13 +31,14 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, category,price;
-        //public ImageView productImage;
+
+        public ImageView productImage;
         public Drawable d;
         //ViewHolder
         public MyViewHolder(View view) {
             super(view);
 
-           // productImage = (ImageView) view.findViewById(R.id.productImage);
+            productImage = (ImageView) view.findViewById(R.id.productImage);
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
             price = (TextView) view.findViewById(R.id.productPrice);
@@ -77,6 +84,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
                 //activity.getFragmentManager().beginTransaction().replace(R.id.fragment_place, new Fragment1()).addToBackStack(null).commit();
             }
         });
+
     }
 
 
@@ -101,4 +109,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
     public String getItem_Register_Time(int position){
         return mDataset.get(position).getRegister_time();
     }
+
+
+
 }
