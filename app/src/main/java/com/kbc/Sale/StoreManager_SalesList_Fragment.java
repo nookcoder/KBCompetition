@@ -236,7 +236,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
     private void prepareData2(String userId) {
-      //  pickupList.clear();
+        pickupList.clear();
         Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
         call.enqueue(new Callback<List<PickUpData>>() {
             @Override
@@ -245,7 +245,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 for(int index=0; index < pickUpDataList.size(); index++){
                     PickUpData pickUpData = pickUpDataList.get(index);
                     if(pickUpData.getPickUp()==0){
-                        pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                        pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute()),pickUpData.getPickregisterTime()));
                     }
                 }
             }
