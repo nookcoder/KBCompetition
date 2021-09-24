@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,9 @@ public interface ServiceApi {
 
     @POST("/pickUp/done/{userId}")
     Call<PickUpData> donePickUp(@Path("userId") String userId,@Body PickUpData pickUpData);
+
+    @Multipart
+    @POST("/product/registerimg")
+    Call<ProductData> sendProduct(@PartMap Map<String,RequestBody> map, @Part ArrayList<MultipartBody.Part> itempImg);
 
 }
