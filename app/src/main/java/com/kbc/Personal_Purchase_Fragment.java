@@ -24,27 +24,21 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kbc.Pickup.Personal_PickupAdapter;
 import com.kbc.Pickup.Personal_Pickup_Item;
-import com.kbc.Pickup.PickupAdapter;
-import com.kbc.Pickup.Pickup_Item;
 import com.kbc.Purchase.Personal_Purchase_Inquiry_Activity;
 import com.kbc.Purchase.PurchaseAdapter;
-import com.kbc.R;
-import com.kbc.Sale.SaleAdapter;
 import com.kbc.Sale.Sale_Item;
-import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
 import com.kbc.Saled.SaledAdapter;
 import com.kbc.Saled.Saled_Item;
 import com.kbc.Server.Personal;
+import com.kbc.Server.PickUpData;
 import com.kbc.Server.RetrofitBulider;
 import com.kbc.Server.ServiceApi;
-import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -183,7 +177,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         pickupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareData2();
+                prepareData2(personal_id);
                 recyclerView.setAdapter(personalPickupAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
@@ -194,6 +188,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 search.setVisibility(View.GONE);
                 searchView.setVisibility(View.GONE);
                 toolbarText.setText("픽업대기중");
+                personalPickupAdapter.notifyDataSetChanged();
             }
         });
         //판매 완료 버튼 눌렀을 때!
@@ -201,7 +196,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             @Override
             public void onClick(View v) {
                 getPersonDate(personal_id);
-                prepareData3();
+                prepareData3(personal_id);
                 recyclerView.setAdapter(saledAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -242,17 +237,62 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData2() {
+    private void prepareData2(String userId) {
         pickupList.clear();
-        pickupList.add(new Personal_Pickup_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
-        pickupList.add(new Personal_Pickup_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
+        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
+        call.enqueue(new Callback<List<PickUpData>>() {
+            @Override
+            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
+                Log.d("픽업","통신성공");
+                List<PickUpData> pickUpDataList = response.body();
+                for(int index=0; index < pickUpDataList.size(); index++){
+                    PickUpData pickUpData = pickUpDataList.get(index);
+                    if(pickUpData.getPickUp()==0){
+                        pickupList.add(new Personal_Pickup_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),createPickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),createPickUpDate(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                        Log.d("픽업","들어왔어욤");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
+                Log.d("픽업",t.getMessage());
+            }
+        });
     }
 
     //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData3() {
+    private void prepareData3(String userId) {
         saledList.clear();
-        saledList.add(new Saled_Item("직거래좋아요","동글동글 방울토마토 100g","21/09/08","오후 6시30분"));
-        saledList.add(new Saled_Item("떠리처리","눈물 쏙 양파","21/09/08","오후 9시30분"));
+        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
+        call.enqueue(new Callback<List<PickUpData>>() {
+            @Override
+            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
+                Log.d("픽업","통신성공");
+                List<PickUpData> pickUpDataList = response.body();
+                for(int index=0; index < pickUpDataList.size(); index++){
+                    PickUpData pickUpData = pickUpDataList.get(index);
+                    if(pickUpData.getPickUp()==1){
+                        saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),createPickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),createPickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
+                Log.d("픽업",t.getMessage());
+            }
+        });
+    }
+
+    // pickUpDate 출력 함수
+    private String createPickUpDate(String year,String month,String day){
+        return year+"/"+month+"/"+day+"/";
+    }
+
+    // pickUpTime 출력함수
+    private String createPickUpTime(String noon,String hour,String minute){
+        return noon + " "+hour+"시"+minute+"분";
     }
 
     //버튼 할당
@@ -368,6 +408,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         town2.setAdapter(arrayAdapter);
     }
+
     private void getProductFromServer(String town){
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/product";
         JSONObject jsonObject = new JSONObject();

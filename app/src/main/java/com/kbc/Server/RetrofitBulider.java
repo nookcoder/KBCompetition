@@ -2,6 +2,8 @@ package com.kbc.Server;
 
 import android.util.Log;
 
+import java.util.List;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -24,14 +26,6 @@ public class RetrofitBulider {
 
 
         return serviceApi;
-    }
-
-    public Call<PickUpData> getPickUpData(String userId){
-        ServiceApi serviceApi = new Retrofit.Builder().baseUrl("http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000").addConverterFactory(GsonConverterFactory.create()).build().create(ServiceApi.class);
-
-        Call<PickUpData> call = serviceApi.getPickUpDate(userId);
-
-        return call;
     }
 }
 
