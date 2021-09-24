@@ -57,7 +57,7 @@ import retrofit2.Callback;
 public class Personal_Purchase_Fragment extends Fragment implements View.OnClickListener ,PurchaseAdapter.OnItemClickEventListener
 {
 
-    private ArrayList<Sale_Item> purchaseList = new ArrayList<Sale_Item>();
+    private ArrayList<Sale_Item> purchaseList  = new ArrayList<Sale_Item>();
     private ArrayList<Personal_Pickup_Item> pickupList = new ArrayList<Personal_Pickup_Item>();
     private ArrayList<Saled_Item> saledList = new ArrayList<Saled_Item>();
 
@@ -154,10 +154,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         Call<Personal> call = serviceApi.getPersonalData(personal_id);
         new Insert_Position().execute(call);
 //        //설정
-//        getPersonDate(personal_id);
-
-//        town1.setSelection(townPosition1);
-//        town2.setSelection(townPosition2);
+//        ArrayList<Integer>position = new ArrayList<>();
+//        position = getPersonDate(personal_id);
+//
+//        town1.setSelection(position.get(0));
+//        town2.setSelection(position.get(1));
 
 
         //리사이클러뷰 설정
@@ -433,22 +434,24 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     }
 
     private void getPersonDate(String userId){
-        Call<Personal> call = serviceApi.getPersonalData(userId);
-        call.enqueue(new Callback<Personal>() {
-            @Override
-            public void onResponse(Call<Personal> call, retrofit2.Response<Personal> response) {
-                Personal personalData = response.body();
-                townPosition1 = personalData.getTownPosition1();
-                townPosition2 = personalData.getTownPosition2();
-                Log.d("개인 데이터", personalData.getTownPosition2() +"/"+ personalData.getNickName());
-                Log.d("town", String.valueOf(townPosition1)+String.valueOf(townPosition2));
-            }
+        ArrayList<Integer> position = new ArrayList<>();
 
-            @Override
-            public void onFailure(Call<Personal> call, Throwable t) {
-                Log.d("town",t.getMessage());
-            }
-        });
+        Call<Personal> call = serviceApi.getPersonalData(userId);
+//        call.enqueue(new Callback<Personal>() {
+//            @Override
+//            public void onResponse(Call<Personal> call, retrofit2.Response<Personal> response) {
+//                Personal personalData = response.body();
+//                townPosition1 = personalData.getTownPosition1();
+//                townPosition2 = personalData.getTownPosition2();
+//                Log.d("개인 데이터", personalData.getTownPosition2() +"/"+ personalData.getNickName());
+//                Log.d("town", String.valueOf(townPosition1)+String.valueOf(townPosition2));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Personal> call, Throwable t) {
+//                Log.d("town",t.getMessage());
+//            }
+//        });
 
     }
 
@@ -462,6 +465,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 Personal personalData = call.execute().body();
                 townPosition.add(personalData.getTownPosition1());
                 townPosition.add(personalData.getTownPosition2());
+
                 return  townPosition;
 
             }catch (Exception e){
