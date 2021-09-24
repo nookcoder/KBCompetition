@@ -1,6 +1,8 @@
 package com.kbc.Sale;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +38,9 @@ import com.kbc.Server.RetrofitBulider;
 import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -183,7 +188,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //판매중~
     private void setSalesList(JSONObject jsonObject){
         try {
-            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
+            salesList.add(new Sale_Item("http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/img/request",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
             Log.d("salesList",jsonObject.getString("category"));
         } catch (JSONException e) {
             e.printStackTrace();
