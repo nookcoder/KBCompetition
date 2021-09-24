@@ -145,20 +145,10 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        //스피너 초기 설정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        initAddressSpinner();
-
-
         Log.d("개인 아이디", personal_id);
 
         Call<Personal> call = serviceApi.getPersonalData(personal_id);
         new Insert_Position().execute(call);
-//        //설정
-//        ArrayList<Integer>position = new ArrayList<>();
-//        position = getPersonDate(personal_id);
-//
-//        town1.setSelection(position.get(0));
-//        town2.setSelection(position.get(1));
 
 
         //리사이클러뷰 설정
@@ -173,7 +163,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         purchaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getProductFromServer("김포시");
+                getProductFromServer(town2.getSelectedItem().toString());
                 recyclerView.setAdapter(purchaseAdapter);
                 purchaseBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -202,7 +192,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                 search.setVisibility(View.GONE);
                 searchView.setVisibility(View.GONE);
                 toolbarText.setText("픽업대기중");
-                personalPickupAdapter.notifyDataSetChanged();
             }
         });
         //판매 완료 버튼 눌렀을 때!
@@ -230,60 +219,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     public void onResume() {
         super.onResume();
         purchaseAdapter.notifyDataSetChanged();
-    }
-
-    //장보기 물품 담아주는 함수 !!!!!!!!!
-    private void setPurchaseList(JSONObject jsonObject){
-        try {
-            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),personal_id,jsonObject.getString("userId"),jsonObject.getString("location")));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        purchaseAdapter.notifyDataSetChanged();
-    }
-
-    //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData2(String userId) {
-        pickupList.clear();
-        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
-        call.enqueue(new Callback<List<PickUpData>>() {
-            @Override
-            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
-                List<PickUpData> pickUpDataList = response.body();
-                for(int index=0; index < pickUpDataList.size(); index++){
-                    PickUpData pickUpData = pickUpDataList.get(index);
-                    if(pickUpData.getPickUp()==0){
-                        pickupList.add(new Personal_Pickup_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
-            }
-        });
-    }
-
-    //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData3(String userId) {
-        saledList.clear();
-        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
-        call.enqueue(new Callback<List<PickUpData>>() {
-            @Override
-            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
-                List<PickUpData> pickUpDataList = response.body();
-                for(int index=0; index < pickUpDataList.size(); index++){
-                    PickUpData pickUpData = pickUpDataList.get(index);
-                    if(pickUpData.getPickUp()==1){
-                        saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
-            }
-        });
     }
 
     //버튼 할당
@@ -318,7 +253,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     }
 
-    private void initAddressSpinner() {
+    private synchronized void initAddressSpinner(int index) {
         town1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -328,59 +263,61 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                         town2.setAdapter(null);
                         break;
                     case 1:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_seoul,index);
                         break;
                     case 2:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_busan);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_busan,index);
                         break;
                     case 3:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daegu);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daegu,index);
                         break;
                     case 4:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_incheon);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_incheon,index);
                         break;
                     case 5:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gwangju);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gwangju,index);
                         break;
                     case 6:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daejeon);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_daejeon,index);
                         break;
                     case 7:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_ulsan);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_ulsan,index);
                         break;
                     case 8:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_sejong);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_sejong,index);
                         break;
                     case 9:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeonggi);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeonggi,index);
                         break;
                     case 10:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gangwon);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gangwon,index);
                         break;
                     case 11:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_buk);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_buk,index);
                         break;
                     case 12:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_nam);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_chung_nam,index);
 
                         break;
                     case 13:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_buk);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_buk,index);
                         break;
                     case 14:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_nam);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeon_nam,index);
                         break;
                     case 15:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_buk);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_buk,index);
                         break;
                     case 16:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_nam);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_gyeong_nam,index);
                         break;
                     case 17:
-                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeju);
+                        setSigunguSpinnerAdapterItem(R.array.spinner_region_jeju,index);
                         break;
 
                 }
+                Log.d("spinner", "town 1");
+
             }
 
             @Override
@@ -389,7 +326,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             }
         });
     }
-    private void setSigunguSpinnerAdapterItem(int array_resource) {
+    private void setSigunguSpinnerAdapterItem(int array_resource, int index) {
         if (arrayAdapter != null) {
             town2.setAdapter(null);
             arrayAdapter = null;
@@ -398,8 +335,19 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, (String[]) getResources().getStringArray(array_resource));
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         town2.setAdapter(arrayAdapter);
+        town2.setSelection(index);
+        getProductFromServer(town2.getSelectedItem().toString());
     }
 
+    //장보기 물품 담아주는 함수 !!!!!!!!!
+    private void setPurchaseList(JSONObject jsonObject){
+        try {
+            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),personal_id,jsonObject.getString("userId"),jsonObject.getString("location")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        purchaseAdapter.notifyDataSetChanged();
+    }
     private void getProductFromServer(String town){
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/product";
         JSONObject jsonObject = new JSONObject();
@@ -416,6 +364,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    purchaseList.clear();
                     JSONArray jsonArray = response.getJSONArray("products");
                     for(int index = 0 ; index<jsonArray.length(); index++)
                     {
@@ -431,6 +380,37 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         requestQueue.add(jsonObjectRequest);
+    }
+    private class Insert_Position extends AsyncTask<Call, Void, ArrayList<Integer>>{
+
+        ArrayList<Integer> townPosition = new ArrayList<>();
+        @Override
+        protected ArrayList<Integer> doInBackground(Call... calls) {
+            try{
+                Call<Personal> call = calls[0];
+                Personal personalData = call.execute().body();
+                townPosition.add(personalData.getTownPosition1());
+                townPosition.add(personalData.getTownPosition2());
+
+                return  townPosition;
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Integer> townPosition){
+
+            town1 = (Spinner)v.findViewById(R.id.town1);
+            town2 = (Spinner)v.findViewById(R.id.town2);
+
+            town1.setSelection(townPosition.get(0));
+            initAddressSpinner(townPosition.get(1));
+
+
+        }
     }
 
     private void getPersonDate(String userId){
@@ -455,37 +435,71 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     }
 
-    private class Insert_Position extends AsyncTask<Call, Void, ArrayList<Integer>>{
+    //픽업대기중
+    private void prepareData2(String userId) {
+        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
+        new Insert_PickUp().execute(call);
+    }
+    private class Insert_PickUp extends AsyncTask<Call<List<PickUpData>>, Void, List<PickUpData>>{
 
-        ArrayList<Integer> townPosition = new ArrayList<>();
         @Override
-        protected ArrayList<Integer> doInBackground(Call... calls) {
+        protected List<PickUpData> doInBackground(Call<List<PickUpData>>... calls) {
             try{
-                Call<Personal> call = calls[0];
-                Personal personalData = call.execute().body();
-                townPosition.add(personalData.getTownPosition1());
-                townPosition.add(personalData.getTownPosition2());
-
-                return  townPosition;
+                Call<List<PickUpData>> call = calls[0];
+                return  call.execute().body();
 
             }catch (Exception e){
                 e.printStackTrace();
             }
             return null;
         }
-
         @Override
-        protected void onPostExecute(ArrayList<Integer> townPosition){
-            town1 = (Spinner)v.findViewById(R.id.town1);
-            town2 = (Spinner)v.findViewById(R.id.town2);
+        protected void onPostExecute(List<PickUpData> pickUpDataList){
+            pickupList.clear();
+            for(int index=0; index < pickUpDataList.size(); index++){
+                PickUpData pickUpData = pickUpDataList.get(index);
+                if(pickUpData.getPickUp()==0){
+                    pickupList.add(new Personal_Pickup_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                }
+            }
 
-            town1.setSelection(townPosition.get(0));
-            town2.setSelection(townPosition.get(1));
 
-            Log.d("town-2", townPosition.get(0) + "/"+ townPosition.get(1)
-            + "/ " + town1.getSelectedItemPosition() + "/" + town2.getSelectedItemPosition());
+            personalPickupAdapter.notifyDataSetChanged();
         }
     }
+
+    //구매완료 함수
+    private void prepareData3(String userId) {
+        Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
+        new Insert_Saled().execute(call);
+    }
+    private class Insert_Saled extends AsyncTask<Call<List<PickUpData>>, Void, List<PickUpData>>{
+
+        @Override
+        protected List<PickUpData> doInBackground(Call<List<PickUpData>>... calls) {
+            try{
+                Call<List<PickUpData>> call = calls[0];
+                return  call.execute().body();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(List<PickUpData> pickUpDataList){
+            saledList.clear();
+            for(int index=0; index < pickUpDataList.size(); index++){
+                PickUpData pickUpData = pickUpDataList.get(index);
+                if(pickUpData.getPickUp()==1){
+                    saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                }
+            }
+            Log.d("saledList", saledList.size()+"");
+            saledAdapter.notifyDataSetChanged();
+        }
+    }
+
 }
 
 
