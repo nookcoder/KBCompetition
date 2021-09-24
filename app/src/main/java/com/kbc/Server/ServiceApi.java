@@ -30,9 +30,6 @@ public interface ServiceApi {
     @POST("/product/img")
     Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("uploads") RequestBody name);
 
-    @POST("/product/register")
-    Call<ProductData> sendProductData(@Body ProductData productData);
-
     @POST("/pickUp/")
     Call<PickUpData> sendPickUpData(@Body PickUpData pickUpData);
 
@@ -46,7 +43,7 @@ public interface ServiceApi {
     Call<PickUpData> donePickUp(@Path("userId") String userId,@Body PickUpData pickUpData);
 
     @Multipart
-    @POST("/product/registerimg")
+    @POST("/product/register")
     Call<ProductData> sendProduct(@PartMap Map<String,RequestBody> map, @Part ArrayList<MultipartBody.Part> itempImg);
 
 }

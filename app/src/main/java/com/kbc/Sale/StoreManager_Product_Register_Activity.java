@@ -55,6 +55,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Multipart;
 
 public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     public static StoreManager_Product_Register_Activity storeManager_product_register_activity;
@@ -306,24 +307,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         return dateFormat_date.format(calendar.getTime());
     }
 
-    private void sendToServerByRetrofit(String id,String name, String category,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
-        serviceApi = new RetrofitBulider().initRetrofit();
-        ProductData productData = new ProductData(id,name,category,price,dateYear,dateMonth,dateDay,dateType,origin,details);
-        Call<ProductData> call = serviceApi.sendProductData(productData);
-        call.enqueue(new Callback<ProductData>() {
-            @Override
-            public void onResponse(Call<ProductData> call, retrofit2.Response<ProductData> response) {
-                ProductData checkProductData = response.body();
-                Log.d("연결","성공" + checkProductData.toString());
-            }
-
-            @Override
-            public void onFailure(Call<ProductData> call, Throwable t) {
-                Log.d("연결","실패 : "+ t.getMessage());
-            }
-        });
-    }
-
     private void sendProductDataToServer(String id,String name, String category,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details,ArrayList<Image_Item> _image_items){
         serviceApi = new RetrofitBulider().initRetrofit();
         Map<String,RequestBody> map = new HashMap<>();
@@ -351,16 +334,18 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         ArrayList<MultipartBody.Part> images = new ArrayList<MultipartBody.Part>();
         for(int index=0;index<image_items.size();index++){
             File file = new File(_image_items.get(index).getImage_file_path());
-            Log.d("filePath",_image_items.get(index).getImage_file_path());
-            RequestBody surveyBody = RequestBody.create(MediaType.parse("image/*"),file);
-            images.add(MultipartBody.Part.createFormData("uploads",file.getName(),surveyBody));
+            RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"),file);
+            String fileName = id+name+".jpg";
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("uploads",fileName,fileBody);
+            images.add(filePart);
         }
 
         Call<ProductData> call = serviceApi.sendProduct(map,images);
         call.enqueue(new Callback<ProductData>() {
             @Override
             public void onResponse(Call<ProductData> call, Response<ProductData> response) {
-                Log.d("filePath","통신성공");
+                ProductData productData = response.body();
+                Log.d("filePaht",productData.getName());
             }
 
             @Override
