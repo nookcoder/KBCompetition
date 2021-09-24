@@ -34,15 +34,12 @@ public class Personal_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_activity_main);
 
-       //유저 데이터 받기
+        //유저 데이터 받기
         Intent intentForGet = getIntent();
         userId = intentForGet.getExtras().getString("userID");
         town2 = intentForGet.getExtras().getString("town2");
         mode = Chatting.PERSONAL;
 
-////        //서히 테스트용
-//        userId = "1915040308";
-//        town2 = "광명";
         //fragment로 데이터 전달
         bundle = new Bundle(3);
         bundle.putString("userID", userId);
