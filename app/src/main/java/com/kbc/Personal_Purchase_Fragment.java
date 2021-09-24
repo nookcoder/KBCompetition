@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.function.LongFunction;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,10 +79,11 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     Button search;
     SearchView searchView;
 
-
+    ArrayList<Integer> townPosition = new ArrayList<>();
     private Bundle bundle;
 
     private String personal_id, personal_town2,mode;
+    static View v;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +94,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.personal_purchase_fragment, container, false);
+        v =  inflater.inflate(R.layout.personal_purchase_fragment, container, false);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -99,8 +102,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             personal_town2 = bundle.getString("town2");
             mode = bundle.getString("mode");
         }
-
-
         //컴포넌트 할당
         //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
@@ -147,13 +148,14 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         //스피너 초기 설정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         initAddressSpinner();
 
-        //설정
-        getPersonDate(personal_id);
 
-        town1.setSelection(townPosition1);
-        town2.setSelection(townPosition2);
+        Call<Personal> call = serviceApi.getPersonalData(personal_id);
+        new Insert_Position().execute(call);
+//        //설정
+//        getPersonDate(personal_id);
 
-        Log.d("town2", String.valueOf(townPosition1)+String.valueOf(townPosition2));
+//        town1.setSelection(townPosition1);
+//        town2.setSelection(townPosition2);
 
 
         //리사이클러뷰 설정
@@ -227,14 +229,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         purchaseAdapter.notifyDataSetChanged();
     }
 
-
-
-    //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData() {
-        purchaseList.clear();
-
-    }
-
     //장보기 물품 담아주는 함수 !!!!!!!!!
     private void setPurchaseList(JSONObject jsonObject){
         try {
@@ -291,7 +285,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     //버튼 할당
     @Override
-    public void onClick(View v) {
+    public void onClick(@NotNull View v) {
         purchaseBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
@@ -437,10 +431,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     }
 
     private void getPersonDate(String userId){
-
-
-        Log.d("town", userId);
-
         Call<Personal> call = serviceApi.getPersonalData(userId);
 
         call.enqueue(new Callback<Personal>() {
@@ -461,4 +451,39 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
     }
 
+    private class Insert_Position extends AsyncTask<Call, Void, ArrayList<Integer>>{
+
+        ArrayList<Integer> townPosition = new ArrayList<>();
+        @Override
+        protected ArrayList<Integer> doInBackground(Call... calls) {
+            try{
+                Call<Personal> call = calls[0];
+                Personal personalData = call.execute().body();
+                townPosition.add(personalData.getTownPosition1());
+                townPosition.add(personalData.getTownPosition2());
+                return  townPosition;
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Integer> townPosition){
+            town1 = (Spinner)v.findViewById(R.id.town1);
+            town2 = (Spinner)v.findViewById(R.id.town2);
+
+            town1.setSelection(townPosition.get(0));
+            town2.setSelection(townPosition.get(1));
+            Log.d("town-2", townPosition.get(0) + "/"+ townPosition.get(1)
+            + "/ " + town1.getSelectedItemPosition() + "/" + town2.getSelectedItemPosition());
+        }
+
+    }
+
+
 }
+
+
+
