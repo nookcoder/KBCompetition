@@ -40,6 +40,8 @@ public class Personal_MainActivity extends AppCompatActivity {
         town2 = intentForGet.getExtras().getString("town2");
         mode = Chatting.PERSONAL;
 
+
+        //fragment로 데이터 전달
         bundle = new Bundle(3);
         bundle.putString("userID", userId);
         bundle.putString("mode", mode);

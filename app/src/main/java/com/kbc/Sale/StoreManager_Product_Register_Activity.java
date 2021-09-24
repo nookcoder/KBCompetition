@@ -20,9 +20,9 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Common.Creating;
 import com.kbc.Image.ImageAdapter;
 import com.kbc.Image.Image_Item;
 import com.kbc.Image.Image_Popup_Activity;
@@ -36,7 +36,9 @@ import com.kbc.StoreManger.StoreManager_MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,13 +47,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Multipart;
 
 public class StoreManager_Product_Register_Activity extends AppCompatActivity {
     public static StoreManager_Product_Register_Activity storeManager_product_register_activity;
@@ -265,7 +270,7 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
                 register_item.setDetails(product_details.getText().toString());
                 register_item.setRegister_time(Register_Time());
 
-                sendToServerByRetrofit(storeManager_id,register_item.getName(),register_item.getCategory(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails());
+                sendProductDataToServer(storeManager_id,register_item.getName(),register_item.getCategory(),register_item.getPrice(),register_item.getDate_year(),register_item.getDate_month(),register_item.getDate_day(),register_item.getDate_type(),register_item.getOrigin(),register_item.getDetails(),image_items);
 
                 //확인창 띄워주고(팝업 그냥 확인버트!) 올린 상품 리스트보는 프래그먼트 띄워야델것가타!
                 //StoreManager_SaleList_Fragment로!
@@ -294,7 +299,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(layout_type);
         spinner.setAdapter(arrayAdapter);
         spinner.setSelection(0);
-
     }
 
     private String Register_Time(){
@@ -304,19 +308,51 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
         return dateFormat_date.format(calendar.getTime());
     }
 
-    private void sendToServerByRetrofit(String id,String name, String category,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details){
+    private void sendProductDataToServer(String id,String name, String category,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details,ArrayList<Image_Item> _image_items){
         serviceApi = new RetrofitBulider().initRetrofit();
-        ProductData productData = new ProductData(id,name,category,price,dateYear,dateMonth,dateDay,dateType,origin,details);
-        Call<ProductData> call = serviceApi.sendProductData(productData);
+        Map<String,RequestBody> map = new HashMap<>();
+        RequestBody _id = new Creating().requestBody(id);
+        RequestBody _name = new Creating().requestBody(name);
+        RequestBody _category = new Creating().requestBody(category);
+        RequestBody _price = new Creating().requestBody(price);
+        RequestBody _dateYear = new Creating().requestBody(dateYear);
+        RequestBody _dateMonth = new Creating().requestBody(dateMonth);
+        RequestBody _dateDay = new Creating().requestBody(dateDay);
+        RequestBody _dateType = new Creating().requestBody(dateType);
+        RequestBody _origin = new Creating().requestBody(origin);
+        RequestBody _details = new Creating().requestBody(details);
+        map.put("userId",_id);
+        map.put("name",_name);
+        map.put("category",_category);
+        map.put("price",_price);
+        map.put("dateYear",_dateYear);
+        map.put("dateMonth",_dateMonth);
+        map.put("dateDay",_dateDay);
+        map.put("dateType",_dateType);
+        map.put("origin",_origin);
+        map.put("details",_details);
+
+        ArrayList<MultipartBody.Part> images = new ArrayList<MultipartBody.Part>();
+        for(int index=0;index<image_items.size();index++){
+            File file = new File(_image_items.get(index).getImage_file_path());
+            RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"),file);
+            String fileName = id+name+".jpg";
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("uploads",fileName,fileBody);
+            images.add(filePart);
+        }
+
+        Call<ProductData> call = serviceApi.sendProduct(map,images);
         call.enqueue(new Callback<ProductData>() {
             @Override
-            public void onResponse(Call<ProductData> call, retrofit2.Response<ProductData> response) {
-                ProductData checkProductData = response.body();
+
+            public void onResponse(Call<ProductData> call, Response<ProductData> response) {
+                ProductData productData = response.body();
+                Log.d("filePaht",productData.getName());
             }
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                Log.d("연결","실패 : "+ t.getMessage());
+                Log.d("filePaht",t.getMessage());
             }
         });
     }

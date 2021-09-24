@@ -21,11 +21,20 @@ import com.kbc.Sale.Sale_Item;
 import com.kbc.Sale.StoreManager_Product_Modify_Activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.kbc.Pickup.PickupDetailActivity;
+import com.kbc.Server.PickUpData;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class Popup_TwoButton_Activity extends AppCompatActivity {
@@ -37,6 +46,7 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
     private  String button_name;
     private TextView popup_title, popup_context;
     Button ok_btn, cancle_btn;
+    ServiceApi serviceApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +146,12 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
             //픽업 완료 했을때!
             case "Pickup complete":
                 //팝업 액티비티 닫아주고,
+                userId = intent.getStringExtra("storeManagerId");
+                String buyerName = intent.getStringExtra("buyerName");
+                String productName = intent.getStringExtra("productName");
+                String registerTime = intent.getStringExtra("registerTime");
+                PickUpData pick = new PickUpData(buyerName,productName,registerTime);
+                donePickUp(userId,pick);
                 finish();
                 pickupDetailActivity.finish();
                 break;
@@ -247,6 +263,24 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(Popup_TwoButton_Activity.this);
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public void donePickUp(String userId, PickUpData pick){
+        ServiceApi serviceApi;
+        serviceApi = new RetrofitBulider().initRetrofit();
+
+        Call<PickUpData> call = serviceApi.donePickUp(userId,pick);
+
+        call.enqueue(new Callback<PickUpData>() {
+            @Override
+            public void onResponse(Call<PickUpData> call, retrofit2.Response<PickUpData> response) {
+                PickUpData pickUpData = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<PickUpData> call, Throwable t) {
+            }
+        });
     }
 
 }

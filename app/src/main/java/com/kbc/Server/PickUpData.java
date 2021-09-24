@@ -39,6 +39,12 @@ public class PickUpData {
     @SerializedName("isPickUp")
     int isPickUp;
 
+    public PickUpData(String personalName, String productName,String pickregisterTime) {
+        this.personalName = personalName;
+        this.productName = productName;
+        this.pickregisterTime = pickregisterTime;
+    }
+
     public PickUpData(String merchantId, String personalId, String pickUpYear, String pickUpMonth, String pickUpDay, String pickUpNoon, String pickUpMinute, String pickUpHour, String location, String productName, String registerTime) {
         this.merchantId = merchantId;
         this.personalId = personalId;

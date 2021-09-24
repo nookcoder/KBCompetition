@@ -18,7 +18,7 @@ import com.kbc.StoreManger.StoreManager_MainActivity;
 public class PickupDetailActivity extends AppCompatActivity {
     public static PickupDetailActivity pickupDetailActivity;
     TextView buyerNameView, productNameInPickupListView, pickupDateView, pickupTimeView,pickupQuantityView;
-    String buyerName, productNameInPickupList, pickupDate, pickupTime;
+    String buyerName, productNameInPickupList, pickupDate, pickupTime,registerTime;
 
     //픽업 대기 중에서 넘어올때 점주 아이디 받아오기!!!
     String storeManagerId = StoreManager_MainActivity.userId;
@@ -38,6 +38,7 @@ public class PickupDetailActivity extends AppCompatActivity {
         productNameInPickupList = intentForGet.getExtras().getString("productNameInPickupList");
         pickupDate = intentForGet.getExtras().getString("pickupDate");
         pickupTime = intentForGet.getExtras().getString("pickupTime");
+        registerTime = intentForGet.getExtras().getString("registerTime");
 
         //텍스트뷰 할당
         TextView buyerNameView = (TextView)findViewById(R.id.buyerNameInPickup);
@@ -77,6 +78,10 @@ public class PickupDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Popup_TwoButton_Activity.class );
                 intent.putExtra("button_name","Pickup complete");
+                intent.putExtra("storeManagerId",storeManagerId);
+                intent.putExtra("buyerName",buyerName);
+                intent.putExtra("productName",productNameInPickupList);
+                intent.putExtra("registerTime",registerTime);
                 startActivity(intent);
             }
         });

@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +30,6 @@ public interface ServiceApi {
     @POST("/product/img")
     Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("uploads") RequestBody name);
 
-    @POST("/product/register")
-    Call<ProductData> sendProductData(@Body ProductData productData);
-
     @POST("/pickUp/")
     Call<PickUpData> sendPickUpData(@Body PickUpData pickUpData);
 
@@ -40,5 +38,12 @@ public interface ServiceApi {
 
     @GET("/pickUp/{userId}")
     Call<List<PickUpData>> getPickUpDate(@Path("userId") String userId);
+
+    @POST("/pickUp/done/{userId}")
+    Call<PickUpData> donePickUp(@Path("userId") String userId,@Body PickUpData pickUpData);
+
+    @Multipart
+    @POST("/product/register")
+    Call<ProductData> sendProduct(@PartMap Map<String,RequestBody> map, @Part ArrayList<MultipartBody.Part> itempImg);
 
 }
