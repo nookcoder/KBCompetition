@@ -1,6 +1,7 @@
 package com.kbc.Sale;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kbc.Common.Creating;
+import com.kbc.Personal_Purchase_Fragment;
 import com.kbc.Pickup.Personal_Pickup_Item;
 import com.kbc.Pickup.PickupAdapter;
 import com.kbc.Pickup.Pickup_Item;
@@ -36,6 +38,7 @@ import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -116,22 +119,18 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        // 여기도========================================================================================================================
-
         try {
             getProductsDataFromServer(storeManager_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         recyclerView.setAdapter(saleAdapter);
-        saleAdapter.notifyDataSetChanged();
 
 
         //판매중 버튼 눌렀을 때!
         salesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 여기랑 ========================================================================================================================
                 recyclerView.setAdapter(saleAdapter);
                 salesBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 pickupBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
@@ -143,7 +142,6 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                saleAdapter.notifyDataSetChanged();
             }
         });
 
@@ -158,7 +156,6 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saledBtn.setBackgroundResource(R.drawable.layout_unselected_sale_button);
                 toolbarText.setText("픽업대기중");
                 addProductBtn.setVisibility(View.INVISIBLE);
-                pickupAdapter.notifyDataSetChanged();
             }
         });
         //판매 완료 버튼 눌렀을 때!
@@ -172,7 +169,6 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saledBtn.setBackgroundResource(R.drawable.layout_selected_sale_button);
                 toolbarText.setText("판매완료");
                 addProductBtn.setVisibility(View.INVISIBLE);
-                saledAdapter.notifyDataSetChanged();
             }
         });
         return v;
@@ -184,6 +180,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         saleAdapter.notifyDataSetChanged();
     }
 
+    //판매중~
     private void setSalesList(JSONObject jsonObject){
         try {
             salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
@@ -191,24 +188,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        saleAdapter.notifyDataSetChanged();
     }
-
-
-    //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
-    private void prepareData(JSONObject jsonObject) {
-        salesList.clear();
-        try {
-            JSONArray jsonArray = jsonObject.getJSONArray("products");
-            int jsonArrayCount = jsonArray.length();
-            for(int index=0; index<jsonArrayCount; index++){
-                setSalesList(jsonArray.getJSONObject(index));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     //서버 데이터 전달
     private void getProductsDataFromServer(String id) throws JSONException {
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/"+id+"/products/";
@@ -218,6 +199,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    salesList.clear();
                     Log.d("JSON", response.getJSONArray("products").toString());
                     JSONArray jsonArray = response.getJSONArray("products");
                     for(int index=0; index<jsonArray.length();index++)
@@ -234,50 +216,68 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         requestQueue.add(jsonObjectRequest);
     }
 
-    //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
+    //픽업대기중
     private void prepareData2(String userId) {
-        pickupList.clear();
         Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
-        call.enqueue(new Callback<List<PickUpData>>() {
-            @Override
-            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
-                List<PickUpData> pickUpDataList = response.body();
-                for(int index=0; index < pickUpDataList.size(); index++){
-                    PickUpData pickUpData = pickUpDataList.get(index);
-                    if(pickUpData.getPickUp()==0){
-                        pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute()),pickUpData.getPickregisterTime()));
-                    }
+       new Insert_PickUp().execute(call);
+    }
+    private class Insert_PickUp extends AsyncTask<Call<List<PickUpData>>,Void, List<PickUpData>>{
+        @Override
+        protected List<PickUpData> doInBackground(Call<List<PickUpData>>... calls) {
+            try{
+                Call<List<PickUpData>>call = calls[0];
+                return call.execute().body();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(List<PickUpData> pickUpDataList){
+            pickupList.clear();
+            for(int index=0; index < pickUpDataList.size(); index++){
+                PickUpData pickUpData = pickUpDataList.get(index);
+                if(pickUpData.getPickUp()==0){
+                    pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
                 }
             }
+            pickupAdapter.notifyDataSetChanged();
 
-            @Override
-            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
-            }
-        });
+        }
+
     }
 
-    //데이터 준비(최종적으로는 동적으로 추가하거나 삭제할 수 있어야 한다. 이 데이터를 어디에 저장할지 정해야 한다.)
+    //판매완료 함수
     private void prepareData3(String userId) {
-        saledList.clear();
         Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
-        call.enqueue(new Callback<List<PickUpData>>() {
-            @Override
-            public void onResponse(Call<List<PickUpData>> call, retrofit2.Response<List<PickUpData>> response) {
-                List<PickUpData> pickUpDataList = response.body();
-                for(int index=0; index < pickUpDataList.size(); index++){
-                    PickUpData pickUpData = pickUpDataList.get(index);
-                    if(pickUpData.getPickUp()==1){
-                        saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
-                    }
+        new Insert_Saled().execute(call);
+    }
+    private class Insert_Saled extends AsyncTask<Call<List<PickUpData>>, Void, List<PickUpData>>{
+
+        @Override
+        protected List<PickUpData> doInBackground(Call<List<PickUpData>>... calls) {
+            try{
+                Call<List<PickUpData>> call = calls[0];
+                return  call.execute().body();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(List<PickUpData> pickUpDataList){
+            saledList.clear();
+            for(int index=0; index < pickUpDataList.size(); index++){
+                PickUpData pickUpData = pickUpDataList.get(index);
+                if(pickUpData.getPickUp()==1){
+                    saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
                 }
             }
-
-            @Override
-            public void onFailure(Call<List<PickUpData>> call, Throwable t) {
-            }
-        });
+            saledAdapter.notifyDataSetChanged();
+        }
     }
-
     //버튼 할당
     @Override
     public void onClick(View v) {
