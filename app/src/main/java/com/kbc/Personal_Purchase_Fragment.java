@@ -358,8 +358,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             e.printStackTrace();
         }
 
-
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

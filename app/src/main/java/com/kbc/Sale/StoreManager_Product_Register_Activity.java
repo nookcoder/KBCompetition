@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -311,7 +312,6 @@ public class StoreManager_Product_Register_Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductData> call, retrofit2.Response<ProductData> response) {
                 ProductData checkProductData = response.body();
-                Log.d("연결","성공" + checkProductData.toString());
             }
 
             @Override
