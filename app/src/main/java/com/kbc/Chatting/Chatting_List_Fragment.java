@@ -249,10 +249,9 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
             chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
             chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
-            Log.d("키~", chatting_me_arraylist.toString());
 
             //키 인덱스 찾기
-            Object[] send_key = chatting_me_arraylist.get(1).keySet().toArray();
+            Object[] send_key = chatting_me_arraylist.get(0).keySet().toArray();
             for (int key_index = 0; key_index < send_key.length; key_index++) {
                 if (send_key[key_index].toString().equals(Chatting.NAME))
                     name = key_index;
@@ -277,27 +276,36 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
     }
 
-    private void Insert_Chatroom_Ui(int position){
-        String last_name, last_profileUrl, last_message="", last_time="", last_date="";
+    private void Insert_Chatroom_Ui(int position) {
+        String last_name, last_profileUrl, last_message = "", last_time = "", last_date = "";
 
-        input_map = chatting_arraylist.get(position+1);
+        input_map = chatting_arraylist.get(position + 1);
         chatting_map = input_map.values().toArray();
         chatrooms_map = (Map<String, Object>) chatting_map[0];
+
+        Log.d("어디일까", chatting_map.toString());
+        Log.d("채팅맵", chatrooms_map.toString());
 
         chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("me");
         chatting_other_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
 
         //마지막 채팅 정보 나, 상대방 각각 가져오기
-        chatting_me_last_message = chatting_me_arraylist.get(chatting_me_arraylist.size()-1).values().toArray();
-        chatting_other_last_message = chatting_other_arraylist.get(chatting_other_arraylist.size()-1).values().toArray();
+        chatting_me_last_message = chatting_me_arraylist.get(chatting_me_arraylist.size() - 1).values().toArray();
+        chatting_other_last_message = chatting_other_arraylist.get(chatting_other_arraylist.size() - 1).values().toArray();
 
+        Log.d("나의 채팅수", chatting_me_arraylist.size() + "");
+        Log.d("상대의 채팅수", chatting_other_arraylist.size() + "");
 
-        if(chatting_other_arraylist.size() != 1){
+        //프로필사진, 이름은 상대방으로 되어있어야 함!
+        last_profileUrl = chatting_other_last_message[profileUrl].toString();
+        last_name = chatting_other_last_message[name].toString();
+
+        if (chatting_other_arraylist.size() != 1 && chatting_me_arraylist.size() != 1) {
             int last_message_mode = chatting_send_activity.Compare_Date(
                     chatting_me_last_message[date].toString().split(" "), chatting_other_last_message[date].toString().split(" "),
                     chatting_me_last_message[time].toString(), chatting_other_last_message[time].toString());
 
-            switch (last_message_mode){
+            switch (last_message_mode) {
                 //내 시간이 더 빠르면 상대방이 마지막
                 case Chatting.ME:
                     last_date = chatting_other_last_message[date].toString();
@@ -312,21 +320,21 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
                     last_time = chatting_me_last_message[time].toString();
                     break;
             }
-        }
-        else{
+        } else if (chatting_other_arraylist.size() == 1 && chatting_me_arraylist.size() > 1) {
             last_date = chatting_me_last_message[date].toString();
             last_message = chatting_me_last_message[message].toString();
             last_time = chatting_me_last_message[time].toString();
+        } else if (chatting_me_arraylist.size() == 1 && chatting_other_arraylist.size() > 1) {
+            last_date = chatting_other_last_message[date].toString();
+            last_message = chatting_other_last_message[message].toString();
+            last_time = chatting_other_last_message[time].toString();
+
+
         }
-
-        //프로필사진, 이름은 상대방으로 되어있어야 함!
-        last_profileUrl = chatting_other_last_message[profileUrl].toString();
-        last_name = chatting_other_last_message[name].toString();
+        Insert_Chatroom_DB(position + 1, last_name, last_date, last_message, last_profileUrl, last_time);
+        chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date));
 
 
-
-        Insert_Chatroom_DB(position+1, last_name, last_date, last_message, last_profileUrl, last_time);
-        chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl,last_message,last_time,last_date));
     }
 
 

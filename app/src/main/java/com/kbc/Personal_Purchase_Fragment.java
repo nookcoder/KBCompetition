@@ -140,9 +140,9 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
 
         //스피너 초기 설정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         initAddressSpinner();
+
         //설정
         getPersonDate(personal_id);
-        Log.d("town", String.valueOf(townPosition1)+String.valueOf(townPosition2));
 
         town1.setSelection(townPosition1);
         town2.setSelection(townPosition2);

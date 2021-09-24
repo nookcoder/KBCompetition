@@ -8,12 +8,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kbc.Chatting.Chatting;
+import com.kbc.Chatting.Chatting_Send_Activity;
 import com.kbc.Personal_MainActivity;
+import com.kbc.Purchase.Personal_Purchase_Inquiry_Activity;
 import com.kbc.R;
 
 public class Personal_PickupDetailActivity extends AppCompatActivity {
     public static Personal_PickupDetailActivity personal_pickupDetailActivity;
     String storeName, productNameInPickupList, pickupDate, pickupTime;
+
     private Personal_MainActivity personal_mainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,11 @@ public class Personal_PickupDetailActivity extends AppCompatActivity {
         chattingBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                Intent chatting_intent = new Intent(personal_pickupDetailActivity, Chatting_Send_Activity.class);
+                chatting_intent.putExtra("mode", Chatting.PERSONAL);
+                chatting_intent.putExtra("userID", Personal_MainActivity.userId);
+                chatting_intent.putExtra("click_chatting_list_name", storeName);
+                startActivity(chatting_intent);
             }
         });
     }
