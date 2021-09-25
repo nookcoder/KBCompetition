@@ -3,6 +3,7 @@ package com.kbc.Purchase;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,12 +18,16 @@ import com.kbc.Chatting.Chatting_Send_Activity;
 import com.kbc.Payment_Personal.Payment_Check_Activity;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
+import com.kbc.Sale.StoreManager_Product_Inquiry_Activity;
+import com.kbc.Server.Merchant;
 import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
 
 public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
 
@@ -35,7 +40,8 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
     private ImageView imageView;
     private Button product_payment;
 
-    String personal_id, personal_town2;
+    String personal_id, personal_town2, storeManager_NickName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,7 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
         product_details = findViewById(R.id.product_details);
 
         //데이터 넣기
-        storemanager_id.setText(purchase_item.getUser_Id());
+        get_storeManager_NickName(purchase_item.getUser_Id());
         storemanager_location.setText(purchase_item.getUser_location());
         product_title.setText(purchase_item.getName());
         product_category.setText(purchase_item.getCategory());
@@ -114,6 +120,33 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
             }
         });
 
+    }
+    //점주 닉네임
+    private void get_storeManager_NickName(String userId) {
+        ServiceApi serviceApi=  new RetrofitBulider().initRetrofit();
+        Call<Merchant> call = serviceApi.getStoreName(userId);
+        new Insert_storeManager_NickName().execute(call);
+    }
+
+    private class Insert_storeManager_NickName extends AsyncTask<Call, Void, String> {
+        @Override
+        protected String doInBackground(Call... calls) {
+            try{
+                Call<Merchant> call = calls[0];
+                Merchant merchantData = call.execute().body();
+                return  merchantData.getStoreName();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String nickName){
+            storemanager_id.setText(nickName);
+
+        }
     }
 
 }

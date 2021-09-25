@@ -187,7 +187,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //판매중~
     private void setSalesList(JSONObject jsonObject) {
         try {
-            salesList.add(new Sale_Item("", jsonObject.getString("name"), jsonObject.getString("category"), jsonObject.getString("price"), jsonObject.getString("dateYear"), jsonObject.getString("dateMonth"), jsonObject.getString("dateDay"), jsonObject.getString("dateType"), jsonObject.getString("origin"), jsonObject.getString("details"), jsonObject.getString("registerTime"), jsonObject.getString("userId")));
+            salesList.add(new Sale_Item("", jsonObject.getString("name"), jsonObject.getString("category"), jsonObject.getString("price"), jsonObject.getString("dateYear"), jsonObject.getString("dateMonth"), jsonObject.getString("dateDay"), jsonObject.getString("dateType"), jsonObject.getString("origin"), jsonObject.getString("details"), jsonObject.getString("registerTime"), jsonObject.getString("userId"),jsonObject.getString("location")));
             Log.d("salesList", jsonObject.getString("category"));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -312,7 +312,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saleAdapter.getItem_origin(position),
                 saleAdapter.getItem_Details(position),
                 saleAdapter.getItem_Register_Time(position),
-                saleAdapter.getItem_merchantId(position));
+                saleAdapter.getItem_merchantId(position),
+                salesList.get(position).getUser_location());
 
 
 
