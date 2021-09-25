@@ -65,12 +65,7 @@
                 android:layout_width="wrap_content"
                 />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/storemanager_image_profile_editor"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_edit"
-                />
+
         </LinearLayout>
     </LinearLayout>
 
