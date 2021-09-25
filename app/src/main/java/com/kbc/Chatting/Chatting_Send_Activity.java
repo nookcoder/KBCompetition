@@ -807,12 +807,12 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String nickName){
             if(chat_mode.equals(Chatting.STORE_MANAGER)){
+                me_nick_name = nickName;
+            }
+            else{
                 other_nick_name = nickName;
                 chatting_other_name = findViewById(R.id.other_userName);
                 chatting_other_name.setText(other_nick_name);
-            }
-            else{
-                me_nick_name = nickName;
             }
         }
     }

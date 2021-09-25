@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kbc.Personal_MainActivity;
 import com.kbc.R;
+import com.kbc.Server.Merchant;
 import com.kbc.Server.Personal;
 import com.kbc.Server.RetrofitBulider;
 import com.kbc.Server.ServiceApi;
@@ -315,10 +316,11 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         Log.d("나의 채팅수", chatting_me_arraylist.size() + "");
         Log.d("상대의 채팅수", chatting_other_arraylist.size() + "");
+        Log.d("상대", chatting_other_last_message[name].toString());
 
         switch (chat_mode){
             case Chatting.PERSONAL:
-                get_storeManager_NickName(chatting_other_last_message[name].toString(),personal_mainActivity);
+                get_storeManager_NickName(chatting_other_last_message[name].toString());
                 break;
 
             case Chatting.STORE_MANAGER:
@@ -328,6 +330,11 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
     }
 
     private void Insert_List(){
+        last_profileUrl="";
+        last_message = "";
+        last_time = "";
+        last_date = "";
+
         if (chatting_other_arraylist.size() != 1 && chatting_me_arraylist.size() != 1) {
             int last_message_mode = chatting_send_activity.Compare_Date(
                     chatting_me_last_message[date].toString().split(" "), chatting_other_last_message[date].toString().split(" "),
@@ -359,7 +366,10 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
 
         }
-        Insert_Chatroom_DB(position + 1, last_name, last_date, last_message, last_profileUrl, last_time);
+        Log.d("storeManager",position+ "/"+last_name + last_profileUrl+last_message +last_time+last_date  );
+        Log.d("Merchant", "333");
+
+        Insert_Chatroom_DB(position , last_name, last_date, last_message, last_profileUrl, last_time);
         chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date));
 
     }
@@ -407,9 +417,35 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
     }
 
     //점주 닉네임
-    private void get_storeManager_NickName(String userId, Activity activity) {
-        Insert_List();
+    private void get_storeManager_NickName(String userId) {
+        ServiceApi serviceApi=  new RetrofitBulider().initRetrofit();
+        Log.d("store", userId);
+        Call<Merchant> call = serviceApi.getStoreName(userId);
+        new Insert_storeManager_NickName().execute(call);
+    }
 
+    private class Insert_storeManager_NickName extends AsyncTask<Call, Void, String>{
+        @Override
+        protected String doInBackground(Call... calls) {
+            try{
+                Call<Merchant> call = calls[0];
+                Merchant merchantData = call.execute().body();
+                Log.d("Merchant", merchantData.getId() + "/" + merchantData.getName());
+                return  merchantData.getStoreName();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String nickName){
+            last_name = nickName;
+            Log.d("Merchant", "222");
+            Insert_List();
+
+        }
     }
 }
 

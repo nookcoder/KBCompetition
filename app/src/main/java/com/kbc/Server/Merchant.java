@@ -9,7 +9,7 @@ public class Merchant {
     String location;
     String name;
     String businessNumber;
-    int isRegister;
+    boolean isRegister;
     String town1;
     String town2;
 
@@ -77,11 +77,11 @@ public class Merchant {
         this.businessNumber = businessNumber;
     }
 
-    public int getIsRegister() {
+    public boolean getIsRegister() {
         return isRegister;
     }
 
-    public void setIsRegister(int isRegister) {
+    public void setIsRegister(boolean isRegister) {
         this.isRegister = isRegister;
     }
 
