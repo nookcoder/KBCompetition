@@ -252,6 +252,8 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
     }
 
+    int position=0;
+
     private void Get_Last_Chatting_Information(){
         //채팅방 개수
         chatrooms_count = chatting_arraylist.size()-1;
@@ -286,16 +288,16 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
                     date = key_index;
             }
 
-            for(int position=0; position< chatrooms_count ; position++)
+            for(position=0; position< chatrooms_count ; position++)
                 Insert_Chatroom_Ui(position);
 
         }
 
     }
     String last_name="";
+    String  last_profileUrl="", last_message = "", last_time = "", last_date = "";
 
     private void Insert_Chatroom_Ui(int position) {
-        String  last_profileUrl="", last_message = "", last_time = "", last_date = "";
 
         input_map = chatting_arraylist.get(position + 1);
         chatting_map = input_map.values().toArray();
@@ -314,7 +316,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         Log.d("나의 채팅수", chatting_me_arraylist.size() + "");
         Log.d("상대의 채팅수", chatting_other_arraylist.size() + "");
 
-
         switch (chat_mode){
             case Chatting.PERSONAL:
                 get_storeManager_NickName(chatting_other_last_message[name].toString(),personal_mainActivity);
@@ -324,11 +325,9 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
                 get_personal_NickName( chatting_other_last_message[name].toString());
                 break;
         }
+    }
 
-//        //프로필사진, 이름은 상대방으로 되어있어야 함!
-//        last_profileUrl = chatting_other_last_message[profileUrl].toString();
-//        last_name = chatting_other_last_message[name].toString();
-
+    private void Insert_List(){
         if (chatting_other_arraylist.size() != 1 && chatting_me_arraylist.size() != 1) {
             int last_message_mode = chatting_send_activity.Compare_Date(
                     chatting_me_last_message[date].toString().split(" "), chatting_other_last_message[date].toString().split(" "),
@@ -361,7 +360,6 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         }
         Insert_Chatroom_DB(position + 1, last_name, last_date, last_message, last_profileUrl, last_time);
-        Log.d("personal", "2222");
         chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date));
 
     }
@@ -404,12 +402,13 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         @Override
         protected void onPostExecute(String nickName){
             last_name = nickName;
-            Log.d("personal", "1111");
+            Insert_List();
         }
     }
 
     //점주 닉네임
     private void get_storeManager_NickName(String userId, Activity activity) {
+        Insert_List();
 
     }
 }
