@@ -8,14 +8,16 @@ public class Chatting_Item {
     private String profileUrl;
     private String date;
     private int viewType;
+    private String id;
 
     //채팅방 목록
-    public Chatting_Item(String name, String profileUrl, String message, String time, String date){
+    public Chatting_Item(String name, String profileUrl, String message, String time, String date,String id){
         this.name = name;
         this.profileUrl = profileUrl;
         this.message = message;
         this.time = time;
         this.date = date;
+        this.id = id;
     }
     //채팅내
     public Chatting_Item(String name, String profileUrl, String message, String time, int viewType){
@@ -75,6 +77,14 @@ public class Chatting_Item {
     public int getViewType(){return viewType;}
     public void setViewType(int viewType){
         this.viewType = viewType;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
 

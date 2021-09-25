@@ -571,7 +571,11 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         String send_chatting_other_time = send_chatting_other[time].toString();
 
         int insert_type = 0;
+
         insert_type = Compare_Date(send_chatting_me_date, send_chatting_other_date, send_chatting_me_time, send_chatting_other_time);
+
+        Log.d("compare", insert_type + "/" + send_chatting_me_date[2] + "/" + send_chatting_other_date[2]
+        +": " + send_chatting_me_time + "/" + send_chatting_other_time );
 
         switch (insert_type){
             case Chatting.ME:
@@ -614,6 +618,8 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                 if(send_chatting_me_date[2].compareTo(send_chatting_other_date[2]) < 0)
                     return Chatting.ME;
+                else if(send_chatting_me_date[2].compareTo(send_chatting_other_date[2]) > 0)
+                    return Chatting.OTHER;
 
                 else {
                         if(send_chatting_me_time.compareTo(send_chatting_other_time) < 0)

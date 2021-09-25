@@ -70,7 +70,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
         notifyDataSetChanged();
     }
 
-    public String getItemName(int index){return chatting_items.get(index).getName();}
+    public String getItemName(int index){return chatting_items.get(index).getId();}
 
     public void removeAll(){
         chatting_items.clear();

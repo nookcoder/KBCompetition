@@ -134,6 +134,8 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         //선택한 채팅방 이름 (상대방)
         String click_chatting_list_name = viewHolder.chatting_list_name.getText().toString();
+        click_chatting_list_name = chatting_list_recycleAdapter.getItemName(position);
+
         //선택한 채팅방 번호
         int chatting_number = position +1;
 
@@ -295,7 +297,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         }
 
     }
-    String last_name="";
+    String last_name="", last_id="";
     String  last_profileUrl="", last_message = "", last_time = "", last_date = "";
 
     private void Insert_Chatroom_Ui(int position) {
@@ -318,18 +320,20 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         Log.d("상대의 채팅수", chatting_other_arraylist.size() + "");
         Log.d("상대", chatting_other_last_message[name].toString());
 
+        last_id = chatting_other_last_message[name].toString();
         switch (chat_mode){
             case Chatting.PERSONAL:
-                get_storeManager_NickName(chatting_other_last_message[name].toString());
+                get_storeManager_NickName(last_id);
                 break;
 
             case Chatting.STORE_MANAGER:
-                get_personal_NickName( chatting_other_last_message[name].toString());
+                get_personal_NickName( last_id);
                 break;
         }
     }
 
     private void Insert_List(){
+
         last_profileUrl="";
         last_message = "";
         last_time = "";
@@ -369,8 +373,8 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         Log.d("storeManager",position+ "/"+last_name + last_profileUrl+last_message +last_time+last_date  );
         Log.d("Merchant", "333");
 
-        Insert_Chatroom_DB(position , last_name, last_date, last_message, last_profileUrl, last_time);
-        chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date));
+        Insert_Chatroom_DB(position , last_id, last_date, last_message, last_profileUrl, last_time);
+        chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date, last_id));
 
     }
 
