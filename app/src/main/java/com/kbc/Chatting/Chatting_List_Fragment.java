@@ -1,6 +1,8 @@
 package com.kbc.Chatting;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,13 +27,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kbc.Personal_MainActivity;
 import com.kbc.R;
+import com.kbc.Server.Personal;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
 
 import static android.content.ContentValues.TAG;
 
@@ -51,6 +65,9 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
     private DatabaseReference databaseReference;
 
     private String chat_mode;
+    String me_nick_name , other_nick_name;
+    String personal_NickName, storeManager_NickName;
+    ServiceApi serviceApi=  new RetrofitBulider().initRetrofit();
 
     //페이지 불러올떄마다 추가
     @Override
@@ -275,9 +292,10 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         }
 
     }
+    String last_name="";
 
     private void Insert_Chatroom_Ui(int position) {
-        String last_name, last_profileUrl, last_message = "", last_time = "", last_date = "";
+        String  last_profileUrl="", last_message = "", last_time = "", last_date = "";
 
         input_map = chatting_arraylist.get(position + 1);
         chatting_map = input_map.values().toArray();
@@ -296,9 +314,20 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         Log.d("나의 채팅수", chatting_me_arraylist.size() + "");
         Log.d("상대의 채팅수", chatting_other_arraylist.size() + "");
 
-        //프로필사진, 이름은 상대방으로 되어있어야 함!
-        last_profileUrl = chatting_other_last_message[profileUrl].toString();
-        last_name = chatting_other_last_message[name].toString();
+
+        switch (chat_mode){
+            case Chatting.PERSONAL:
+                get_storeManager_NickName(chatting_other_last_message[name].toString(),personal_mainActivity);
+                break;
+
+            case Chatting.STORE_MANAGER:
+                get_personal_NickName( chatting_other_last_message[name].toString());
+                break;
+        }
+
+//        //프로필사진, 이름은 상대방으로 되어있어야 함!
+//        last_profileUrl = chatting_other_last_message[profileUrl].toString();
+//        last_name = chatting_other_last_message[name].toString();
 
         if (chatting_other_arraylist.size() != 1 && chatting_me_arraylist.size() != 1) {
             int last_message_mode = chatting_send_activity.Compare_Date(
@@ -332,8 +361,8 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         }
         Insert_Chatroom_DB(position + 1, last_name, last_date, last_message, last_profileUrl, last_time);
+        Log.d("personal", "2222");
         chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date));
-
 
     }
 
@@ -348,6 +377,39 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         chatroom_db.child(Chatting.MESSAGE).setValue(message);
         chatroom_db.child(Chatting.PROFILEUTL).setValue(profileUrl);
         chatroom_db.child(Chatting.TIME).setValue(time);
+
+    }
+
+    //여기에서 개인아이디
+    private void get_personal_NickName(String userId) {
+        ServiceApi serviceApi=  new RetrofitBulider().initRetrofit();
+        Call<Personal> call = serviceApi.getPersonalData(userId);
+        new Insert_Personal_NickName().execute(call);
+    }
+
+    private class Insert_Personal_NickName extends AsyncTask<Call, Void, String>{
+        @Override
+        protected String doInBackground(Call... calls) {
+            try{
+                Call<Personal> call = calls[0];
+                Personal personalData = call.execute().body();
+                return  personalData.getNickName();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String nickName){
+            last_name = nickName;
+            Log.d("personal", "1111");
+        }
+    }
+
+    //점주 닉네임
+    private void get_storeManager_NickName(String userId, Activity activity) {
 
     }
 }

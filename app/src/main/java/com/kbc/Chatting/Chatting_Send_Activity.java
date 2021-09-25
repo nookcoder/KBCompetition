@@ -3,12 +3,14 @@ package com.kbc.Chatting;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,15 +30,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
+import com.kbc.Common.Creating;
+import com.kbc.Personal_Purchase_Fragment;
+import com.kbc.Pickup.Pickup_Item;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
+import com.kbc.Sale.StoreManager_SalesList_Fragment;
+import com.kbc.Server.Personal;
+import com.kbc.Server.PickUpData;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
 
 import static android.content.ContentValues.TAG;
 
@@ -63,6 +85,10 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     static int chatting_message_count;
     private String userId, chat_mode;
 
+    //서버에서 가져오기
+    String me_nick_name , other_nick_name;
+    String personal_NickName, storeManager_NickName;
+
 
 
     public Chatting_Send_Activity(){}
@@ -82,17 +108,25 @@ public class Chatting_Send_Activity extends AppCompatActivity {
         userId = intent.getStringExtra("userID");
 
 
+        switch (chat_mode){
+            case Chatting.PERSONAL:
+                get_personal_NickName(userId);
+                get_storeManager_NickName(click_chatting_list_name);
+                break;
+
+            case Chatting.STORE_MANAGER:
+                get_personal_NickName(click_chatting_list_name);
+                get_storeManager_NickName(userId);
+                break;
+        }
+
         chatting_number = Find_Chatting_Number(chat_mode);
-
-
+        //채팅방 제목
         Log.d("내 아이디", userId);
-
         other_chatting_number = Get_Other_Communication_Chatting();
         Log.d("상대방과 나의 채팅 기록 넘버", other_chatting_number+"");
 
-        //채팅방 제목 -> 유저이름으로!!
-        chatting_other_name = findViewById(R.id.other_userName);
-        chatting_other_name.setText(click_chatting_list_name);
+
 
         //파이어베이스 연동
         FirebaseConnector();
@@ -234,7 +268,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 insert_other_db.child(Chatting.TIME).setValue(send_time);
                 insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(userId, "http://seohee", editText.getText().toString(), send_time, Chatting.RIGHT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name, "http://seohee", editText.getText().toString(), send_time, Chatting.RIGHT_CONTENT));
 
                 //키패드 안보이게!
                 InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -499,7 +533,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                 send_chatting_me = chatting_me_arraylist.get(me_message_count).values().toArray();
                 Check_New_Date(send_chatting_me[date].toString());
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_me[name].toString(), send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(), send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name, send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(), send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
                 me_message_count++;
 
                 if (me_message_count == chatting_me_arraylist.size())
@@ -513,7 +547,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 send_chatting_other = chatting_other_arraylist.get(other_message_count).values().toArray();
 
                 Check_New_Date(send_chatting_other[date].toString());
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_other[name].toString(), send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(other_nick_name, send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
                 other_message_count++;
 
                 if (other_message_count == chatting_other_arraylist.size())
@@ -543,13 +577,13 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 Check_New_Date(send_chatting_me[date].toString());
                 Log.d(TAG, "들어가는 나의 메세지 1 -> " + send_chatting_me[message].toString());
 
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_me[name].toString(),send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(),send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name,send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(),send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
                 me_message_count++;
                 break;
 
             case Chatting.OTHER:
                 Check_New_Date(send_chatting_other[date].toString());
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(send_chatting_other[name].toString(), send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(other_nick_name, send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
                 other_message_count++;
                 break;
         }
@@ -686,6 +720,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                                 chatting_me_arraylist = (ArrayList<HashMap<String, String>>) chatrooms_map.get("other");
 
+                                Log.d("채팅 내역 상세", chatrooms_map.toString());
                                 if(chatting_me_arraylist.get(0).values().toArray()[2].equals(userId)){
                                     other_chatting_number = index;
                                     break;
@@ -709,5 +744,46 @@ public class Chatting_Send_Activity extends AppCompatActivity {
     }
 
 
+
+
+
+
+    //여기에서 개인아이디
+    private void get_personal_NickName(String userId) {
+        ServiceApi serviceApi=  new RetrofitBulider().initRetrofit();
+        Call<Personal> call = serviceApi.getPersonalData(userId);
+        new Insert_Personal_NickName().execute(call);
+    }
+
+    private class Insert_Personal_NickName extends AsyncTask<Call, Void, String>{
+        @Override
+        protected String doInBackground(Call... calls) {
+            try{
+                Call<Personal> call = calls[0];
+                Personal personalData = call.execute().body();
+                return  personalData.getNickName();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String nickName){
+            if(chat_mode.equals(Chatting.STORE_MANAGER)){
+                other_nick_name = nickName;
+                chatting_other_name = findViewById(R.id.other_userName);
+                chatting_other_name.setText(other_nick_name);
+            }
+            else{
+                me_nick_name = nickName;
+            }
+        }
+    }
+
+    //점주 닉네임
+    private void get_storeManager_NickName(String userId) {
+    }
 }
 

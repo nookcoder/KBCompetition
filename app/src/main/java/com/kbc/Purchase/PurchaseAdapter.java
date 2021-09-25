@@ -1,6 +1,7 @@
 package com.kbc.Purchase;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
             price = (TextView) view.findViewById(R.id.productPrice);
+
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -70,6 +73,8 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
         holder.name.setText(mDataset.get(position).getName());
         holder.category.setText(mDataset.get(position).getCategory());
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
+
+        Log.d("position", position+"");
 
         //이미지 넣기
         new RetrofitBulider().loadImage(mDataset.get(position).getUser_Id(),mDataset.get(position).getName(),holder.productImage);
