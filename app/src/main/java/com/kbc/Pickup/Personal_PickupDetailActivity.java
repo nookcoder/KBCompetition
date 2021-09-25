@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +14,11 @@ import com.kbc.Chatting.Chatting_Send_Activity;
 import com.kbc.Personal_MainActivity;
 import com.kbc.Purchase.Personal_Purchase_Inquiry_Activity;
 import com.kbc.R;
+import com.kbc.Server.RetrofitBulider;
 
 public class Personal_PickupDetailActivity extends AppCompatActivity {
     public static Personal_PickupDetailActivity personal_pickupDetailActivity;
-    String storeName, productNameInPickupList, pickupDate, pickupTime;
+    String storeName, productNameInPickupList, pickupDate, pickupTime,merchantId;
 
     private Personal_MainActivity personal_mainActivity;
     @Override
@@ -32,13 +34,16 @@ public class Personal_PickupDetailActivity extends AppCompatActivity {
         productNameInPickupList = intentForGet.getExtras().getString("productNameInPickupList");
         pickupDate = intentForGet.getExtras().getString("pickupDate");
         pickupTime = intentForGet.getExtras().getString("pickupTime");
+        merchantId = intentForGet.getExtras().getString("merchantId");
 
         //텍스트뷰 할당
         TextView storeNameView = (TextView)findViewById(R.id.storeName3);
         TextView productNameInPickupListView = (TextView)findViewById(R.id.productNameInPickupDetail3);
         TextView pickupDateView = (TextView)findViewById(R.id.producDateInPickupDetail3);
         TextView pickupTimeView = (TextView)findViewById(R.id.productTimeInPickupDetail3);
+        ImageView imageView = findViewById(R.id.imageView_PickUpDetail);
 
+        new RetrofitBulider().loadImage(merchantId,productNameInPickupList,imageView);
 
         //텍스트뷰에 데이터 셋팅
         storeNameView.setText(storeName);

@@ -241,7 +241,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         intent.putExtra("userID",personal_id);
         intent.putExtra("town2",personal_town2);
 
-
         startActivity(intent);
     }
     ///스피너 형성
@@ -443,7 +442,7 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
             for(int index=0; index < pickUpDataList.size(); index++){
                 PickUpData pickUpData = pickUpDataList.get(index);
                 if(pickUpData.getPickUp()==0){
-                    pickupList.add(new Personal_Pickup_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                    pickupList.add(new Personal_Pickup_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute()),pickUpData.getMerchantId()));
                 }
             }
 
