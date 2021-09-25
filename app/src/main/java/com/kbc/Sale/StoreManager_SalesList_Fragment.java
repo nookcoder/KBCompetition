@@ -188,7 +188,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //판매중~
     private void setSalesList(JSONObject jsonObject){
         try {
-            salesList.add(new Sale_Item("http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/img/request",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime")));
+            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),jsonObject.getString("userId")));
             Log.d("salesList",jsonObject.getString("category"));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -307,7 +307,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saleAdapter.getItem_date_type(position),
                 saleAdapter.getItem_origin(position),
                 saleAdapter.getItem_Details(position),
-                saleAdapter.getItem_Register_Time(position));
+                saleAdapter.getItem_Register_Time(position),
+                saleAdapter.getItem_merchantId(position));
 
         list.add(sale_item);
 

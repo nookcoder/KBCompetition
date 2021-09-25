@@ -66,7 +66,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.storeName.setText(mDataset.get(position).getUser_Id());
+        holder.storeName.setText(mDataset.get(position).getStoreName());
         holder.name.setText(mDataset.get(position).getName());
         holder.category.setText(mDataset.get(position).getCategory());
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));

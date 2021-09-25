@@ -7,9 +7,16 @@ import java.io.Serializable;
 public class Sale_Item implements Serializable {
     //구입자 아이디
     private String personal_Id;
+    private String storeName;
+    private String merchantId;
 
-    //
-    private ImageView imageView;
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
 
     //유저아이디
     private String user_Id, user_location;
@@ -24,13 +31,21 @@ public class Sale_Item implements Serializable {
     //상품 게시글 내용, 상품 등록 시간- (yyyy년 MM월 dd일 HH:mm)
     private String details, register_time;
 
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
     public Sale_Item(){
 
     }
 
     public Sale_Item(String productImageSrc, String name, String category, String price,
                      String date_year, String date_month, String date_day, String date_type,
-                     String origin, String details, String register_time){
+                     String origin, String details, String register_time,String merchantId){
         this.productImageSrc = productImageSrc;
 
         this.name = name;
@@ -45,12 +60,15 @@ public class Sale_Item implements Serializable {
         this.origin = origin;
         this.details = details;
         this.register_time = register_time;
+
+        this.merchantId = merchantId;
+
     }
 
 
     public Sale_Item(String productImageSrc,  String name, String category, String price,
                      String date_year, String date_month, String date_day, String date_type,
-                     String origin, String details, String register_time, String personal_Id, String user_Id,String user_location){
+                     String origin, String details, String register_time, String personal_Id, String user_Id,String user_location,String storeName){
         this.productImageSrc = productImageSrc;
 
         this.name = name;
@@ -69,6 +87,8 @@ public class Sale_Item implements Serializable {
         this.personal_Id = personal_Id;
         this.user_Id = user_Id;
         this.user_location = user_location;
+        this.storeName = storeName;
+
     }
 
 

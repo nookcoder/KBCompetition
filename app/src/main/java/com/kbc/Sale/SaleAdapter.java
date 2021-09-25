@@ -39,7 +39,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
         public MyViewHolder(View view) {
             super(view);
 
-            productImage = (ImageView) view.findViewById(R.id.productImage);
+            productImage = (ImageView) view.findViewById(R.id.productImage2);
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
             price = (TextView) view.findViewById(R.id.productPrice);
@@ -78,7 +78,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
         //이미지 넣기
-        new RetrofitBulider().loadImage(mDataset.get(position).getUser_Id(),mDataset.get(position).getName(),holder.productImage);
+        new RetrofitBulider().loadImage(mDataset.get(position).getMerchantId(),mDataset.get(position).getName(),holder.productImage);
 
         //클릭이벤트
         holder.name.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +101,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
         mDataset.clear();
     }
 
+    public String getItem_merchantId(int position){return mDataset.get(position).getMerchantId();}
     public String getItem_productImageSrc(int position){return mDataset.get(position).getProductImageSrc();}
     public String getItem_date_year(int position){return mDataset.get(position).getDate_year();}
     public String getItem_date_month(int position){return mDataset.get(position).getDate_month();}

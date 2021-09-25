@@ -341,13 +341,13 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
     //장보기 물품 담아주는 함수 !!!!!!!!!
     private void setPurchaseList(JSONObject jsonObject){
         try {
-            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),personal_id,jsonObject.getString("userId"),jsonObject.getString("location")));
+            purchaseList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),personal_id,jsonObject.getString("userId"),jsonObject.getString("location"),jsonObject.getString("storeName")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         purchaseAdapter.notifyDataSetChanged();
     }
-    private void getProductFromServer(String town){
+    private void  getProductFromServer(String town){
         String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/personal/product";
         JSONObject jsonObject = new JSONObject();
 
@@ -366,7 +366,6 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
                     for(int index = 0 ; index<jsonArray.length(); index++)
                     {
                         setPurchaseList(jsonArray.getJSONObject(index));
-                        Log.d("purchaseList",purchaseList.get(index).getName());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
