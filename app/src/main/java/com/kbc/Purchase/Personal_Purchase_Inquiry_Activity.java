@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kbc.Chatting.Chatting;
@@ -16,6 +17,7 @@ import com.kbc.Chatting.Chatting_Send_Activity;
 import com.kbc.Payment_Personal.Payment_Check_Activity;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
+import com.kbc.Server.RetrofitBulider;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
     private CircleImageView storemanager_image_profile;
     private ImageButton product_inquiry_close, chatting_imageButton;
     private TextView storemanager_id, storemanager_location, product_title, product_category, product_date_type, product_deadline_time, product_price, product_details;
-
+    private ImageView imageView;
     private Button product_payment;
 
     String personal_id, personal_town2;
@@ -55,6 +57,9 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
                 finish();
             }
         });
+
+        imageView = findViewById(R.id.productImageSrc);
+        new RetrofitBulider().loadImage(purchase_item.getUser_Id(), purchase_item.getName(),imageView);
 
         //차례대로 컴포넌트 가져오기 (텍스트뷰)
         storemanager_id = findViewById(R.id.storemanager_id);
