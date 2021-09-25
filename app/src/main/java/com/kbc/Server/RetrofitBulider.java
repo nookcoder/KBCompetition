@@ -55,7 +55,7 @@ public class RetrofitBulider {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.d("악",t.getMessage());
+//                Log.d("악",t.getMessage());
             }
         });
     }
