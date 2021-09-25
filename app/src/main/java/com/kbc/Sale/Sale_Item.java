@@ -8,6 +8,9 @@ public class Sale_Item implements Serializable {
     //구입자 아이디
     private String personal_Id;
 
+    //
+    private ImageView imageView;
+
     //유저아이디
     private String user_Id, user_location;
     //상품사진
