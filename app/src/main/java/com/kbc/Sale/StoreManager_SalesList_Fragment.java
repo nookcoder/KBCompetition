@@ -83,34 +83,33 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.storemanager_saleslist, container, false);
+        View v = inflater.inflate(R.layout.storemanager_saleslist, container, false);
 
         bundle = getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             storeManager_id = bundle.getString("userID");
             storeManager_location = bundle.getString("location");
 
         }
-        Log.d( "리스트 프래그먼트 아이디 ->", storeManager_id);
+        Log.d("리스트 프래그먼트 아이디 ->", storeManager_id);
 
         //컴포넌트 할당
-            //Text
+        //Text
         toolbarText = (TextView) v.findViewById(R.id.toolbarText);
-            //button
+        //button
         salesBtn = (Button) v.findViewById(R.id.button1);
         pickupBtn = (Button) v.findViewById(R.id.button2);
         saledBtn = (Button) v.findViewById(R.id.button3);
-        addProductBtn =(FloatingActionButton)v.findViewById(R.id.addProductBtn);
-
+        addProductBtn = (FloatingActionButton) v.findViewById(R.id.addProductBtn);
 
 
         addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((StoreManager_MainActivity)getActivity()).Change_Activity(storeManager_id);
+                ((StoreManager_MainActivity) getActivity()).Change_Activity(storeManager_id);
             }
         });
-             //recyclerview
+        //recyclerview
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
@@ -186,20 +185,21 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     }
 
     //판매중~
-    private void setSalesList(JSONObject jsonObject){
+    private void setSalesList(JSONObject jsonObject) {
         try {
-            salesList.add(new Sale_Item("",jsonObject.getString("name"),jsonObject.getString("category"),jsonObject.getString("price"),jsonObject.getString("dateYear"),jsonObject.getString("dateMonth"),jsonObject.getString("dateDay"),jsonObject.getString("dateType"),jsonObject.getString("origin"),jsonObject.getString("details"),jsonObject.getString("registerTime"),jsonObject.getString("userId")));
-            Log.d("salesList",jsonObject.getString("category"));
+            salesList.add(new Sale_Item("", jsonObject.getString("name"), jsonObject.getString("category"), jsonObject.getString("price"), jsonObject.getString("dateYear"), jsonObject.getString("dateMonth"), jsonObject.getString("dateDay"), jsonObject.getString("dateType"), jsonObject.getString("origin"), jsonObject.getString("details"), jsonObject.getString("registerTime"), jsonObject.getString("userId")));
+            Log.d("salesList", jsonObject.getString("category"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         saleAdapter.notifyDataSetChanged();
     }
+
     //서버 데이터 전달
     private void getProductsDataFromServer(String id) throws JSONException {
-        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/"+id+"/products/";
+        String URL = "http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/merchant/" + id + "/products/";
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id",id);
+        jsonObject.put("id", id);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -207,8 +207,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                     salesList.clear();
                     Log.d("JSON", response.getJSONArray("products").toString());
                     JSONArray jsonArray = response.getJSONArray("products");
-                    for(int index=0; index<jsonArray.length();index++)
-                    {
+                    for (int index = 0; index < jsonArray.length(); index++) {
                         setSalesList(jsonArray.getJSONObject(index));
                     }
                 } catch (JSONException e) {
@@ -216,7 +215,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 }
 
             }
-        },null);
+        }, null);
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         requestQueue.add(jsonObjectRequest);
     }
@@ -224,27 +223,29 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //픽업대기중
     private void prepareData2(String userId) {
         Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
-       new Insert_PickUp().execute(call);
+        new Insert_PickUp().execute(call);
     }
-    private class Insert_PickUp extends AsyncTask<Call<List<PickUpData>>,Void, List<PickUpData>>{
+
+    private class Insert_PickUp extends AsyncTask<Call<List<PickUpData>>, Void, List<PickUpData>> {
         @Override
         protected List<PickUpData> doInBackground(Call<List<PickUpData>>... calls) {
-            try{
-                Call<List<PickUpData>>call = calls[0];
+            try {
+                Call<List<PickUpData>> call = calls[0];
                 return call.execute().body();
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
+
         @Override
-        protected void onPostExecute(List<PickUpData> pickUpDataList){
+        protected void onPostExecute(List<PickUpData> pickUpDataList) {
             pickupList.clear();
-            for(int index=0; index < pickUpDataList.size(); index++){
+            for (int index = 0; index < pickUpDataList.size(); index++) {
                 PickUpData pickUpData = pickUpDataList.get(index);
-                if(pickUpData.getPickUp()==0){
-                    pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute()),pickUpData.getPickregisterTime(),pickUpData.getMerchantId()));
+                if (pickUpData.getPickUp() == 0) {
+                    pickupList.add(new Pickup_Item(pickUpData.getPersonalName(), pickUpData.getProductName(), new Creating().pickUpDate(pickUpData.getPickUpYear(), pickUpData.getPickUpMonth(), pickUpData.getPickUpDay()), new Creating().pickUpTime(pickUpData.getPickUpNoon(), pickUpData.getPickUpHour(), pickUpData.getPickUpMinute()), pickUpData.getPickregisterTime(), pickUpData.getMerchantId()));
                 }
             }
             pickupAdapter.notifyDataSetChanged();
@@ -258,31 +259,34 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         Call<List<PickUpData>> call = serviceApi.getPickUpDate(userId);
         new Insert_Saled().execute(call);
     }
-    private class Insert_Saled extends AsyncTask<Call<List<PickUpData>>, Void, List<PickUpData>>{
+
+    private class Insert_Saled extends AsyncTask<Call<List<PickUpData>>, Void, List<PickUpData>> {
 
         @Override
         protected List<PickUpData> doInBackground(Call<List<PickUpData>>... calls) {
-            try{
+            try {
                 Call<List<PickUpData>> call = calls[0];
-                return  call.execute().body();
+                return call.execute().body();
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
+
         @Override
-        protected void onPostExecute(List<PickUpData> pickUpDataList){
+        protected void onPostExecute(List<PickUpData> pickUpDataList) {
             saledList.clear();
-            for(int index=0; index < pickUpDataList.size(); index++){
+            for (int index = 0; index < pickUpDataList.size(); index++) {
                 PickUpData pickUpData = pickUpDataList.get(index);
-                if(pickUpData.getPickUp()==1){
-                    saledList.add(new Saled_Item(pickUpData.getMerchantName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute())));
+                if (pickUpData.getPickUp() == 1) {
+                    saledList.add(new Saled_Item(pickUpData.getMerchantName(), pickUpData.getProductName(), new Creating().pickUpDate(pickUpData.getPickUpYear(), pickUpData.getPickUpMonth(), pickUpData.getPickUpDay()), new Creating().pickUpTime(pickUpData.getPickUpNoon(), pickUpData.getPickUpHour(), pickUpData.getPickUpMinute())));
                 }
             }
             saledAdapter.notifyDataSetChanged();
         }
     }
+
     //버튼 할당
     @Override
     public void onClick(View v) {
@@ -294,11 +298,11 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
     //아이템 눌렀을때!
     @Override
     public void onItemClick(View view, int position) {
-        SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder)recyclerView.findViewHolderForAdapterPosition(position);
+        SaleAdapter.MyViewHolder myViewHolder = (SaleAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
         ArrayList<Sale_Item> list = new ArrayList<Sale_Item>();
         Sale_Item sale_item = new Sale_Item(
                 saleAdapter.getItem_productImageSrc(position),
-                myViewHolder.name.getText().toString() ,
+                myViewHolder.name.getText().toString(),
                 myViewHolder.category.getText().toString(),
                 myViewHolder.price.getText().toString(),
                 saleAdapter.getItem_date_year(position),
@@ -310,6 +314,9 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
                 saleAdapter.getItem_Register_Time(position),
                 saleAdapter.getItem_merchantId(position));
 
+
+
+
         list.add(sale_item);
 
 
@@ -317,8 +324,8 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
         Intent intent = new Intent(getActivity(), StoreManager_Product_Inquiry_Activity.class);
         intent.putExtra("sale_item_list", list);
         intent.putExtra("userID", storeManager_id);
-        intent.putExtra("productName",sale_item.getName());
-        intent.putExtra("location",storeManager_location);
+        intent.putExtra("productName", sale_item.getName());
+        intent.putExtra("location", storeManager_location);
 
         startActivity(intent);
 
