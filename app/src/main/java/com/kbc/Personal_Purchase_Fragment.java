@@ -158,6 +158,13 @@ public class Personal_Purchase_Fragment extends Fragment implements View.OnClick
         recyclerView.setAdapter(purchaseAdapter);
         purchaseAdapter.notifyDataSetChanged();
 
+        //적용 버튼 눌렀을때
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getProductFromServer(town2.getSelectedItem().toString());
+            }
+        });
 
         //판매중 버튼 눌렀을 때!
         purchaseBtn.setOnClickListener(new View.OnClickListener() {
