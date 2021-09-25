@@ -244,7 +244,7 @@ public class StoreManager_SalesList_Fragment extends Fragment implements View.On
             for(int index=0; index < pickUpDataList.size(); index++){
                 PickUpData pickUpData = pickUpDataList.get(index);
                 if(pickUpData.getPickUp()==0){
-                    pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute()),pickUpData.getPickregisterTime()));
+                    pickupList.add(new Pickup_Item(pickUpData.getPersonalName(),pickUpData.getProductName(),new Creating().pickUpDate(pickUpData.getPickUpYear(),pickUpData.getPickUpMonth(),pickUpData.getPickUpDay()),new Creating().pickUpTime(pickUpData.getPickUpNoon(),pickUpData.getPickUpHour(),pickUpData.getPickUpMinute()),pickUpData.getPickregisterTime(),pickUpData.getMerchantId()));
                 }
             }
             pickupAdapter.notifyDataSetChanged();

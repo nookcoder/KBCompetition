@@ -2,34 +2,55 @@ package com.kbc.Pickup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kbc.Chatting.Chatting;
 import com.kbc.Chatting.Chatting_Send_Activity;
+import com.kbc.Common.Creating;
 import com.kbc.Common.Popup_TwoButton_Activity;
 import com.kbc.R;
+import com.kbc.Server.PickUpData;
+import com.kbc.Server.ProductData;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 import com.kbc.StoreManger.StoreManager_MainActivity;
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PickupDetailActivity extends AppCompatActivity {
     public static PickupDetailActivity pickupDetailActivity;
     TextView buyerNameView, productNameInPickupListView, pickupDateView, pickupTimeView,pickupQuantityView;
-    String buyerName, productNameInPickupList, pickupDate, pickupTime,registerTime;
+    String buyerName, productNameInPickupList, pickupDate, pickupTime,registerTime,merchantId;
 
     //픽업 대기 중에서 넘어올때 점주 아이디 받아오기!!!
     String storeManagerId = StoreManager_MainActivity.userId;
 
+    ImageView imageView;
+    ServiceApi serviceApi;
 
     private StoreManager_MainActivity storeManager_mainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanage_pickup_detail);
-
         pickupDetailActivity = PickupDetailActivity.this;
 
         //정보 받아오기
@@ -39,6 +60,12 @@ public class PickupDetailActivity extends AppCompatActivity {
         pickupDate = intentForGet.getExtras().getString("pickupDate");
         pickupTime = intentForGet.getExtras().getString("pickupTime");
         registerTime = intentForGet.getExtras().getString("registerTime");
+        merchantId = intentForGet.getExtras().getString("merchantId");
+
+        Log.d("에러",merchantId + " "+productNameInPickupList);
+
+        imageView = findViewById(R.id.imageView);
+        new RetrofitBulider().loadImage(merchantId,productNameInPickupList,imageView);
 
         //텍스트뷰 할당
         TextView buyerNameView = (TextView)findViewById(R.id.buyerNameInPickup);
@@ -51,9 +78,6 @@ public class PickupDetailActivity extends AppCompatActivity {
         productNameInPickupListView.setText(productNameInPickupList);
         pickupDateView.setText(pickupDate);
         pickupTimeView.setText(pickupTime);
-
-        Log.d("점주 아이디 ->", storeManagerId);
-        Log.d("사는 사람 아이디 -> ", buyerName);
 
         //채팅 버튼 할당
         Button chattingBtn = (Button)findViewById(R.id.chattingBtn);
@@ -82,9 +106,12 @@ public class PickupDetailActivity extends AppCompatActivity {
                 intent.putExtra("buyerName",buyerName);
                 intent.putExtra("productName",productNameInPickupList);
                 intent.putExtra("registerTime",registerTime);
+                intent.putExtra("merchantId",merchantId);
                 startActivity(intent);
             }
         });
+
+
     }
 
     public void click_back(View view){
@@ -95,5 +122,9 @@ public class PickupDetailActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+
+    private void createImg(String merchantId,String productNameInPickupList){
+
     }
 }

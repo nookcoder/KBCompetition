@@ -46,4 +46,6 @@ public interface ServiceApi {
     @POST("/product/register")
     Call<ProductData> sendProduct(@PartMap Map<String,RequestBody> map, @Part ArrayList<MultipartBody.Part> itempImg);
 
+    @POST("/img/{merchantId}/{productName}")
+    Call<String> postPickUpImageData(@Path("merchantId") String merchantId,@Path("productName") String productName);
 }

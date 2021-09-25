@@ -36,11 +36,10 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_PickUpDetail"
         android:layout_width="match_parent"
         android:layout_weight="0.5"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/sample1"
         android:scaleType="fitXY"/>
 
     <!--고객-->

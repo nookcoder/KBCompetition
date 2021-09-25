@@ -7,13 +7,23 @@ public class Pickup_Item {
     private String buyerName, productNameInPickupList, pickupDate, pickupTime;
     private ImageView imageView; //임의로 설정
     private String registerTime;
+    private String merchantId;
 
-    public Pickup_Item(String buyerName, String productNameInPickupList, String pickupDate, String pickupTime,String registerTime) {
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public Pickup_Item(String buyerName, String productNameInPickupList, String pickupDate, String pickupTime, String registerTime, String merchantId) {
         this.buyerName = buyerName;
         this.productNameInPickupList = productNameInPickupList;
         this.pickupDate = pickupDate;
         this.pickupTime = pickupTime;
         this.registerTime = registerTime;
+        this.merchantId = merchantId;
     }
 
     public String getBuyerName() {
