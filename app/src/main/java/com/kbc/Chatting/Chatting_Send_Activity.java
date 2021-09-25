@@ -36,6 +36,7 @@ import com.kbc.Pickup.Pickup_Item;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 import com.kbc.Sale.StoreManager_SalesList_Fragment;
+import com.kbc.Server.Merchant;
 import com.kbc.Server.Personal;
 import com.kbc.Server.PickUpData;
 import com.kbc.Server.RetrofitBulider;
@@ -784,6 +785,36 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
     //점주 닉네임
     private void get_storeManager_NickName(String userId) {
+        ServiceApi serviceApi=  new RetrofitBulider().initRetrofit();
+        Call<Merchant> call = serviceApi.getStoreName(userId);
+        new Insert_storeManager_NickName().execute(call);
+    }
+
+    private class Insert_storeManager_NickName extends AsyncTask<Call, Void, String>{
+        @Override
+        protected String doInBackground(Call... calls) {
+            try{
+                Call<Merchant> call = calls[0];
+                Merchant merchantData = call.execute().body();
+                return  merchantData.getStoreName();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String nickName){
+            if(chat_mode.equals(Chatting.STORE_MANAGER)){
+                other_nick_name = nickName;
+                chatting_other_name = findViewById(R.id.other_userName);
+                chatting_other_name.setText(other_nick_name);
+            }
+            else{
+                me_nick_name = nickName;
+            }
+        }
     }
 }
 

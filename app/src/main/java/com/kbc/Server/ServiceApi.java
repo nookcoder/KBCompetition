@@ -48,4 +48,7 @@ public interface ServiceApi {
 
     @POST("/img/{merchantId}/{productName}")
     Call<String> postPickUpImageData(@Path("merchantId") String merchantId,@Path("productName") String productName);
+
+    @GET("/merchant/{id}")
+    Call<Merchant> getStoreName(@Path("id") String id);
 }
