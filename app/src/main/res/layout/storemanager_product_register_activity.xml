@@ -123,7 +123,7 @@
                 android:layout_height="0dp">
                 <EditText
                     android:id="@+id/product_name"
-                    android:text="글 제목"
+                    android:hint="글 제목"
                     android:layout_span="5"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -205,7 +205,7 @@
                 >
                 <EditText
                     android:id="@+id/product_origin"
-                    android:text="원산지/거래"
+                    android:hint="원산지/거래"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -217,7 +217,7 @@
                     />
                 <EditText
                     android:id="@+id/product_price"
-                    android:text="가격"
+                    android:hint="가격"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_span="2"
@@ -236,7 +236,7 @@
                 android:layout_weight="1">
             <EditText
                 android:id="@+id/product_details"
-                android:text="게시글 내용을 입력해주세요"
+                android:hint="게시글 내용을 입력해주세요"
                 android:layout_span="5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
