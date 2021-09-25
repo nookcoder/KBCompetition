@@ -18,7 +18,6 @@ public class Personal_PickupAdapter extends RecyclerView.Adapter<Personal_Pickup
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView storeName, productNameInPickupList, pickupDate, pickupTime;
-
         //ViewHolder
         public MyViewHolder(View view) {
             super(view);
@@ -59,6 +58,7 @@ public class Personal_PickupAdapter extends RecyclerView.Adapter<Personal_Pickup
                 intent.putExtra("productNameInPickupList", mDataset.get(position).getProductNameInPickupList());
                 intent.putExtra("pickupDate", mDataset.get(position).getPickupDate());
                 intent.putExtra("pickupTime", mDataset.get(position).getPickupTime());
+                intent.putExtra("merchantId",mDataset.get(position).getMerchantId());
 
                 view.getContext().startActivity(intent); //액티비티 열기
 

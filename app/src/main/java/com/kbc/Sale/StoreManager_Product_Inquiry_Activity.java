@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kbc.Image.ImageAdapter;
 import com.kbc.Image.Image_Item;
 import com.kbc.R;
+import com.kbc.Server.RetrofitBulider;
 import com.kbc.StoreManger.StoreManager_MainActivity;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
     //인텐트에서 넘어오는 정보들
     private ArrayList<Sale_Item> sale_items ;
     private Sale_Item sale_item;
-    private String storeManager_id , storeManager_location;
+    private String storeManager_id , storeManager_location,productName;
 
     //상품 정보들
     private TextView storemanager_id, storemanager_location;
@@ -54,6 +56,7 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         //로그인 정보 가져오기
         storeManager_id = intent.getExtras().getString("userID");
         storeManager_location = intent.getExtras().getString("location");
+        productName = intent.getStringExtra("productName");
 
         Log.d( "조회 액티비티 아이디 ->",storeManager_id);
 
@@ -69,8 +72,9 @@ public class StoreManager_Product_Inquiry_Activity extends AppCompatActivity {
         product_modify_imageButton = findViewById(R.id.product_modify_imageButton);
         product_inquiry_close = findViewById(R.id.product_inquiry_close);
 
-
-//        //상품 사진들 넣어야함!!!!!!!!!!!!!!!!!!!!!!!!!!
+        ImageView imageView = findViewById(R.id.productImageSrc);
+        new RetrofitBulider().loadImage(storeManager_id,productName,imageView);
+        //상품 사진들 넣어야함!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        recyclerView = findViewById(R.id.image_recyclerview);
 //        //이미지아이템에 사진 경로를 넣어야합니다아~
 //        imageAdapter = new ImageAdapter(image_items);
