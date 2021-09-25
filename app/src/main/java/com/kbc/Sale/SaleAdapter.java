@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kbc.R;
+import com.kbc.Server.RetrofitBulider;
 
 import java.io.IOException;
 import java.net.URL;
@@ -76,6 +77,9 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
         holder.category.setText(mDataset.get(position).getCategory());
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
 
+        //이미지 넣기
+        new RetrofitBulider().loadImage(mDataset.get(position).getUser_Id(),mDataset.get(position).getName(),holder.productImage);
+
         //클릭이벤트
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +113,6 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder>{
     public String getItem_Register_Time(int position){
         return mDataset.get(position).getRegister_time();
     }
-
 
 
 }

@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kbc.R;
 import com.kbc.Sale.SaleAdapter;
 import com.kbc.Sale.Sale_Item;
+import com.kbc.Server.RetrofitBulider;
 
 import java.util.ArrayList;
 
@@ -25,14 +27,14 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView storeName, name, category,  price;
-        //public ImageView productImage;
+        public ImageView productImage;
         public Drawable d;
 
         //ViewHolder
         public MyViewHolder(View view) {
             super(view);
 
-            // productImage = (ImageView) view.findViewById(R.id.productImage);
+            productImage = (ImageView) view.findViewById(R.id.productImage);
             storeName = (TextView) view.findViewById(R.id.storeName);
             name = (TextView) view.findViewById(R.id.productName);
             category = (TextView) view.findViewById(R.id.productCategory);
@@ -68,6 +70,10 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.MyView
         holder.name.setText(mDataset.get(position).getName());
         holder.category.setText(mDataset.get(position).getCategory());
         holder.price.setText(String.valueOf(mDataset.get(position).getPrice()));
+
+        //이미지 넣기
+        new RetrofitBulider().loadImage(mDataset.get(position).getUser_Id(),mDataset.get(position).getName(),holder.productImage);
+
 
         //클릭이벤트
         holder.name.setOnClickListener(new View.OnClickListener() {
