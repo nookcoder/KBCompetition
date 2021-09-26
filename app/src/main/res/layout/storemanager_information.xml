@@ -82,22 +82,22 @@
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:background="@android:color/transparent" />
-    <Button
-        android:id="@+id/review"
-        android:text="내 가게 리뷰"
-        android:gravity="left|center_vertical"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:paddingLeft="40dp"
-        android:drawableLeft="@drawable/ic_star"
-        android:drawablePadding="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:background="@android:color/transparent"
-        />
+<!--    <Button-->
+<!--        android:id="@+id/review"-->
+<!--        android:text="내 가게 리뷰"-->
+<!--        android:gravity="left|center_vertical"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="18dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:paddingLeft="40dp"-->
+<!--        android:drawableLeft="@drawable/ic_star"-->
+<!--        android:drawablePadding="20dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingTop="15dp"-->
+<!--        android:paddingBottom="15dp"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        />-->
 
     <Button
         android:id="@+id/logout"
