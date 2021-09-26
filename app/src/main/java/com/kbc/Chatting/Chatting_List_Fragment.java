@@ -314,7 +314,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
 
         //마지막 채팅 정보 나, 상대방 각각 가져오기
         chatting_me_last_message = chatting_me_arraylist.get(chatting_me_arraylist.size() - 1).values().toArray();
-        chatting_other_last_message = chatting_other_arraylist.get(chatting_other_arraylist.size() - 1).values().toArray();
+        chatting_other_last_message = chatting_other_arraylist.get(0).values().toArray();
 
         Log.d("나의 채팅수", chatting_me_arraylist.size() + "");
         Log.d("상대의 채팅수", chatting_other_arraylist.size() + "");

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +14,12 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.kbc.Chatting.Chatting_List_Fragment;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
+import com.kbc.Server.Personal;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 
 import java.util.ArrayList;
 
@@ -30,6 +35,7 @@ import kr.co.bootpay.listener.DoneListener;
 import kr.co.bootpay.listener.ReadyListener;
 import kr.co.bootpay.model.BootExtra;
 import kr.co.bootpay.model.BootUser;
+import retrofit2.Call;
 
 public class Payment_Check_Activity extends AppCompatActivity {
 
@@ -63,8 +69,10 @@ public class Payment_Check_Activity extends AppCompatActivity {
 
         buyerNameInPickup = findViewById(R.id.buyerNameInPickup);
         productNameInPickupDetail = findViewById(R.id.productNameInPickupDetail);
+//
 
-        buyerNameInPickup.setText(purchase_item.getUser_Id());
+        get_personal_NickName(purchase_item.getPersonal_Id());
+//        buyerNameInPickup.setText(purchase_item.getUser_Id());
         productNameInPickupDetail.setText(purchase_item.getName());
 
         //픽업 날짜 스피너연결
@@ -196,4 +204,30 @@ public class Payment_Check_Activity extends AppCompatActivity {
 
     }
 
+    //여기에서 개인아이디
+    private void get_personal_NickName(String userId) {
+        ServiceApi serviceApi=  new RetrofitBulider().initRetrofit();
+        Call<Personal> call = serviceApi.getPersonalData(userId);
+        new Insert_Personal_NickName().execute(call);
+    }
+
+    private class Insert_Personal_NickName extends AsyncTask<Call, Void, String> {
+        @Override
+        protected String doInBackground(Call... calls) {
+            try{
+                Call<Personal> call = calls[0];
+                Personal personalData = call.execute().body();
+                return  personalData.getNickName();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String nickName){
+            buyerNameInPickup.setText(nickName);
+        }
+    }
 }
