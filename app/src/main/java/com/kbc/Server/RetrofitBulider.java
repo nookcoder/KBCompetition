@@ -3,6 +3,7 @@ package com.kbc.Server;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.kbc.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -48,9 +49,9 @@ public class RetrofitBulider {
             public void onResponse(Call<String> call, Response<String> response) {
                 Picasso.get()
                         .load("http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/img/"+merchantId+"/"+productNameInPickupList)
+                        .error(R.drawable.app_logo)
                         .into(imageView);
-                Log.d("악","통신성공");
-                Log.d("악","http://ec2-52-79-237-141.ap-northeast-2.compute.amazonaws.com:3000/img/"+merchantId+"/"+productNameInPickupList);
+
             }
 
             @Override
