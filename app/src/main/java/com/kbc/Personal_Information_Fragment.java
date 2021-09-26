@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.kbc.Chatting.Chatting;
 import com.kbc.Common.Popup_TwoButton_Activity;
 
 public class Personal_Information_Fragment extends Fragment implements View.OnClickListener{
@@ -52,12 +53,14 @@ public class Personal_Information_Fragment extends Fragment implements View.OnCl
                 //로그아웃
             case R.id.logout:
                 intent.putExtra("button_name", "logout");
+                intent.putExtra("mode", Chatting.PERSONAL);
                 startActivity(intent);
                 break;
 
                 //탈퇴하기
             case R.id.withdrawal:
-                intent.putExtra("button_name", "withdrwal");
+                intent.putExtra("button_name", "withdrawal");
+                intent.putExtra("mode", Chatting.PERSONAL);
                 startActivity(intent);
                 break;
         }

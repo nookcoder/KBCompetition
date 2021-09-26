@@ -16,6 +16,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.kbc.Chatting.Chatting;
+import com.kbc.Personal_MainActivity;
 import com.kbc.R;
 import com.kbc.Sale.Sale_Item;
 import com.kbc.Sale.StoreManager_Product_Modify_Activity;
@@ -25,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kbc.Pickup.PickupDetailActivity;
+import com.kbc.Server.Personal;
 import com.kbc.Server.PickUpData;
 import com.kbc.Server.RetrofitBulider;
 import com.kbc.Server.ServiceApi;
@@ -40,7 +43,7 @@ import retrofit2.Callback;
 public class Popup_TwoButton_Activity extends AppCompatActivity {
 
     private Intent intent;
-     String userId, userLocation;
+     String userId, userLocation, mode;
      ArrayList<Sale_Item> sale_items;
     private  Sale_Item sale_item;
     private  String button_name;
@@ -119,6 +122,7 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
         StoreManager_MainActivity storeManager_mainActivity = (StoreManager_MainActivity)StoreManager_MainActivity.storeManager_mainActivity;
         PickupDetailActivity pickupDetailActivity = (PickupDetailActivity)PickupDetailActivity.pickupDetailActivity;
         StoreManager_Product_Modify_Activity storeManager_product_modify_activity = (StoreManager_Product_Modify_Activity)StoreManager_Product_Modify_Activity.storeManager_product_modify_activity;
+        Personal_MainActivity personal_mainActivity  = (Personal_MainActivity)Personal_MainActivity.personal_mainActivity;
 
 
         switch (button_name){
@@ -126,9 +130,15 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
             //로그아웃일때!
             case "logout":
                 //팝업 액티비티 닫아주고,
+
                 finish();
                 //사장님 액티비티 닫고,
-                storeManager_mainActivity.finish();
+                mode = intent.getStringExtra("mode");
+                if(mode.equals(Chatting.PERSONAL))
+                    personal_mainActivity.finish();
+                else
+                    storeManager_mainActivity.finish();
+
                 //로그인 페이지 열어주기!
                 Intent login_intent = new Intent(this, Login_Activity.class);
                 startActivity(login_intent);
@@ -137,7 +147,13 @@ public class Popup_TwoButton_Activity extends AppCompatActivity {
             case "withdrawal":
                 finish();
                 //사장님 액티비티 닫고,
-                storeManager_mainActivity.finish();
+                mode = intent.getStringExtra("mode");
+                if(mode.equals(Chatting.PERSONAL))
+                    personal_mainActivity.finish();
+                else
+                    storeManager_mainActivity.finish();
+
+
                 //첫 페이지 열어주기!
                 Intent first_intent = new Intent(this, Login_Activity.class);
                 startActivity(first_intent);

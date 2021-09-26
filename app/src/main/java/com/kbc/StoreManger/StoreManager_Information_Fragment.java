@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.kbc.Chatting.Chatting;
 import com.kbc.Common.Popup_TwoButton_Activity;
 
 import com.kbc.R;
@@ -56,12 +57,14 @@ public class StoreManager_Information_Fragment extends Fragment implements View.
                 //로그아웃
             case R.id.logout:
                 intent.putExtra("button_name","logout");
+                intent.putExtra("mode", Chatting.STORE_MANAGER);
                 startActivity(intent);
                 break;
 
                 //탈퇴하기
             case R.id.withdrawal:
                 intent.putExtra("button_name","withdrawal");
+                intent.putExtra("mode", Chatting.STORE_MANAGER);
                 startActivity(intent);
                 break;
 
