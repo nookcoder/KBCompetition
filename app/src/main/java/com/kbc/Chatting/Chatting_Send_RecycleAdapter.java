@@ -79,10 +79,12 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
         else {
             int image_id  = 0;
             if(chatting_items.get(position).getMode().equals(Chatting.PERSONAL)){
-                image_id = R.drawable.image_store;
+                image_id = R.drawable.image_person;
+
             }
             else
-                image_id = R.drawable.image_person;
+                image_id = R.drawable.image_store;
+
 
             ((Right_ViewHolder)viewHolder).chatting_circle_imageview.setImageResource(image_id) ;
             ((Right_ViewHolder)viewHolder).chatting_name.setText(chatting_items.get(position).getName());
