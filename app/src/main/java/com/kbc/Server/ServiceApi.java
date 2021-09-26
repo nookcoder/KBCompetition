@@ -51,4 +51,7 @@ public interface ServiceApi {
 
     @GET("/merchant/{id}")
     Call<Merchant> getStoreName(@Path("id") String id);
+
+    @POST("/product/update")
+    Call<ProductData> updateProductDate(@Body ProductData productData);
 }

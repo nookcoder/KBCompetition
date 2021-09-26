@@ -13,6 +13,15 @@ public class ProductData {
     private String details;
     private String location;
     private String town;
+    private String registerTime;
+
+    public String getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(String registerTime) {
+        this.registerTime = registerTime;
+    }
 
     public ProductData(String userId, String name, String category, String price, String dateYear, String dateMonth, String dateDay, String dateType, String origin, String details) {
         this.userId = userId;
@@ -25,6 +34,20 @@ public class ProductData {
         this.dateType = dateType;
         this.origin = origin;
         this.details = details;
+    }
+
+    public ProductData(String userId, String name, String category, String price, String dateYear, String dateMonth, String dateDay, String dateType, String origin, String details,String registerTime) {
+        this.userId = userId;
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.dateYear = dateYear;
+        this.dateMonth = dateMonth;
+        this.dateDay = dateDay;
+        this.dateType = dateType;
+        this.origin = origin;
+        this.details = details;
+        this.registerTime = registerTime;
     }
 
     public String getLocation() {

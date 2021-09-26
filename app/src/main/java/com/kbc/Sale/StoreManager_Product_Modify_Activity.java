@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.kbc.Common.Popup_TwoButton_Activity;
 import com.kbc.R;
+import com.kbc.Server.ProductData;
+import com.kbc.Server.RetrofitBulider;
+import com.kbc.Server.ServiceApi;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +20,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
 
@@ -47,11 +54,15 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
     private ImageButton product_modify_close, product_remove;
     private Button product_modify_sucess;
 
+    private ServiceApi serviceApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storemanager_product_modify_activity);
         storeManager_product_modify_activity = this;
+        serviceApi = new RetrofitBulider().initRetrofit();
+
 
         //상품 정보 가져오기
         Intent intent = getIntent();
@@ -233,6 +244,7 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
                 sale_items.add(sale_item);
 
                 Log.d("Result",storeManager_id);
+                updateProductData(storeManager_id,sale_item.getName(),sale_item.getCategory(),sale_item.getPrice(),sale_item.getDate_year(),sale_item.getDate_month(),sale_item.getDate_day(),sale_item.getDate_type(),sale_item.getOrigin(),sale_item.getDetails(),sale_item.getRegister_time());
 
                 //상품 수정 완료 확인 -> 조회 화면 또는 재수정
                 Intent popup_intent = new Intent(storeManager_product_modify_activity, Popup_TwoButton_Activity.class);
@@ -296,5 +308,21 @@ public class StoreManager_Product_Modify_Activity extends AppCompatActivity {
         previous_item.setOrigin(current_item.getOrigin());
         previous_item.setDetails(current_item.getDetails());
         previous_item.setRegister_time(current_item.getRegister_time());
+    }
+
+    private void updateProductData(String merchantId,String name,String category,String price,String dateYear,String dateMonth,String dateDay,String dateType,String origin,String details,String registerTime){
+        ProductData productData = new ProductData(merchantId,name,category,price,dateYear,dateMonth,dateDay,dateType,origin,details,registerTime);
+        Call<ProductData> call = serviceApi.updateProductDate(productData);
+        call.enqueue(new Callback<ProductData>() {
+            @Override
+            public void onResponse(Call<ProductData> call, Response<ProductData> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ProductData> call, Throwable t) {
+
+            }
+        });
     }
 }
