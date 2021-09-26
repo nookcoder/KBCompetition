@@ -36,6 +36,8 @@
 
     <!--상품 사진들-->
         <ImageView
+            android:src="@drawable/product_image"
+
             android:id="@+id/productImageSrc"
             android:layout_width="match_parent"
             android:layout_height="0dp"
