@@ -9,23 +9,27 @@ public class Chatting_Item {
     private String date;
     private int viewType;
     private String id;
+    private String mode;
 
     //채팅방 목록
-    public Chatting_Item(String name, String profileUrl, String message, String time, String date,String id){
+    public Chatting_Item(String name, String profileUrl, String message, String time, String date,String id,
+                         String mode){
         this.name = name;
         this.profileUrl = profileUrl;
         this.message = message;
         this.time = time;
         this.date = date;
         this.id = id;
+        this.mode = mode;
     }
     //채팅내
-    public Chatting_Item(String name, String profileUrl, String message, String time, int viewType){
+    public Chatting_Item(String name, String profileUrl, String message, String time, int viewType, String mode){
         this.name = name;
         this.profileUrl = profileUrl;
         this.message = message;
         this.time = time;
         this.viewType = viewType;
+        this.mode = mode;
     }
 
     //firebase DB에 객체로 값을 읽어올 때..
@@ -85,6 +89,14 @@ public class Chatting_Item {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }
 

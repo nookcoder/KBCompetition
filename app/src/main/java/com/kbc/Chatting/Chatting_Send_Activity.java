@@ -269,7 +269,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 insert_other_db.child(Chatting.TIME).setValue(send_time);
                 insert_other_db.child(Chatting.PROFILEUTL).setValue("http://seohee");
 
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name, "http://seohee", editText.getText().toString(), send_time, Chatting.RIGHT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name, "http://seohee", editText.getText().toString(), send_time, Chatting.RIGHT_CONTENT, chat_mode));
 
                 //키패드 안보이게!
                 InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -534,7 +534,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
 
                 send_chatting_me = chatting_me_arraylist.get(me_message_count).values().toArray();
                 Check_New_Date(send_chatting_me[date].toString());
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name, send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(), send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name, send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(), send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT,chat_mode));
                 me_message_count++;
 
                 if (me_message_count == chatting_me_arraylist.size())
@@ -548,7 +548,7 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 send_chatting_other = chatting_other_arraylist.get(other_message_count).values().toArray();
 
                 Check_New_Date(send_chatting_other[date].toString());
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(other_nick_name, send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(other_nick_name, send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT,chat_mode));
                 other_message_count++;
 
                 if (other_message_count == chatting_other_arraylist.size())
@@ -582,13 +582,13 @@ public class Chatting_Send_Activity extends AppCompatActivity {
                 Check_New_Date(send_chatting_me[date].toString());
                 Log.d(TAG, "들어가는 나의 메세지 1 -> " + send_chatting_me[message].toString());
 
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name,send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(),send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(me_nick_name,send_chatting_me[profileUrl].toString(), send_chatting_me[message].toString(),send_chatting_me[time].toString(), Chatting.RIGHT_CONTENT,chat_mode));
                 me_message_count++;
                 break;
 
             case Chatting.OTHER:
                 Check_New_Date(send_chatting_other[date].toString());
-                chatting_send_recycleAdapter.addItem(new Chatting_Item(other_nick_name, send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT));
+                chatting_send_recycleAdapter.addItem(new Chatting_Item(other_nick_name, send_chatting_other[profileUrl].toString(), send_chatting_other[message].toString(), send_chatting_other[time].toString(), Chatting.LEFT_CONTENT,chat_mode));
                 other_message_count++;
                 break;
         }

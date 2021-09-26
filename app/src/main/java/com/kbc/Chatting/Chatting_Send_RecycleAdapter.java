@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,15 +63,28 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
             ((Center_ViewHolder)viewHolder).chatting_date.setText((chatting_items.get(position).getDate()));
         }
         else if(viewHolder instanceof Left_ViewHolder){
-//             ((Left_ViewHolder)send_viewHolder).chatting_circle_imageview.setImageURI(chatting_items.get(position).getProfileUrl());
+            int image_id  = 0;
+            if(chatting_items.get(position).getMode().equals(Chatting.PERSONAL)){
+                image_id = R.drawable.image_store;
+            }
+            else
+                image_id = R.drawable.image_person;
 
+             ((Left_ViewHolder)viewHolder).chatting_circle_imageview.setImageResource(image_id);
             ((Left_ViewHolder)viewHolder).chatting_name.setText(chatting_items.get(position).getName());
             ((Left_ViewHolder)viewHolder).chatting_send_message.setText(chatting_items.get(position).getMessage());;
             ((Left_ViewHolder)viewHolder).chatting_send_message_time.setText(chatting_items.get(position).getTime());
             ((Left_ViewHolder)viewHolder).itemView.setTag(position);
         }
         else {
-            //             ((Right_ViewHolder)send_viewHolder).chatting_circle_imageview.setImageURI(chatting_items.get(position).getProfileUrl());
+            int image_id  = 0;
+            if(chatting_items.get(position).getMode().equals(Chatting.PERSONAL)){
+                image_id = R.drawable.image_store;
+            }
+            else
+                image_id = R.drawable.image_person;
+
+            ((Right_ViewHolder)viewHolder).chatting_circle_imageview.setImageResource(image_id) ;
             ((Right_ViewHolder)viewHolder).chatting_name.setText(chatting_items.get(position).getName());
             ((Right_ViewHolder)viewHolder).chatting_send_message.setText(chatting_items.get(position).getMessage());;
             ((Right_ViewHolder)viewHolder).chatting_send_message_time.setText(chatting_items.get(position).getTime());
@@ -113,7 +127,7 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
     public class Left_ViewHolder extends RecyclerView.ViewHolder{
 
         //프로필 사진, 이름, 메세지, 보낸 시간
-         CircleImageView chatting_circle_imageview;
+         ImageView chatting_circle_imageview;
          TextView chatting_name;
          TextView chatting_send_message;
          TextView chatting_send_message_time;
@@ -132,7 +146,7 @@ public class Chatting_Send_RecycleAdapter extends RecyclerView.Adapter<RecyclerV
 
     public class Right_ViewHolder extends RecyclerView.ViewHolder{
         //프로필 사진, 이름, 메세지, 보낸 시간
-        CircleImageView chatting_circle_imageview;
+        ImageView chatting_circle_imageview;
          TextView chatting_name;
          TextView chatting_send_message;
          TextView chatting_send_message_time;

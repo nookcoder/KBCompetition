@@ -374,7 +374,7 @@ Chatting_List_RecycleAdapter.OnItemClickEventListener{
         Log.d("Merchant", "333");
 
         Insert_Chatroom_DB(position , last_id, last_date, last_message, last_profileUrl, last_time);
-        chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date, last_id));
+        chatting_list_recycleAdapter.addItem(new Chatting_Item(last_name, last_profileUrl, last_message, last_time, last_date, last_id,chat_mode));
 
     }
 

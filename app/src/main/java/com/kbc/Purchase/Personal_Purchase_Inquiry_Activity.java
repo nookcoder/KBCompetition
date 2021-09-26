@@ -34,7 +34,7 @@ public class Personal_Purchase_Inquiry_Activity extends AppCompatActivity {
     private Personal_Purchase_Inquiry_Activity personal_purchase_inquiry_activity;
     private Sale_Item purchase_item;
 
-    private CircleImageView storemanager_image_profile;
+    private ImageView storemanager_image_profile;
     private ImageButton product_inquiry_close, chatting_imageButton;
     private TextView storemanager_id, storemanager_location, product_title, product_category, product_date_type, product_deadline_time, product_price, product_details;
     private ImageView imageView;

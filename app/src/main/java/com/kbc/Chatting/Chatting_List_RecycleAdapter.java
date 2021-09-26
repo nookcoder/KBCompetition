@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,14 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
     //뷰홀더의 position에 해당하는 데이터를 뷰홀더의 아이템 뷰에 표시
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.chatting_list_image_profil.setImageURI(chatting_items.get(position).getProfileUrl()));
+        int image_id  = 0;
+        if(chatting_items.get(position).getMode().equals(Chatting.PERSONAL)){
+            image_id = R.drawable.image_store;
+        }
+        else
+            image_id = R.drawable.image_person;
+
+        holder.chatting_list_image_profil.setImageResource(image_id);
         holder.chatting_list_name.setText(chatting_items.get(position).getName());
         holder.chatting_list_send_message.setText(chatting_items.get(position).getMessage());
         holder.chatting_list_send_message_time.setText(chatting_items.get(position).getTime());
@@ -81,7 +89,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         //프로필 사진, 이름, 메세지, 보낸 시간
-        protected CircleImageView chatting_list_image_profil;
+        protected ImageView chatting_list_image_profil;
         protected TextView chatting_list_name;
         protected TextView chatting_list_send_message;
         protected TextView chatting_list_send_message_time;
@@ -92,7 +100,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
 
             super(itemView);
 
-            this.chatting_list_image_profil = (CircleImageView)itemView.findViewById(R.id.chatting_circle_imageview);
+            this.chatting_list_image_profil = (ImageView)itemView.findViewById(R.id.chatting_circle_imageview);
             this.chatting_list_name = (TextView)itemView.findViewById(R.id.chatting_list_name);
             this.chatting_list_send_message = (TextView)itemView.findViewById(R.id.chatting_list_send_message);
             this.chatting_list_send_message_time = (TextView)itemView.findViewById(R.id.chatting_list_send_message_time);

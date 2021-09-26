@@ -8,7 +8,7 @@
     android:padding="16dp">
 
 <!--채팅보내는 사람 프로필 사진-->
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/chatting_circle_imageview"
         android:layout_width="40dp"
         android:layout_height="40dp"
