@@ -52,6 +52,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int image_id  = 0;
+        Log.d("mode", chatting_items.get(position).getMode());
         if(chatting_items.get(position).getMode().equals(Chatting.PERSONAL)){
             image_id = R.drawable.image_store;
         }
@@ -100,7 +101,7 @@ public class Chatting_List_RecycleAdapter extends RecyclerView.Adapter<Chatting_
 
             super(itemView);
 
-            this.chatting_list_image_profil = (ImageView)itemView.findViewById(R.id.chatting_circle_imageview);
+            this.chatting_list_image_profil = (ImageView)itemView.findViewById(R.id.chatting_list_image_profile);
             this.chatting_list_name = (TextView)itemView.findViewById(R.id.chatting_list_name);
             this.chatting_list_send_message = (TextView)itemView.findViewById(R.id.chatting_list_send_message);
             this.chatting_list_send_message_time = (TextView)itemView.findViewById(R.id.chatting_list_send_message_time);
