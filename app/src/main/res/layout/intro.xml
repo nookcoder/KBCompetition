@@ -13,7 +13,6 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/image_logo"/>
+        android:layout_height="wrap_content" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
