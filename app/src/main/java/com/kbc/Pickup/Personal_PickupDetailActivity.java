@@ -59,7 +59,7 @@ public class Personal_PickupDetailActivity extends AppCompatActivity {
                 Intent chatting_intent = new Intent(personal_pickupDetailActivity, Chatting_Send_Activity.class);
                 chatting_intent.putExtra("mode", Chatting.PERSONAL);
                 chatting_intent.putExtra("userID", Personal_MainActivity.userId);
-                chatting_intent.putExtra("click_chatting_list_name", storeName);
+                chatting_intent.putExtra("click_chatting_list_name", merchantId);
                 startActivity(chatting_intent);
             }
         });
